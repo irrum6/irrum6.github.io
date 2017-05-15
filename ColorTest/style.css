@@ -61,3 +61,7 @@ body{
   25% { opacity:0; }
   100% { opacity:1; }
 }
+
+#table>div>button{
+     outline: none;
+}
