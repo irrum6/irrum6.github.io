@@ -12,16 +12,8 @@ body{
     justify-content: center;
     flex-wrap:wrap;
 }
-.diff .glow{
-    transition-duration: 0.5s;
-    /*box-shadow: 10px 10px;*/
-}
-#score{
-    font-size:2em;
-    margin-left: 1vw;
-}
 
-#countdown{
+#countdown, #score{
     font-size:2em;
     margin-left: 1vw;
 }
@@ -30,4 +22,42 @@ body{
     margin-left: 1vw;
     width:3em;
     font-size:2em;
+}
+/*
+@media handheld and (orientation:portrait){
+    #countdown, #score,#start, #hint{
+        font-size:2em;
+        margin-left: 1vw;
+        width:50%;
+        }
+}*/
+
+@media (orientation:portrait){
+    #countdown, #score,#start, #hint{
+        font-size:2em;
+        margin-left: 1vw;
+        margin-top:1vh;
+        margin-bottom: 1vh;
+        }
+    #start,#hint{
+        font-size:6em;
+        width:40vw;
+        }
+    #countdown,#score{
+        font-size:6em;
+         width:40vw;
+        }
+}
+
+.diff.glow{
+    opacity:1;
+    animation: fadeIn 0.8s infinite alternate;
+}
+
+@keyframes fadeIn { 
+  /*from { opacity: 0; }*/
+
+  0%   { opacity:1; }
+  25% { opacity:0; }
+  100% { opacity:1; }
 }
