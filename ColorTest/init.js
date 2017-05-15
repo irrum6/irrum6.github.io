@@ -6,23 +6,15 @@ delete container;
 let container2 = document.createElement('div');
 container2.id = 'container2';
 
-let countDownSpan = document.createElement('span');
-countDownSpan.id = 'countdown';
-countDownSpan.innerHTML = '';
-container2.appendChild(countDownSpan);
-delete countDownSpan;
-
-let scoreSpan = document.createElement('span');
-scoreSpan.id = 'score';
-scoreSpan.innerHTML = '';
-container2.appendChild(scoreSpan);
-delete scoreSpan;
-
-let deltaSpan = document.createElement('span');
-deltaSpan.id = 'delta';
-deltaSpan.innerHTML = '';
-container2.appendChild(deltaSpan);
-delete deltaSpan;
+let spans = ['countdown', 'score', 'delta'];
+for (span of spans) {
+    let temp = document.createElement('span');
+    temp.id = span;
+    temp.innerHTML = '';
+    container2.appendChild(temp);
+    delete temp;
+}
+delete spans;
 
 let startButton = document.createElement('button')
 startButton.id = 'start';

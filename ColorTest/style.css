@@ -41,11 +41,11 @@ body{
         }
     #start,#hint{
         font-size:6em;
-        width:40vw;
+        width:80vw;
         }
     #countdown, #score, #delta{
         font-size:6em;
-         width:40vw;
+         width:80vw;
         }
 }
 
@@ -64,4 +64,5 @@ body{
 
 #table>div>button{
      outline: none;
+     border-radius:3%;
 }

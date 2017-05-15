@@ -5,13 +5,9 @@ let generate = (level, delta) => {
 
     let prob = Array.prototype.map.call(window.crypto.getRandomValues(new Uint32Array(1)), (elem) => { return elem % (row * row); })[0];
 
-    let rgb = rgbValues();
-
     window.delta = window.delta < 8 ? 8 : window.delta;
 
-    //update level indicator
-    document.getElementById('score').innerHTML = 'Level: ' + window.level;
-    document.getElementById('delta').innerHTML = 'Achieved Delta: ' + window.delta;
+    let rgb = rgbValues();
 
     let color = '#' + rgb.map((elem) => { return elem.toString(16).length > 1 ? elem.toString(16) : '0' + elem.toString(16); }).join('');
 
@@ -54,6 +50,10 @@ let generateGrid = (row, color) => {
                         window.level++; window.clickCount = 0;
                         //decrease delta to make life harder
                         window.delta -= 3;
+                        window.delta = window.delta < 8 ? 8 : window.delta;
+                        //update level indicator
+                        document.getElementById('score').innerHTML = 'Level: ' + window.level;
+                        document.getElementById('delta').innerHTML = 'Achieved Delta: ' + window.delta;
                         //request new level
                         generate(level, delta);
                     } else {
@@ -89,7 +89,9 @@ let generateGrid = (row, color) => {
 
 let rgbValues = () => {
     return Array.prototype.map.call(window.crypto.getRandomValues(new Uint32Array(3)), (elem) => {
-        return parseInt(elem % (255 - window.delta), 10);
+        //range is delta - (255-delta)
+        //to generate color range between 0(0+delta-delta)(min) and 255(255-delta+delta)(MAX)
+        return parseInt((elem % (255 - (window.delta * 2))) + window.delta, 10);
     });
 }
 
@@ -108,11 +110,12 @@ let diffColor = (rgbValues, delta, level) => {
 
         rgbcopy = rgbValues.map((elem, index) => {
             if (index === prob) {
-                return (elem + delta > 255) ? elem - delta : (elem - delta < 0 ? elem + delta : elem + delta * sign);
+                console.log(elem + (delta * sign));
+                return elem + (delta * sign);//(elem + delta > 255) ? elem - delta : (elem - delta < 0 ? elem + delta : elem + delta * sign);
             } else {
-                let divider = 4;
-                elem = elem + (Math.floor(delta / divider) * sign * (-1));
-                return elem > 255 ? 255 : (elem < 0 ? 0 : elem);
+                //let divider = 4;
+                //elem = elem + (Math.floor(delta / divider) * sign * (-1));
+                return elem; //> 255 ? 255 : (elem < 0 ? 0 : elem);
             }
         });
         delete prob;
