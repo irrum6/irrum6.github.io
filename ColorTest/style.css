@@ -13,7 +13,7 @@ body{
     flex-wrap:wrap;
 }
 
-#countdown, #score{
+#countdown, #score, #delta{
     font-size:2em;
     margin-left: 1vw;
 }
@@ -43,7 +43,7 @@ body{
         font-size:6em;
         width:40vw;
         }
-    #countdown,#score{
+    #countdown, #score, #delta{
         font-size:6em;
          width:40vw;
         }

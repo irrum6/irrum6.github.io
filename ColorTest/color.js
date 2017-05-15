@@ -7,7 +7,11 @@ let generate = (level, delta) => {
 
     let rgb = rgbValues();
 
-    delta = delta < 7 ? 7 : delta;
+    window.delta = window.delta < 8 ? 8 : window.delta;
+
+    //update level indicator
+    document.getElementById('score').innerHTML = 'Level: ' + window.level;
+    document.getElementById('delta').innerHTML = 'Achieved Delta: ' + window.delta;
 
     let color = '#' + rgb.map((elem) => { return elem.toString(16).length > 1 ? elem.toString(16) : '0' + elem.toString(16); }).join('');
 
@@ -49,9 +53,7 @@ let generateGrid = (row, color) => {
                     if (event.target.classList.contains('diff')) {
                         window.level++; window.clickCount = 0;
                         //decrease delta to make life harder
-                        delta -= 2;
-                        //update level indicator
-                        document.getElementById('score').innerHTML = 'Level: ' + window.level;
+                        window.delta -= 3;
                         //request new level
                         generate(level, delta);
                     } else {
@@ -141,7 +143,7 @@ let timer = () => {
 }
 
 let start = () => {
-    window.level = 1, window.time = 60, window.delta = 70, window.clickCount = 0, window.currentRowCount = 0;
+    window.level = 1, window.time = 60, window.delta = 80, window.clickCount = 0, window.currentRowCount = 0;
     generate(window.level, window.delta);
     window.started = true;
     window.timer = window.setInterval(timer, 1000);
