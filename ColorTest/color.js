@@ -7,7 +7,7 @@ let generate = (level, delta) => {
 
     let rgb = rgbValues();
 
-    delta = delta < 10 ? 10 : delta;
+    delta = delta < 7 ? 7 : delta;
 
     let color = '#' + rgb.map((elem) => { return elem.toString(16).length > 1 ? elem.toString(16) : '0' + elem.toString(16); }).join('');
 
@@ -49,7 +49,7 @@ let generateGrid = (row, color) => {
                     if (event.target.classList.contains('diff')) {
                         window.level++; window.clickCount = 0;
                         //decrease delta to make life harder
-                        if (level % 3 === 0) { delta -= 5; }
+                        delta -= 2;
                         //update level indicator
                         document.getElementById('score').innerHTML = 'Level: ' + window.level;
                         //request new level
@@ -87,7 +87,7 @@ let generateGrid = (row, color) => {
 
 let rgbValues = () => {
     return Array.prototype.map.call(window.crypto.getRandomValues(new Uint32Array(3)), (elem) => {
-        return parseInt(elem % 255, 10);
+        return parseInt(elem % (255 - window.delta), 10);
     });
 }
 
@@ -100,7 +100,7 @@ let diffColor = (rgbValues, delta, level) => {
 
     sign = (sign == 0) ? 1 : -1;
 
-    if (level < 16) {
+    if (level < 9) {
         //randomly select out of three
         let prob = Array.prototype.map.call(window.crypto.getRandomValues(new Uint32Array(1)), (elem) => { return elem % 3; })[0];
 
@@ -128,7 +128,8 @@ let timer = () => {
     window.time--;
     document.getElementById('countdown').innerHTML = 'Time:' + window.time;
 
-    if (time === 0) {
+    //fixed negative time bug after penalty
+    if (time < 1) {
         window.clearInterval(window.timer);
         let butts = document.querySelectorAll('button.cell');
         for (butt of butts) {
@@ -160,6 +161,6 @@ document.getElementById('hint').addEventListener('click', (event) => {
         //end flicker
         diff.classList.remove('glow');
         delete diff;
-    }, 2200);
+    }, 1600);
 });
 
