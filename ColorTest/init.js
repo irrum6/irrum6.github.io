@@ -31,7 +31,7 @@ delete hintButton;
 document.body.appendChild(container2);
 delete container2;
 
-let bu = () => { return "You want to reload page? changes will be lost."; }
-
-window.onbeforeunload = bu;
-window.onunload = bu;
+//no longer custom texts :(
+window.onbeforeunload = (event) => {
+    return '';
+};

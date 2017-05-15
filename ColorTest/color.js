@@ -49,7 +49,7 @@ let generateGrid = (row, color) => {
                     if (event.target.classList.contains('diff')) {
                         window.level++; window.clickCount = 0;
                         //decrease delta to make life harder
-                        window.delta -= 3;
+                        window.delta -= (window.level < 20) ? 3 : 2;
                         window.delta = window.delta < 8 ? 8 : window.delta;
                         //update level indicator
                         document.getElementById('score').innerHTML = 'Level: ' + window.level;
