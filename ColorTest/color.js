@@ -215,6 +215,7 @@ _colorGame.prototype.start = function () {
             delete butts;
         }
     }
+
     //if game is over or haven't started yet
     if (!this.started) {
         this.started = true;
@@ -228,17 +229,32 @@ _colorGame.prototype.start = function () {
         this.timer = setInterval(tick, 1000);
         this.updateIndicators();
     } else {
-        //double action confirm
-        if (confirm('Game is already ongoing. Do you wanna restart?')) {
-            window.clearInterval(this.timer);
-            this.reset();
-            this.generate();
-            this.timer = setInterval(tick, 1000);
-            this.updateIndicators();
-        }
+        this.hide();
+        //action confirm
+        setTimeout(() => {
+            if (confirm('Game is already ongoing. Do you wanna restart?')) {
+                window.clearInterval(this.timer);
+                this.reset();
+                this.generate();
+                this.show();
+                this.timer = setInterval(tick, 1000);
+                this.updateIndicators();
+            } else {
+                this.show();
+            }
+        }, 200)
     }
 }
-
+//hide
+_colorGame.prototype.hide = function () {
+    document.getElementById('container').style.visibility = 'hidden';
+    this.visible = false;
+}
+//show
+_colorGame.prototype.show = function () {
+    document.getElementById('container').style.visibility = 'visible';
+    this.visible = true;
+}
 //hint
 _colorGame.prototype.hint = function () {
     let diff = document.querySelector('button.cell.diff');
@@ -262,7 +278,8 @@ let gameOptions = {
     currentRowCount: 0,
     minimalDelta: 4,
     firstMedianLevel: 19,
-    secondMedianLevel: 30
+    secondMedianLevel: 30,
+    visible: true
 }
 
 let colorGame = new _colorGame();
