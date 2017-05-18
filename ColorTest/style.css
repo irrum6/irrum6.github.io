@@ -23,14 +23,6 @@ body{
     width:3em;
     font-size:2em;
 }
-/*
-@media handheld and (orientation:portrait){
-    #countdown, #score,#start, #hint{
-        font-size:2em;
-        margin-left: 1vw;
-        width:50%;
-        }
-}*/
 
 @media (orientation:portrait){
     #countdown, #score,#start, #hint{
@@ -40,12 +32,12 @@ body{
         margin-bottom: 1vh;
         }
     #start,#hint{
-        font-size:6em;
-        width:80vw;
+        font-size:4em;
+        width:70vw;
         }
     #countdown, #score, #delta{
         font-size:6em;
-         width:80vw;
+         width:70vw;
         }
 }
 
