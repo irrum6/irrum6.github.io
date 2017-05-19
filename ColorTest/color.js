@@ -69,8 +69,8 @@ _colorGame.prototype.initHTML = function () {
     let elements = [{ tag: 'span', options: { id: 'countdown' } },
     { tag: 'span', options: { id: 'score' } },
     { tag: 'span', options: { id: 'delta' } },
-    { tag: 'button', options: { id: 'start', innerHTML: '►' } },
-    { tag: 'button', options: { id: 'hint', innerHTML: 'Hint' } }];
+    { tag: 'button', options: { id: 'hint', innerHTML: languages[this.locale].hint } },
+    { tag: 'button', options: { id: 'start', innerHTML: '⟳' } },];
 
     for (element of elements) {
         container2.appendChild(elem(element.tag, element.options));
@@ -94,18 +94,10 @@ _colorGame.prototype.initHTML = function () {
 _colorGame.prototype.generate = function () {
 
     //decrease delta to make life harder
-    let number = 0;
-
-    if (this.level < this.firstMedianLevel) {
-        number = 3;
+    if (this.level > 1) {
+        //otherwise it could be called on game start even before completing 1st level
+        this.reduceDelta(this.calculateDeltaNumber());
     }
-    else if (this.level > this.firstMedianLevel && this.level < this.secondMedianLevel) {
-        number = (this.level % 2 === 0) ? 2 : 0;
-    } else {
-        number = (this.level % 3 === 0) ? 2 : 0;
-    }
-    this.reduceDelta(number);
-    delete number;
 
     this.updateIndicators();
     //row min 2 max 13
@@ -130,6 +122,29 @@ _colorGame.prototype.generate = function () {
     document.querySelectorAll('button.cell')[prob].style.backgroundColor = differentColor;
 }
 
+/*
+calculate delta number based on level
+@return [int]
+ */
+_colorGame.prototype.calculateDeltaNumber = function (retro = false) {
+    let number = 0;
+    if (retro) {
+        //retro (retrospectively) means calculate game after choosing level in game menu
+    } else {
+        if (this.level < this.firstLevelStop) {
+            number = 4;
+        }
+        else if (this.level > this.firstLevelStop && this.level < this.secondLevelStop) {
+            number = 3;
+        } else if (this.level > this.secondLevelStop && this.level < this.thirdLevelStop) {
+            number = (this.level % 2 === 0) ? 2 : 0;
+        } else {
+            number = (this.level % 3 === 0) ? 2 : 0;
+        }
+    }
+
+    return number;
+}
 /*draw grid for a new level
 @return void
 */
@@ -232,7 +247,7 @@ _colorGame.prototype.start = function () {
         this.hide();
         //action confirm
         setTimeout(() => {
-            if (confirm('Game is already ongoing. Do you wanna restart?')) {
+            if (confirm(languages[this.locale].replayText)) {
                 window.clearInterval(this.timer);
                 this.reset();
                 this.generate();
@@ -265,29 +280,7 @@ _colorGame.prototype.hint = function () {
     }, 1600);
 }
 _colorGame.prototype.updateIndicators = function () {
-    document.getElementById('countdown').innerHTML = 'Time: ' + this.time;
-    document.getElementById('score').innerHTML = 'Level: ' + this.level;
-    document.getElementById('delta').innerHTML = 'Achieved Delta: ' + this.delta;
+    document.getElementById('countdown').innerHTML = languages[this.locale].time + ': ' + this.time;
+    document.getElementById('score').innerHTML = languages[this.locale].level + ': ' + this.level;
+    document.getElementById('delta').innerHTML = languages[this.locale].delta + ': ' + this.delta;
 }
-
-let gameOptions = {
-    level: 1,
-    time: 60,
-    delta: 80,
-    clickCount: 0,
-    currentRowCount: 0,
-    minimalDelta: 4,
-    firstMedianLevel: 19,
-    secondMedianLevel: 30,
-    visible: true
-}
-
-let colorGame = new _colorGame();
-
-colorGame.init(gameOptions);
-colorGame.initHTML();
-
-//no longer custom texts :(
-window.onbeforeunload = (event) => {
-    return '';
-};
