@@ -26,16 +26,13 @@ let rgbValues = (delta) => {
 let diffColor = (rgbValues, delta, level) => {
 
     let rgbcopy;
-
     //randomly select sign
     let sign = Array.prototype.map.call(window.crypto.getRandomValues(new Uint32Array(1)), (elem) => { return elem % 2; })[0];
-
     sign = (sign == 0) ? 1 : -1;
 
     if (level < 9) {
         //randomly select out of three
         let prob = Array.prototype.map.call(window.crypto.getRandomValues(new Uint32Array(1)), (elem) => { return elem % 3; })[0];
-
         rgbcopy = rgbValues.map((elem, index) => {
             return (index === prob) ? elem + (delta * sign) : elem;
         });
@@ -96,7 +93,7 @@ _colorGame.prototype.generate = function () {
     //decrease delta to make life harder
     if (this.level > 1) {
         //otherwise it could be called on game start even before completing 1st level
-        this.reduceDelta(this.calculateDeltaNumber());
+        this.calculateDelta();
     }
 
     this.updateIndicators();
@@ -123,27 +120,32 @@ _colorGame.prototype.generate = function () {
 }
 
 /*
-calculate delta number based on level
+calculate delta based on level
 @return [int]
  */
-_colorGame.prototype.calculateDeltaNumber = function (retro = false) {
-    let number = 0;
+_colorGame.prototype.calculateDelta = function () {
+    let level = this.level;
+    let delta = this.delta;
+    retro = this.retro;
     if (retro) {
         //retro (retrospectively) means calculate game after choosing level in game menu
     } else {
-        if (this.level < this.firstLevelStop) {
-            number = 4;
-        }
-        else if (this.level > this.firstLevelStop && this.level < this.secondLevelStop) {
-            number = 3;
-        } else if (this.level > this.secondLevelStop && this.level < this.thirdLevelStop) {
-            number = (this.level % 2 === 0) ? 2 : 0;
-        } else {
-            number = (this.level % 3 === 0) ? 2 : 0;
+        if (level < 7) {
+            delta -= 8; //-40 40
+        } else if (level >= 7 && level < 10) {
+            delta -= 5;//-15 25
+        } else if (level >= 10 && level < 12) {
+            delta -= 4; // -8 17
+        } else if (level >= 12 && level < 15) {
+            delta -= 3; // -9 8
+        } else if (level >= 15 && level < 17) {
+            delta -= (level % 2 === 0) ? 2 : 0; //-2 4
+        } else if (level >= 17) {
+            delta -= (level % 3 === 0) ? 2 : 0; // -2 2
         }
     }
-
-    return number;
+    //correct after calculations
+    this.delta = delta < this.minimalDelta ? this.minimalDelta : delta;
 }
 /*draw grid for a new level
 @return void
@@ -199,10 +201,6 @@ _colorGame.prototype.drawGrid = function (row, color) {
         //remove diff class form previously chosen cell and make all button same to avoid loophole
         document.querySelector('button.cell.diff').classList.remove('diff');
     }
-}
-
-_colorGame.prototype.reduceDelta = function (number) {
-    this.delta = this.delta - number < this.minimalDelta ? this.minimalDelta : this.delta - number;
 }
 
 //reset using values saved previously in options

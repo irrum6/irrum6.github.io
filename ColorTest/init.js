@@ -1,14 +1,11 @@
 //default game options
 let gameOptions = {
     level: 1,
-    time: 60,
+    time: 90,
     delta: 80,
     clickCount: 0,
     currentRowCount: 0,
     minimalDelta: 2,
-    firstLevelStop: 10,
-    secondLevelStop: 20,
-    thirdLevelStop: 30,
     visible: true,
     locale: 'english'
 }
