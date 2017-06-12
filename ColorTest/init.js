@@ -2,7 +2,7 @@
 let gameOptions = {
     level: 1,
     time: 90,
-    delta: 80,
+    delta: 64,
     clickCount: 0,
     currentRowCount: 0,
     minimalDelta: 2,

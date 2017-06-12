@@ -130,19 +130,29 @@ _colorGame.prototype.calculateDelta = function () {
     if (retro) {
         //retro (retrospectively) means calculate game after choosing level in game menu
     } else {
-        if (level < 7) {
-            delta -= 8; //-40 40
-        } else if (level >= 7 && level < 10) {
-            delta -= 5;//-15 25
-        } else if (level >= 10 && level < 12) {
-            delta -= 4; // -8 17
-        } else if (level >= 12 && level < 15) {
-            delta -= 3; // -9 8
-        } else if (level >= 15 && level < 17) {
-            delta -= (level % 2 === 0) ? 2 : 0; //-2 4
-        } else if (level >= 17) {
-            delta -= (level % 3 === 0) ? 2 : 0; // -2 2
+
+        if (level < 5) {
+            delta -= 8; // 64 56 48 40
+        } else if (level < 8) {
+            delta -= 4;// 36 32 28
+        } else if (level < 11) {
+            delta -= 3;// 25 22 19
+        } else if (level < 14) {
+            delta -= 2; //17 15 13
+        } else if (level < 20) {
+            delta -= 1;//12 11 10 9 8 7 
+        } else if (level < 22) {
+            delta -= (level % 2 === 0) ? 1 : 0; // 6 6
+        } else if (level < 24) {
+            delta -= (level % 2 === 0) ? 1 : 0; // 5 5
+        } else if (level < 27) {
+            delta -= (level % 3 === 0) ? 1 : 0; // 4 4 4  
+        } else if (level < 30) {
+            delta -= (level % 3 === 0) ? 1 : 0; // 3 3 3
+        } else {
+            delta = 2;
         }
+        // delta -= (level < 5 ? 8 : (level < 8 ? 4 : (level<11?3:(level<14?2:(level<20?1:(level<22?(level&2==0?1:0):(level<)))))));
     }
     //correct after calculations
     this.delta = delta < this.minimalDelta ? this.minimalDelta : delta;
