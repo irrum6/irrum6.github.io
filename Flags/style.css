@@ -1,0 +1,212 @@
+.red{
+  background-color:red;
+}
+.line{
+  position:absolute;
+  border:none;
+  margin:0px;
+  padding:0px;
+}
+/*Flag has 3/2 Ratio, take that into account*/
+
+/*for aspect-ratios less than or equal to 3/2
+we calculate dimensions using width
+*/
+@media screen and (max-aspect-ratio:3/2){
+  #line1{
+  left:0vw;
+  top:26.4vw;
+  height:13.2vw;
+  width:99vw;
+  animation-duration:3s;
+  animation-name:linef1;
+  animation-fill-mode:forwards;
+  animation-iteration-count:1;
+}
+@keyframes linef1{
+  0%{width:0vw;}
+  100%{width:99vw;}
+}
+
+#line2{
+  left:42.9vw;
+  top:0vw;
+  width:13.2vw;
+  height:66vw;
+  animation-duration:3s;
+  animation-name:linef2;
+  animation-fill-mode:forwards;
+  animation-iteration-count:1;
+}
+@keyframes linef2{
+  from{height:0vw;}
+  to{height:66vw;}
+}
+.hline{
+  width:13.2vw;
+  height:6.6vw;
+  animation-duration:3s;
+  animation-name:hlinef;
+  animation-fill-mode:forwards;
+  animation-iteration-count:1;
+}
+@keyframes hlinef{
+  from{width:0vw;}
+  to{width:13.2vw;}
+}
+.vline{
+  width:6.6vw;
+  height:13.2vw;
+  animation-duration:3s;
+  animation-name:vlinef;
+  animation-fill-mode:forwards;
+  animation-iteration-count:1;
+}
+@keyframes vlinef{
+  from{height:0vw;}
+  to{height:13.2vw;}
+}
+.hlinecurved{
+  border
+  animation-duration:3s;
+  animation-name:hlineCurve;
+  animation-fill-mode:forwards;
+  animation-iteration-count:1;
+}
+@keyframs hlineCurve{
+  from{}
+}
+
+#topLeftHorizontal{
+  left:14.85vw;
+  top:9.9vw;
+}
+#topLeftVertical{
+  left:18.15vw;
+  top:6.6vw;
+}
+#topRightHorizontal{
+  left:70.95vw;
+  top:9.9vw;
+}
+#topRightVertical{
+  left:74.25vw;
+  top:6.6vw;
+}
+#bottomLeftHorizontal{
+  left:14.85vw;
+  top:49.5vw;
+}
+#bottomLeftVertical{
+  left:18.15vw;
+  top:46.2vw;
+}
+
+#bottomRightHorizontal{
+  left:70.95vw;
+  top:49.5vw;
+}
+#bottompRightVertical{
+  left:74.25vw;
+   top:46.2vw;
+}
+}
+
+/*for aspect-ratios above we use height for calculations*/
+@media screen and (min-aspect-ratio:151/100){
+  #line1{
+  left:0vh;
+  top:40vh;
+  height:20vh;
+  width:150vh;
+  animation-duration:3s;
+  animation-name:linef1;
+  animation-fill-mode:forwards;
+  animation-iteration-count:1;
+}
+@keyframes linef1{
+  0%{width:0vh;}
+  100%{width:150vh;}
+}
+
+#line2{
+  left:65vh;
+  top:0vh;
+  width:20vh;
+  height:100vh;
+  animation-duration:3s;
+  animation-name:linef2;
+  animation-fill-mode:forwards;
+  animation-iteration-count:1;
+}
+@keyframes linef2{
+  from{height:0vh;}
+  to{height:100vh;}
+}
+.hline{
+  width:20vh;
+  height:10vh;
+  animation-duration:3s;
+  animation-name:hlinef;
+  animation-fill-mode:forwards;
+  animation-iteration-count:1;
+}
+@keyframes hlinef{
+  from{width:0vh;}
+  to{width:20vh;}
+}
+.vline{
+  width:10vh;
+  height:20vh;
+  animation-duration:3s;
+  animation-name:vlinef;
+  animation-fill-mode:forwards;
+  animation-iteration-count:1;
+}
+@keyframes vlinef{
+  from{height:0vw;}
+  to{height:20vh;}
+}
+.hlinecurved{
+  animation-duration:3s;
+  animation-name:hlineCurve;
+  animation-fill-mode:forwards;
+  animation-iteration-count:1;
+}
+@keyframes hlineCurve{
+}
+
+#topLeftHorizontal{
+  left:22.5vh;
+  top:15vh;
+}
+#topLeftVertical{
+  left:27.5vh;
+  top:10vh;
+}
+#topRightHorizontal{
+  left:107.5vh;
+  top:15vh;
+}
+#topRightVertical{
+  left:112.5vh;
+  top:10vh;
+}
+#bottomLeftHorizontal{
+  left:22.5vh;
+  top:75vh;
+}
+#bottomLeftVertical{
+  left:27.5vh;
+  top:70vh;
+}
+
+#bottomRightHorizontal{
+  left:107.5vh;
+  top:75vh;
+}
+#bottompRightVertical{
+  left:112.5vh;
+   top:70vh;
+}
+}
