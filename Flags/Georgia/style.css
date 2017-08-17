@@ -1,5 +1,11 @@
+.body{
+  background-color:white;
+}
 .red{
   background-color:red;
+}
+.white{
+  background-color:white;
 }
 .line{
   position:absolute;
