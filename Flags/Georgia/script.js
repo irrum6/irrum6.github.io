@@ -21,7 +21,7 @@ window.setTimeout(function () {
 }, 9000);
 
 window.setTimeout(function () {
-    hline('topLeftHorizontal');
+    hline('topRightHorizontal');
 }, 12000);
 
 window.setTimeout(function () {
