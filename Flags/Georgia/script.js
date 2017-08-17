@@ -1,77 +1,71 @@
-let line1 = document.createElement('div');
-line1.id="line1";
-line1.classList.add('red','line');
+document.body.appendChild(elem({
+    tag: 'div',
+    id: 'line1',
+    cssClassList: ['red', 'line']
+}));
 
-document.body.appendChild(line1);
+window.setTimeout(function () {
+    document.body.appendChild(elem({
+        tag: 'div',
+        id: 'line2',
+        cssClassList: ['red', 'line']
+    }));
+}, 3000);
 
-let line2=document.createElement('div');
-line2.id="line2";
-line2.classList.add('red','line');
+window.setTimeout(function () {
+    hline('topLeftHorizontal');
+}, 6000);
 
-window.setTimeout(function(){
-document.body.appendChild(line2);
-},3000);
+window.setTimeout(function () {
+    vline('topLeftVertical');
+}, 9000);
 
-let topLeftHLine= document.createElement('div');
-topLeftHLine.id="topLeftHorizontal";
-topLeftHLine.classList.add('red','line','hline');
+window.setTimeout(function () {
+    hline('topLeftHorizontal');
+}, 12000);
 
-window.setTimeout(function(){
-document.body.appendChild(topLeftHLine);
-},6000);
+window.setTimeout(function () {
+    vline('topRightVertical');
+}, 15000);
 
-let topLeftVLine= document.createElement('div');
-topLeftVLine.id="topLeftVertical";
-topLeftVLine.classList.add('red','line','vline');
+window.setTimeout(function () {
+    hline('bottomLeftHorizontal');
+}, 18000);
 
-window.setTimeout(function(){
-document.body.appendChild(topLeftVLine);
-},9000);
+window.setTimeout(function () {
+    vline('bottomLeftVertical');
+}, 21000);
 
-let topRightHLine= document.createElement('div');
-topRightHLine.id="topRightHorizontal";
-topRightHLine.classList.add('red','line','hline');
+window.setTimeout(function () {
+    hline('bottomRightHorizontal');
+}, 24000);
 
-window.setTimeout(function(){
-document.body.appendChild(topRightHLine);
-},12000);
+window.setTimeout(function () {
+    vline('bottompRightVertical');
+}, 27000);
 
-let topRightVLine= document.createElement('div');
-topRightVLine.id="topRightVertical";
-topRightVLine.classList.add('red','line','vline');
 
-window.setTimeout(function(){
-document.body.appendChild(topRightVLine);
-},15000);
+function elem(options) {
+    let element = document.createElement(options.tag);
+    element.id = options.id;
+    for (item of options.cssClassList) {
+        element.classList.add(item);
+    }
+    return element;
+}
 
-let bottomLeftHLine= document.createElement('div');
-bottomLeftHLine.id="bottomLeftHorizontal";
-bottomLeftHLine.classList.add('red','line','hline');
+function hline(id) {
+    let options = {};
+    options.tag = 'div';
+    options.id = id;
+    options.cssClassList = ['red', 'line', 'hline'];
+    document.body.appendChild(elem(options));
+}
 
-window.setTimeout(function(){
-document.body.appendChild(bottomLeftHLine);
-},18000);
-
-let bottomLeftVLine= document.createElement('div');
-bottomLeftVLine.id="bottomLeftVertical";
-bottomLeftVLine.classList.add('red','line','vline');
-
-window.setTimeout(function(){
-document.body.appendChild(bottomLeftVLine);
-},21000);
-
-let bottomRightHLine= document.createElement('div');
-bottomRightHLine.id="bottomRightHorizontal";
-bottomRightHLine.classList.add('red','line','hline');
-
-window.setTimeout(function(){
-document.body.appendChild(bottomRightHLine);
-},24000);
-
-let bottomRightVLine= document.createElement('div');
-bottomRightVLine.id="bottompRightVertical";
-bottomRightVLine.classList.add('red','line','vline');
-
-window.setTimeout(function(){
-document.body.appendChild(bottomRightVLine);
-},27000);
+function vline(id) {
+    let options = {};
+    options.tag = 'div';
+    options.id = id;
+    options.cssClassList = ['red', 'line', 'vline'];
+    document.body.appendChild(elem(options));
+}
