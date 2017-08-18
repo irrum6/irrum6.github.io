@@ -72,16 +72,6 @@ we calculate dimensions using width
   from{height:0vw;}
   to{height:13.2vw;}
 }
-.hlinecurved{
-  border
-  animation-duration:3s;
-  animation-name:hlineCurve;
-  animation-fill-mode:forwards;
-  animation-iteration-count:1;
-}
-@keyframs hlineCurve{
-  from{}
-}
 
 #topLeftHorizontal{
   left:14.85vw;
@@ -173,23 +163,18 @@ we calculate dimensions using width
   from{height:0vw;}
   to{height:20vh;}
 }
-.hlinecurved{
-  animation-duration:3s;
-  animation-name:hlineCurve;
-  animation-fill-mode:forwards;
-  animation-iteration-count:1;
-}
-@keyframes hlineCurve{
-}
-
+/*top left cross*/
 #topLeftHorizontal{
   left:22.5vh;
   top:15vh;
+  z-index:3;
 }
 #topLeftVertical{
   left:27.5vh;
   top:10vh;
+  z-index:1;
 }
+/*top right cross*/
 #topRightHorizontal{
   left:107.5vh;
   top:15vh;
@@ -198,6 +183,7 @@ we calculate dimensions using width
   left:112.5vh;
   top:10vh;
 }
+/*bottom left corss*/
 #bottomLeftHorizontal{
   left:22.5vh;
   top:75vh;
@@ -206,7 +192,7 @@ we calculate dimensions using width
   left:27.5vh;
   top:70vh;
 }
-
+/*bottom right cross*/
 #bottomRightHorizontal{
   left:107.5vh;
   top:75vh;
@@ -214,5 +200,128 @@ we calculate dimensions using width
 #bottompRightVertical{
   left:112.5vh;
    top:70vh;
+}
+/*top left cross curve*/
+/*curving the vertical line*/
+#topLeftVerticalTopLeftArc{
+  left:27.5vh;
+  top:10vh;
+  width:2vh;
+  height:6vh;
+  animation-duration:3s;
+  animation-name:topleftarc;
+  animation-fill-mode:forwards;
+  animation-iteration-count:1;
+  z-index:2;
+}
+@keyframes topleftarc{
+  from{border-top-right-radius:0%;}
+  to{border-top-right-radius:100%;}
+}
+#topLeftVerticalBottomLeftArc{
+  left:27.5vh;
+  top:24vh;
+  width:2vh;
+  height:6vh;
+  animation-duration:3s;
+  animation-name:bottomleftarc;
+  animation-fill-mode:forwards;
+  animation-iteration-count:1;
+  z-index:2;
+}
+@keyframes bottomleftarc{
+  from{border-bottom-right-radius:0%;}
+  to{border-bottom-right-radius:100%;}
+}
+#topLeftVerticalTopRightArc{
+  left:35.5vh;
+  top:10vh;
+  width:2vh;
+  height:6vh;
+  animation-duration:3s;
+  animation-name:toprightarc;
+  animation-fill-mode:forwards;
+  animation-iteration-count:1;
+  z-index:2;
+}
+@keyframes toprightarc{
+  from{border-top-left-radius:0%;}
+  to{border-top-left-radius:100%;}
+}
+#topLeftVerticalBottomRightArc{
+  left:35.5vh;
+  top:24vh;
+  width:2vh;
+  height:6vh;
+  animation-duration:3s;
+  animation-name:bottomrightarc;
+  animation-fill-mode:forwards;
+  animation-iteration-count:1;
+  z-index:2;
+}
+@keyframes bottomrightarc{
+  from{border-bottom-left-radius:0%;}
+  to{border-bottom-left-radius:100%;}
+}
+/*curving the horizontal line*/
+#topLeftHorizontalTopLeftArc{
+  left:22.5vh;
+  top:15vh;
+  width:7vh;
+  height:2vh;
+  animation-duration:3s;
+  animation-name:topleftharc;
+  animation-fill-mode:forwards;
+  animation-iteration-count:1;
+  z-index:4;
+}
+@keyframes topleftharc{
+  from{border-bottom-left-radius:0%;}
+  to{border-bottom-left-radius:100%;}
+}
+#topLeftHorizontalTopRightArc{
+  left:35.5vh;
+  top:15vh;
+  width:7vh;
+  height:2vh;
+  animation-duration:3s;
+  animation-name:toprightharc;
+  animation-fill-mode:forwards;
+  animation-iteration-count:1;
+  z-index:4;
+}
+@keyframes toprightharc{
+  from{border-bottom-right-radius:0%;}
+  to{border-bottom-right-radius:100%;}
+}
+#topLeftHorizontalBottomLeftArc{
+  left:22.5vh;
+  top:23vh;
+  width:7vh;
+  height:2vh;
+  animation-duration:3s;
+  animation-name:bottomleftharc;
+  animation-fill-mode:forwards;
+  animation-iteration-count:1;
+  z-index:4;
+}
+@keyframes bottomleftharc{
+  from{border-top-left-radius:0%;}
+  to{border-top-left-radius:100%;}
+}
+#topLeftHorizontalBottomRightArc{
+  left:35.5vh;
+  top:23vh;
+  width:7vh;
+  height:2vh;
+  animation-duration:3s;
+  animation-name:bottomrightharc;
+  animation-fill-mode:forwards;
+  animation-iteration-count:1;
+  z-index:4;
+}
+@keyframes bottomrightharc{
+  from{border-top-right-radius:0%;}
+  to{border-top-right-radius:100%;}
 }
 }
