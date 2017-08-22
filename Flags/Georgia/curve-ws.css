@@ -1,0 +1,268 @@
+/*
+*curving crosses
+*WideScreen Version (min-aspect-rato:151/100)
+*/
+@media screen and (min-aspect-ratio:151/100){
+
+    /*define helper classes*/
+    .hlineCurver{
+        width:7vh;
+        height:2vh;
+        animation-duration:3s;
+        animation-fill-mode:forwards;
+        animation-iteration-count:1;
+        z-index:4;
+    }
+
+    .vlineCurver{
+        width:2vh;
+        height:6vh;
+        animation-duration:3s;
+        animation-fill-mode:forwards;
+        animation-iteration-count:1;
+        z-index:2;
+    }
+
+    /*top left cross curve*/
+    /*curving the vertical line*/
+    #topLeftVerticalTopLeftArc{
+        border-top-right-radius:100%;
+        animation-name:topleftarc;
+    }
+    @keyframes topleftarc{
+        from{ left:25.5vh;  top:10vh;}
+        to{ left:27.5vh;  top:10vh;}
+    }
+    #topLeftVerticalBottomLeftArc{
+        border-bottom-right-radius:100%;
+        animation-name:bottomleftarc;
+    }
+    @keyframes bottomleftarc{
+        from{ left:25.5vh;  top:24vh;}
+        to{ left:27.5vh;  top:24vh;}
+    }
+    #topLeftVerticalTopRightArc{
+        border-top-left-radius:100%;
+        animation-name:toprightarc;
+    }
+    @keyframes toprightarc{
+        from{ left:37.5vh;  top:10vh;}
+        to{ left:35.5vh;  top:10vh;}
+    }
+    #topLeftVerticalBottomRightArc{
+        border-bottom-left-radius:100%;
+        animation-name:bottomrightarc;
+    }
+    @keyframes bottomrightarc{
+        from{left:37.5vh;  top:24vh;}
+        to{left:35.5vh;  top:24vh;}
+    }
+    
+    /*curving the horizontal line*/
+
+    #topLeftHorizontalTopLeftArc{
+        border-bottom-left-radius:100%;
+        animation-name:topleftharc;
+    }
+    
+    @keyframes topleftharc{
+        from{left:22.5vh;  top:13vh;}
+        to{left:22.5vh;  top:15vh;}
+    }
+    
+    #topLeftHorizontalTopRightArc{
+        border-bottom-right-radius:100%;
+        animation-name:toprightharc;
+    }
+    
+    @keyframes toprightharc{
+        from{left:35.5vh;  top:13vh;}
+        to{left:35.5vh;  top:15vh;}
+    }
+    
+    #topLeftHorizontalBottomLeftArc{
+        border-top-left-radius:100%;
+        animation-name:bottomleftharc;
+    }
+    
+    @keyframes bottomleftharc{
+        from{ left:22.5vh;  top:25vh;}
+        to{ left:22.5vh;  top:23vh; }
+    }
+    
+    #topLeftHorizontalBottomRightArc{
+        border-top-right-radius:100%;
+        animation-name:bottomrightharc;
+    }
+    
+    @keyframes bottomrightharc{
+        from{left:35.5vh;  top:25vh;}
+        to{left:35.5vh;  top:23vh;}
+    }
+    
+    /*curving top right cross*/
+    /*curving vertical*/
+    #topRightVerticalTopLeftArc{
+        border-top-right-radius:100%;
+        animation-name:topRightVerticaltopleftarc;
+    }
+    
+    @keyframes topRightVerticaltopleftarc{
+        from{ left:110.5vh;  top:10vh;}
+        to{ left:112.5vh;  top:10vh;}
+    }
+    
+    #topRightVerticalBottomLeftArc{
+        border-bottom-right-radius:100%;
+        animation-name:topRightVerticalbottomleftarc;
+    }
+    
+    @keyframes topRightVerticalbottomleftarc{
+        from{ left:110.5vh;  top:24vh;}
+        to{ left:112.5vh;  top:24vh;}
+    }
+    
+    #topRightVerticalTopRightArc{
+        border-top-left-radius:100%;
+        animation-name:topRightVerticaltoprightarc;
+    }
+    
+    @keyframes topRightVerticaltoprightarc{
+        from{ left:122.5vh;  top:10vh;}
+        to{ left:120.5vh;  top:10vh;}
+    }
+    
+    #topRightVerticalBottomRightArc{
+        border-bottom-left-radius:100%;
+        animation-name:topRightVerticalbottomrightarc;
+    }
+    
+    @keyframes topRightVerticalbottomrightarc{
+        from{left:122.5vh;  top:24vh;}
+        to{left:120.5vh;  top:24vh;}
+    }
+    
+    /*curving the horizontal line*/
+    #topRightHorizontalTopLeftArc{
+        border-bottom-left-radius:100%;
+        animation-name:topRightHorizontaltopleftharc;
+    }
+    
+    @keyframes topRightHorizontaltopleftharc{
+        from{left:107.5vh;  top:13vh;}
+        to{left:107.5vh;  top:15vh;}
+    }
+    
+    #topRightHorizontalTopRightArc{
+        border-bottom-right-radius:100%;
+        animation-name:topRightHorizontaltoprightharc;
+    }
+    
+    @keyframes topRightHorizontaltoprightharc{
+        from{left:120.5vh;  top:13vh;}
+        to{left:120.5vh;  top:15vh;}
+    }
+    
+    #topRightHorizontalBottomLeftArc{
+        border-top-left-radius:100%;
+        animation-name:topRightHorizontalbottomleftharc;
+    }
+    
+    @keyframes topRightHorizontalbottomleftharc{
+        from{ left:107.5vh;  top:25vh;}
+        to{ left:107.5vh;  top:23vh; }
+    }
+    
+    #topRightHorizontalBottomRightArc{
+        border-top-right-radius:100%;
+        animation-name:topRightHorizontalbottomrightharc;
+    }
+    
+    @keyframes topRightHorizontalbottomrightharc{
+        from{left:120.5vh;  top:25vh;}
+        to{left:120.5vh;  top:23vh;}
+    }
+
+    /*curving bottom left cross*/
+    /*curving vertical*/
+    #bottomLeftVerticalTopLeftArc{
+        border-top-right-radius:100%;
+        animation-name:bottomLeftVerticaltopleftharc;
+    }
+    
+    @keyframes bottomLeftVerticaltopleftharc{
+        from{ left:25.5vh;  top:70vh;}
+        to{ left:27.5vh;  top:70vh;}
+    }
+    
+    #bottomLeftVerticalBottomLeftArc{
+        border-bottom-right-radius:100%;
+        animation-name:bottomLeftVerticalbottomleftarc;
+    }
+    
+    @keyframes bottomLeftVerticalbottomleftarc{
+        from{ left:25.5vh;  top:84vh;}
+        to{ left:27.5vh;  top:84vh;}
+    }
+    
+    #bottomLeftVerticalTopRightArc{
+        border-top-left-radius:100%;
+        animation-name:bottomLeftVerticaltoprightarc;
+    }
+    
+    @keyframes bottomLeftVerticaltoprightarc{
+        from{ left:37.5vh;  top:70vh;}
+        to{ left:35.5vh;  top:70vh;}
+    }
+    
+    #bottomLeftVerticalBottomRightArc{
+        border-bottom-left-radius:100%;
+        animation-name:bottomLeftVerticalbottomrightarc;
+    }
+    
+    @keyframes bottomLeftVerticalbottomrightarc{
+        from{left:37.5vh;  top:84vh;}
+        to{left:35.5vh;  top:84vh;}
+    }
+    
+    /*curving the horizontal line*/
+    #bottomLeftHorizontalTopLeftArc{
+        border-bottom-left-radius:100%;
+        animation-name:bottomLeftHorizontaltopleftharc;
+    }
+    
+    @keyframes bottomLeftHorizontaltopleftharc{
+        from{left:22.5vh;  top:73vh;}
+        to{left:22.5vh;  top:75vh;}
+    }
+    
+    #bottomLeftHorizontalTopRightArc{
+        border-bottom-right-radius:100%;
+        animation-name:bottomLeftHorizontaltoprightharc;
+    }
+    
+    @keyframes bottomLeftHorizontaltoprightharc{
+        from{left:35.5vh;  top:73vh;}
+        to{left:35.5vh;  top:75vh;}
+    }
+    
+    #bottomLeftHorizontalBottomLeftArc{
+        border-top-left-radius:100%;
+        animation-name:bottomLeftHorizontalbottomleftharc;
+    }
+    
+    @keyframes bottomLeftHorizontalbottomleftharc{
+        from{ left:22.5vh;  top:85vh;}
+        to{ left:22.5vh;  top:83vh; }
+    }
+    
+    #bottomLeftHorizontalBottomRightArc{
+        border-top-right-radius:100%;
+        animation-name:bottomLeftHorizontalbottomrightharc;
+    }
+    
+    @keyframes bottomLeftHorizontalbottomrightharc{
+        from{left:35.5vh;  top:85vh;}
+        to{left:35.5vh;  top:83vh;}
+    }
+}

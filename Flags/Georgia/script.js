@@ -92,6 +92,30 @@ window.setTimeout(function () {
     hlineCurver('topRightHorizontalBottomRightArc');
 }, 51000);
 
+
+/*curving bottom left cross*/
+
+//vertical line
+window.setTimeout(function () {
+    vlineCurver('bottomLeftVerticalTopLeftArc');
+    vlineCurver('bottomLeftVerticalBottomLeftArc');
+}, 54000);
+
+window.setTimeout(function () {
+    vlineCurver('bottomLeftVerticalTopRightArc');
+    vlineCurver('bottomLeftVerticalBottomRightArc');
+}, 57000);
+
+window.setTimeout(function () {
+    hlineCurver('bottomLeftHorizontalTopLeftArc');
+    hlineCurver('bottomLeftHorizontalTopRightArc');
+}, 60000);
+
+window.setTimeout(function () {
+    hlineCurver('bottomLeftHorizontalBottomLeftArc');
+    hlineCurver('bottomLeftHorizontalBottomRightArc');
+}, 63000);
+
 //functions
 function elem(options) {
     let element = document.createElement(options.tag);

@@ -185,193 +185,26 @@ we calculate dimensions using width
   top:10vh;
   z-index:1;
 }
-/*bottom left corss*/
+/*bottom left cross*/
 #bottomLeftHorizontal{
   left:22.5vh;
   top:75vh;
+  z-index:3;
 }
 #bottomLeftVertical{
   left:27.5vh;
   top:70vh;
+  z-index:1;
 }
 /*bottom right cross*/
 #bottomRightHorizontal{
   left:107.5vh;
   top:75vh;
+  z-index:3;
 }
 #bottompRightVertical{
   left:112.5vh;
   top:70vh;
-}
-
-/*top left cross curve*/
-
-/*curving the vertical line*/
-.vlineCurver{
-  width:2vh;
-  height:6vh;
-  animation-duration:3s;
-  animation-fill-mode:forwards;
-  animation-iteration-count:1;
-  z-index:2;
-}
-
-#topLeftVerticalTopLeftArc{
-  border-top-right-radius:100%;
-  animation-name:topleftarc;
-}
-@keyframes topleftarc{
-  from{ left:25.5vh;  top:10vh;}
-  to{ left:27.5vh;  top:10vh;}
-}
-#topLeftVerticalBottomLeftArc{
-  border-bottom-right-radius:100%;
-  animation-name:bottomleftarc;
-}
-@keyframes bottomleftarc{
-  from{ left:25.5vh;  top:24vh;}
-  to{ left:27.5vh;  top:24vh;}
-}
-#topLeftVerticalTopRightArc{
-  border-top-left-radius:100%;
-  animation-name:toprightarc;
-}
-@keyframes toprightarc{
-  from{ left:37.5vh;  top:10vh;}
-  to{ left:35.5vh;  top:10vh;}
-}
-#topLeftVerticalBottomRightArc{
-  border-bottom-left-radius:100%;
-  animation-name:bottomrightarc;
-}
-@keyframes bottomrightarc{
-  from{left:37.5vh;  top:24vh;}
-  to{left:35.5vh;  top:24vh;}
-}
-
-/*curving the horizontal line*/
-.hlineCurver{
-  width:7vh;
-  height:2vh;
-  animation-duration:3s;
-  animation-fill-mode:forwards;
-  animation-iteration-count:1;
-  z-index:4;
-}
-
-#topLeftHorizontalTopLeftArc{
-  border-bottom-left-radius:100%;
-  animation-name:topleftharc;
-}
-@keyframes topleftharc{
-  from{left:22.5vh;  top:13vh;}
-  to{left:22.5vh;  top:15vh;}
-}
-#topLeftHorizontalTopRightArc{
-  border-bottom-right-radius:100%;
-  animation-name:toprightharc;
-}
-@keyframes toprightharc{
-  from{left:35.5vh;  top:13vh;}
-  to{left:35.5vh;  top:15vh;}
-}
-#topLeftHorizontalBottomLeftArc{
-  border-top-left-radius:100%;
-  animation-name:bottomleftharc;
-}
-@keyframes bottomleftharc{
-  from{ left:22.5vh;  top:25vh;}
-  to{ left:22.5vh;  top:23vh; }
-}
-#topLeftHorizontalBottomRightArc{
-  border-top-right-radius:100%;
-  animation-name:bottomrightharc;
-}
-@keyframes bottomrightharc{
-  from{left:35.5vh;  top:25vh;}
-  to{left:35.5vh;  top:23vh;}
-}
-
-/*curving top right cross*/
-
-
-#topRightHorizontal{
-  left:107.5vh;
-  top:15vh;
-  z-index:3;
-}
-
-#topRightVertical{
-  left:112.5vh;
-  top:10vh;
   z-index:1;
-}
-
-#topRightVerticalTopLeftArc{
-  border-top-right-radius:100%;
-  animation-name:topRightVerticaltopleftarc;
-}
-@keyframes topRightVerticaltopleftarc{
-  from{ left:110.5vh;  top:10vh;}
-  to{ left:112.5vh;  top:10vh;}
-}
-#topRightVerticalBottomLeftArc{
-  border-bottom-right-radius:100%;
-  animation-name:topRightVerticalbottomleftarc;
-}
-@keyframes topRightVerticalbottomleftarc{
-  from{ left:110.5vh;  top:24vh;}
-  to{ left:112.5vh;  top:24vh;}
-}
-#topRightVerticalTopRightArc{
-  border-top-left-radius:100%;
-  animation-name:topRightVerticaltoprightarc;
-}
-@keyframes topRightVerticaltoprightarc{
-  from{ left:122.5vh;  top:10vh;}
-  to{ left:120.5vh;  top:10vh;}
-}
-#topRightVerticalBottomRightArc{
-  border-bottom-left-radius:100%;
-  animation-name:topRightVerticalbottomrightarc;
-}
-@keyframes topRightVerticalbottomrightarc{
-  from{left:122.5vh;  top:24vh;}
-  to{left:120.5vh;  top:24vh;}
-}
-
-/*curving the horizontal line*/
-
-#topRightHorizontalTopLeftArc{
-  border-bottom-left-radius:100%;
-  animation-name:topRightHorizontaltopleftharc;
-}
-@keyframes topRightHorizontaltopleftharc{
-  from{left:107.5vh;  top:13vh;}
-  to{left:107.5vh;  top:15vh;}
-}
-#topRightHorizontalTopRightArc{
-  border-bottom-right-radius:100%;
-  animation-name:topRightHorizontaltoprightharc;
-}
-@keyframes topRightHorizontaltoprightharc{
-  from{left:120.5vh;  top:13vh;}
-  to{left:120.5vh;  top:15vh;}
-}
-#topRightHorizontalBottomLeftArc{
-  border-top-left-radius:100%;
-  animation-name:topRightHorizontalbottomleftharc;
-}
-@keyframes topRightHorizontalbottomleftharc{
-  from{ left:107.5vh;  top:25vh;}
-  to{ left:107.5vh;  top:23vh; }
-}
-#topRightHorizontalBottomRightArc{
-  border-top-right-radius:100%;
-  animation-name:topRightHorizontalbottomrightharc;
-}
-@keyframes topRightHorizontalbottomrightharc{
-  from{left:120.5vh;  top:25vh;}
-  to{left:120.5vh;  top:23vh;}
 }
 }
