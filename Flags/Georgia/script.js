@@ -116,6 +116,27 @@ window.setTimeout(function () {
     hlineCurver('bottomLeftHorizontalBottomRightArc');
 }, 63000);
 
+//horizontal line
+window.setTimeout(function () {
+    vlineCurver('bottomRightVerticalTopLeftArc');
+    vlineCurver('bottomRightVerticalbottomRightArc');
+}, 66000);
+
+window.setTimeout(function () {
+    vlineCurver('bottomRightVerticalTopRightArc');
+    vlineCurver('bottomRightVerticalBottomRightArc');
+}, 69000);
+
+window.setTimeout(function () {
+    hlineCurver('bottomRightHorizontalTopLeftArc');
+    hlineCurver('bottomRightHorizontalTopRightArc');
+}, 72000);
+
+window.setTimeout(function () {
+    hlineCurver('bottomRightHorizontalbottomLeftArc');
+    hlineCurver('bottomRightHorizontalBottomRightArc');
+}, 75000);
+
 //functions
 function elem(options) {
     let element = document.createElement(options.tag);
