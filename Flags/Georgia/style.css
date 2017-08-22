@@ -199,129 +199,100 @@ we calculate dimensions using width
 }
 #bottompRightVertical{
   left:112.5vh;
-   top:70vh;
+  top:70vh;
 }
+
 /*top left cross curve*/
+
 /*curving the vertical line*/
-#topLeftVerticalTopLeftArc{
-  left:27.5vh;
-  top:10vh;
+.vlineCurver{
   width:2vh;
   height:6vh;
   animation-duration:3s;
-  animation-name:topleftarc;
   animation-fill-mode:forwards;
   animation-iteration-count:1;
+}
+
+#topLeftVerticalTopLeftArc{
+  border-top-right-radius:100%;
+  animation-name:topleftarc;
   z-index:2;
 }
 @keyframes topleftarc{
-  from{border-top-right-radius:0%;}
-  to{border-top-right-radius:100%;}
+  from{ left:25.5vh;  top:10vh;}
+  to{ left:27.5vh;  top:10vh;}
 }
 #topLeftVerticalBottomLeftArc{
-  left:27.5vh;
-  top:24vh;
-  width:2vh;
-  height:6vh;
-  animation-duration:3s;
+  border-bottom-right-radius:100%;
   animation-name:bottomleftarc;
-  animation-fill-mode:forwards;
-  animation-iteration-count:1;
   z-index:2;
 }
 @keyframes bottomleftarc{
-  from{border-bottom-right-radius:0%;}
-  to{border-bottom-right-radius:100%;}
+  from{ left:25.5vh;  top:24vh;}
+  to{ left:27.5vh;  top:24vh;}
 }
 #topLeftVerticalTopRightArc{
-  left:35.5vh;
-  top:10vh;
-  width:2vh;
-  height:6vh;
-  animation-duration:3s;
+  border-top-left-radius:100%;
   animation-name:toprightarc;
-  animation-fill-mode:forwards;
-  animation-iteration-count:1;
   z-index:2;
 }
 @keyframes toprightarc{
-  from{border-top-left-radius:0%;}
-  to{border-top-left-radius:100%;}
+  from{ left:37.5vh;  top:10vh;}
+  to{ left:35.5vh;  top:10vh;}
 }
 #topLeftVerticalBottomRightArc{
-  left:35.5vh;
-  top:24vh;
-  width:2vh;
-  height:6vh;
-  animation-duration:3s;
+  border-bottom-left-radius:100%;
   animation-name:bottomrightarc;
-  animation-fill-mode:forwards;
-  animation-iteration-count:1;
   z-index:2;
 }
 @keyframes bottomrightarc{
-  from{border-bottom-left-radius:0%;}
-  to{border-bottom-left-radius:100%;}
+  from{left:37.5vh;  top:24vh;}
+  to{left:35.5vh;  top:24vh;}
 }
+
 /*curving the horizontal line*/
-#topLeftHorizontalTopLeftArc{
-  left:22.5vh;
-  top:15vh;
+.hlineCurver{
   width:7vh;
   height:2vh;
   animation-duration:3s;
-  animation-name:topleftharc;
   animation-fill-mode:forwards;
   animation-iteration-count:1;
+}
+
+#topLeftHorizontalTopLeftArc{
+  border-bottom-left-radius:100%;
+  animation-name:topleftharc;
   z-index:4;
 }
 @keyframes topleftharc{
-  from{border-bottom-left-radius:0%;}
-  to{border-bottom-left-radius:100%;}
+  from{left:22.5vh;  top:13vh;}
+  to{left:22.5vh;  top:15vh;}
 }
 #topLeftHorizontalTopRightArc{
-  left:35.5vh;
-  top:15vh;
-  width:7vh;
-  height:2vh;
-  animation-duration:3s;
+  border-bottom-right-radius:100%;
   animation-name:toprightharc;
-  animation-fill-mode:forwards;
-  animation-iteration-count:1;
   z-index:4;
 }
 @keyframes toprightharc{
-  from{border-bottom-right-radius:0%;}
-  to{border-bottom-right-radius:100%;}
+  from{left:35.5vh;  top:13vh;}
+  to{left:35.5vh;  top:15vh;}
 }
 #topLeftHorizontalBottomLeftArc{
-  left:22.5vh;
-  top:23vh;
-  width:7vh;
-  height:2vh;
-  animation-duration:3s;
+  border-top-left-radius:100%;
   animation-name:bottomleftharc;
-  animation-fill-mode:forwards;
-  animation-iteration-count:1;
   z-index:4;
 }
 @keyframes bottomleftharc{
-  from{border-top-left-radius:0%;}
-  to{border-top-left-radius:100%;}
+  from{ left:22.5vh;  top:25vh;}
+  to{ left:22.5vh;  top:23vh; }
 }
 #topLeftHorizontalBottomRightArc{
-  left:35.5vh;
-  top:23vh;
-  width:7vh;
-  height:2vh;
-  animation-duration:3s;
+  border-top-right-radius:100%;
   animation-name:bottomrightharc;
-  animation-fill-mode:forwards;
-  animation-iteration-count:1;
   z-index:4;
 }
 @keyframes bottomrightharc{
-  from{border-top-right-radius:0%;}
-  to{border-top-right-radius:100%;}
+  from{left:35.5vh;  top:25vh;}
+  to{left:35.5vh;  top:23vh;}
 }
 }

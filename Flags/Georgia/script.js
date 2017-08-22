@@ -45,55 +45,23 @@ window.setTimeout(function () {
 }, 27000);
 
 window.setTimeout(function () {
-    document.body.appendChild(elem({
-        tag: 'div',
-        id: 'topLeftVerticalTopLeftArc',
-        cssClassList: ['white', 'line']
-    }));
-    document.body.appendChild(elem({
-        tag: 'div',
-        id: 'topLeftVerticalBottomLeftArc',
-        cssClassList: ['white', 'line']
-    }));
+    vlineCurver('topLeftVerticalTopLeftArc');
+    vlineCurver('topLeftVerticalBottomLeftArc');
 }, 30000);
 
 window.setTimeout(function () {
-    document.body.appendChild(elem({
-        tag: 'div',
-        id: 'topLeftVerticalTopRightArc',
-        cssClassList: ['white', 'line']
-    }));
-    document.body.appendChild(elem({
-        tag: 'div',
-        id: 'topLeftVerticalBottomRightArc',
-        cssClassList: ['white', 'line']
-    }));
+    vlineCurver('topLeftVerticalTopRightArc');
+    vlineCurver('topLeftVerticalBottomRightArc');
 }, 33000);
 
 window.setTimeout(function () {
-    document.body.appendChild(elem({
-        tag: 'div',
-        id: 'topLeftHorizontalTopLeftArc',
-        cssClassList: ['white', 'line']
-    }));
-    document.body.appendChild(elem({
-        tag: 'div',
-        id: 'topLeftHorizontalTopRightArc',
-        cssClassList: ['white', 'line']
-    }));
+    hlineCurver('topLeftHorizontalTopLeftArc');
+    hlineCurver('topLeftHorizontalTopRightArc');
 }, 36000);
 
 window.setTimeout(function () {
-    document.body.appendChild(elem({
-        tag: 'div',
-        id: 'topLeftHorizontalBottomLeftArc',
-        cssClassList: ['white', 'line']
-    }));
-    document.body.appendChild(elem({
-        tag: 'div',
-        id: 'topLeftHorizontalBottomRightArc',
-        cssClassList: ['white', 'line']
-    }));
+    hlineCurver('topLeftHorizontalBottomLeftArc');
+    hlineCurver('topLeftHorizontalBottomRightArc');
 }, 39000);
 
 function elem(options) {
@@ -118,5 +86,21 @@ function vline(id) {
     options.tag = 'div';
     options.id = id;
     options.cssClassList = ['red', 'line', 'vline'];
+    document.body.appendChild(elem(options));
+}
+
+function vlineCurver(id) {
+    let options = {};
+    options.tag = 'div';
+    options.id = id;
+    options.cssClassList = ['white', 'line', 'vlineCurver'];
+    document.body.appendChild(elem(options));
+}
+
+function hlineCurver(id) {
+    let options = {};
+    options.tag = 'div';
+    options.id = id;
+    options.cssClassList = ['white', 'line', 'hlineCurver'];
     document.body.appendChild(elem(options));
 }
