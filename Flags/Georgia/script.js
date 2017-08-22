@@ -44,6 +44,9 @@ window.setTimeout(function () {
     vline('bottompRightVertical');
 }, 27000);
 
+/*curving top left cross*/
+
+//vertical
 window.setTimeout(function () {
     vlineCurver('topLeftVerticalTopLeftArc');
     vlineCurver('topLeftVerticalBottomLeftArc');
@@ -54,6 +57,7 @@ window.setTimeout(function () {
     vlineCurver('topLeftVerticalBottomRightArc');
 }, 33000);
 
+//horizontal
 window.setTimeout(function () {
     hlineCurver('topLeftHorizontalTopLeftArc');
     hlineCurver('topLeftHorizontalTopRightArc');
@@ -64,6 +68,31 @@ window.setTimeout(function () {
     hlineCurver('topLeftHorizontalBottomRightArc');
 }, 39000);
 
+/*curving top right cross*/
+
+//vertical
+window.setTimeout(function () {
+    vlineCurver('topRightVerticalTopLeftArc');
+    vlineCurver('topRightVerticalBottomLeftArc');
+}, 42000);
+
+window.setTimeout(function () {
+    vlineCurver('topRightVerticalTopRightArc');
+    vlineCurver('topRightVerticalBottomRightArc');
+}, 45000);
+
+//horizontal
+window.setTimeout(function () {
+    hlineCurver('topRightHorizontalTopLeftArc');
+    hlineCurver('topRightHorizontalTopRightArc');
+}, 48000);
+
+window.setTimeout(function () {
+    hlineCurver('topRightHorizontalBottomLeftArc');
+    hlineCurver('topRightHorizontalBottomRightArc');
+}, 51000);
+
+//functions
 function elem(options) {
     let element = document.createElement(options.tag);
     element.id = options.id;

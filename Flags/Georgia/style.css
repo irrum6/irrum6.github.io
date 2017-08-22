@@ -178,10 +178,12 @@ we calculate dimensions using width
 #topRightHorizontal{
   left:107.5vh;
   top:15vh;
+  z-index:3;
 }
 #topRightVertical{
   left:112.5vh;
   top:10vh;
+  z-index:1;
 }
 /*bottom left corss*/
 #bottomLeftHorizontal{
@@ -211,12 +213,12 @@ we calculate dimensions using width
   animation-duration:3s;
   animation-fill-mode:forwards;
   animation-iteration-count:1;
+  z-index:2;
 }
 
 #topLeftVerticalTopLeftArc{
   border-top-right-radius:100%;
   animation-name:topleftarc;
-  z-index:2;
 }
 @keyframes topleftarc{
   from{ left:25.5vh;  top:10vh;}
@@ -225,7 +227,6 @@ we calculate dimensions using width
 #topLeftVerticalBottomLeftArc{
   border-bottom-right-radius:100%;
   animation-name:bottomleftarc;
-  z-index:2;
 }
 @keyframes bottomleftarc{
   from{ left:25.5vh;  top:24vh;}
@@ -234,7 +235,6 @@ we calculate dimensions using width
 #topLeftVerticalTopRightArc{
   border-top-left-radius:100%;
   animation-name:toprightarc;
-  z-index:2;
 }
 @keyframes toprightarc{
   from{ left:37.5vh;  top:10vh;}
@@ -243,7 +243,6 @@ we calculate dimensions using width
 #topLeftVerticalBottomRightArc{
   border-bottom-left-radius:100%;
   animation-name:bottomrightarc;
-  z-index:2;
 }
 @keyframes bottomrightarc{
   from{left:37.5vh;  top:24vh;}
@@ -257,12 +256,12 @@ we calculate dimensions using width
   animation-duration:3s;
   animation-fill-mode:forwards;
   animation-iteration-count:1;
+  z-index:4;
 }
 
 #topLeftHorizontalTopLeftArc{
   border-bottom-left-radius:100%;
   animation-name:topleftharc;
-  z-index:4;
 }
 @keyframes topleftharc{
   from{left:22.5vh;  top:13vh;}
@@ -271,7 +270,6 @@ we calculate dimensions using width
 #topLeftHorizontalTopRightArc{
   border-bottom-right-radius:100%;
   animation-name:toprightharc;
-  z-index:4;
 }
 @keyframes toprightharc{
   from{left:35.5vh;  top:13vh;}
@@ -280,7 +278,6 @@ we calculate dimensions using width
 #topLeftHorizontalBottomLeftArc{
   border-top-left-radius:100%;
   animation-name:bottomleftharc;
-  z-index:4;
 }
 @keyframes bottomleftharc{
   from{ left:22.5vh;  top:25vh;}
@@ -289,10 +286,92 @@ we calculate dimensions using width
 #topLeftHorizontalBottomRightArc{
   border-top-right-radius:100%;
   animation-name:bottomrightharc;
-  z-index:4;
 }
 @keyframes bottomrightharc{
   from{left:35.5vh;  top:25vh;}
   to{left:35.5vh;  top:23vh;}
+}
+
+/*curving top right cross*/
+
+
+#topRightHorizontal{
+  left:107.5vh;
+  top:15vh;
+  z-index:3;
+}
+
+#topRightVertical{
+  left:112.5vh;
+  top:10vh;
+  z-index:1;
+}
+
+#topRightVerticalTopLeftArc{
+  border-top-right-radius:100%;
+  animation-name:topRightVerticaltopleftarc;
+}
+@keyframes topRightVerticaltopleftarc{
+  from{ left:110.5vh;  top:10vh;}
+  to{ left:112.5vh;  top:10vh;}
+}
+#topRightVerticalBottomLeftArc{
+  border-bottom-right-radius:100%;
+  animation-name:topRightVerticalbottomleftarc;
+}
+@keyframes topRightVerticalbottomleftarc{
+  from{ left:110.5vh;  top:24vh;}
+  to{ left:112.5vh;  top:24vh;}
+}
+#topRightVerticalTopRightArc{
+  border-top-left-radius:100%;
+  animation-name:topRightVerticaltoprightarc;
+}
+@keyframes topRightVerticaltoprightarc{
+  from{ left:122.5vh;  top:10vh;}
+  to{ left:120.5vh;  top:10vh;}
+}
+#topRightVerticalBottomRightArc{
+  border-bottom-left-radius:100%;
+  animation-name:topRightVerticalbottomrightarc;
+}
+@keyframes topRightVerticalbottomrightarc{
+  from{left:122.5vh;  top:24vh;}
+  to{left:120.5vh;  top:24vh;}
+}
+
+/*curving the horizontal line*/
+
+#topRightHorizontalTopLeftArc{
+  border-bottom-left-radius:100%;
+  animation-name:topRightHorizontaltopleftharc;
+}
+@keyframes topRightHorizontaltopleftharc{
+  from{left:107.5vh;  top:13vh;}
+  to{left:107.5vh;  top:15vh;}
+}
+#topRightHorizontalTopRightArc{
+  border-bottom-right-radius:100%;
+  animation-name:topRightHorizontaltoprightharc;
+}
+@keyframes topRightHorizontaltoprightharc{
+  from{left:120.5vh;  top:13vh;}
+  to{left:120.5vh;  top:15vh;}
+}
+#topRightHorizontalBottomLeftArc{
+  border-top-left-radius:100%;
+  animation-name:topRightHorizontalbottomleftharc;
+}
+@keyframes topRightHorizontalbottomleftharc{
+  from{ left:107.5vh;  top:25vh;}
+  to{ left:107.5vh;  top:23vh; }
+}
+#topRightHorizontalBottomRightArc{
+  border-top-right-radius:100%;
+  animation-name:topRightHorizontalbottomrightharc;
+}
+@keyframes topRightHorizontalbottomrightharc{
+  from{left:120.5vh;  top:25vh;}
+  to{left:120.5vh;  top:23vh;}
 }
 }
