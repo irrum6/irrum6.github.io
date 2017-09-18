@@ -35,8 +35,8 @@ div.vmenu > a.vmenu-item-sub:hover{
 div#alertBox{
     position:absolute;
     left:50vw;
-    height:40vh;
-    padding:8px 8px 8px 8px;
+    top:40vh;
+    padding:10px 10px 10px 10px;
     display: flex;
     flex-flow: column;
     width:30vw;
