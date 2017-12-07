@@ -51,8 +51,6 @@ ColorGame.prototype.setColorMode = function (color) {
 
     if (h5.defined(color) && typeof color === "string" && supportedColors.includes(color)) {
         this.colorMode = color;
-    } else {
-        console.log("no match coloe");
     }
 };
 

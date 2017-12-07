@@ -46,13 +46,14 @@ View.prototype.drawGrid = function (game) {
                 button.addEventListener('click', (event) => {
                     if (event.target.classList.contains('diff')) {
                         game.level++; game.clickCount = 0;
+                        this.updateIndicators(game);
                         //request new level
                         game.nextLevel();
                     } else {
                         this.clickCount++;
                         if (this.clickCount > 10) {
                             //alert('5 seconds time penalty for more than 10 clicks');
-                            h5.alert(languages[this.locale].timePenaltyText)
+                            alert(languages[this.locale].timePenaltyText)
                             game.time = game.time - 5 < 0 ? 0 : game.time - 5;
                         }
                     }
@@ -129,8 +130,8 @@ View.prototype.updateIndicators = function (game) {
         scorespans[1].textContent = slen > 1 ? scores[1] : scores[0];
 
     } else {
-        document.getElementById('countdown').innerHTML = languages[this.locale].time + ': ' + this.time;
-        document.getElementById('score').innerHTML = languages[this.locale].level + ': ' + this.level;
+        document.getElementById('countdown').innerHTML = languages[this.locale].time + ': ' + game.time;
+        document.getElementById('score').innerHTML = languages[this.locale].level + ': ' + game.level;
     }
 };
 
@@ -155,10 +156,6 @@ View.prototype.clearDiff = function () {
 
 View.prototype.setupHandlers = function (game) {
     let self = this;
-    //resize reload
-    window.addEventListener('resize', (event) => {
-        window.location.reload(true);
-    });
     document.getElementById('start').addEventListener('click', (event) => {
         game.start();
     });
@@ -173,13 +170,12 @@ View.prototype.setupHandlers = function (game) {
     for (let i = 0, len = langs.length; i < len; i++) {
         langs[i].addEventListener('click', (event) => {
             if (event.target.classList.contains('langmain')) {
-                excludeid = event.target.id;
-                self.showMenu("lang", excludeid);
+                self.showMenu("lang", event.target.id);
             } else {
                 let currentMain = document.getElementsByClassName('langmain')[0];
                 currentMain.classList.remove('langmain');
                 event.target.classList.add('langmain');
-                event.target.parentElement.insertBefore(event.target, currentMain);
+                currentMain.parentElement.insertBefore(event.target, currentMain);
                 self.setLocale(event.target.getAttribute('data-lang'));
                 self.closeMenu("lang", event.target.id);
             }
@@ -188,16 +184,14 @@ View.prototype.setupHandlers = function (game) {
 
     for (let i = 0, len = colors.length; i < len; i++) {
         colors[i].addEventListener('click', (event) => {
-            console.log(event.target);
             if (event.target.classList.contains('colormain')) {
-                excludeid = event.target.id;
-                self.showMenu("color", excludeid);
+                self.showMenu("color", event.target.id);
             } else {
                 game.setColorMode(event.target.getAttribute('data-color'));
                 let currentMain = document.getElementsByClassName('colormain')[0];
                 currentMain.classList.remove('colormain');
                 event.target.classList.add('colormain');
-                event.target.parentElement.insertBefore(event.target, currentMain);
+                currentMain.parentElement.insertBefore(event.target, currentMain);
                 self.closeMenu("color", event.target.id);
 
             }
@@ -208,13 +202,12 @@ View.prototype.setupHandlers = function (game) {
         modes[i].addEventListener('click', (event) => {
             game.setHardness(event.target.getAttribute('data-difficulty'));
             if (event.target.classList.contains('modemain')) {
-                excludeid = event.target.id;
-                self.showMenu("mode", excludeid);
+                self.showMenu("mode", event.target.id);
             } else {
                 let currentMain = document.getElementsByClassName('modemain')[0];
                 currentMain.classList.remove('modemain');
                 event.target.classList.add('modemain');
-                event.target.parentElement.insertBefore(event.target, currentMain);
+                currentMain.parentElement.insertBefore(event.target, currentMain);
                 self.closeMenu("mode", event.target.id);
 
             }
@@ -265,13 +258,18 @@ View.prototype.querySettingsEntries = function (subclassname, excludeid) {
  */
 View.prototype.showMenu = function (subclassname, excludeid) {
     let entries = this.querySettingsEntries(subclassname, excludeid);
-    let isflex = entries[0].style.display === 'flex';
     let len = entries.length;
     if (window.matchMedia("(orientation:landscape)").matches) {
         for (let i = 0; i < len; i++) {
-            entries[i].style.display = isflex ? "none" : "flex";
+            entries[i].style.display = "flex";
         }
     } else if (window.matchMedia("(orientation:portrait)").matches) {
+        let vmc = h5.q('#vmenucontainer', true);
+        vmc.style.display = 'flex';
+        for (let i = 0; i < len; i++) {
+            entries[i].style.display = "flex";
+            vmc.appendChild(entries[i]);
+        }
     }
 };
 
@@ -283,6 +281,15 @@ View.prototype.closeMenu = function (subclassname, excludeid) {
             entries[i].style.display = "none";
         }
     } else if (window.matchMedia("(orientation:portrait)").matches) {
+        let vmc = h5.q('#vmenucontainer', true);
+        vmc.style.display = 'none';
+        let main = h5.q('.' + subclassname + 'main', true);
+        let settings = h5.q('#settings', true);
+        for (let i = 0; i < len; i++) {
+            entries[i].style.display = "none";
+            settings.appendChild(entries[i]);
+            settings.insertBefore(entries[i], main.nextSibling);
+        }
     }
 };
 

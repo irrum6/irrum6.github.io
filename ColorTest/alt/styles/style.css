@@ -195,12 +195,21 @@ button.cell{
 }
 
 @media screen and (orientation:portrait){
+    .lang{
+        width:80%;
+    }
+    .color{
+        width:30%;
+    }
+    .mode{
+        width:80%;
+    }
     #vmenucontainer{
         display:none;
-        flex-flow:column;
+        flex-flow:row;
         width:100%;
-        background-color:green;
-        z-index:2;
+        flex-wrap:wrap;
+        z-index:1;
     }
 
     #container{
@@ -212,9 +221,8 @@ button.cell{
         width:100%;
         z-index: 1;
     }
-    #settings >a{
-        flex-basis: 0;
-        flex-grow:1;
+    #settings > a{
+        width: 30%;
     }
     #grid{
         margin-bottom:1vmin;
