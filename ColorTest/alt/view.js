@@ -18,6 +18,7 @@ View.prototype.setLocale = function (locale) {
 
 /**
 * draw grid to play
+* @param {Object} game
 */
 View.prototype.drawGrid = function (game) {
 
@@ -156,6 +157,7 @@ View.prototype.clearDiff = function () {
 
 View.prototype.setupHandlers = function (game) {
     let self = this;
+
     document.getElementById('start').addEventListener('click', (event) => {
         game.start();
     });
@@ -193,7 +195,6 @@ View.prototype.setupHandlers = function (game) {
                 event.target.classList.add('colormain');
                 currentMain.parentElement.insertBefore(event.target, currentMain);
                 self.closeMenu("color", event.target.id);
-
             }
         });
     }
@@ -213,7 +214,6 @@ View.prototype.setupHandlers = function (game) {
             }
         });
     }
-
 };
 
 View.prototype.widgetFontCorrection = function () {
@@ -303,15 +303,13 @@ View.prototype.updateInterfaceWhenLocaleChanges = function () {
 
     for (i = 0; i < len; i++) {
         let color = colors[i].getAttribute('data-color');
-        text = languages[locale].color + ":" + languages[locale].colors[color];
-        colors[i].textContent = text;
+        colors[i].textContent = languages[locale].colors[color];;
     }
 
     len = modes.length;
     for (i = 0; i < len; i++) {
         let mode = modes[i].getAttribute('data-difficulty');
-        text = languages[locale].mode + ":" + languages[locale].modes[mode];
-        modes[i].textContent = text;
+        modes[i].textContent = languages[locale].modes[mode];
     }
     h5.q('#timewidget > span', true).innerHTML = languages[this.locale].seconds;
     h5.q('#scorewidget > span', true).innerHTML = languages[this.locale].level;

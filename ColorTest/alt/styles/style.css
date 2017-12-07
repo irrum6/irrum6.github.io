@@ -195,14 +195,11 @@ button.cell{
 }
 
 @media screen and (orientation:portrait){
-    .lang{
-        width:80%;
-    }
-    .color{
+    .lang,.color{
         width:30%;
     }
     .mode{
-        width:80%;
+        width:40%;
     }
     #vmenucontainer{
         display:none;
@@ -214,7 +211,7 @@ button.cell{
 
     #container{
         flex-flow:column;
-        width:75vw;
+        width:85vw;
     }
     #settings{
         flex-flow:row;
