@@ -1,0 +1,59 @@
+div.vmenu{
+    width: 50vw;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+
+div.vmenu > a.vmenu-item {
+    padding : 10px 10px 10px 10px;
+    margin-bottom: 0.5vh;
+    outline: none;
+    font-size: 6vmin;
+    font-weight: bold;
+    font-family: monospace;
+    background-color: rgb(160, 255, 192);
+    background-blend-mode: lighten;
+}
+div.vmenu > a.vmenu-item-sub{
+    background-color: rgb(96, 96, 255);
+    background-blend-mode: lighten;
+    display:none;
+}
+div.vmenu > a.vmenu-item-sub:hover{
+    background-color: rgb(160, 160, 255);
+}
+@media screen and (orientation:portrait){
+    div.vmenu{
+        width:100%;
+    }
+    div.vmenu > a.vmenu-item{
+        width: 100%;
+    }
+}
+
+div#alertBox{
+    position:absolute;
+    left:50vw;
+    top:40vh;
+    padding:10px 10px 10px 10px;
+    display: flex;
+    flex-flow: column;
+    width:30vw;
+    background-color: rgb(160, 160, 255);
+    z-index:2;
+}
+
+div#alertMessageBox{
+    font-size:4vmin;
+    font-weight: bold;
+}
+#alertBoxOK{
+    font-size:4vmin;
+    background-color: rgb(64,64,255);
+}
+@media screen and (orientation:portrait){
+    div#alertBox{
+        width:70vw;
+    }
+}

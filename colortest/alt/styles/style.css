@@ -1,0 +1,301 @@
+body{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap:wrap;
+    flex-flow:column;;
+}
+
+#settings{
+    display: flex;
+}
+.settings-entry{
+    padding : 10px 10px 10px 10px;
+    margin-bottom: 0.5vmin;
+    outline: none;
+    font-size: 3vmin;
+    font-weight: bold;
+    font-family: monospace;
+    user-select: none;
+    background-blend-mode: lighten;
+    cursor: pointer;
+}
+button.cell{
+    outline:none;
+}
+.langmain{
+    background-color: rgb(160, 255, 192);  
+}
+.modemain{
+    background-color: rgb(160,192,255);
+}
+#colorred{
+    background-color: rgb(255, 96, 96);
+}
+#colorgreen{
+    background-color: rgb(96, 255, 96);
+}
+#colorblue{
+    background-color: rgb(96, 96, 255);
+}
+#colorrgb{
+    background-color: white;
+    border: 1px black solid;
+}
+#colorcyan{
+    background-color: cyan;
+}
+#colormagenta{
+    background-color: magenta;
+}
+#coloryellow{
+    background-color: yellow;
+}
+#colorcmyk{
+    background-color: black;
+    color:white;
+}
+#colorall{
+     background-color: rgb(128, 128, 128);
+}
+
+.lang:hover{
+    background-color: rgb(128,255,128);
+}
+.mode:hover{
+    background-color: rgb(128, 128, 255);
+}
+.lang.selected,.hard.selected{
+    background-color: rgb(160, 160, 255);
+}
+
+@media screen and (orientation:landscape){
+    #vmenucontainer{
+        display:none;
+    }
+    /*alertbar for messages*/
+    #alertbar{
+        width:98vw;
+        background-color:rgb(255, 64, 64);
+        margin-top:-2vmin;
+        margin-bottom:1.5vmin;
+        border:0;
+        flex-flow: row;
+        
+    }
+    #alertbar > button{
+        border:0;
+        outline:0;
+        user-select: none;
+        background-color: rgb(255, 64, 64);
+        font-size: 4vmin;
+        width:10vw;
+        padding : 1vmin 1vmin 1vmin 1vmin;
+    }
+    #alertbar >span{
+        padding : 1vmin 1vmin 1vmin 1vmin;
+        font-size: 4vmin;
+        width:88vw;
+    }
+    #container{
+        width:98vw;
+        display:flex;
+        flex-wrap:wrap;
+        flex-flow:row;
+        margin-bottom:1vmin;
+    }
+
+    #settings{
+        display:flex;
+        flex-grow:3;
+        flex-basis:0;
+        flex-direction:column;
+        margin-right:1vmin;
+    }
+    #grid{
+        flex-grow:4.5;
+        flex-basis:0;
+        margin-bottom:1vmin;
+    }
+    #interface{
+        display:flex;
+        flex-grow:2.5;
+        flex-basis:0;
+        flex-direction: column;
+        margin-left:1vmin;
+    }
+    #timewidget, #scorewidget{
+        display:flex;
+        flex-basis:0;
+        flex-grow:2;
+        margin-bottom: 1vmin;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        background-color: #808080;
+        padding:2vmin;
+    }
+    #bottombar{
+        flex-basis:0;
+        flex-grow:1;
+    }
+     #timewidget >div , #scorewidget >div{
+         flex-basis:0;
+         flex-grow:4;
+         display:flex;
+         flex-direction: row;
+     }
+    #timewidget >div  span , #scorewidget >div span{
+        display:flex;
+        flex-grow:1;
+        align-items:center;
+        justify-content: center;
+        font-family: Courier New, Courier, monospace;
+        color:limegreen;
+        background-color: #404040;
+        margin-left:1vmin;
+        margin-right:1vmin;
+    }
+    #timewidget > span, #scorewidget > span{
+        flex-basis:0;
+        flex-grow:1;
+        padding:0.5vmin;
+        color:limegreen;
+        font-weight: bold;
+        font-family: monospace;
+        align-items:center;
+        justify-content: center;
+    }
+    #countdown,#score,#start,#hint{
+        font-size:6vmin;
+        padding : 10px 10px 10px 10px;
+        outline:0;
+        border:0;
+        margin-bottom:1vmin;
+    }
+    #bottombar{
+        display:flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+    #countdown,#score{
+        flex-basis:0;
+        flex-grow:1;
+        display: none;
+    }
+    #start,#hint{
+        flex-basis:0;
+        flex-grow:1;
+        background-color: coral;
+        font-weight:bold;
+    }
+    #start{
+        margin-left:1vmin;
+    }
+}
+
+@media screen and (orientation:portrait){
+    .lang,.color{
+        width:30%;
+    }
+    .mode{
+        width:40%;
+    }
+    #vmenucontainer{
+        display:none;
+        flex-flow:row;
+        width:100%;
+        flex-wrap:wrap;
+        z-index:1;
+    }
+
+    #container{
+        flex-flow:column;
+        width:85vw;
+    }
+    #settings{
+        flex-flow:row;
+        width:100%;
+        z-index: 1;
+    }
+    #settings > a{
+        width: 30%;
+    }
+    #grid{
+        margin-bottom:1vmin;
+        z-index:1;
+    }
+    #timewidget,#scorewidget{
+        display:none;
+    }
+    #interface{
+        display:flex;
+        flex-flow:row;
+        width:100%;
+        z-index:1;
+    }
+    #bottombar{
+        display: flex;
+        flex-flow: row;
+        width:100%;
+    }
+    #countdown,#score,#start,#hint{
+        font-size:3vmin;
+        padding : 10px 10px 10px 10px;
+    }
+    #countdown,#score{
+        flex-basis:0;
+        flex-grow:1;
+    }
+    #hint{
+        flex-grow:1.5;
+        flex-basis:0;
+        border:0;
+    }
+    #start{
+        flex-grow:1;
+        flex-basis:0;
+        border:0;
+        margin-left:1vmin;
+    }
+    #hint, #start{
+        background-color: coral;
+        font-weight:bold;
+    }
+}
+
+#table{
+    width:100%;
+    display:flex;
+    flex-flow: column;
+}
+
+#table > div{
+    width:100%;
+    display: flex;
+    flex-flow: row;
+    flex-wrap:nowrap;
+    justify-content: center;
+}
+
+button.cell{
+    display: inline-flex;
+    flex-grow:1;
+    margin-left:1px !important;
+    margin-bottom:1px !important;
+    padding: 0 !important;
+    border:0 !important;
+    background-color: rgb(160, 160, 255);
+}
+
+.diff.glow{
+    animation-name: fadeIn;
+    animation-duration: 1s;
+    animation-iteration-count: 3;
+}
+
+@keyframes fadeIn { 
+  0%   { opacity:1; }
+  50% { opacity:0; }
+  100% { opacity:1; }
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<title>Color Test</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="styles/style.css" type="text/css" />
+<link rel="icon" type="image/png" href="images/icon.png">
+
+<body>
+    <div id="alertbar" style="display:none;">
+        <span>დაგაკლდათ 5 წამი 10-ზე მეტი წკაპისთვის. </span>
+        <button>X</button>
+    </div>
+    <div id="container">
+        <div id="settings">
+            <a id="english" data-lang="english" class="settings-entry lang langmain">English</a>
+            <a id="georgian" data-lang="georgian" class="settings-entry lang" style="display:none;">ქართული</a>
+            <a id="russian" data-lang="russian" class="settings-entry lang" style="display:none;">Русский</a>
+            <a id="german" data-lang="german" class="settings-entry lang" style="display:none">Deutsch</a>
+            <a id="modeeasy" data-difficulty="easy" class="settings-entry mode modemain">Easy</a>
+            <a id="modenormal" data-difficulty="normal" class="settings-entry mode" style="display:none">Normal</a>
+            <a id="modehard" data-difficulty="hard" class="settings-entry mode" style="display:none">Hard</a>
+            <a id="modehardest" data-difficulty="hardest" class="settings-entry mode" style="display:none">Hardest</a>
+            <a id="colorall" data-color="all" class="settings-entry color colormain">Color:All</a>
+            <a id="colorred" data-color="red" class="settings-entry color" style="display:none">Red</a>
+            <a id="colorgreen" data-color="green" class="settings-entry color" style="display:none">Green</a>
+            <a id="colorblue" data-color="blue" class="settings-entry color" style="display:none">Blue</a>
+            <a id="colorrgb" data-color="rgb" class="settings-entry color" style="display:none">RGB</a>
+            <a id="colorcyan" data-color="cyan" class="settings-entry color" style="display:none">Cyan</a>
+            <a id="colormagenta" data-color="magenta" class="settings-entry color" style="display:none">Magenta</a>
+            <a id="coloryellow" data-color="yellow" class="settings-entry color" style="display:none">Yellow</a>
+            <a id="colorcmyk" data-color="cmy" class="settings-entry color" style="display:none">CMY</a>
+        </div>
+        <div id="vmenucontainer"></div>
+        <div id="grid">
+            <div id="table">
+                <div>
+                    <button class="cell"></button>
+                    <button class="cell"></button>
+                </div>
+                <div>
+                    <button class="cell"></button>
+                    <button class="cell"></button>
+                </div>
+            </div>
+        </div>
+        <div id="interface">
+            <div id="timewidget">
+                <div>
+                    <span>0</span>
+                    <span>0</span>
+                </div>
+                <span>Seconds</span>
+            </div>
+            <div id="scorewidget">
+                <span>Level</span>
+                <div>
+                    <span>0</span>
+                    <span>0</span>
+                </div>
+            </div>
+            <div id="bottombar">
+                <span id="countdown">Time</span>
+                <span id="score">Level</span>
+                <button id="hint">Hint</button>
+                <button id="start">Start</button>
+            </div>
+        </div>
+
+    </div>
+    <script src="data/lang.js"></script>
+    <script src="h5.js"></script>
+    <script src="color.js"></script>
+    <script src="view.js"></script>
+    <script src="init.js"></script>
+</body>
