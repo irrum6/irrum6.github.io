@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<title>Memaker</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+    crossorigin="anonymous">
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="icon" type="image/jpeg" href="images/odns.jpg">
+
+<body>
+    <div class="fixed-top bg-dark">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                English
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">English</a>
+                <a class="dropdown-item" href="#">ქართული</a>
+                <a class="dropdown-item" href="#">Deutsch</a>
+                <a class="dropdown-item" href="#">Русский</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <form class="form-inline">
+            <div class="form-group">
+                <select class="custom-select" id="macro">
+                    <option value="1" selected>Good Guy Greg</option>
+                    <option value="2">One doesn't simply</option>
+                    <option value="3">Morpheus</option>
+                    <option value="4">Keanu</option>
+                    <option value="5">Sad panda</option>
+                    <option value="6">Chloe</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="top" id="formGroupExampleInput" placeholder="Top Text">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="mid" id="formGroupExampleInput2" placeholder="Midlle TExt">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="bottom" id="formGroupExampleInput2" placeholder="Bottom Text">
+            </div>
+            <div class="form-group">
+                <a role="button" id="save" href="#" class="btn btn-success">Save</a>
+            </div>
+        </form>
+    </div>
+    <div class="container-fluid" id="canvas-container">
+        <canvas id="canvas"></canvas>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+
+    <script src="media.js"></script>
+    <script src="script.js"></script>
+</body>
