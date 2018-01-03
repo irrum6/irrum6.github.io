@@ -8,8 +8,7 @@
     <div id="form-box">
         <div class="form">
             <label for="diagsize">Use input and enter screen diagonal size (in inches)</label>
-            <input id="diagsize" class="warning" type="number" data-value="5.5" placeholder="Diagonal size" step="0.1" min="3.2" max="7"
-                onfocus="setval(event)">
+            <input id="diagsize" type="number" value="5.5" step="0.1" min="3.2" max="7" required>
             <label for="ratio">Select aspect ratio</label>
             <select id="ratio" data-value="16/9" onfocus="setval(event)">
                 <optgroup label="squarish">

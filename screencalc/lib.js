@@ -16,7 +16,11 @@ class Lib {
     static toPrecision(number, precision) {
         if (Lib.isPositiveInteger(number, precision)) {
             let digistBeforePoint = number.toString().indexOf(".");
-            return number.toPrecision(digistBeforePoint + precision);
+            if (digistBeforePoint < 0) {
+                digistBeforePoint = number.toString().length;
+                precision = 0;
+            }
+            return number.toPrecision((digistBeforePoint + precision));
         } else {
             return false;
         }
