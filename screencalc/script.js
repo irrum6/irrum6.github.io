@@ -9,7 +9,7 @@ function calcRatio(len, wid, normalize) {
         let ratioPrecision = Lib.toPrecision(ratio, 2);
         if (normalize) {
             let wideAspect = Lib.toPrecision((ratio * 9), 1);
-            let normalizedRatio = (wideAspect + "/9");
+            let normalizedRatio = (wideAspect + "/9").replace('.0', '');
             return { success: true, ratio: ratio, correctedRatio: ratioPrecision, normalizedRatio: normalizedRatio };
         }
         return { success: true, ratio: ratio };
@@ -18,12 +18,14 @@ function calcRatio(len, wid, normalize) {
 }
 function calc() {
 
-    let ratio = 1, correctedRatio = 1, normalizedRatio = 1;
+    let [ratio, correctedRatio, normalizedRatio] = [1, 1, 1];
 
-    let resLength = document.getElementById('length').value;
-    let resWidth = document.getElementById('width').value;
-    let providedRatio = document.getElementById('ratio').value.split('/');
-    let diagSize = document.getElementById('diagsize').value;
+    let [diagSize, resLength, resWidth] = ['#diagsize', '#length', '#width'].map((elem) => {
+        return Lib.q(elem).value;
+    });
+
+    let providedRatio = Lib.q('#ratio').value.split('/');
+
 
     if (diagSize.length === 0) {
         Lib.q('#diagsize').classList.add('warning');
