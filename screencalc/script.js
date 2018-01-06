@@ -1,8 +1,22 @@
 function setval(event) {
     let val = event.target.getAttribute('data-value');
-    event.target.value = val;
+    let val2 = event.target.value;
+    event.target.value = val2.length !== 0 ? val2 : val;
 }
 
+function watchVal(event) {
+    let val = parseFloat(event.target.value);
+    let max = parseFloat(event.target.max);
+    let min = parseFloat(event.target.min);
+    if (Number.isNaN(val)) { }
+    if (val > max) {
+        val = max;
+    }
+    if (val < min) {
+        val = min
+    }
+    event.target.value = val;
+}
 function calcRatio(len, wid, normalize) {
     if (Lib.isPositiveInteger(len, wid)) {
         let ratio = len / wid;
@@ -20,18 +34,19 @@ function calc() {
 
     let [ratio, correctedRatio, normalizedRatio] = [1, 1, 1];
 
-    let [diagSize, resLength, resWidth] = ['#diagsize', '#length', '#width'].map((elem) => {
+    let [diagSize, resLength, resWidth, providedRatio] = ['#diagsize', '#length', '#width', '#ratio'].map((elem) => {
         return Lib.q(elem).value;
     });
 
-    let providedRatio = Lib.q('#ratio').value.split('/');
+    let resultDiv = document.getElementById('result');
 
+    providedRatio = providedRatio.split('/');
 
     if (diagSize.length === 0) {
         Lib.q('#diagsize').classList.add('warning');
+        resultDiv.innerHTML = "";
+        resultDiv.appendChild(Lib.elemP('Enter diagonal size'));
     } else {
-        let resultDiv = document.getElementById('result');
-
         let normalize = true;
         let calcratio = calcRatio(resLength, resWidth, true);
 
@@ -69,7 +84,6 @@ function calc() {
 
         resultDiv.appendChild(Lib.elemP('Calculated aspect ratio: ' + correctedRatio));
         resultDiv.appendChild(Lib.elemP('Calculated aspect ratio(Normalized): ' + normalizedRatio));
-
 
         resultDiv.appendChild(Lib.elemP('Width: ' + Lib.toPrecision(widthmm, 1) + 'mm(' + Lib.toPrecision((widthmm / 25.4), 1) + 'inches)'));
         resultDiv.appendChild(Lib.elemP('Lenght: ' + Lib.toPrecision(lengthmm, 1) + 'mm(' + Lib.toPrecision((lengthmm / 25.4), 1) + 'inches)'));

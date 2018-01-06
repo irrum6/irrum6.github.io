@@ -13,21 +13,20 @@ div.container {
     justify-content: center;
 }
 
-div#diagbox {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-@media screen and(orientation:landscape) {
+@media screen and ( orientation: landscape) {
     div#form-box {
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+    }
+    div#result {
         display: flex;
         flex-direction: column;
         width: 30%;
     }
 }
 
-@media screen and (orientation:portrait) {
+@media screen and ( orientation: portrait) {
     div.container {
         width: 99vw;
     }
