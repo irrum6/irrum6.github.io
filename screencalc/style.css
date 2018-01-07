@@ -28,7 +28,7 @@ div.container {
 
 @media screen and ( orientation: portrait) {
     div.container {
-        width: 99vw;
+        width: 90vw;
     }
     div#form-box {
         display: flex;
@@ -40,7 +40,7 @@ div.container {
     select,
     button,
     checkbox {
-        font-size: 24px;
+        font-size: 16px;
         margin: 0.5vmin;
     }
 }
