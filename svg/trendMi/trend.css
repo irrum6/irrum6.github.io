@@ -1,0 +1,21 @@
+svg{
+    
+}
+rect{
+    fill:#CCFFCC;
+}
+line{
+    stroke:#003300;
+    stroke-width:1;
+}
+text{
+    fill:#FF3300;
+    text-decoration: #003300;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 900;
+}
+polyline{
+    fill:none;
+    stroke:#FF1100;
+    stroke-width: 4;
+}
