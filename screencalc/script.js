@@ -1,21 +1,26 @@
-function setval(event) {
-    let val = event.target.getAttribute('data-value');
-    let val2 = event.target.value;
-    event.target.value = val2.length !== 0 ? val2 : val;
-}
-
 function watchVal(event) {
     let val = parseFloat(event.target.value);
     let max = parseFloat(event.target.max);
     let min = parseFloat(event.target.min);
     if (Number.isNaN(val)) { }
+    let message = ' (click to hide this message)';
     if (val > max) {
+        Lib.q('div.alert-bar').innerHTML = 'Maximum value for this input is :' + max + message;
+        Lib.q('div.alert-bar').style.display = "flex;";
+        Lib.q('div.alert-bar').style.backgroundColor = "#ff6060";
         val = max;
     }
     if (val < min) {
+        Lib.q('div.alert-bar').innerHTML = 'Minimum value for this input is :' + min + message;
+        Lib.q('div.alert-bar').style.display = "flex";
+        Lib.q('div.alert-bar').style.backgroundColor = "#ff6060";
         val = min
     }
     event.target.value = val;
+}
+function hideMessage(event) {
+    event.target.innerHTML = "";
+    event.target.style.backgroundColor = "#ffffff";
 }
 function calcRatio(len, wid, normalize) {
     if (Lib.isPositiveInteger(len, wid)) {

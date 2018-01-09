@@ -3,42 +3,64 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="images/icon.png">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" type="text/css" media="all" href="style.css">
 <div class="container">
     <div id="form-box">
+        <div class="alert-bar" onclick="hideMessage(event)"></div>
         <div class="form">
-            <label for="diagsize">Use input and enter screen diagonal size (in inches)</label>
-            <input id="diagsize" type="number" placeholder="Diagonal Size" data-value="5.5" step="0.1" min="3.2" max="7" onfocus="setval(event)"
-                onfocusout="watchVal(event)" required>
-            <label for="ratio">Select aspect ratio</label>
-            <select id="ratio" data-value="16/9" onfocus="setval(event)">
-                <optgroup label="squarish">
-                    <option value="5/4">5:4</option>
-                    <option value="4/3">4:3</option>
-                </optgroup>
-                <optgroup label="wide">
-                    <option value="3/2">3:2</option>
-                    <option value="16/10">16:10</option>
-                    <option value="5/3">5:3</option>
-                </optgroup>
-                <optgroup label="wider">
-                    <option value="16/9" selected>16:9</option>
-                    <option value="17/9">17:9</option>
-                </optgroup>
-                <optgroup label="ultrawide">
-                    <option value="18/9">18:9</option>
-                    <option value="18.5/9">18.5:9</option>
-                    <option value="19/9">19:9</option>
-                    <option value="19.5/9">19.5:9</option>
-                    <option value="21/9">21:9</option>
-                </optgroup>
-            </select>
-            <label for="length">Or enter resolutions, if you can't remember aspect ratio or isn't listed here</label>
-            <input type="number" id="length" data-value="1920" placeholder="Length" list="commonresolutionslength" step="1" min="480"
-                max="2960" onfocus="setval(event)" onfocusout="watchVal(event)">
-            <input type="number" id="width" data-value="1080" placeholder="Width" list="commonresolutionswidth" step="1" min="320" max="1440"
-                onfocus="setval(event)" onfocusout="watchVal(event)">
-            <button onclick="calc()">Calculate</button>
+            <div class="flex flex-column">
+                <div class="flex">
+                    <label for="diagsize">Use input and enter screen diagonal size (in inches)</label>
+                </div>
+                <div class="flex flex-row">
+                    <input id="diagsize" type="number" placeholder="Diagonal Size" value="5.5" step="0.1" min="3.2" max="7" onfocusout="watchVal(event)"
+                        required>
+                </div>
+            </div>
+            <div class="flex flex-column">
+                <div class="flex">
+                    <label for="ratio">Select aspect ratio</label>
+                </div>
+                <div class="flex flex-row">
+                    <select id="ratio">
+                        <optgroup label="squarish">
+                            <option value="5/4">5:4</option>
+                            <option value="4/3">4:3</option>
+                        </optgroup>
+                        <optgroup label="wide">
+                            <option value="3/2">3:2</option>
+                            <option value="16/10">16:10</option>
+                            <option value="5/3">5:3</option>
+                        </optgroup>
+                        <optgroup label="wider">
+                            <option value="16/9" selected>16:9</option>
+                            <option value="17/9">17:9</option>
+                        </optgroup>
+                        <optgroup label="ultrawide">
+                            <option value="18/9">18:9</option>
+                            <option value="18.5/9">18.5:9</option>
+                            <option value="19/9">19:9</option>
+                            <option value="19.5/9">19.5:9</option>
+                            <option value="21/9">21:9</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            <div class="flex flex-column">
+                <div class="flex">
+                    <label for="length">Or enter resolutions, if you can't remember aspect ratio or isn't listed here</label>
+                </div>
+                <div class="flex flex-row">
+                    <input type="number" id="length" value="1920" placeholder="Length" list="commonresolutionslength" step="1" min="480" max="2960"
+                        onfocusout="watchVal(event)">
+                    <input type="number" id="width" value="1080" placeholder="Width" list="commonresolutionswidth" step="1" min="320" max="1440"
+                        onfocusout="watchVal(event)">
+                </div>
+
+            </div>
+            <div>
+                <button onclick="calc()">Calculate</button>
+            </div>
         </div>
     </div>
     <div id="result">
