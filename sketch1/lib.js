@@ -11,8 +11,21 @@ class Lib {
                 }
             }
             return true;
+        } else {
+            return false;
         }
-        return false;
+    }
+    static isPositiveNumber(...args) {
+        if (args.length > 0) {
+            for (let i = 0, len = args.length; i < len; i++) {
+                if (typeof args[i] !== 'number' || args[i] < 0) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
     /**
      * Query one element matching selector

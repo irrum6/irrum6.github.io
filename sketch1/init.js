@@ -9,6 +9,5 @@ let sketch = new Sketch(canvas, context);
 sketch.correctCanvasSize();
 sketch.clearCanvas();
 sketch.setOffsetCorrection();
-sketch.setSaveRoutine();
 
 EventBroker.setupCanvasEvents(canvas);

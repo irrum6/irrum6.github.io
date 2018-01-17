@@ -18,7 +18,7 @@ class Sketch {
 
         this.currentTool = 'point';
 
-        this.lastPixel = {};
+        this.lastPixel = undefined;
         this.apromixation = true;
         //mousedown or touchstart
         this.mousedown = false;
@@ -31,13 +31,18 @@ class Sketch {
         this.validModes = ["pencil", "eraser"];
         this.validTools = ["point"];
     }
-    //last point x
-    setLastPixel(pixel) {
-        if (typeof pixel === 'object' && Lib.isPositiveInteger(pixel.x, pixel.y)) {
-            this.lastPixel = pixel;
+    //lastpixel
+    /**
+     * @param {*} x 
+     * @param {*} y 
+     */
+    setLastPixel(x, y) {
+        if (Lib.isPositiveNumber(x, y)) {
+            this.lastPixel = {};
+            this.lastPixel.x = x;
+            this.lastPixel.y = y;
         }
     }
-    //last point y
     getLastPixel() {
         return this.lastPixel;
     }
@@ -68,7 +73,7 @@ class Sketch {
      * @param {integer} w 
      */
     setWidth(w) {
-        if (Lib.isPositiveInteger(w)) {
+        if (Lib.isPositiveNumber(w)) {
             this.width = w;
         }
     }
@@ -76,19 +81,19 @@ class Sketch {
      * @param {event} event 
      */
     draw(event, istouch) {
-        let x, y;
-        x = event.clientX - this.offset.left, y = event.clientY - this.offset.top;
-        if (istouch) {
-            let pointZero = event.touches[0];
-            x = pointZero.clientX, y = pointZero.clientY;
-        }
-        let tool = this.currentTool;
+        Actions.save(this.canvas);
         if (this.mousedown || this.touchstart) {
-            if (this.lastPixel === undefined) {
-                this.setLastPixel({
-                    x: x, y: y
-                });
+            let x, y;
+            x = event.clientX - this.offset.left, y = event.clientY - this.offset.top;
+            if (istouch) {
+                let pointZero = event.touches[0];
+                x = pointZero.clientX, y = pointZero.clientY;
             }
+            if (this.lastPixel === undefined) {
+                this.setLastPixel(x, y);
+            }
+            let tool = this.currentTool;
+            this[tool](x, y);
 
             //corect slips
             if (this.apromixation) {
@@ -107,12 +112,8 @@ class Sketch {
                     }
                 }
             }
-            this[tool](x, y);
-            this.setLastPixel({
-                x: x, y: y
-            });
+            this.setLastPixel(x, y);
         }
-
     }
 
     //--tools
@@ -122,7 +123,7 @@ class Sketch {
      * @param {integer} y 
      */
     point(x, y) {
-        if (Lib.isPositiveInteger(x, y)) {
+        if (Lib.isPositiveNumber(x, y)) {
             this.context.beginPath();
             this.context.strokeStyle = this.color;
             this.context.fillStyle = this.color;
@@ -170,11 +171,6 @@ class Sketch {
     setOffsetCorrection() {
         setInterval(() => {
             this.offset = this.canvas.getBoundingClientRect();
-        }, 1000);
-    }
-    setSaveRoutine() {
-        setInterval(() => {
-            Actions.save(this.canvas);
         }, 1000);
     }
 }

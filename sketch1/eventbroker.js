@@ -14,6 +14,7 @@ class EventBroker {
                 break;
             case "color":
                 let color = event.target.getAttribute('data-value') || event.target.value;
+                sketch.setColor(color);
                 break;
             case "canvas": {
                 let type = event.type;
