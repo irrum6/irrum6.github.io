@@ -215,6 +215,7 @@ ColorGame.prototype.applyDefaultSettings = function () {
 ColorGame.prototype.start = function () {
     //if game is over or haven't started yet
     if (!this.started) {
+        this.view.hideGrid();
         this.started = true;
         //fix no time bug when restarting game after finish
         if (this.timer !== undefined) {
@@ -226,6 +227,7 @@ ColorGame.prototype.start = function () {
         this.tick();
         //this.view.updateIndicators();
     } else {
+        this.view.hideGrid();
         //action confirm
         setTimeout(() => {
             if (confirm(languages[this.view.locale].replayText)) {
@@ -233,9 +235,9 @@ ColorGame.prototype.start = function () {
                 this.reset();
                 this.nextLevel();
                 this.tick();
-                //this.updateIndicators();
+                this.view.showGrid();
             } else {
-                this.show();
+                this.view.showGrid();
             }
         }, 200)
     }

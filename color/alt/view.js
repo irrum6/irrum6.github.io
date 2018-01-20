@@ -5,6 +5,7 @@
 function View(locale) {
     this.locale = locale;
     this.currentRowCount = 1;
+    this.clickCount = 0;
 }
 
 /**
@@ -50,11 +51,12 @@ View.prototype.drawGrid = function (game) {
                         this.updateIndicators(game);
                         //request new level
                         game.nextLevel();
+                        this.clickCount = 0;
                     } else {
                         this.clickCount++;
                         if (this.clickCount > 10) {
                             //alert('5 seconds time penalty for more than 10 clicks');
-                            alert(languages[this.locale].timePenaltyText)
+                            this.alert(languages[this.locale].timePenaltyText)
                             game.time = game.time - 5 < 0 ? 0 : game.time - 5;
                         }
                     }
@@ -95,13 +97,13 @@ View.prototype.drawGrid = function (game) {
  * Hide grid, when paused
  */
 View.prototype.hideGrid = function () {
-    //document.getElementById('container').style.visibility = 'hidden';
+    document.getElementById('table').style.visibility = 'hidden';
 }
 /**
  * Show Grid
  */
 View.prototype.showGrid = function () {
-    //document.getElementById('container').style.visibility = 'visible';
+    document.getElementById('table').style.visibility = 'visible';
 }
 
 View.prototype.disableGrid = function () {
@@ -335,4 +337,14 @@ View.prototype.clearBody = function () {
 
 View.prototype.isLandscape = function () {
     return window.matchMedia("(orientation:landscape)").matches;
+};
+
+View.prototype.alert = function (text) {
+    let alert = document.getElementById('alertbar');
+    let span = alert.querySelector('span');
+    span.textContent = text;
+    alert.style.display = "flex";
+    alert.addEventListener('click', (event) => {
+        event.target.style.display = "none";
+    })
 };
