@@ -3,20 +3,21 @@ function watchVal(event) {
     let max = parseFloat(event.target.max);
     let min = parseFloat(event.target.min);
     if (Number.isNaN(val)) { }
-    let message = ' (click to hide this message)';
     if (val > max) {
-        Lib.q('div.alert-bar').innerHTML = 'Maximum value for this input is :' + max + message;
-        Lib.q('div.alert-bar').style.display = "flex;";
-        Lib.q('div.alert-bar').style.backgroundColor = "#ff6060";
+        showMessage('Maximum value for this input is ' + max);
         val = max;
     }
     if (val < min) {
-        Lib.q('div.alert-bar').innerHTML = 'Minimum value for this input is :' + min + message;
-        Lib.q('div.alert-bar').style.display = "flex";
-        Lib.q('div.alert-bar').style.backgroundColor = "#ff6060";
+        showMessage('Minimum value for this input is ' + min);
         val = min
     }
     event.target.value = val;
+}
+function showMessage(message) {
+    let el = Lib.q('div.alert-bar');
+    el.innerHTML = '' + message + ' (click to hide this message)';
+    el.style.display = "flex;";
+    el.style.backgroundColor = "#ff6060";
 }
 function hideMessage(event) {
     event.target.innerHTML = "";
@@ -43,16 +44,16 @@ function calc() {
         return Lib.q(elem).value;
     });
 
-    let resultDiv = document.getElementById('result');
-
     providedRatio = providedRatio.split('/');
 
     if (diagSize.length === 0) {
         Lib.q('#diagsize').classList.add('warning');
-        resultDiv.innerHTML = "";
-        resultDiv.appendChild(Lib.elemP('Enter diagonal size'));
+        showMessage('Enter diagonal size');
     } else {
         let normalize = true;
+        resLength = parseInt(resLength, 10);
+        resWidth = parseInt(resWidth, 10);
+
         let calcratio = calcRatio(resLength, resWidth, true);
 
         if (calcratio.success) {
@@ -78,22 +79,41 @@ function calc() {
             widthmm = Math.sqrt((diagSizemm * diagSizemm) / ((ratio1 * ratio1) + (ratio2 * ratio2))) * ratio1;
             lengthmm = (widthmm / ratio1) * ratio2;
         }
-
         screenArea = widthmm * lengthmm;
 
-        resultDiv.innerHTML = "";
+        let updateObj = {
+            diag: diagSize,
+            diagmm: diagSizemm,
+            wid: widthmm,
+            len: lengthmm,
+            ratio: providedRatio.join('/'),
+            cratio: correctedRatio,
+            ncratio: normalizedRatio,
+            area: screenArea
+        };
 
-        resultDiv.appendChild(Lib.elemP('Diagonal Size : ' + diagSize));
-
-        resultDiv.appendChild(Lib.elemP('Aspect Ratio: ' + providedRatio.join('/')));
-
-        resultDiv.appendChild(Lib.elemP('Calculated aspect ratio: ' + correctedRatio));
-        resultDiv.appendChild(Lib.elemP('Calculated aspect ratio(Normalized): ' + normalizedRatio));
-
-        resultDiv.appendChild(Lib.elemP('Width: ' + Lib.toPrecision(widthmm, 1) + 'mm(' + Lib.toPrecision((widthmm / 25.4), 1) + 'inches)'));
-        resultDiv.appendChild(Lib.elemP('Lenght: ' + Lib.toPrecision(lengthmm, 1) + 'mm(' + Lib.toPrecision((lengthmm / 25.4), 1) + 'inches)'));
-
-        resultDiv.appendChild(Lib.elemP('Calculated Area: ' + Lib.toPrecision(screenArea, 2) + 'sq.mm(' + Lib.toPrecision((screenArea / 100), 1) + 'sq.cm'
-            + Lib.toPrecision((screenArea / (25.4 * 25.4)), 2) + 'sq.inch)'));
+        update(updateObj);
     }
+}
+
+function update(updateObj) {
+    Lib.q('#diag-par').textContent = 'Diagonal Size : $i inches ($m mm)'
+        .replace("$i", updateObj.diag).replace("$m", updateObj.diagmm);
+    Lib.q('#inp-ratio-par').textContent = 'Inputed Aspect Ratio : $ratio'
+        .replace("$ratio", updateObj.ratio);
+    Lib.q('#calc-ratio-par').textContent = 'Calculated Aspect Ratio : $cratio'
+        .replace("$cratio", updateObj.cratio);
+    Lib.q('#calc-ratio-norm-par').textContent = 'Calculatiod Aspect Ratio (Normalized to 16/9 format) : $ncratio'
+        .replace("$ncratio", updateObj.ncratio);
+    Lib.q('#calc-width-par').textContent = 'Calculated Width:$m mm ($i inches)'
+        .replace("$m", Lib.toPrecision(updateObj.wid, 1))
+        .replace("$i", Lib.toPrecision(updateObj.wid / 25.4, 1));
+    Lib.q('#calc-height-par').textContent = 'Calculated Height:$m mm ($i inches)'
+        .replace("$m", Lib.toPrecision(updateObj.len, 1))
+        .replace("$i", Lib.toPrecision(updateObj.len / 25.4, 1));
+    Lib.q('#calc-area-par').innerHTML = 'Calculated Area: $m mm<sup>2</sup> $cm cm<sup>2</sup> ($i inch<sup>2</sup>)'
+        .replace("$m", Lib.toPrecision(updateObj.area, 1))
+        .replace("$cm", Lib.toPrecision(updateObj.area / 100, 1))
+        .replace("$i", Lib.toPrecision((updateObj.len / 25.4) / 25.4, 1));
+    Lib.q('#result').style.display = "flex";
 }

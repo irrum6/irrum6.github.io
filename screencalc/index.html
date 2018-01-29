@@ -7,18 +7,16 @@
 <div class="container">
     <div id="form-box">
         <div class="alert-bar" onclick="hideMessage(event)"></div>
-        <div class="form">
+        <div class="form flex flex-column">
             <div class="flex flex-column">
-                <div class="flex">
+                <div class="flex flex-row">
                     <label for="diagsize">Use input and enter screen diagonal size (in inches)</label>
                 </div>
                 <div class="flex flex-row">
                     <input id="diagsize" type="number" placeholder="Diagonal Size" value="5.5" step="0.1" min="3.2" max="7" onfocusout="watchVal(event)"
                         required>
                 </div>
-            </div>
-            <div class="flex flex-column">
-                <div class="flex">
+                <div class="flex flex-row">
                     <label for="ratio">Select aspect ratio</label>
                 </div>
                 <div class="flex flex-row">
@@ -45,9 +43,7 @@
                         </optgroup>
                     </select>
                 </div>
-            </div>
-            <div class="flex flex-column">
-                <div class="flex">
+                <div class="flex flex-row">
                     <label for="length">Or enter resolutions, if you can't remember aspect ratio or isn't listed here</label>
                 </div>
                 <div class="flex flex-row">
@@ -56,14 +52,21 @@
                     <input type="number" id="width" value="1080" placeholder="Width" list="commonresolutionswidth" step="1" min="320" max="1440"
                         onfocusout="watchVal(event)">
                 </div>
-
             </div>
             <div>
-                <button onclick="calc()">Calculate</button>
+                <button id="calcbutton" onclick="calc()">Calculate</button>
             </div>
         </div>
     </div>
-    <div id="result">
+    <div id="result" class="flex flex-column" style="display:none">
+        <p id="diag-par"></p>
+        <p id="inp-ratio-par"></p>
+        <p id="calc-ratio-par"></p>
+        <p id="calc-ratio-norm-par"></p>
+        <p id="calc-width-par"> </p>
+        <p id="calc-height-par"></p>
+        <p id="calc-area-par">
+        </p>
     </div>
     <div id="disclaimer"></div>
 </div>

@@ -14,22 +14,12 @@ div.container {
     justify-content: center;
 }
 
-div#form-box {
-    display: flex;
-    flex-direction: column;
-}
-
-div#result {
-    display: flex;
-    flex-direction: column;
-}
-
 @media screen and ( min-aspect-ratio: 16/10) {
     div#form-box {
-        width: 50%;
+        width: 30%;
     }
     div#result {
-        width: 50%;
+        width: 30%;
     }
 }
 
@@ -42,7 +32,7 @@ div#result {
     }
 }
 
-@media screen and ( max-aspect-ratio: 1239/1000) {
+@media screen and ( max-aspect-ratio: 1249/1000) {
     div.container {
         width: 90vw;
     }
@@ -54,13 +44,7 @@ div#result {
     }
 }
 
-div#form-box>.form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-button {
+button#calcbutton {
     background-color: orangered;
     border: none;
     font-weight: 700;
@@ -89,6 +73,10 @@ div.alert-bar {
     display: flex;
     width: 100%;
     font-size: 16px;
+    padding: 0.5vmin;
+}
+
+div {
     padding: 0.5vmin;
 }
 

@@ -46,11 +46,6 @@ class Lib {
             return 0;
         }
     }
-    static elemP(text) {
-        let p = document.createElement('p');
-        p.innerText = ("" + text);
-        return p;
-    }
     /**
      * Query one element matching selector
      * @param {string} selector 
