@@ -23,16 +23,16 @@ div.container {
     }
 }
 
-@media screen and ( min-aspect-ratio: 5/4) and ( max-aspect-ratio: 1599/1000) {
+@media screen and ( min-aspect-ratio: 4/3) and ( max-aspect-ratio: 1599/1000) {
     div#form-box {
-        width: 60%;
+        width: 45%;
     }
     div#result {
-        width: 60%;
+        width: 45%;
     }
 }
 
-@media screen and ( max-aspect-ratio: 1249/1000) {
+@media screen and ( max-aspect-ratio: 1332/1000) {
     div.container {
         width: 90vw;
     }
