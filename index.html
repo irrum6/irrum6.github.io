@@ -1,59 +1,79 @@
 <!DOCTYPE html>
 <title>Welcome</title>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
     crossorigin="anonymous">
 <link rel="icon" type="image/jpeg" href="indexres/img/logo.jpg">
-<style>
-    @media screen and (orientation:landscape) {
-        .card {
-            width: 15rem;
-        }
-    }
-
-    @media screen and (orientation:portrait) {
-        .card {
-            width: 10rem;
-        }
-    }
-</style>
-<div class="container-fluid">
-    <div style="display:flex;flex-direction: row;flex-wrap:wrap;">
-        <div class="card">
-            <img class="card-img-top" src="indexres/img/iconcolor.png" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Color Test</h5>
-                <p class="card-text">Test your perception of color, find different one.</p>
-                <a href="color" class="btn btn-primary">Go</a>
-            </div>
-        </div>
-        <div class="card">
-            <img class="card-img-top" src="indexres/img/iconmemaker.jpg" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Memaker</h5>
-                <p class="card-text">Create image macros with five most popular templates</p>
-                <a href="memaker" class="btn btn-primary">Go</a>
-            </div>
-        </div>
-        <div class="card">
-            <img class="card-img-top" src="./indexres/img/iconscreencalc.png" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">ScreenCalc</h5>
-                <p class="card-text">Mobile Screen size calculator, calculate width, length and area</p>
-                <a href="screencalc" class="btn btn-primary">Go</a>
-            </div>
-        </div>
-        <div class="card">
-            <img class="card-img-top" src="indexres/img/iconsketch.png" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Sketch</h5>
-                <p class="card-text">Let's draw.</p>
-                <a href="sketch1" class="btn btn-primary">Go</a>
+<header></header>
+<main role="main">
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card mb-4 box-shadow">
+                        <img class="card-img-top" src="indexres/img/iconcolor.png">
+                        <div class="card-body">
+                            <p class="card-text">Test your perception of color, find different one.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="color/alt/" class="btn btn-primary">Go</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card mb-4 box-shadow">
+                        <img class="card-img-top" src="indexres/img/iconmemaker.jpg">
+                        <div class="card-body">
+                            <p class="card-text">Create image macros with five most popular templates</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="memaker" class="btn btn-primary">Go</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card mb-4 box-shadow">
+                        <img class="card-img-top" src="indexres/img/iconscreencalc.png">
+                        <div class="card-body">
+                            <p class="card-text">Mobile Screen size calculator, calculate width, length and area.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="screencalc" class="btn btn-primary">Go</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card mb-4 box-shadow">
+                        <img class="card-img-top" data-src="" src="indexres/img/iconsketch.png" alt="">
+                        <div class="card-body">
+                            <p class="card-text">Let's draw.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="sketch1" class="btn btn-primary">Go</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</main>
+<footer>
+    <div class="container">
+        <p>&copy;2018 Bumppo92</p>
+        <p>View
+            <a href="https://github.com/bumppo92?tab=repositories">repositories</a>
+        </p>
+    </div>
+</footer>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
