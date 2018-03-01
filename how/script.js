@@ -78,7 +78,7 @@ how.inputOff = function (index, reverse) {
     if (typeof index !== "number" || !Number.isInteger(index || index < 1)) {
         return false;
     } else {
-        if (typeof reverse !== "undeifined" && reverse !== null && reverse === true) {
+        if (typeof reverse === "boolean" && reverse) {
             document.getElementById("letter" + index).children[1].style.stroke = "black";
         } else {
             document.getElementById("letter" + index).children[1].style.stroke = "transparent";
@@ -96,7 +96,7 @@ how.letterOff = function (index, reverse) {
         return false;
     } else {
         let el = document.getElementById("lettergroup").children[index];
-        if (typeof reverse !== "undeifined" && reverse !== null && reverse === true) {
+        if (typeof reverse === "boolean" && reverse) {
             el.style.fill = "black";
             el.setAttribute("onclick", "how.key(event)");
         } else {
@@ -112,7 +112,7 @@ how.letterOff = function (index, reverse) {
  * @param {*} reverse 
  */
 how.letterOffEl = function (el, reverse) {
-    if (typeof reverse !== "undeifined" && reverse !== null && reverse === true) {
+    if (typeof reverse === "boolean" && reverse) {
         el.style.fill = "black";
         el.setAttribute("onclick", "how.key(event)");
     } else {
