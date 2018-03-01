@@ -1,9 +1,10 @@
 let ScreenCalc = {};
 
-ScreenCalc.EnableResolutionInput = function (reverse) {
+ScreenCalc.EnableDisableResolutionInput = function (event) {
     let w = Lib.q("#width");
     let h = Lib.q("#height");
-    if (typeof reverse === "boolean" && reverse) {
+    let v = event.target.checked;
+    if (!v) {
         w.disabled = true;
         h.disabled = true;
     } else {
@@ -63,15 +64,20 @@ ScreenCalc.Calc = function () {
     providedRatio = providedRatio.split('/');
 
     if (diagSize.length === 0) {
-        Lib.q('#diagsize').classList.add('warning');
-        showMessage('Enter diagonal size');
+        Lib.q("#diag").classList.add("warning");
+        ScreenCalc.ShowMessage('Enter diagonal size');
     } else {
         let normalize = true;
         resLength = parseInt(resLength, 10);
         resWidth = parseInt(resWidth, 10);
 
-        let calcratio = ScreenCalc.CalcRatio(resLength, resWidth, true);
+        let calcratio = { success: false };
 
+        let inputEnabled = Lib.q("#confresinput").checked;
+
+        if (inputEnabled) {
+            calcratio = ScreenCalc.CalcRatio(resLength, resWidth, true);
+        }
         if (calcratio.success) {
             ratio = calcratio.ratio;
             correctedRatio = calcratio.correctedRatio;
@@ -117,10 +123,15 @@ ScreenCalc.Update = function (updateObj) {
         .replace("$i", updateObj.diag).replace("$m", updateObj.diagmm);
     Lib.q('#inp-ratio-par').textContent = 'Inputed Aspect Ratio : $ratio'
         .replace("$ratio", updateObj.ratio);
-    Lib.q('#calc-ratio-par').textContent = 'Calculated Aspect Ratio : $cratio'
-        .replace("$cratio", updateObj.cratio);
-    Lib.q('#calc-ratio-norm-par').textContent = 'Calculated Aspect Ratio (Normalized to 16/9 format) : $ncratio'
-        .replace("$ncratio", updateObj.ncratio);
+    if (updateObj.cratio > 1) {
+        Lib.q('#calc-ratio-par').textContent = 'Calculated Aspect Ratio : $cratio'
+            .replace("$cratio", updateObj.cratio);
+        Lib.q('#calc-ratio-norm-par').textContent = 'Calculated Aspect Ratio (Normalized to 16/9 format) : $ncratio'
+            .replace("$ncratio", updateObj.ncratio);
+    } else {
+        Lib.q('#calc-ratio-par').textContent = '';
+        Lib.q('#calc-ratio-norm-par').textContent = '';
+    }
     Lib.q('#calc-width-par').textContent = 'Calculated Width:$m mm ($i inches)'
         .replace("$m", Lib.toPrecision(updateObj.wid, 1))
         .replace("$i", Lib.toPrecision(updateObj.wid / 25.4, 1));
@@ -130,6 +141,12 @@ ScreenCalc.Update = function (updateObj) {
     Lib.q('#calc-area-par').innerHTML = 'Calculated Area: $m mm<sup>2</sup> $cm cm<sup>2</sup> ($i inch<sup>2</sup>)'
         .replace("$m", Lib.toPrecision(updateObj.area, 1))
         .replace("$cm", Lib.toPrecision(updateObj.area / 100, 1))
-        .replace("$i", Lib.toPrecision((updateObj.len / 25.4) / 25.4, 1));
+        .replace("$i", Lib.toPrecision((updateObj.area / 25.4) / 25.4, 1));
     Lib.q('#result').style.visibility = "visible";
+};
+
+//prevent form submiting
+
+document.getElementsByTagName('form')[0].onsubmit = function (event) {
+    event.preventDefault();
 };

@@ -33,7 +33,7 @@
         <p style="font-size:16px; font-weight:bold;" onclick="ScreenCalc.ShowMessage('',true)"></p>
     </div>
     <div id="calcformdiv" class="container-fluid">
-        <div class="col-md-4">
+        <div class="col-lg-4" id="formdiv">
             <form>
                 <div class="form-group">
                     <label for="diag">Enter Diagonal Size in inches</label>
@@ -65,10 +65,10 @@
                         </optgroup>
                     </select>
                 </div>
-                <div class="form-chdeck">
+                <div class="form-check">
                     <p>Or Enter Resolutions (If you don't remember ratio or isn't listed here).</p>
-                    <input type="checkbox" class="" name="confirmResInput" id="confresinput" onclick="ScreenCalc.EnableResolutionInput()">
-                    <label for="confresinput" class="">Check to enable input.</label>
+                    <input type="checkbox" name="confirmResInput" id="confresinput" value="1" onclick="ScreenCalc.EnableDisableResolutionInput(event)">
+                    <label for="confresinput">Check to enable input.</label>
                 </div>
                 <div class="form-group">
                     <label for="height">Height (in portrait mode *) </label>
@@ -83,7 +83,7 @@
                 <button class="btn btn-primary" onclick="ScreenCalc.Calc()">Calculate</button>
             </form>
         </div>
-        <div class="col-md-4" id="result">
+        <div class="col-lg-4" id="result">
             <p id="diag-par"></p>
             <p id="inp-ratio-par"></p>
             <p id="calc-ratio-par"></p>
