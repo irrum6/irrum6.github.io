@@ -17,8 +17,13 @@
             background-color: red;
             padding: 5px;
         }
-        #alertbar >p{
-            padding:none;
+
+        #alertbar>p {
+            padding: none;
+        }
+
+        #result {
+            visibility: hidden;
         }
     </style>
 </head>
@@ -28,7 +33,7 @@
         <p style="font-size:16px; font-weight:bold;" onclick="ScreenCalc.ShowMessage('',true)"></p>
     </div>
     <div id="calcformdiv" class="container-fluid">
-        <div class="col-lg-4">
+        <div class="col-md-4">
             <form>
                 <div class="form-group">
                     <label for="diag">Enter Diagonal Size in inches</label>
@@ -75,11 +80,17 @@
                     <input type="number" id="width" name="width" class="form-control" step="1" value="1080" min="320" max="1440" onfocusout="ScreenCalc.WatchVal(event)"
                         disabled>
                 </div>
-                <button class="btn btn-primary">Calculate</button>
+                <button class="btn btn-primary" onclick="ScreenCalc.Calc()">Calculate</button>
             </form>
         </div>
-        <div class="col-lg-4">
-
+        <div class="col-md-4" id="result">
+            <p id="diag-par"></p>
+            <p id="inp-ratio-par"></p>
+            <p id="calc-ratio-par"></p>
+            <p id="calc-ratio-norm-par"></p>
+            <p id="calc-width-par"> </p>
+            <p id="calc-height-par"></p>
+            <p id="calc-area-par"> </p>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
