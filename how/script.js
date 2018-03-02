@@ -1,3 +1,93 @@
+class Grep {
+    /**
+     * Query one element matching selector
+     * @param {String} selector 
+     */
+    static q(selector) {
+        //force convert to string and query
+        return document.body.querySelector(('' + selector));
+    }
+    /**
+     * Query all elements matching selector
+     * @param {String} selector 
+     */
+    static qa(selector) {
+        //force convert to string and query
+        return document.body.querySelectorAll(('' + selector));
+    }
+}
+
+//Helper class
+//methods for dom manipulation
+class HowDomHelper {
+    /**
+     * when key is clicked
+     * @param {EventObject} event 
+     */
+    static Key(event) {
+
+    }
+    /**
+     * 
+     * @param {Number} index 
+     * @param {Boolean} reverse 
+     */
+    static AnimateTreePart(index, reverse) {
+        if (typeof index !== "number" || !Number.isInteger(index || index < 1)) {
+            return false;
+        } else {
+            if (typeof reverse === "boolean" && reverse) {
+                Grep.q("#part" + index).style.stroke = "transparent";
+            } else {
+                Grep.q("#part" + index).style.stroke = "black";
+            }
+            return true;
+        }
+    }
+
+    /**
+     * 
+     * @param {Number} index 
+     * @param {Boolean} reverse 
+     */
+    static SetLetterPassive(index, reverse) {
+        if (typeof index !== "number" || !Number.isInteger(index) || index < 0) {
+            return false;
+        } else {
+            let el = Grep.qa("#lettergroup>text")[index];
+            if (typeof reverse === "boolean" && reverse) {
+                el.style.fill = "black";
+                //el.setAttribute("onclick", "how.key(event)");
+            } else {
+                el.style.fill = "grey";
+                //el.removeAttribute("onclick");
+            }
+            return true;
+        }
+    }
+    /**
+     * 
+     * @param {Number} index 
+     * @param {Boolean} reverse 
+     */
+    static OffInput(index, reverse) {
+
+    }
+}
+class How {
+    /**
+     * Constructor
+    */
+    constructor() {
+        this.count = 0;
+        this.letters = [];
+    }
+    /**
+     * make level
+    */
+    LoadLevel() {
+    }
+}
 let how = {};
 how.loadLevel = function () {
     how.count = 0;
@@ -27,7 +117,7 @@ how.loadLevel = function () {
         how.setLetter(1, how.letters[0]);
         how.letters[0] = null;
     }
-}
+};
 how.key = function (event) {
     let el = event.target;
     let letter = el.innerHTML;
@@ -60,7 +150,7 @@ how.animate = function (index, reverse) {
     if (typeof index !== "number" || !Number.isInteger(index || index < 1)) {
         return false;
     } else {
-        if (typeof reverse !== "undeifined" && reverse !== null && reverse === true) {
+        if (typeof reverse === "boolean" && reverse) {
             document.getElementById("part" + index).style.stroke = "transparent";
         } else {
             document.getElementById("part" + index).style.stroke = "black";
@@ -92,7 +182,7 @@ how.inputOff = function (index, reverse) {
  * @param {*} reverse reverse action
  */
 how.letterOff = function (index, reverse) {
-    if (typeof index !== "number" || !Number.isInteger(index || index < 0)) {
+    if (typeof index !== "number" || !Number.isInteger(index) || index < 0) {
         return false;
     } else {
         let el = document.getElementById("lettergroup").children[index];

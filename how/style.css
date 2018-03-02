@@ -12,6 +12,8 @@ div.sub {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    flex-basis: 0;
+    flex-grow: 1;
 }
 
 @media screen and(orientation:portrait) {
