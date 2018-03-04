@@ -1,8 +1,8 @@
-let animals = ["lion", "tiger", "cat", "dog"];
+let animals = ["lion", "tiger", "cat", "dog", "fox", "cow", "wolf", "monkey", "snake", "elephant", "mouse"];
 animals = animals.map((elem, index) => {
     return { type: "Animal", name: elem };
 });
-let cities = ["berlin", "tbilisi", "dubai", "washington"];
+let cities = ["berlin", "tbilisi", "dubai", "washington", "miami", "london", "dublin", "new york"];
 cities = cities.map((elem, index) => {
     return { type: "City", name: elem };
 });

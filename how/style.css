@@ -4,25 +4,9 @@ div#hangman>svg {
 
 div.container {
     display: flex;
-    flex-direction: row;
-}
-
-div.sub {
-    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-basis: 0;
-    flex-grow: 1;
-}
-
-@media screen and(orientation:portrait) {
-    div.container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
 }
 
 div#hangman {
@@ -34,9 +18,10 @@ div#hangman {
 }
 
 svg>g>text {
-    font-size: 4vh;
+    font-size: 4vmin;
     font-weight: 700;
     fill: black;
+
 }
 
 g#lettergroup>text {

@@ -1,119 +1,118 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=0.75">
+<meta name="viewport" content="width=device-width, initial-scale=0.8">
 <link rel="stylesheet" href="style.css" type="text/css" />
 <title>Hangman On Web</title>
 <div class="container">
-    <div class="sub">
-        <div id="hangman">
-            <svg viewBox="0 0 450 600" width="450" height="600" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <!--Rope-->
-                <line id="part1" x1="20" x2="20" y1="30" y2="570" stroke="grey" stroke-width="15"></line>
-                <line id="part2" x1="20" x2="400" y1="60" y2="60" stroke="grey" stroke-width="15"></line>
-                <line id="part3" x1="240" x2="240" y1="60" y2="180" stroke="grey" stroke-width="15"></line>
-                <!--head-->
-                <circle id="part4" cx="240" cy="240" r="60" stroke="grey" fill="transparent" stroke-width="15"></circle>
-                <!--neck-->
-                <line id="part5" x1="240" x2="240" y1="300" y2="450" stroke="grey" stroke-width="15"></line>
-                <!--left hand-->
-                <line id="part6" x1="240" x2="120" y1="390" y2="270" stroke="grey" stroke-width="15"></line>
-                <!--right hand-->
-                <line id="part7" x1="240" x2="360" y1="390" y2="270" stroke="grey" stroke-width="15"></line>
-                <!--left leg-->
-                <line id="part8" x1="240" x2="120" y1="450" y2="570" stroke="grey" stroke-width="15"></line>
-                <!--right leg-->
-                <line id="part9" x1="240" x2="360" y1="450" y2="570" stroke="grey" stroke-width="15"></line>
-            </svg>
-        </div>
-        <div id="hint">
-            <span>Animal</span>
-        </div>
+    <div id="hangman">
+        <svg viewBox="0 0 300 400" width="360" height="400" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <!--Rope-->
+            <line id="part1" x1="20" x2="20" y1="30" y2="400" stroke="black" stroke-width="10"></line>
+            <line id="part2" x1="20" x2="290" y1="60" y2="60" stroke="black" stroke-width="10"></line>
+            <line id="part3" x1="180" x2="180" y1="60" y2="150" stroke="black" stroke-width="10"></line>
+            <!--head-->
+            <circle id="part4" cx="180" cy="180" r="30" stroke="black" fill="transparent" stroke-width="10"></circle>
+            <!--neck-->
+            <line id="part5" x1="180" x2="180" y1="210" y2="310" stroke="black" stroke-width="10"></line>
+            <!--left hand-->
+            <line id="part6" x1="180" x2="120" y1="250" y2="235" stroke="black" stroke-width="10"></line>
+            <!--right hand-->
+            <line id="part7" x1="180" x2="240" y1="250" y2="235" stroke="black" stroke-width="10"></line>
+            <!--left leg-->
+            <line id="part8" x1="180" x2="120" y1="300" y2="360" stroke="black" stroke-width="10"></line>
+            <!--right leg-->
+            <line id="part9" x1="180" x2="240" y1="300" y2="360" stroke="black" stroke-width="10"></line>
+        </svg>
     </div>
-    <div class="sub">
-        <div id="input">
-            <svg viewBox="0 0 450 50" width="450" height="50" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <g id="letter1">
-                    <text x="3" y="30"></text>
-                    <line x1="3" x2="36" y1="40" y2="40" stroke="black" stroke-width="5"></line>
-                </g>
-                <g id="letter2">
-                    <text x="39" y="30"></text>
-                    <line x1="39" x2="75" y1="40" y2="40" stroke="black" stroke-width="5"></line>
-                </g>
-                <g id="letter3">
-                    <text x="78" y="30"></text>
-                    <line x1="78" x2="111" y1="40" y2="40" stroke="black" stroke-width="5"></line>
-                </g>
-                <g id="letter4">
-                    <text x="114" y="30"></text>
-                    <line x1="114" x2="147" y1="40" y2="40" stroke="black" stroke-width="5"></line>
-                </g>
-                <g id="letter5">
-                    <text x="150" y="30"></text>
-                    <line x1="150" x2="183" y1="40" y2="40" stroke="black" stroke-width="5"></line>
-                </g>
-                <g id="letter6">
-                    <text x="186" y="30"></text>
-                    <line x1="186" x2="219" y1="40" y2="40" stroke="black" stroke-width="5"></line>
-                </g>
-                <g id="letter7">
-                    <text x="222" y="30"></text>
-                    <line x1="222" x2="255" y1="40" y2="40" stroke="black" stroke-width="5"></line>
-                </g>
-                <g id="letter8">
-                    <text x="258" y="30"></text>
-                    <line x1="258" x2="291" y1="40" y2="40" stroke="black" stroke-width="5"></line>
-                </g>
-                <g id="letter9">
-                    <text x="294" y="30"></text>
-                    <line x1="294" x2="327" y1="40" y2="40" stroke="black" stroke-width="5"></line>
-                </g>
-                <g id="letter10">
-                    <text x="330" y="30"></text>
-                    <line x1="330" x2="363" y1="40" y2="40" stroke="black" stroke-width="5"></line>
-                </g>
-                <g id="letter11">
-                    <text x="366" y="30"></text>
-                    <line x1="366" x2="399" y1="40" y2="40" stroke="black" stroke-width="5"></line>
-                </g>
-                <g id="letter12">
-                    <text x="402" y="30"></text>
-                    <line x1="402" x2="435" y1="40" y2="40" stroke="black" stroke-width="5"></line>
-                </g>
-            </svg>
-        </div>
-        <div id="keyboard">
-            <svg viewBox="0 0 450 90" width="450" height="90" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <g id="lettergroup">
-                    <text onclick="how.key(event)" self-index="0" self-active="0" x="0" y="30">A</text>
-                    <text onclick="how.key(event)" self-index="1" x="35" y="30">B</text>
-                    <text onclick="how.key(event)" self-index="2" x="70" y="30">C</text>
-                    <text onclick="how.key(event)" self-index="3" x="105" y="30">D</text>
-                    <text onclick="how.key(event)" self-index="4" x="140" y="30">E</text>
-                    <text onclick="how.key(event)" self-index="5" x="175" y="30">F</text>
-                    <text onclick="how.key(event)" self-index="6" x="210" y="30">G</text>
-                    <text onclick="how.key(event)" self-index="7" x="245" y="30">H</text>
-                    <text onclick="how.key(event)" self-index="8" x="280" y="30">I</text>
-                    <text onclick="how.key(event)" self-index="9" x="315" y="30">J</text>
-                    <text onclick="how.key(event)" self-index="10" x="350" y="30">K</text>
-                    <text onclick="how.key(event)" self-index="11" x="385" y="30">L</text>
-                    <text onclick="how.key(event)" self-index="12" x="420" y="30">M</text>
-                    <text onclick="how.key(event)" self-index="13" x="0" y="70">N</text>
-                    <text onclick="how.key(event)" self-index="14" x="35" y="70">O</text>
-                    <text onclick="how.key(event)" self-index="15" x="70" y="70">P</text>
-                    <text onclick="how.key(event)" self-index="16" x="105" y="70">Q</text>
-                    <text onclick="how.key(event)" self-index="17" x="140" y="70">R</text>
-                    <text onclick="how.key(event)" self-index="18" x="175" y="70">S</text>
-                    <text onclick="how.key(event)" self-index="19" x="210" y="70">T</text>
-                    <text onclick="how.key(event)" self-index="20" x="245" y="70">U</text>
-                    <text onclick="how.key(event)" self-index="21" x="280" y="70">V</text>
-                    <text onclick="how.key(event)" self-index="22" x="315" y="70">W</text>
-                    <text onclick="how.key(event)" self-index="23" x="350" y="70">X</text>
-                    <text onclick="how.key(event)" self-index="24" x="385" y="70">Y</text>
-                    <text onclick="how.key(event)" self-index="25" x="420" y="70">Z</text>
-                </g>
-            </svg>
-        </div>
+    <div id="hint">
+        <span>Animal</span>
+    </div>
+    <div id="input">
+        <svg viewBox="0 0 360 40" width="360" height="40" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <g id="letter1">
+                <text x="3" y="30"></text>
+                <line x1="3" x2="30" y1="40" y2="40" stroke="black" stroke-width="10"></line>
+            </g>
+            <g id="letter2">
+                <text x="33" y="30"></text>
+                <line x1="33" x2="60" y1="40" y2="40" stroke="black" stroke-width="10"></line>
+            </g>
+            <g id="letter3">
+                <text x="63" y="30"></text>
+                <line x1="63" x2="90" y1="40" y2="40" stroke="black" stroke-width="10"></line>
+            </g>
+            <g id="letter4">
+                <text x="93" y="30"></text>
+                <line x1="93" x2="120" y1="40" y2="40" stroke="black" stroke-width="10"></line>
+            </g>
+            <g id="letter5">
+                <text x="123" y="30"></text>
+                <line x1="123" x2="150" y1="40" y2="40" stroke="black" stroke-width="10"></line>
+            </g>
+            <g id="letter6">
+                <text x="153" y="30"></text>
+                <line x1="153" x2="180" y1="40" y2="40" stroke="black" stroke-width="10"></line>
+            </g>
+            <g id="letter7">
+                <text x="183" y="30"></text>
+                <line x1="183" x2="210" y1="40" y2="40" stroke="black" stroke-width="10"></line>
+            </g>
+            <g id="letter8">
+                <text x="213" y="30"></text>
+                <line x1="213" x2="240" y1="40" y2="40" stroke="black" stroke-width="10"></line>
+            </g>
+            <g id="letter9">
+                <text x="243" y="30"></text>
+                <line x1="243" x2="270" y1="40" y2="40" stroke="black" stroke-width="10"></line>
+            </g>
+            <g id="letter10">
+                <text x="273" y="30"></text>
+                <line x1="273" x2="300" y1="40" y2="40" stroke="black" stroke-width="10"></line>
+            </g>
+            <g id="letter11">
+                <text x="303" y="30"></text>
+                <line x1="303" x2="330" y1="40" y2="40" stroke="black" stroke-width="10"></line>
+            </g>
+            <g id="letter12">
+                <text x="333" y="30"></text>
+                <line x1="333" x2="360" y1="40" y2="40" stroke="black" stroke-width="10"></line>
+            </g>
+        </svg>
+    </div>
+    <div id="keyboard">
+        <svg viewBox="0 0 360 120" width="360" height="120" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <g id="lettergroup">
+                <text x="10" y="30">A</text>
+                <text x="45" y="30">B</text>
+                <text x="80" y="30">C</text>
+                <text x="115" y="30">D</text>
+                <text x="150" y="30">E</text>
+                <text x="185" y="30">F</text>
+                <text x="220" y="30">G</text>
+                <text x="255" y="30">H</text>
+                <text x="280" y="30">I</text>
+                <text x="315" y="30">J</text>
+                <text x="10" y="60">K</text>
+                <text x="45" y="60">L</text>
+                <text x="80" y="60">M</text>
+                <text x="115" y="60">N</text>
+                <text x="150" y="60">O</text>
+                <text x="185" y="60">P</text>
+                <text x="220" y="60">Q</text>
+                <text x="255" y="60">R</text>
+                <text x="280" y="60">S</text>
+                <text x="315" y="60">T</text>
+                <text x="10" y="90">U</text>
+                <text x="45" y="90">V</text>
+                <text x="80" y="90">W</text>
+                <text x="115" y="90">X</text>
+                <rect x="145" y="68" width="90" height="27" stroke="black" fill="transparent"> </rect>
+                <text x="150" y="90">SPACE</text>
+                <text x="255" y="90">Y</text>
+                <text x="280" y="90">Z</text>
+                <text x="315" y="90">-</text>
+            </g>
+        </svg>
     </div>
 </div>
 <script src="data.js"></script>
