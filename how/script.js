@@ -33,7 +33,7 @@ class HowDomHelper {
             letter = " ";
         }
 
-        console.log(how.count);
+
         let index = el.getAttribute("self-index");
 
         if (el.getAttribute("self-active") === "active") {
@@ -46,13 +46,31 @@ class HowDomHelper {
                 }
             } else {
                 this.AnimateTreePart(++how.count);
+                console.log(how.count);
             }
 
-            let len = how.letters.filter((elem, index) => {
+            let letters = how.letters.filter((elem, index) => {
                 return elem !== null;
-            }).length;
-            if (len == 0 || how.count >= 9) {
-                how.LoadLevel();
+            });
+            let len = letters.length;
+            if (len === 0) {
+                let int = setTimeout(() => {
+                    how.LoadLevel();
+                    clearTimeout(int)
+                }, 2000);
+            }
+            if (how.count >= 9 && len > 0) {
+                console.log(how.count);
+                this.AnimateTreePart(how.count);
+                let int = setTimeout(() => {
+                    how.LoadLevel();
+                    clearTimeout(int)
+                }, 3000);
+                for (let i = 0, leng = how.letters.length; i < leng; i++) {
+                    if (how.letters[i] !== null) {
+                        HowDomHelper.SetLetter(i + 1, how.letters[i]);
+                    }
+                }
             }
         }
 
