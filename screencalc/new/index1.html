@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <title>Mobile Screen Size Calculator</title>
+    <style>
+        #calcformdiv {
+            margin-top: 16px;
+        }
+
+        .pad5 {
+            padding: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-light" style="background-color: #80a0ff;">
+        <a class="navbar-brand" href="#">&LeftArrow;Back</a>
+    </nav>
+    <div class="container text-center">
+        <div class="col-md-6" id="calcformdiv">
+            <form>
+                <!--Diagonal Size-->
+                <div class="input-group pad5">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Diagonal</span>
+                    </div>
+                    <input type="number" id="diag" class="form-control" name="diagonal-size" step="0.1" value="5.5" min="0.1" max="81" onfocusout="">
+                    <select name="" id="" class="form-control">
+                        <option value="in">Inches</option>
+                        <option value="cm">centimeters</option>
+                        <option value="mm">milimeters</option>
+                    </select>
+                </div>
+                <!--Screen Aspect Ratio-->
+                <div class="input-group pad5">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Screen Ratio</span>
+                    </div>
+                    <select name="ratio" class="form-control" id="ratio">
+                        <optgroup label="squarish">
+                            <option value="5/4">5:4</option>
+                            <option value="4/3">4:3</option>
+                        </optgroup>
+                        <optgroup label="wide">
+                            <option value="3/2">3:2</option>
+                            <option value="16/10">16:10</option>
+                            <option value="5/3">5:3</option>
+                        </optgroup>
+                        <optgroup label="wider">
+                            <option value="16/9" selected>16:9</option>
+                            <option value="17/9">17:9</option>
+                        </optgroup>
+                        <optgroup label="ultrawide">
+                            <option value="18/9">18:9</option>
+                            <option value="18.5/9">18.5:9</option>
+                            <option value="19/9">19:9</option>
+                            <option value="19.5/9">19.5:9</option>
+                            <option value="21/9">21:9</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <!--Screen Resolution: Width-->
+                <div class="input-group pad5">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Width *</span>
+                    </div>
+                    <input type="number" id="width" name="width" class="form-control" step="1" value="1080" min="128" max="4320" onfocusout="">
+                    <div class="input-group-append">
+                        <span class="input-group-text">pixels</span>
+                    </div>
+                </div>
+                <!--Screen Resolution-Height-->
+                <div class="input-group pad5">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Height *</span>
+                    </div>
+                    <input type="number" id="height" name="height" class="form-control" step="1" value="1920" min="160" max="8640" onfocusout="ScreenCalc.WatchVal(event)">
+                    <div class="input-group-append">
+                        <span class="input-group-text">pixels</span>
+                    </div>
+                </div>
+                <!--Pixels per unit-->
+                <div class="input-group pad5">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" data-app-translate="1" data-text="pixels_per_unit">Pixels Per Inch</span>
+                    </div>
+                    <input type="number" id="ppi" name="ppi" class="form-control" step="1" value="401" min="1" max="1000">
+                </div>
+                <!--Screen physical width -->
+                <div class="input-group pad5">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" data-app-translate="1" data-text="physical_width">Physical Width</span>
+                    </div>
+                    <input type="number" id="ppi" name="ppi" class="form-control" step="0.1" value="72" min="0.1" max="2000">
+                    <select name="" id="" class="form-control">
+                        <option value="in">Inches</option>
+                        <option value="cm" >centimeters</option>
+                        <option value="cm" selected>milimeters</option>
+                    </select>
+                </div>
+                <!--Screen physical height-->
+                <div class="input-group pad5">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" data-app-translate="1" data-text="physical_height">Physical Height</span>
+                    </div>
+                    <input type="number" id="ppi" name="ppi" class="form-control" step="1" value="128" min="1" max="1500">
+                    <select name="" id="" class="form-control">
+                        <option value="in">Inches</option>
+                        <option value="cm" selected>centimeters</option>
+                    </select>
+                </div>
+                <!--Scren area physical-->
+                <div class="input-group pad5">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Screen area</span>
+                    </div>
+                    <input type="text" name="area" class="form-control" disabled>
+                    <div class="input-group-append">
+                            <span class="input-group-text">cm<sup>2</sup></span>
+                        </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="translate.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
