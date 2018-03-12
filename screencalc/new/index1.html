@@ -23,8 +23,8 @@
     <nav class="navbar navbar-light" style="background-color: #80a0ff;">
         <a class="navbar-brand" href="#">&LeftArrow;Back</a>
         <form class="form-inline">
-            <button class="btn btn-success" disabled>English</button>
-            <button class="btn btn-primary">ქართული</button>
+            <button data-action="translate" class="btn btn-success" disabled>English</button>
+            <button data-action="translate" class="btn btn-primary">ქართული</button>
         </form>
     </nav>
     <div class="container text-center">
@@ -33,19 +33,21 @@
                 <!--Diagonal Size-->
                 <div class="input-group pad5">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="">Diagonal</span>
+                        <span class="input-group-text" data-app-translate="1" data-app-text="diagonal">Diagonal</span>
                     </div>
-                    <input type="number" id="diag" class="form-control" name="diagonal-size" step="0.1" value="5.5" min="0.1" max="81" onfocusout="">
+                    <input type="number" id="diag" data-cm-max="206" data-mm-max="2060" data-in-max="81" data-cm-min="2.54" data-mm-min="25.4"
+                        data-in-min="1" data-cm-step="0.1" data-mm-step="1" data-in-step="0.1" class="form-control" name="diagonal-size"
+                        step="0.1" value="5.5" min="0.1" max="81" onfocusout="">
                     <select name="" id="" class="form-control">
-                        <option value="in">Inches</option>
-                        <option value="cm">centimeters</option>
-                        <option value="mm">milimeters</option>
+                        <option value="in" data-app-translate="1" data-app-text="inch">Inches</option>
+                        <option value="cm" data-app-translate="1" data-app-text="centimetre">centimetres</option>
+                        <option value="mm" data-app-translate="1" data-app-text="millimetre">milimetres</option>
                     </select>
                 </div>
                 <!--Screen Aspect Ratio-->
                 <div class="input-group pad5">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Screen Ratio</span>
+                        <span class="input-group-text" data-app-translate="1" data-app-text="aspect_ratio">Screen Aspect Ratio</span>
                     </div>
                     <select name="ratio" class="form-control" id="ratio">
                         <optgroup label="squarish">
@@ -68,12 +70,15 @@
                             <option value="19.5/9">19.5:9</option>
                             <option value="21/9">21:9</option>
                         </optgroup>
+                        <optgroup label="Computed">
+                            <option value="0">Computed</option>
+                        </optgroup>
                     </select>
                 </div>
                 <!--Screen Resolution: Width-->
                 <div class="input-group pad5">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Width *</span>
+                        <span class="input-group-text" data-app-translate="1" data-app-text="width">Width *</span>
                     </div>
                     <input type="number" id="width" name="width" class="form-control" step="1" value="1080" min="128" max="4320" onfocusout="">
                     <div class="input-group-append">
@@ -83,7 +88,7 @@
                 <!--Screen Resolution-Height-->
                 <div class="input-group pad5">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Height *</span>
+                        <span class="input-group-text" data-app-translate="1" data-app-text="height">Height *</span>
                     </div>
                     <input type="number" id="height" name="height" class="form-control" step="1" value="1920" min="160" max="8640" onfocusout="ScreenCalc.WatchVal(event)">
                     <div class="input-group-append">
@@ -93,14 +98,14 @@
                 <!--Pixels per unit-->
                 <div class="input-group pad5">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" data-app-translate="1" data-text="pixels_per_unit">Pixels Per Inch</span>
+                        <span class="input-group-text" data-app-translate="1" data-app-text="pixels_per_unit">Pixels Per Inch</span>
                     </div>
                     <input type="number" id="ppi" name="ppi" class="form-control" step="1" value="401" min="1" max="1000">
                 </div>
                 <!--Screen physical width -->
                 <div class="input-group pad5">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" data-app-translate="1" data-text="physical_width">Physical Width</span>
+                        <span class="input-group-text" data-app-translate="1" data-app-text="physical_width">Physical Width</span>
                     </div>
                     <input type="number" id="ppi" name="ppi" class="form-control" step="0.1" value="72" min="0.1" max="2000">
                     <select name="" id="" class="form-control">
@@ -112,25 +117,33 @@
                 <!--Screen physical height-->
                 <div class="input-group pad5">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" data-app-translate="1" data-text="physical_height">Physical Height</span>
+                        <span class="input-group-text" data-app-translate="1" data-app-text="physical_height">Physical Height</span>
                     </div>
                     <input type="number" id="ppi" name="ppi" class="form-control" step="1" value="128" min="1" max="1500">
                     <select name="" id="" class="form-control">
                         <option value="in">Inches</option>
-                        <option value="cm" selected>centimeters</option>
+                        <option value="cm">centimeters</option>
+                        <option value="cm" selected>milimeters</option>
                     </select>
                 </div>
                 <!--Scren area physical-->
                 <div class="input-group pad5">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Screen area</span>
+                        <span class="input-group-text" data-app-translate="1" data-app-text="screen_area">Screen area</span>
                     </div>
                     <input type="text" name="area" class="form-control" disabled>
                     <div class="input-group-append">
-                        <span class="input-group-text">cm
+                        <span class="input-group-text" data-app-translate="1" data-app-text="area_unit">cm
                             <sup>2</sup>
                         </span>
                     </div>
+                </div>
+                <!--Scren area physical-->
+                <div class="input-group pad5">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" data-app-translate="1" data-app-text="aspect_ratio_decimal">Aspect Ratio(Decimal) </span>
+                    </div>
+                    <input type="text" name="area" class="form-control" style="font-weight:bold;" value="1.78" disabled>
                 </div>
             </form>
         </div>

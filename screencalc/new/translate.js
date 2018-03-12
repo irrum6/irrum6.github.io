@@ -1,7 +1,12 @@
 let TranslateData=[];
 
 class Translate{
-    static translate(params) {
+    /**
+     * translate
+     * @param {string} lang 
+     * @return {void}
+     */
+    static TranslateApp(lang) {
         
     }
 }
