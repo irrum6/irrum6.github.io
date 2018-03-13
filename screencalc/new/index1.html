@@ -7,14 +7,11 @@
     <link rel="icon" type="image/png" href="images/icon.png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
     <title>Mobile Screen Size Calculator</title>
     <style>
         #calcformdiv {
             margin-top: 16px;
-        }
-
-        .pad5 {
-            padding: 3px;
         }
     </style>
 </head>
@@ -23,8 +20,8 @@
     <nav class="navbar navbar-light" style="background-color: #80a0ff;">
         <a class="navbar-brand" href="#">&LeftArrow;Back</a>
         <form class="form-inline">
-            <button data-action="translate" class="btn btn-success" disabled>English</button>
-            <button data-action="translate" class="btn btn-primary">ქართული</button>
+            <button data-action="translate" data-value="english" class="btn btn-success" disabled>English</button>
+            <button data-action="translate" data-value="georgian" class="btn btn-primary">ქართული</button>
         </form>
     </nav>
     <div class="container text-center">
@@ -39,7 +36,7 @@
                         data-in-min="1" data-cm-step="0.1" data-mm-step="1" data-in-step="0.1" class="form-control" name="diagonal-size"
                         step="0.1" value="5.5" min="0.1" max="81" onfocusout="">
                     <select name="" id="" class="form-control">
-                        <option value="in" data-app-translate="1" data-app-text="inch">Inches</option>
+                        <option value="in" data-app-translate="1" data-app-text="inches">Inches</option>
                         <option value="cm" data-app-translate="1" data-app-text="centimetre">centimetres</option>
                         <option value="mm" data-app-translate="1" data-app-text="millimetre">milimetres</option>
                     </select>
@@ -50,39 +47,44 @@
                         <span class="input-group-text" data-app-translate="1" data-app-text="aspect_ratio">Screen Aspect Ratio</span>
                     </div>
                     <select name="ratio" class="form-control" id="ratio">
-                        <optgroup label="squarish">
+                        <optgroup label="squarish" data-app-translate="1" data-app-text="squarish">
                             <option value="5/4">5:4</option>
                             <option value="4/3">4:3</option>
                         </optgroup>
-                        <optgroup label="wide">
+                        <optgroup label="wide" data-app-translate="1" data-app-text="wide">
                             <option value="3/2">3:2</option>
                             <option value="16/10">16:10</option>
                             <option value="5/3">5:3</option>
                         </optgroup>
-                        <optgroup label="wider">
+                        <optgroup label="wider" data-app-translate="1" data-app-text="wider">
                             <option value="16/9" selected>16:9</option>
                             <option value="17/9">17:9</option>
                         </optgroup>
-                        <optgroup label="ultrawide">
+                        <optgroup label="ultrawide" data-app-translate="1" data-app-text="ultrawide">
                             <option value="18/9">18:9</option>
                             <option value="18.5/9">18.5:9</option>
                             <option value="19/9">19:9</option>
                             <option value="19.5/9">19.5:9</option>
                             <option value="21/9">21:9</option>
                         </optgroup>
-                        <optgroup label="Computed">
+                        <optgroup label="Computed" data-app-translate="1" data-app-text="computed">
                             <option value="0">Computed</option>
                         </optgroup>
                     </select>
                 </div>
                 <!--Screen Resolution: Width-->
                 <div class="input-group pad5">
+                    <!--
                     <div class="input-group-prepend">
                         <span class="input-group-text" data-app-translate="1" data-app-text="width">Width *</span>
-                    </div>
+                    </div>-->
                     <input type="number" id="width" name="width" class="form-control" step="1" value="1080" min="128" max="4320" onfocusout="">
-                    <div class="input-group-append">
+                    <!--<div class="input-group-append">
                         <span class="input-group-text">pixels</span>
+                    </div>-->
+                    <div class="input-group-append">
+                        <span class="input-group-text switch-radio" data-variable="resolution_width_compute" data-value="1">On</span>
+                        <span class="input-group-text switch-radio bg-red-custom-1" data-variable="resolution_width_compute" data-value="0">Off</span>
                     </div>
                 </div>
                 <!--Screen Resolution-Height-->
@@ -98,7 +100,7 @@
                 <!--Pixels per unit-->
                 <div class="input-group pad5">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" data-app-translate="1" data-app-text="pixels_per_unit">Pixels Per Inch</span>
+                        <span class="input-group-text" data-app-translate="1" data-variable="pixels_per_unit">Pixels Per Inch</span>
                     </div>
                     <input type="number" id="ppi" name="ppi" class="form-control" step="1" value="401" min="1" max="1000">
                 </div>
@@ -109,9 +111,9 @@
                     </div>
                     <input type="number" id="ppi" name="ppi" class="form-control" step="0.1" value="72" min="0.1" max="2000">
                     <select name="" id="" class="form-control">
-                        <option value="in">Inches</option>
-                        <option value="cm">centimeters</option>
-                        <option value="cm" selected>milimeters</option>
+                        <option value="in" data-app-translate="1" data-app-text="in">Inches</option>
+                        <option value="cm" data-app-translate="1" data-app-text="cm">centimeters</option>
+                        <option value="cm" data-app-translate="1" data-app-text="mm" selected>milimeters</option>
                     </select>
                 </div>
                 <!--Screen physical height-->
@@ -121,9 +123,9 @@
                     </div>
                     <input type="number" id="ppi" name="ppi" class="form-control" step="1" value="128" min="1" max="1500">
                     <select name="" id="" class="form-control">
-                        <option value="in">Inches</option>
-                        <option value="cm">centimeters</option>
-                        <option value="cm" selected>milimeters</option>
+                        <option value="in" data-app-translate="1" data-app-text="in">Inches</option>
+                        <option value="cm" data-app-translate="1" data-app-text="cm">centimeters</option>
+                        <option value="cm" data-app-translate="1" data-app-text="mm" selected>milimeters</option>
                     </select>
                 </div>
                 <!--Scren area physical-->
@@ -154,6 +156,7 @@
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+    <script src="lib.js"></script>
     <script src="translate.js"></script>
     <script src="script.js"></script>
 
