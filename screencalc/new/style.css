@@ -1,13 +1,19 @@
 .pad5 {
-    padding: 3px;
-}
-.bg-light-green{
-    background-color:#40ff40;
-}
-.bg-red-custom-1{
-    background-color:#ff4040;
+    padding: 1px;
 }
 
-.bg-yellow-green{
+.bg-light-green {
+    background-color: #40ff40;
+}
+
+.bg-red-custom-1 {
+    background-color: #ff4040;
+}
+
+.bg-yellow-green {
     background-color: yellowgreen;
+}
+
+.bold700 {
+    font-weight: 700;
 }

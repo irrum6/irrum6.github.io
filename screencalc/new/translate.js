@@ -1,9 +1,10 @@
 let TranslateData = {
     english: {
         diagonal:'diagonal',
-        inches:'inches',
+        inch:'inches',
         centimetre:'centimetres',
         millimetre:'millimetres',
+        toggle_instruction:'',
         aspect_ratio:'Aspect Ratio',
         squarish:'squarish',
         wide:'wide',
