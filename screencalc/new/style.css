@@ -1,5 +1,8 @@
 .pad5 {
-    padding: 1px;
+    padding: 2px;
+}
+.pad10{
+    padding:4px;
 }
 
 .bg-light-green {
@@ -21,6 +24,18 @@
 .about-switcher{
     cursor: pointer;
     user-select: none;
+    -moz-user-select: none;
+    -ms-touch-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+}
+
+.switch-radio{
+    user-select: none;
+    -moz-user-select: none;
+    -ms-touch-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
 }
 /* Bootstrap Toggle v2.2.2 corrections for Bootsrtap 4*/
 .toggle-off {

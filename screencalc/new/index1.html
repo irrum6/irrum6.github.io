@@ -13,7 +13,6 @@
     <style>
         #calcformdiv {
             margin-top: 10px;
-            width:100%;
         }
     </style>
 </head>
@@ -26,158 +25,132 @@
             <button data-action="translate" data-value="georgian" class="btn btn-primary">ქართული</button>
         </form>
     </nav>
-    <div class="container text-center">
-        <div class="col-md-6" id="calcformdiv">
-            <form>
-                <!--Unit Switcher-->
-                <div class="input-group pad5">
-                    <div class="input-group-text">
-                        <span class="radioone" data-app-translate="1" data-app-text="inch">Inch</span>
-                    </div>
-                    <div class="input-group-text bg-yellow-green">
-                        <span class="radioone" data-app-translate="1" data-app-text="centimetre">Centimetre</span>
-                    </div>
-                    <div class="input-group-text">
-                        <span class="radioone" data-app-translate="1" data-app-text="millimetre">Millimetre</span>
-                    </div>
+    <div class="col-md-5" id="calcformdiv">
+        <form>
+            <!--Unit Switcher-->
+            <div class="input-group pad10">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                    <label class="form-check-label" for="inlineRadio1" data-app-translate="1" data-app-text="inch">Inch</label>
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                    <label class="form-check-label" for="inlineRadio2" data-app-translate="1" data-app-text="centimetre">Centimetre</label>
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                    <label class="form-check-label" for="inlineRadio3" data-app-translate="1" data-app-text="millimetre">Millimetre</label>
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                    <label class="form-check-label" for="inlineCheckbox2">Mobile</label>
                 </div>
-                <!--
-                <span data-app-translate="1" data-app-text="toggle_instruction">
-                    Use
-                    <span style="color:red;">red</span>/
-                    <span style="color:green;">green</span> toggles to enter input or use computed value instead
-                </span>-->
-                <!--Diagonal Size-->
-                <div class="input-group pad5">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" data-app-translate="1" data-app-text="diagonal">Diagonal</span>
-                    </div>
-                    <input type="number" id="diag" data-cm-max="206" data-mm-max="2060" data-in-max="81" data-cm-min="2.54" data-mm-min="25.4"
-                        data-in-min="1" data-cm-step="0.1" data-mm-step="1" data-in-step="0.1" class="form-control" name="diagonal-size"
-                        step="0.1" value="14" min="0.1" max="81" onfocusout="">
-                    <div class="input-group-append">
-                        <span class="input-group-text bg-red-custom-1" data-app-translate="1" data-text-variable="0" data-text="compute_value_status"
-                            data-variable="diag_compute" data-value="0">Compute&nbsp;
-                            <span class="badge badge-dark about-switcher">?</span>
-                        </span>
-                    </div>
+            </div>
+
+            <!--Diagonal size-->
+            <div class="input-group pad5">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" data-app-translate="1" data-app-text="diagonal">Diagonal</span>
                 </div>
-                <!--Screen Aspect Ratio-->
-                <div class="input-group pad5">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" data-app-translate="1" data-app-text="aspect_ratio">Aspect Ratio</span>
-                    </div>
-                    <select name="ratio" class="form-control" id="ratio">
-                        <optgroup label="squarish" data-app-translate="1" data-app-text="squarish">
-                            <option value="5/4">5:4</option>
-                            <option value="4/3">4:3</option>
-                        </optgroup>
-                        <optgroup label="wide" data-app-translate="1" data-app-text="wide">
-                            <option value="3/2">3:2</option>
-                            <option value="16/10">16:10</option>
-                            <option value="5/3">5:3</option>
-                        </optgroup>
-                        <optgroup label="wider" data-app-translate="1" data-app-text="wider">
-                            <option value="16/9" selected>16:9</option>
-                            <option value="17/9">17:9</option>
-                        </optgroup>
-                        <optgroup label="ultrawide" data-app-translate="1" data-app-text="ultrawide">
-                            <option value="18/9">18:9</option>
-                            <option value="18.5/9">18.5:9</option>
-                            <option value="19/9">19:9</option>
-                            <option value="19.5/9">19.5:9</option>
-                            <option value="21/9">21:9</option>
-                        </optgroup>
-                        <optgroup label="Computed" data-app-translate="1" data-app-text="computed">
-                            <option value="0">Computed</option>
-                        </optgroup>
-                    </select>
-                    <!--
-                    <input type="checkbox" data-toggle="toggle" data-on="Compute" data-off="Input">
-                    <div class="input-group-append">
-                        <span class="input-group-text">
-                            <span class="badge badge-dark about-switcher">?</span>
-                        </span>
-                    </div>-->
-                    <!--unlock for this time-->
-                    <div class="input-group-append">
-                        <span class="input-group-text switch-radio bg-red-custom-1" data-variable="aspect_ratio-compute" data-value="0">Off</span>
-                        <span class="input-group-text switch-radio" data-variable="aspect_ratio-compute" data-value="1">On</span>
-                    </div>
+                <input type="number" id="diag" data-cm-max="206" data-mm-max="2060" data-in-max="81" data-cm-min="2.54" data-mm-min="25.4"
+                    data-in-min="1" data-cm-step="0.1" data-mm-step="1" data-in-step="0.1" class="form-control" name="diagonal-size"
+                    step="0.1" value="14" min="0.1" max="81" onfocusout="">
+                <div class="input-group-append">
+                    <span class="input-group-text switch-radio bg-red-custom-1" data-app-translate="1" data-text-variable="0" data-text="compute_value_status"
+                        data-variable="diag_compute" data-value="0">Off
+                    </span>
+                    <span class="input-group-text switch-radio" data-app-translate="1" data-text-variable="0" data-text="compute_value_status"
+                        data-variable="diag_compute" data-value="1">On&nbsp;
+                        <span class="badge badge-dark about-switcher">?</span>
+                    </span>
                 </div>
-                <!--Screen Resolution: Width-->
-                <span data-app-translate="1" data-app-text="screen_res_pixels">Screen Resolution (in Pixels)</span>
-                </span>
-                <div class="input-group pad5">
-                    <div class="input-group-append">
-                        <span data-app-translate="1" data-app-text="width" class="input-group-text">Width*</span>
-                    </div>
-                    <input type="number" id="width" name="width" class="form-control" step="1" value="1080" min="128" max="4320" onfocusout="">
-                    <div class="input-group-append">
-                        <span class="input-group-text switch-radio bg-red-custom-1" data-variable="resolution_width_compute" data-value="0">Off</span>
-                        <span class="input-group-text switch-radio" data-variable="resolution_width_compute" data-value="1">On</span>
-                    </div>
+            </div>
+            <!--Screen Aspect Ratio-->
+            <div class="input-group pad5">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" data-app-translate="1" data-app-text="aspect_ratio">Aspect Ratio</span>
                 </div>
-                <!--Screen Resolution-Height-->
-                <div class="input-group pad5">
-                    <div class="input-group-append">
-                        <span data-app-translate="1" data-app-text="height" class="input-group-text">Height*</span>
-                    </div>
-                    <input type="number" id="height" name="height" class="form-control" step="1" value="1920" min="160" max="8640" onfocusout="ScreenCalc.WatchVal(event)">
-                    <div class="input-group-append">
-                        <span class="input-group-text switch-radio bg-red-custom-1" data-variable="resolution_height_compute" data-value="0">Off</span>
-                        <span class="input-group-text switch-radio" data-variable="resolution_height_compute" data-value="1">On</span>
-                    </div>
+                <select name="ratio" class="form-control" id="ratio">
+                    <optgroup label="squarish" data-app-translate="1" data-app-text="squarish">
+                        <option value="5/4">5:4</option>
+                        <option value="4/3">4:3</option>
+                    </optgroup>
+                    <optgroup label="wide" data-app-translate="1" data-app-text="wide">
+                        <option value="3/2">3:2</option>
+                        <option value="16/10">16:10</option>
+                        <option value="5/3">5:3</option>
+                    </optgroup>
+                    <optgroup label="wider" data-app-translate="1" data-app-text="wider">
+                        <option value="16/9" selected>16:9</option>
+                        <option value="17/9">17:9</option>
+                    </optgroup>
+                    <optgroup label="ultrawide" data-app-translate="1" data-app-text="ultrawide">
+                        <option value="18/9">18:9</option>
+                        <option value="18.5/9">18.5:9</option>
+                        <option value="19/9">19:9</option>
+                        <option value="19.5/9">19.5:9</option>
+                        <option value="21/9">21:9</option>
+                    </optgroup>
+                    <optgroup label="Computed" data-app-translate="1" data-app-text="computed">
+                        <option value="0">Computed</option>
+                    </optgroup>
+                </select>
+                <div class="input-group-append">
+                    <span class="input-group-text switch-radio bg-red-custom-1" data-variable="aspect_ratio-compute" data-value="0">Off</span>
+                    <span class="input-group-text switch-radio" data-variable="aspect_ratio-compute" data-value="1">On</span>
                 </div>
-                <!--Pixels per unit-->
-                <div class="input-group pad5">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" data-app-translate="1" data-variable="pixels_per_unit">Pixels/Inch</span>
-                    </div>
-                    <input type="number" id="ppi" name="ppi" class="form-control" step="1" value="401" min="1" max="1000">
-                    <div class="input-group-append">
-                        <span class="input-group-text switch-radio bg-red-custom-1" data-variable="resolution_height_compute" data-value="0">Off</span>
-                        <span class="input-group-text switch-radio" data-variable="resolution_height_compute" data-value="1">On</span>
-                    </div>
+            </div>
+            <!--Screen Aspect Ratio-->
+            <div class="input-group pad5">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" data-app-translate="1" data-app-text="diagonal">Ratio(Decimal)</span>
                 </div>
-                <!--Screen Resolution: Width-->
-                <span data-app-translate="1" data-app-text="screen_res_pixels">Screen Physical Dimensions</span>
-                </span>
-                <!--Screen physical width -->
-                <div class="input-group pad5">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" data-app-translate="1" data-app-text="physical_width">Width</span>
-                    </div>
-                    <input type="number" id="ppi" name="ppi" class="form-control" step="0.1" value="72" min="0.1" max="2000">
-                    <div class="input-group-append">
-                        <span class="input-group-text switch-radio bg-red-custom-1" data-variable="resolution_height_compute" data-value="0">Off</span>
-                        <span class="input-group-text switch-radio" data-variable="resolution_height_compute" data-value="1">On</span>
-                    </div>
+                <input type="number" class="form-control" id="diag" name="diagonal-size" step="0.1" value="1.78" min="0.25" max="4" onfocusout="">
+                <div class="input-group-append">
+                    <span class="input-group-text switch-radio bg-red-custom-1" data-variable="aspect_ratio_decimal_compute" data-value="0">Off</span>
+                    <span class="input-group-text switch-radio" data-variable="aspect_ratio_decimal_compute" data-value="1">On</span>
+
                 </div>
-                <!--Screen physical height-->
-                <div class="input-group pad5">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" data-app-translate="1" data-app-text="physical_height">Height</span>
-                    </div>
-                    <input type="number" id="ppi" name="ppi" class="form-control" step="1" value="128" min="1" max="1500">
-                    <div class="input-group-append">
-                        <span class="input-group-text switch-radio bg-red-custom-1" data-variable="resolution_height_compute" data-value="0">Off</span>
-                        <span class="input-group-text switch-radio" data-variable="resolution_height_compute" data-value="1">On</span>
-                    </div>
+            </div>
+            <!--Screen Resolution-->
+            <span data-app-translate="1" data-app-text="screen_res_pixels">Screen Resolution : Width and Height (pixels)</span>
+            </span>
+            <div class="input-group pad5">
+                <input type="number" id="height" name="height" class="form-control" step="1" value="1920" min="160" max="8640" onfocusout="">
+                <input type="number" id="width" name="width" class="form-control" step="1" value="1080" min="128" max="4320" onfocusout="">
+                <span class="input-group-text switch-radio bg-red-custom-1" data-variable="resolution_width_compute" data-value="0">Off</span>
+                <span class="input-group-text switch-radio" data-variable="resolution_width_compute" data-value="1">On</span>
+            </div>
+            <!--Pixels per unit-->
+            <div class="input-group pad5">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" data-app-translate="1" data-variable="pixels_per_unit">Pixels/Inch</span>
                 </div>
-                <!--Scren area physical-->
-                <div class="input-group pad5">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" data-app-translate="1" data-app-text="screen_area">Screen area</span>
-                    </div>
-                    <input type="text" name="area" class="form-control" disabled>
-                    <div class="input-group-append">
-                        <span class="input-group-text" data-app-translate="1" data-app-text="screen_area_unit" style="font-weight: bold;">in&#178;</span>
-                    </div>
+                <input type="number" id="ppi" name="ppi" class="form-control" step="1" value="401" min="1" max="1000">
+                <div class="input-group-append">
+                    <span class="input-group-text switch-radio bg-red-custom-1" data-variable="resolution_height_compute" data-value="0">Off</span>
+                    <span class="input-group-text switch-radio" data-variable="resolution_height_compute" data-value="1">On</span>
                 </div>
-                <button type="button" class="btn btn-block btn-outline-primary" data-app-translate="1" data-app-text="calculate">Calculate</button>
-            </form>
-        </div>
+            </div>
+            <!--Screen Resolution: Width-->
+            <span data-app-translate="1" data-app-text="screen_size">Screen Size : Width* and Height*</span>
+            </span>
+            <!--Screen physical width -->
+            <div class="input-group pad5">
+                <input type="number" id="ppi" name="ppi" class="form-control" step="0.1" value="72" min="0.1" max="2000">
+                <input type="number" id="ppi" name="ppi" class="form-control" step="1" value="128" min="1" max="1500">
+                <div class="input-group-append">
+                    <span class="input-group-text switch-radio bg-red-custom-1" data-variable="resolution_height_compute" data-value="0">Off</span>
+                    <span class="input-group-text switch-radio" data-variable="resolution_height_compute" data-value="1">On</span>
+                </div>
+            </div>
+            <!--Scren area physical-->
+            <div class="input-group pad5">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" data-app-translate="1" data-app-text="screen_area">Screen area</span>
+                </div>
+                <input type="text" name="area" class="form-control" disabled>
+                <div class="input-group-append">
+                    <span class="input-group-text" data-app-translate="1" data-app-text="screen_area_unit" style="font-weight: bold;">in&#178;</span>
+                </div>
+            </div>
+            <button type="button" class="btn btn-block btn-outline-primary" data-app-translate="1" data-app-text="calculate">Calculate</button>
+        </form>
+    </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

@@ -15,18 +15,12 @@ for (let i = 0, len = switchradios.length; i < len; i++) {
     });
 }
 
-
-//let dove=document.createElement('div');
-//dove.style="width:100px;height:100px;background-color:red;position:absolute;top:50px;"
-
-//document.body.appendChild(dove);
-
 let aboutswithers = document.body.querySelectorAll(".about-switcher");
 
 for (let i = 0, len = aboutswithers.length; i < len; i++) {
     aboutswithers[i].addEventListener('click', (event) => {
-        alert(1);
+        //needs translate later
+        let text = "use these red/green toggles, switch on to use computed value, switch off to input and compute other field. Applies to all toggles ";
+        alert(text);
     });
 }
-
-//alert(window.devicePixelRatio);
