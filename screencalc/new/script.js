@@ -28,3 +28,5 @@ for (let i = 0, len = aboutswithers.length; i < len; i++) {
         alert(1);
     });
 }
+
+//alert(window.devicePixelRatio);
