@@ -8,9 +8,7 @@ for (let i = 0, len = aboutswithers.length; i < len; i++) {
     });
 }
 
-let w= window.innerWidth;
-
-if(w<600){
+if(window.innerWidth<600){
     document.getElementById('Calc_button').classList.add('btn-block');
     document.getElementById('mainbox').classList.add('container_fluid');
 }

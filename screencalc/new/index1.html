@@ -21,8 +21,8 @@
     <nav class="navbar navbar-light" style="background-color: #80a0ff;">
         <a class="navbar-brand" href="#">&LeftArrow;Back</a>
         <form class="form-inline">
-            <button data-action="translate" data-value="english" class="btn btn-success" disabled>English</button>
-            <button data-action="translate" data-value="georgian" class="btn btn-primary">ქართული</button>
+            <button onclick="Translate.SetLanguage('english')" class="btn btn-success">English</button>
+            <button onclick="Translate.SetLanguage('georgian')" class="btn btn-primary">ქართული</button>
         </form>
     </nav>
     <div class="container" id="mainbox">
@@ -37,8 +37,6 @@
                         <label class="form-check-label" for="unitradio2" data-app-translate="1" data-app-text="centimetre">Centimetre</label>
                         <input class="form-check-input" type="radio" name="unitoptions" id="unitradio3" value="option3">
                         <label class="form-check-label" for="unitradio3" data-app-translate="1" data-app-text="millimetre">Millimetre</label>
-                        <input class="form-check-input" type="checkbox" id="mobilecheck" value="option2" checked>
-                        <label class="form-check-label" for="mobilecheck">Mobile</label>
                     </div>
                 </div>
 
@@ -52,16 +50,24 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" data-app-translate="1" data-app-text="diagonal">Diagonal</span>
                         </div>
-                        <input type="number" id="diag" data-cm-max="206" data-mm-max="2060" data-in-max="81" data-cm-min="2.54" data-mm-min="25.4"
+                        <!--Since Screen diagonal can be measure in many units it better to provide max and min values for each-->
+                        <input type="number" id="app_diag" data-cm-max="206" data-mm-max="2060" data-in-max="81" data-cm-min="2.5" data-mm-min="25"
                             data-in-min="1" data-cm-step="0.1" data-mm-step="1" data-in-step="0.1" class="form-control" name="diagonal-size"
                             step="0.1" value="14" min="0.1" max="81" onfocusout="">
                         <div class="input-group-append">
-                            <span class="input-group-text switch-radio bg-red-custom-1" data-app-switch-off="phys_width,phys_height" data-app-switch-on="diag"
-                                data-app-translate="1" data-text-variable="0" data-text="compute_value_status" data-variable="diag_compute"
-                                data-value="0">Off
+                            <!--
+                                data-app-contr-id refers to id of the sibling (or element) doing opposite action of this element
+                                data-app-translate marks this element as translatable
+                                data-text  specifies text to translate and display as (text) content of this element
+                                data-app-switch-on/off are the input to enable/disable
+                                data-app-input-linked input(s) which in the same group as this the element
+                            -->
+                            <span class="input-group-text switch-radio bg-red-custom-1" id="app_switch_diag_0" data-app-contr-id="app_switch_diag_1"
+                                data-app-switch-off="app_phys_width,app_phys_height" data-app-switch-on="app_diag" data-app-translate="1"
+                                data-text="off">Off
                             </span>
-                            <span class="input-group-text switch-radio" data-app-switch-on="phys_width,phys_height" data-app-switch-off="diag" data-app-translate="1"
-                                data-text-variable="0" data-text="compute_value_status" data-variable="diag_compute" data-value="1">On&nbsp;
+                            <span class="input-group-text switch-radio" id="app_switch_diag_1" data-app-contr-id="app_switch_diag_0" data-app-switch-on="app_phys_width,app_phys_height"
+                                data-app-switch-off="app_diag" data-app-input-linked="app_diag" data-app-translate="1" data-text="on">On&nbsp;
                                 <span class="badge badge-dark about-switcher">?</span>
                             </span>
                         </div>
@@ -71,7 +77,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" data-app-translate="1" data-app-text="aspect_ratio">Aspect Ratio</span>
                         </div>
-                        <select name="ratio" class="form-control" id="ratio">
+                        <select name="ratio" class="form-control" id="app_aspect_ratio">
                             <optgroup label="squarish" data-app-translate="1" data-app-text="squarish">
                                 <option value="5/4">5:4</option>
                                 <option value="4/3">4:3</option>
@@ -97,8 +103,10 @@
                             </optgroup>
                         </select>
                         <div class="input-group-append">
-                            <span class="input-group-text switch-radio bg-red-custom-1" data-app-switch-off="" data-variable="aspect_ratio-compute" data-value="0">Off</span>
-                            <span class="input-group-text switch-radio" data-variable="aspect_ratio-compute" data-value="1">On</span>
+                            <span class="input-group-text switch-radio bg-red-custom-1" id="app_switch_aspect_ratio_0" data-app-contr-id="app_switch_aspect_ratio_1"
+                                data-app-switch-off="data" data-app-switch-on="" data-app-translate="1" data-text="off">Off</span>
+                            <span class="input-group-text switch-radio" id="app_switch_aspect_ratio_1" data-app-contr-id="app_switch_aspect_ratio_0"
+                                data-app-translate="1" data-text="on">On</span>
                         </div>
                     </div>
                     <!--Screen Aspect Ratio (Decimal)-->
@@ -106,13 +114,13 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" data-app-translate="1" data-app-text="diagonal">Ratio(Decimal)</span>
                         </div>
-                        <input type="number" class="form-control" id="ratio_decimal" name="diagonal-size" step="0.1" value="1.78" min="0.25" max="4"
-                            onfocusout="" disabled>
+                        <input type="number" class="form-control" id="app_aspect_ratio_decimal" name="diagonal-size" step="0.1" value="1.78" min="0.25"
+                            max="4" onfocusout="" disabled>
                         <div class="input-group-append">
-                            <span class="input-group-text switch-radio" data-app-switch-off="height,width,ratio" data-app-switch-on="ratio_decimal" data-variable="aspect_ratio_decimal_compute"
-                                data-value="0">Off</span>
+                            <span class="input-group-text switch-radio" data-app-switch-off="app_res_height,app_res_width,app_aspect_ratio" data-app-switch-on="app_aspect_ratio_decimal"
+                                data-app-translate="1" data-text="compute_value_off">Off</span>
                             <span class="input-group-text switch-radio bg-light-green" data-app-switch-on="ratio" data-app-switch-off="ratio_decimal"
-                                data-variable="aspect_ratio_decimal_compute" data-value="1">On</span>
+                                data-app-translate="1" data-text="compute_value_on">On</span>
                         </div>
                     </div>
                     <!--Screen Resolution-->
@@ -137,8 +145,8 @@
                         <div class="input-group-append">
                             <span class="input-group-text switch-radio bg-red-custom-1" data-app-switch-off="height,width" data-app-switch-on="ratio,ppi"
                                 data-variable="resolution_height_compute" data-value="0">Off</span>
-                            <span class="input-group-text switch-radio" data-app-switch-on="height,width" data-app-switch-off="ratio,ratio_decimal,ppi" data-variable="resolution_height_compute"
-                                data-value="1">On</span>
+                            <span class="input-group-text switch-radio" data-app-switch-on="height,width" data-app-switch-off="ratio,ratio_decimal,ppi"
+                                data-variable="resolution_height_compute" data-value="1">On</span>
                         </div>
                     </div>
                     <!--Screen Size-->
@@ -165,7 +173,7 @@
                             <span class="input-group-text" data-app-translate="1" data-app-text="screen_area_unit" style="font-weight: bold;">in&#178;</span>
                         </div>
                     </div>
-                    <button id="Callc_button" type="button" class="btn btn-outline-primary" data-app-translate="1" data-app-text="calculate">Calculate</button>
+                    <button id="Calc_button" type="button" class="btn btn-outline-primary" data-app-translate="1" data-app-text="calculate">Calculate</button>
                 </form>
             </div>
         </div>
@@ -181,6 +189,7 @@
         crossorigin="anonymous"></script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <!--my pathetic scripts-->
+    <script src="custom-events.js"></script>
     <script src="lib.js"></script>
     <script src="toggle.js"></script>
     <script src="translate.js"></script>
