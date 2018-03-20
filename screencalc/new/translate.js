@@ -69,3 +69,5 @@ class Translate {
         Translate.TranslateApp(lang);
     }
 }
+
+//Translate.SetLanguage('georgian');

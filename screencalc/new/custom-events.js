@@ -1,5 +1,6 @@
 let consol= console;
-let el=document.getElementById('Calc_button');
+/*
+let el=document.getElementById('App_calc_button');
 el.addEventListener('off', function (event) {
     consol.log(event.detail);
     console.log(event.target);
@@ -7,3 +8,4 @@ el.addEventListener('off', function (event) {
 });
 let event = new CustomEvent('off', { detail: 'custom event' });
 el.dispatchEvent(event);
+*/
