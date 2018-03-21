@@ -21,8 +21,8 @@
     <nav class="navbar navbar-light" style="background-color: #80a0ff;">
         <a class="navbar-brand" href="#">&LeftArrow;Back</a>
         <form class="form-inline">
-            <button onclick="Translate.SetLanguage('english')" class="btn btn-success">English</button>
-            <button onclick="Translate.SetLanguage('georgian')" class="btn btn-primary">ქართული</button>
+            <a href="#" role="button" onclick="Translate.SetLanguage('english')" class="btn btn-success">English</a>
+            <a href="#" role="button" onclick="Translate.SetLanguage('georgian')" class="btn btn-primary">ქართული</a>
         </form>
     </nav>
     <div class="container" id="mainbox">
@@ -47,40 +47,26 @@
                 <form>
                     <!--instruction-->
                     <span>
-                        &#11044; ველის გამოთვლა &#9644; ველის შევსება
+                        <!--
+                            items in data-attribute-text correspond items in data-app-translate-attribute
+                            so "data-on"-s translated text must be from translated input_field
+                        -->
+                        <input type="checkbox" data-size="small" data-toggle="toggle" data-on="&#11044; Compute Field" data-off="&#9644; Input Field"
+                            data-onstyle="success" data-offstyle="info">
+                        <input type="checkbox" checked data-size="small" data-toggle="toggle" data-on="&#11044; ველის გამოთვლა" data-off="&#9644; ველის შევსება"
+                            data-onstyle="success" data-offstyle="info">
                     </span>
                     <!--Diagonal size-->
-                    <div class="input-group pad5">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" data-app-translate="1" data-app-text="diagonal">Diagonal</span>
+                    <div class=" input-group pad5 ">
+                        <div class="input-group-prepend ">
+                            <span class="input-group-text " data-app-translate="1" data-app-text="diagonal">Diagonal</span>
                         </div>
                         <!--Since Screen diagonal can be measure in many units it better to provide max and min values for each-->
-                        <input type="number" id="app_diag" data-cm-max="206" data-mm-max="2060" data-in-max="81" data-cm-min="2.5" data-mm-min="25"
-                            data-in-min="1" data-cm-step="0.1" data-mm-step="1" data-in-step="0.1" class="form-control" name="diagonal-size"
+                        <input type="number" id="app_diag " data-cm-max="206 " data-mm-max="2060 " data-in-max="81" data-cm-min="2.5" data-mm-min="25"
+                            data-in-min="1 " data-cm-step="0.1 " data-mm-step="1" data-in-step="0.1" class="form-control" name="diagonal-size"
                             step="0.1" value="14" min="0.1" max="81" onfocusout="">
                         <input type="checkbox" id="app_compute_switch_diagonal" data-toggle="toggle" data-on="&#11044;" data-off="&#9644;" data-onstyle="success"
                             data-offstyle="info">
-                        <!--
-                        <div class="input-group-append">
-
-                            
-                                data-app-contr-id refers to id of the sibling (or element) doing opposite action of this element
-                                data-app-translate marks this element as translatable
-                                data-text  specifies text to translate and display as (text) content of this element
-                                data-app-switch-on/off are the input to enable/disable
-                                data-app-input-linked input(s) which in the same group as this the element
-                            
-                           
-                            <span class="input-group-text switch-radio bg-red-custom-1" id="app_switch_diag_0" data-app-contr-id="app_switch_diag_1"
-                                data-app-switch-off="app_phys_width,app_phys_height" data-app-switch-on="app_diag" data-app-translate="1"
-                                data-text="off">Off
-                            </span>
-                            <span class="input-group-text switch-radio" id="app_switch_diag_1" data-app-contr-id="app_switch_diag_0" data-app-switch-on="app_phys_width,app_phys_height"
-                                data-app-switch-off="app_diag" data-app-input-linked="app_diag" data-app-translate="1" data-text="on">On&nbsp;
-                                <span class="badge badge-dark about-switcher">?</span>
-                            </span>
-                        </div>
-                    -->
                     </div>
                     <!--Screen Aspect Ratio-->
                     <div class="input-group pad5">
@@ -95,7 +81,7 @@
                             <optgroup label="wide" data-app-translate="1" data-app-text="wide">
                                 <option value="3/2">3:2</option>
                                 <option value="16/10">16:10</option>
-                                <option value="5/3">5:3</option>
+                                <option value="5/3 ">5:3</option>
                             </optgroup>
                             <optgroup label="wider" data-app-translate="1" data-app-text="wider">
                                 <option value="16/9" selected>16:9</option>
@@ -109,35 +95,22 @@
                                 <option value="21/9">21:9</option>
                             </optgroup>
                             <optgroup label="Computed" data-app-translate="1" data-app-text="computed">
-                                <option value="0">Computed</option>
+                                <option value="0 ">Computed</option>
                             </optgroup>
                         </select>
                         <input type="checkbox" id="app_compute_switch_aspect_ratio" data-toggle="toggle" data-on="&#11044;" data-off="&#9644;" data-onstyle="success"
                             data-offstyle="info">
-                        <!--
-                        <div class="input-group-append">
-                            <span class="input-group-text switch-radio bg-red-custom-1" id="app_switch_aspect_ratio_0" data-app-contr-id="app_switch_aspect_ratio_1"
-                                data-app-switch-off="" data-app-switch-on="" data-app-translate="1" data-text="off">Off</span>
-                            <span class="input-group-text switch-radio" id="app_switch_aspect_ratio_1" data-app-contr-id="app_switch_aspect_ratio_0"
-                                data-app-translate="1" data-text="on">On</span>
-                        </div>-->
+
                     </div>
                     <!--Screen Aspect Ratio (Decimal)-->
                     <div class="input-group pad5">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" data-app-translate="1" data-app-text="diagonal">Ratio(Decimal)</span>
+                            <span class="input-group-text " data-app-translate="1" data-app-text="aspect_ratio">Ratio(Decimal)</span>
                         </div>
-                        <input type="number" class="form-control" id="app_aspect_ratio_decimal" name="diagonal-size" step="0.1" value="1.78" min="0.25"
-                            max="4" onfocusout="" disabled>
+                        <input type="number" class="form-control" id="app_aspect_ratio_decimal" step="0.1" value="1.78" min="0.25" max="4" onfocusout=""
+                            disabled>
                         <input type="checkbox" id="app_compute_switch_aspect_ratio_decimal" data-toggle="toggle" data-on="&#11044;" data-off="&#9644;"
                             data-onstyle="success" data-offstyle="info">
-                        <!--
-                        <div class="input-group-append">
-                            <span class="input-group-text switch-radio" data-app-switch-off="app_res_height,app_res_width,app_aspect_ratio" data-app-switch-on="app_aspect_ratio_decimal"
-                                data-app-translate="1" data-text="compute_value_off">Off</span>
-                            <span class="input-group-text switch-radio bg-light-green" data-app-switch-on="ratio" data-app-switch-off="ratio_decimal"
-                                data-app-translate="1" data-text="compute_value_on">On</span>
-                        </div>-->
                     </div>
                     <!--Screen Resolution-->
                     <span data-app-translate="1" data-app-text="screen_res_pixels">Screen Resolution : Width and Height (pixels)</span>
@@ -145,32 +118,19 @@
                     <div class="input-group pad5">
                         <input type="number" id="height" name="app_res_height" class="form-control" step="1" value="1920" min="160" max="8640" onfocusout=""
                             disabled>
-                        <input type="number" id="width" name="app_res_width" class="form-control" step="1" value="1080" min="128" max="4320" onfocusout=""
+                        <input type="number" id="width" name="app_res_width" class="form-control" step="1" value="1080" min="128 " max="4320" onfocusout=""
                             disabled>
                         <input type="checkbox" checked id="app_compute_switch_resolution" data-toggle="toggle" data-on="&#11044;" data-off="&#9644;"
                             data-onstyle="success" data-offstyle="info">
-                        <!--
-                        <span class="input-group-text switch-radio" data-app-switch-on="height,width" data-app-switch-off="ratio,ratio_decimal,ppi"
-                            data-app-translate="1" data-app-text="off" data-variable="resolution_width_compute" data-value="0">Off</span>
-                        <span class="input-group-text switch-radio bg-light-green" data-app-switch-off="height,width" data-app-switch-on="ratio,ppi"
-                            data-app-translate="1" data-app-text="on" data-variable="resolution_width_compute" data-value="1">On</span>
-                            -->
                     </div>
                     <!--Pixels per unit-->
                     <div class="input-group pad5">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" data-app-translate="1" data-variable="pixels_per_unit">Pixels/Inch</span>
+                            <span class="input-group-text" data-app-translate="1" data-app-text="pixels_per_cm">Pixels/CM</span>
                         </div>
-                        <input type="number" id="app_pixels_per_unit" name="ppu" class="form-control" step="1" value="401" min="1" max="1000">
+                        <input type="number" id="app_pixels_per_unit" name="ppu" class="form-control" step="1" value="160" min="1" max="1000">
                         <input type="checkbox" id="app_compute_switch_pixels_per_unit" data-toggle="toggle" data-on="&#11044;" data-off="&#9644;"
                             data-onstyle="success" data-offstyle="info">
-                        <!--
-                        <div class="input-group-append">
-                            <span class="input-group-text switch-radio bg-red-custom-1" data-app-switch-off="height,width" data-app-switch-on="ratio,ppi"
-                                data-variable="resolution_height_compute" data-value="0">Off</span>
-                            <span class="input-group-text switch-radio" data-app-switch-on="height,width" data-app-switch-off="ratio,ratio_decimal,ppi"
-                                data-variable="resolution_height_compute" data-value="1">On</span>
-                        </div>-->
                     </div>
                     <!--Screen Size-->
                     <span data-app-translate="1" data-app-text="screen_size">Screen Size : Width* and Height*</span>
@@ -179,17 +139,10 @@
                     <div class="input-group pad5">
                         <input type="number" id="app_phys_width" name="phys_width" class="form-control" step="0.1" value="6.9" min="0.1" max="2000"
                             disabled>
-                        <input type="number" id="app_phys_height" name="phys_height" class="form-control" step="1" value="12.1" min="1" max="1500"
+                        <input type="number" id="app_phys_height" name="phys_height" class="form-control" step="" value="12.1" min="1" max="1500"
                             disabled>
-                        <input type="checkbox" id="app_compute_switch_physical_size" data-toggle="toggle" data-on="&#11044;" data-off="&#9644;"
-                            data-onstyle="success" data-offstyle="info">
-                        <!--
-                        <div class="input-group-append">
-                            <span class="input-group-text switch-radio " data-app-switch-off="diag" data-app-switch-on="phys_width,phys_height" data-variable="resolution_height_compute"
-                                data-value="0">Off</span>
-                            <span class="input-group-text switch-radio bg-light-green" data-app-switch-on="diag" data-app-switch-off="phys_width,phys_height"
-                                data-variable="resolution_height_compute" data-value="1">On</span>
-                        </div>-->
+                        <input type="checkbox" id="app_compute_switch_physical_size" data-toggle="toggle" data-on="&#11044;" data-off="&#9644;" data-onstyle="success"
+                            data-offstyle="info">
                     </div>
                     <!--Scren area physical-->
                     <div class="input-group pad5">
@@ -198,10 +151,11 @@
                         </div>
                         <input type="text" id="app_screen_area" name="area" class="form-control" disabled>
                         <div class="input-group-append">
-                            <span class="input-group-text" data-app-translate="1" data-app-text="screen_area_unit" style="font-weight: bold;">in&#178;</span>
+                            <span class="input-group-text" data-app-translate="1" data-app-text="cm" addhtmlentity="1" charcodes="178" style="font-weight:bold;">cm&#178;</span>
                         </div>
                     </div>
-                    <button id="App_calc_button" type="button" class="btn btn-outline-primary" data-app-translate="1" data-app-text="calculate">Calculate</button>
+                    <button id="App_calc_button" type="button" class="btn btn-outline-primary" data-app-translate="1" data-app-text="calculate">
+                        Calculate </button>
                 </form>
             </div>
         </div>
@@ -209,20 +163,20 @@
 
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js " integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN "
+        crossorigin="anonymous "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js " integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q "
+        crossorigin="anonymous "></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js " integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl "
+        crossorigin="anonymous "></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js "></script>
     <!--my pathetic scripts-->
-    <script src="custom-events.js"></script>
-    <script src="lib.js"></script>
-    <script src="toggle.js"></script>
-    <script src="translate.js"></script>
-    <script src="script.js"></script>
-    <script src="calc.js"></script>
+    <script src="custom-events.js "></script>
+    <script src="util.js "></script>
+    <script src="toggle.js "></script>
+    <script src="translate.js "></script>
+    <script src="script.js "></script>
+    <script src="calc.js "></script>
 
 </body>
 
