@@ -67,7 +67,7 @@ var TranslateData = {
         georgian: 'ეკრანის ფართობი'
     }, screen_res_pixels: {
         english: 'Screen Resolution : Width and Height (pixels)',
-        georgian: 'ეკრანის გაფართოება : სიგრძე/სიგანე (პიქსელებში)'
+        georgian: 'გაფართოება : სიგრძე/სიგანე (პიქსელებში)'
     }, screen_size: {
         english: 'Screen Size : Width* and Height*',
         georgian: 'ეკრანის ზომები : სიგრძე*/სიგანე*'

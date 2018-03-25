@@ -111,4 +111,30 @@ class Convert {
             };
         }
     }
+    static FromTo(from, to, number) {
+        if (typeof number !== "number" || typeof from !== "string" || typeof to !== "string") {
+            return {
+                success: false,
+                reason: 'type mismatch'
+            }
+        } else {
+            let r;
+            switch (to) {
+                case "inch":
+                    r = Convert.ToInch(from, number);
+                    break;
+                case "centimetre":
+                    r = Convert.ToCentimetre(from, number);
+                    break;
+                case "millimetre":
+                    r = Convert.ToMillimetre(from, number);
+                    break;
+                default: r = {
+                    success: false,
+                    reason: 'unit not found'
+                };
+            }
+            return r;
+        }
+    }
 }

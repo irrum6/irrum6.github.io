@@ -31,11 +31,11 @@
                 <!--Unit Switcher-->
                 <div class="input-group pad10">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="unitoptions" id="unitradio1" value="option1">
+                        <input class="form-check-input" type="radio" name="unitoptions" id="unitradio1" value="inch">
                         <label class="form-check-label" for="unitradio1" data-app-translate="1" data-app-text="inch">Inch</label>
-                        <input class="form-check-input" type="radio" name="unitoptions" id="unitradio2" value="option2" checked>
+                        <input class="form-check-input" type="radio" name="unitoptions" id="unitradio2" value="centimetre" checked>
                         <label class="form-check-label" for="unitradio2" data-app-translate="1" data-app-text="centimetre">Centimetre</label>
-                        <input class="form-check-input" type="radio" name="unitoptions" id="unitradio3" value="option3">
+                        <input class="form-check-input" type="radio" name="unitoptions" id="unitradio3" value="millimetre">
                         <label class="form-check-label" for="unitradio3" data-app-translate="1" data-app-text="millimetre">Millimetre</label>
                     </div>
                 </div>
@@ -47,10 +47,6 @@
                 <form>
                     <!--instruction-->
                     <span>
-                        <!--
-                            items in data-attribute-text correspond items in data-app-translate-attribute
-                            so "data-on"-s translated text must be from translated input_field
-                        -->
                         <input type="checkbox" data-size="small" data-toggle="toggle" data-on="&#11044; Compute Field" data-off="&#9644; Input Field"
                             data-onstyle="success" data-offstyle="info">
                         <input type="checkbox" checked data-size="small" data-toggle="toggle" data-on="&#11044; ველის გამოთვლა" data-off="&#9644; ველის შევსება"
@@ -62,7 +58,7 @@
                             <span class="input-group-text " data-app-translate="1" data-app-text="diagonal">Diagonal</span>
                         </div>
                         <!--Since Screen diagonal can be measure in many units it better to provide max and min values for each-->
-                        <input type="number" id="app_diag " data-cm-max="206 " data-mm-max="2060 " data-in-max="81" data-cm-min="2.5" data-mm-min="25"
+                        <input type="number" id="app_diag " data-convertable="1" data-cm-max="206 " data-mm-max="2060 " data-in-max="81" data-cm-min="2.5" data-mm-min="25"
                             data-in-min="1 " data-cm-step="0.1 " data-mm-step="1" data-in-step="0.1" class="form-control" name="diagonal-size"
                             step="0.1" value="14" min="0.1" max="81" onfocusout="">
                         <input type="checkbox" id="app_compute_switch_diagonal" data-toggle="toggle" data-on="&#11044;" data-off="&#9644;" data-onstyle="success"
@@ -137,9 +133,9 @@
                     </span>
                     <!--Screen Size physical-->
                     <div class="input-group pad5">
-                        <input type="number" id="app_phys_width" name="phys_width" class="form-control" step="0.1" value="6.9" min="0.1" max="2000"
+                        <input type="number" data-convertable="1" id="app_phys_width" name="phys_width" class="form-control" step="0.1" value="6.9" min="0.1" max="2000"
                             disabled>
-                        <input type="number" id="app_phys_height" name="phys_height" class="form-control" step="" value="12.1" min="1" max="1500"
+                        <input type="number" data-convertable="1" id="app_phys_height" name="phys_height" class="form-control" step="" value="12.1" min="1" max="1500"
                             disabled>
                         <input type="checkbox" id="app_compute_switch_physical_size" data-toggle="toggle" data-on="&#11044;" data-off="&#9644;" data-onstyle="success"
                             data-offstyle="info">
@@ -149,13 +145,13 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" data-app-translate="1" data-app-text="screen_area">Screen area</span>
                         </div>
-                        <input type="text" id="app_screen_area" name="area" class="form-control" disabled>
+                        <input type="text" data-convertable="0" id="app_screen_area" name="area" class="form-control" disabled>
                         <div class="input-group-append">
                             <span class="input-group-text" data-app-translate="1" data-app-text="cm" addhtmlentity="1" charcodes="178" style="font-weight:bold;">cm&#178;</span>
                         </div>
                     </div>
-                    <button id="App_calc_button" type="button" class="btn btn-outline-primary" data-app-translate="1" data-app-text="calculate">
-                        Calculate </button>
+                    <a href="#" id="App_calc_button" role="button" class="btn btn-outline-primary" data-app-translate="1" data-app-text="calculate">
+                        Calculate </a>
                 </form>
             </div>
         </div>
@@ -176,7 +172,7 @@
     <script src="toggle.js "></script>
     <script src="translate.js "></script>
     <script src="script.js "></script>
-    <script src="calc.js "></script>
+    <script src="app.js "></script>
 
 </body>
 

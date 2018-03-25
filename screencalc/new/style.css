@@ -20,22 +20,9 @@
 .bold700 {
     font-weight: 700;
 }
-
-.about-switcher{
-    cursor: pointer;
-    user-select: none;
-    -moz-user-select: none;
-    -ms-touch-select: none;
-    -ms-user-select: none;
-    -webkit-user-select: none;
-}
-
-.switch-radio{
-    user-select: none;
-    -moz-user-select: none;
-    -ms-touch-select: none;
-    -ms-user-select: none;
-    -webkit-user-select: none;
+[name="unitoptions"]{
+    background-color: #2196F3;
+    color: #2196F3;
 }
 /* Bootstrap Toggle v2.2.2 corrections for Bootsrtap 4*/
 .toggle-off {

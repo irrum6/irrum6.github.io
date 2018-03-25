@@ -1,4 +1,45 @@
-let switchradios = document.body.querySelectorAll(".switch-radio");
+/**
+ * 
+ * @param {object[ScreenCalc]} myApp 
+ */
+function SetUpUnitSwitchers(myApp) {
+    let radios = Lib.qa("[name='unitoptions']");
+
+    console.log(radios);
+    for (let i = 0, len = radios.length; i < len; i++) {
+        radios[i].addEventListener('click', (event) => {
+            //console.log(event.target.id, event.target.checked);
+            let checked = event.target.checked;
+            if (checked) {
+                let from = myApp.Unit;
+                let to = event.target.value;
+                //swtich(to){}
+                let convertables = Lib.qa('[data-convertable="1"]');
+                for (let i = 0, len = convertables.length; i < len; i++) {
+                    let value = Number.parseFloat(convertables[i].value);
+                    value = Convert.FromTo(from, to, value);
+                    if (value.success) {
+                        convertables[i].value = Number.parseFloat(value.result);
+                    }
+                }
+            }
+            myApp.Unit = event.target.value;
+        });
+    }
+}
+
+/**
+ * @param {string} elemlist 
+ * @param {boolean} off 
+ */
+function OnsAndOffs(elemlist, off) {
+    let offs = elemlist.split(',');
+    for (let i = 0, len = offs.length; i < len; i++) {
+        document.getElementById(offs[i]).disabled = off;
+    }
+}
+
+/*let switchradios = document.body.querySelectorAll(".switch-radio");
 
 for (let i = 0, len = switchradios.length; i < len; i++) {
     switchradios[i].addEventListener('click', (event) => {
@@ -25,14 +66,4 @@ for (let i = 0, len = switchradios.length; i < len; i++) {
         }
     });
 }
-/**
- * 
- * @param {string} elemlist 
- * @param {boolean} off 
- */
-function OnsAndOffs(elemlist, off) {
-    let offs = elemlist.split(',');
-    for (let i = 0, len = offs.length; i < len; i++) {
-        document.getElementById(offs[i]).disabled = off;
-    }
-}
+*/
