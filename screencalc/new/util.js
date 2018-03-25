@@ -1,7 +1,8 @@
 class Lib {
     /**
      * Check if is positive integer
-     * @param {*} args 
+     * @param {*} args
+     * @returns {boolean}
      */
     static isPositiveInteger(...args) {
         if (args.length > 0) {
@@ -16,7 +17,8 @@ class Lib {
     }
     /**
      * check if is a number
-     * @param {*} args 
+     * @param {*} args
+     * @returns {boolean}
      */
     static isNumber(...args) {
         if (args.length > 0) {
@@ -31,7 +33,8 @@ class Lib {
     }
     /**
      * Query one element matching selector
-     * @param {string} selector 
+     * @param {string} selector
+     * @returns {HTMLElementsCollection}
      */
     static q(selector) {
         //force convert to string and query
@@ -39,7 +42,8 @@ class Lib {
     }
     /**
      * Query all elements matching selector
-     * @param {string} selector 
+     * @param {string} selector
+     * @returns {HTMLElementsCollection}
      */
     static qa(selector) {
         //force convert to string and query
@@ -48,6 +52,11 @@ class Lib {
 }
 
 class Convert {
+    /**
+     * @param {string} from 
+     * @param {number} number
+     * @returns {object}
+     */
     static ToInch(from, number) {
         if (typeof number !== "number" || typeof from !== "string") {
             return {
@@ -69,6 +78,11 @@ class Convert {
             };
         }
     }
+    /**
+     * @param {string} from 
+     * @param {number} number
+     * @returns {object}
+     */
     static ToCentimetre(from, number) {
         if (typeof number !== "number" || typeof from !== "string") {
             return {
@@ -90,6 +104,11 @@ class Convert {
             };
         }
     }
+    /**
+     * @param {string} from 
+     * @param {number} number
+     * @returns {object}
+     */
     static ToMillimetre(from, number) {
         if (typeof number !== "number" || typeof from !== "string") {
             return {
@@ -111,6 +130,11 @@ class Convert {
             };
         }
     }
+    /**
+     * @param {string} from 
+     * @param {number} number
+     * @returns {object}
+     */
     static FromTo(from, to, number) {
         if (typeof number !== "number" || typeof from !== "string" || typeof to !== "string") {
             return {

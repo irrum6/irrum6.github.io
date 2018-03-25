@@ -58,9 +58,8 @@
                             <span class="input-group-text " data-app-translate="1" data-app-text="diagonal">Diagonal</span>
                         </div>
                         <!--Since Screen diagonal can be measure in many units it better to provide max and min values for each-->
-                        <input type="number" id="app_diag " data-convertable="1" data-cm-max="206 " data-mm-max="2060 " data-in-max="81" data-cm-min="2.5" data-mm-min="25"
-                            data-in-min="1 " data-cm-step="0.1 " data-mm-step="1" data-in-step="0.1" class="form-control" name="diagonal-size"
-                            step="0.1" value="14" min="0.1" max="81" onfocusout="">
+                        <input type="number" data-app-reference="diagonal" data-app-convertable="1" class="form-control" name="diagonal-size" step="0.1"
+                            value="14" onfocusout="">
                         <input type="checkbox" id="app_compute_switch_diagonal" data-toggle="toggle" data-on="&#11044;" data-off="&#9644;" data-onstyle="success"
                             data-offstyle="info">
                     </div>
@@ -69,7 +68,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" data-app-translate="1" data-app-text="aspect_ratio">Aspect Ratio</span>
                         </div>
-                        <select name="ratio" class="form-control" id="app_aspect_ratio">
+                        <select name="ratio" class="form-control" data-app-reference="aspect-ratio" id="app_aspect_ratio">
                             <optgroup label="squarish" data-app-translate="1" data-app-text="squarish">
                                 <option value="5/4">5:4</option>
                                 <option value="4/3">4:3</option>
@@ -133,10 +132,10 @@
                     </span>
                     <!--Screen Size physical-->
                     <div class="input-group pad5">
-                        <input type="number" data-convertable="1" id="app_phys_width" name="phys_width" class="form-control" step="0.1" value="6.9" min="0.1" max="2000"
-                            disabled>
-                        <input type="number" data-convertable="1" id="app_phys_height" name="phys_height" class="form-control" step="" value="12.1" min="1" max="1500"
-                            disabled>
+                        <input type="number" data-convertable="1" id="app_phys_width" name="phys_width" class="form-control" step="0.1" value="6.9"
+                            min="0.1" max="2000" disabled>
+                        <input type="number" data-convertable="1" id="app_phys_height" name="phys_height" class="form-control" step="" value="12.1"
+                            min="1" max="1500" disabled>
                         <input type="checkbox" id="app_compute_switch_physical_size" data-toggle="toggle" data-on="&#11044;" data-off="&#9644;" data-onstyle="success"
                             data-offstyle="info">
                     </div>
@@ -148,6 +147,16 @@
                         <input type="text" data-convertable="0" id="app_screen_area" name="area" class="form-control" disabled>
                         <div class="input-group-append">
                             <span class="input-group-text" data-app-translate="1" data-app-text="cm" addhtmlentity="1" charcodes="178" style="font-weight:bold;">cm&#178;</span>
+                        </div>
+                    </div>
+                    <!--Scren area pixels-->
+                    <div class="input-group pad5">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" data-app-translate="1" data-app-text="screen_area">Screen area</span>
+                        </div>
+                        <input type="text" data-convertable="0" class="form-control" disabled>
+                        <div class="input-group-append">
+                            <span class="input-group-text" style="font-weight:bold;">pixels</span>
                         </div>
                     </div>
                     <a href="#" id="App_calc_button" role="button" class="btn btn-outline-primary" data-app-translate="1" data-app-text="calculate">
