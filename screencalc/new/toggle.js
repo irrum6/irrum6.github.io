@@ -13,7 +13,7 @@ function SetUpUnitSwitchers(myApp) {
             if (checked) {
                 let from = myApp.Unit;
                 let to = event.target.value;
-                let convertables = Lib.qa('[data-convertable="1"]');
+                let convertables = Lib.qa('[data-app-convertable="1"]');
                 for (let i = 0, len = convertables.length; i < len; i++) {
                     let value = Number.parseFloat(convertables[i].value);
                     value = Convert.FromTo(from, to, value);
@@ -23,7 +23,7 @@ function SetUpUnitSwitchers(myApp) {
                 }
                 myApp.Unit = event.target.value;
             }
-            
+
         });
     }
 }
