@@ -120,7 +120,7 @@ class Convert {
                 case "centimetre":
                     number = number * 10;
                     break;
-                case "millimetre":
+                case "inch":
                     number = number * 25.4;
                     break;
             }
