@@ -77,6 +77,9 @@ var TranslateData = {
     }, input_field: {
         english: '&#9644; Input Field',
         georgian: '&#9644; ველის შევსება'
+    }, pixels: {
+        english: 'pixels',
+        georgian: 'პიქსელი'
     }
 };
 
@@ -94,7 +97,12 @@ class Translate {
         for (let i = 0, len = translatableItems.length; i < len; i++) {
             let elem = translatableItems[i];
             let textToTranslate = elem.getAttribute("data-app-text");
-            elem.textContent = TranslateData[textToTranslate][language];
+            let tag = elem.tagName;
+            if (tag === "OPTGROUP") {
+                elem.setAttribute("label", TranslateData[textToTranslate][language]);
+            } else {
+                elem.textContent = TranslateData[textToTranslate][language];
+            }
             if (elem.hasAttribute('addhtmlentity') && elem.getAttribute('addhtmlentity') === "1") {
                 let chars = elem.getAttribute('charcodes').split(",").map((elem) => {
                     return String.fromCharCode(parseInt(elem));

@@ -19,41 +19,62 @@ const INCH_STEP = 0.1;
 //list of references to html element 
 //constant and immutable
 const references = ["diagonal", "aspect-ratio", "aspect-ratio-decimal", "pixel-width", "pixel-height",
-    "pixels-per-unit", "pixel-area", "unit-width", "unit-height", "unit-area"];
+    "pixels-per-unit", "pixel-area", "unit-width", "unit-height", "unit-area", "calc-button"];
 Object.freeze(references);
 
 class ScreenCalc {
-    /**
-     * 
-     * @param {string} u 
-     */
-    constructor(u) {
-        this.Unit = u;
+    constructor() {
         this.init();
-        this.getElements();
-        this.calc();
     }
     init() {
+        this.elements = {};
+        this.addElements();
+        this.addUnitElements();
+        let len = this.UnitSwitch.length;
+        for (let i = 0; i < len; i++) {
+            if (this.UnitSwitch[i].checked) {
+                this.Unit = this.UnitSwitch[i].value;
+            }
+        }
+        this.calc();
     }
     calc() {
         //if(this)
     }
-    getElements() {
-        this.elements = {};
+    //add references to html elements to app
+    //unit switcher
+    addUnitElements() {
+        if (typeof this.elements === 'undefined' || this.elements === null) {
+            this.elements = {};
+        }
+        let units = document.querySelectorAll('[data-app-reference="unit"]');
+        let arr = [];
+        for (let i = 0, len = units.length; i < len; i++) {
+            arr.push(units[i].value);
+        }
+        this["-valid-units"] = arr;
+        this.elements["-units"] = units;
+    }
+    //get unit switchers
+    get UnitSwitch() {
+        return this.elements["-units"];
+    }
+    addElements() {
         let len = references.length;
         for (let i = 0; i < len; i++) {
             let selector = '[data-app-reference="#ref"]'.replace("#ref", references[i]);
             let elem = document.querySelector(selector);
             this.elements[references[i]] = elem;
         }
-        console.log(this.elements)
+    }
+    get ValidUnits() {
+        return this["-valid-units"];
     }
     /**
      * @param {string} u //unit
      */
     set Unit(u) {
-        let validunits = ["inch", "centimetre", "millimetre"];
-        if (validunits.includes(u)) {
+        if (this.ValidUnits.includes(u)) {
             this["-unit"] = u;
         } else {
             console.log("unsupported or invalid type");
@@ -67,6 +88,6 @@ class ScreenCalc {
     }
 }
 
-var myApp = new ScreenCalc("centimetre");
+var myApp = new ScreenCalc();
 
 SetUpUnitSwitchers(myApp);

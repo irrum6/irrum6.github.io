@@ -4,8 +4,6 @@
  */
 function SetUpUnitSwitchers(myApp) {
     let radios = Lib.qa("[name='unitoptions']");
-
-    console.log(radios);
     for (let i = 0, len = radios.length; i < len; i++) {
         radios[i].addEventListener('click', (event) => {
             //console.log(event.target.id, event.target.checked);

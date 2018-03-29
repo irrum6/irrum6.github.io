@@ -27,15 +27,16 @@
     </nav>
     <div class="container" id="mainbox">
         <div class="row">
-            <div class="col-md-6 tect-center">
+            <div class="col-md-6 text-center">
                 <!--Unit Switcher-->
                 <div class="input-group pad10">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="unitoptions" id="unitradio1" value="inch">
+                        <input class="form-check-input" data-app-reference="unit" type="radio" name="unitoptions" id="unitradio1" value="inch">
                         <label class="form-check-label" for="unitradio1" data-app-translate="1" data-app-text="inch">Inch</label>
-                        <input class="form-check-input" type="radio" name="unitoptions" id="unitradio2" value="centimetre" checked>
+                        <input class="form-check-input" data-app-reference="unit" type="radio" name="unitoptions" id="unitradio2" value="centimetre"
+                            checked>
                         <label class="form-check-label" for="unitradio2" data-app-translate="1" data-app-text="centimetre">Centimetre</label>
-                        <input class="form-check-input" type="radio" name="unitoptions" id="unitradio3" value="millimetre">
+                        <input class="form-check-input" data-app-reference="unit" type="radio" name="unitoptions" id="unitradio3" value="millimetre">
                         <label class="form-check-label" for="unitradio3" data-app-translate="1" data-app-text="millimetre">Millimetre</label>
                     </div>
                 </div>
@@ -60,8 +61,8 @@
                         <!--Since Screen diagonal can be measure in many units it better to provide max and min values for each-->
                         <input type="number" data-app-reference="diagonal" data-app-convertable="1" class="form-control" name="diagonal-size" step="0.1"
                             value="14" onfocusout="">
-                        <input type="checkbox" id="app_compute_switch_diagonal" data-toggle="toggle" data-on="&#11044;" data-off="&#9644;" data-onstyle="success"
-                            data-offstyle="info">
+                        <input type="checkbox" data-app-linked-inputs="diagonal|unit-width,unit-height" class="switcheroo" data-toggle="toggle" data-on="&#11044;"
+                            data-off="&#9644;" data-onstyle="success" data-offstyle="info">
                     </div>
                     <!--Screen Aspect Ratio-->
                     <div class="input-group pad5">
@@ -93,8 +94,8 @@
                                 <option value="0 ">Computed</option>
                             </optgroup>
                         </select>
-                        <input type="checkbox" id="app_compute_switch_aspect_ratio" data-toggle="toggle" data-on="&#11044;" data-off="&#9644;" data-onstyle="success"
-                            data-offstyle="info">
+                        <input type="checkbox" class="switcheroo" data-app-linked-inputs="aspect-ratio|aspect-ratio-decimal,pixel-width,pixel-height"
+                            data-toggle="toggle" data-on="&#11044;" data-off="&#9644;" data-onstyle="success" data-offstyle="info">
 
                     </div>
                     <!--Screen Aspect Ratio (Decimal)-->
@@ -104,19 +105,19 @@
                         </div>
                         <input type="number" data-app-reference="aspect-ratio-decimal" class="form-control" id="app_aspect_ratio_decimal" step="0.1"
                             value="1.78" min="0.25" max="4" onfocusout="" disabled>
-                        <input type="checkbox" id="app_compute_switch_aspect_ratio_decimal" data-toggle="toggle" data-on="&#11044;" data-off="&#9644;"
-                            data-onstyle="success" data-offstyle="info">
+                        <input type="checkbox" class="switcheroo" checked data-app-linked-inputs="aspect-ratio-decimal|aspect-ratio,pixel-width,pixel-height"
+                            data-toggle="toggle" data-on="&#11044;" data-off="&#9644;" data-onstyle="success" data-offstyle="info">
                     </div>
                     <!--Screen Resolution-->
                     <span data-app-translate="1" data-app-text="screen_res_pixels">Screen Resolution : Width and Height (pixels)</span>
                     </span>
                     <div class="input-group pad5">
-                        <input type="number" data-app-reference="pixel-width" id="width" name="app_res_width" class="form-control" step="1" value="1080"
-                            min="160 " max="8640" onfocusout="" disabled>
-                        <input type="number" id="height" data-app-reference="pixel-height" name="app_res_height" class="form-control" step="1" value="1920"
-                            min="128" max="4320" onfocusout="" disabled>
-                        <input type="checkbox" checked id="app_compute_switch_resolution" data-toggle="toggle" data-on="&#11044;" data-off="&#9644;"
-                            data-onstyle="success" data-offstyle="info">
+                        <input type="number" data-app-reference="pixel-width" id="width" name="app_res_width" class="form-control" step="1" value="1920"
+                            min="160 " max="8640" onfocusout="">
+                        <input type="number" id="height" data-app-reference="pixel-height" name="app_res_height" class="form-control" step="1" value="1080"
+                            min="128" max="4320" onfocusout="">
+                        <input type="checkbox" class="switcheroo" data-app-linked-inputs="pixel-width,pixel-height|aspect-ratio,pixels-per-unit"
+                            data-toggle="toggle" data-on="&#11044;" data-off="&#9644;" data-onstyle="success" data-offstyle="info">
                     </div>
                     <!--Pixels per unit-->
                     <div class="input-group pad5">
@@ -124,9 +125,9 @@
                             <span class="input-group-text" data-app-translate="1" data-app-text="pixels_per_cm">Pixels/CM</span>
                         </div>
                         <input type="number" data-app-reference="pixels-per-unit" id="app_pixels_per_unit" name="ppu" class="form-control" step="1"
-                            value="160" min="1" max="1000">
-                        <input type="checkbox" id="app_compute_switch_pixels_per_unit" data-toggle="toggle" data-on="&#11044;" data-off="&#9644;"
-                            data-onstyle="success" data-offstyle="info">
+                            value="40" min="1" max="1000" disabled>
+                        <input type="checkbox" class="switcheroo" data-app-linked-inputs="pixels-per-unit|pixel-width,pixel-height" data-toggle="toggle"
+                            data-on="&#11044;" data-off="&#9644;" data-onstyle="success" checked data-offstyle="info">
                     </div>
                     <!--Screen Size-->
                     <span data-app-translate="1" data-app-text="screen_size">Screen Size : Width* and Height*</span>
@@ -137,7 +138,7 @@
                             step="0.1" value="6.9" min="0.1" max="2000" disabled>
                         <input type="number" data-app-reference="unit-height" data-app-convertable="1" id="app_phys_height" name="phys_height" class="form-control"
                             step="" value="12.1" min="1" max="1500" disabled>
-                        <input type="checkbox" id="app_compute_switch_physical_size" data-toggle="toggle" data-on="&#11044;" data-off="&#9644;" data-onstyle="success"
+                        <input type="checkbox" checked class="switcheroo" data-toggle="toggle" data-on="&#11044;" data-off="&#9644;" data-onstyle="success"
                             data-offstyle="info">
                     </div>
                     <!--Scren area physical-->
@@ -158,10 +159,11 @@
                         </div>
                         <input type="text" data-app-reference="pixel-area" data-convertable="0" class="form-control" disabled>
                         <div class="input-group-append">
-                            <span class="input-group-text" style="font-weight:bold;">pixels</span>
+                            <span class="input-group-text" style="font-weight:bold;" data-app-translate="1" data-app-text="pixels">pixels</span>
                         </div>
                     </div>
-                    <a href="#" id="App_calc_button" role="button" class="btn btn-outline-primary" data-app-translate="1" data-app-text="calculate">
+                    <a href="#" id="App_calc_button" data-app-reference="calc-button" role="button" class="btn btn-outline-primary" data-app-translate="1"
+                        data-app-text="calculate">
                         Calculate </a>
                 </form>
             </div>
