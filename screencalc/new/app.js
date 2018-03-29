@@ -51,6 +51,23 @@ class ScreenCalc {
         let arr = [];
         for (let i = 0, len = units.length; i < len; i++) {
             arr.push(units[i].value);
+            units[i].addEventListener('click', (event) => {
+                //console.log(event.target.id, event.target.checked);
+                let checked = event.target.checked;
+                if (checked) {
+                    let from = this.Unit;
+                    let to = event.target.value;
+                    let convertables = Lib.qa('[data-app-convertable="1"]');
+                    for (let i = 0, len = convertables.length; i < len; i++) {
+                        let value = Number.parseFloat(convertables[i].value);
+                        value = Convert.FromTo(from, to, value);
+                        if (value.success) {
+                            convertables[i].value = Number.parseFloat(value.result);
+                        }
+                    }
+                    this.Unit = event.target.value;
+                }
+            });
         }
         this["-valid-units"] = arr;
         this.elements["-units"] = units;
@@ -89,5 +106,3 @@ class ScreenCalc {
 }
 
 var myApp = new ScreenCalc();
-
-SetUpUnitSwitchers(myApp);
