@@ -39,7 +39,7 @@ class ScreenCalc {
         this.calc();
     }
     calc() {
-        //if(this)
+        //if(this)        
     }
     //add references to html elements to app
     //unit switcher
@@ -52,7 +52,6 @@ class ScreenCalc {
         for (let i = 0, len = units.length; i < len; i++) {
             arr.push(units[i].value);
             units[i].addEventListener('click', (event) => {
-                //console.log(event.target.id, event.target.checked);
                 let checked = event.target.checked;
                 if (checked) {
                     let from = this.Unit;
@@ -103,6 +102,13 @@ class ScreenCalc {
     get Unit() {
         return this["-unit"];
     }
+    static w600() {
+        if (window.innerWidth < 600) {
+            document.getElementById('Calc_button').classList.add('btn-block');
+            document.getElementById('mainbox').classList.add('container_fluid');
+        }
+    }
 }
 
+ScreenCalc.w600();
 var myApp = new ScreenCalc();

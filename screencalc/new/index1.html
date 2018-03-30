@@ -60,7 +60,7 @@
                         </div>
                         <!--Since Screen diagonal can be measure in many units it better to provide max and min values for each-->
                         <input type="number" data-app-reference="diagonal" data-app-convertable="1" class="form-control" name="diagonal-size" step="0.1"
-                            value="14" onfocusout="">
+                            value="14" onfocusout="">            
                         <input type="checkbox" data-app-linked-inputs="diagonal|unit-width,unit-height" class="switcheroo" data-toggle="toggle" data-on="&#11044;"
                             data-off="&#9644;" data-onstyle="success" data-offstyle="info">
                     </div>
@@ -113,10 +113,10 @@
                     </span>
                     <div class="input-group pad5">
                         <input type="number" data-app-reference="pixel-width" id="width" name="app_res_width" class="form-control" step="1" value="1920"
-                            min="160 " max="8640" onfocusout="">
+                            min="160 " max="8640" disabled>
                         <input type="number" id="height" data-app-reference="pixel-height" name="app_res_height" class="form-control" step="1" value="1080"
-                            min="128" max="4320" onfocusout="">
-                        <input type="checkbox" class="switcheroo" data-app-linked-inputs="pixel-width,pixel-height|aspect-ratio,pixels-per-unit"
+                            min="128" max="4320" disabled>
+                        <input type="checkbox" checked class="switcheroo" data-app-linked-inputs="pixel-width,pixel-height|aspect-ratio,pixels-per-unit"
                             data-toggle="toggle" data-on="&#11044;" data-off="&#9644;" data-onstyle="success" data-offstyle="info">
                     </div>
                     <!--Pixels per unit-->
@@ -125,9 +125,9 @@
                             <span class="input-group-text" data-app-translate="1" data-app-text="pixels_per_cm">Pixels/CM</span>
                         </div>
                         <input type="number" data-app-reference="pixels-per-unit" id="app_pixels_per_unit" name="ppu" class="form-control" step="1"
-                            value="40" min="1" max="1000" disabled>
+                            value="158" min="1" max="1000">
                         <input type="checkbox" class="switcheroo" data-app-linked-inputs="pixels-per-unit|pixel-width,pixel-height" data-toggle="toggle"
-                            data-on="&#11044;" data-off="&#9644;" data-onstyle="success" checked data-offstyle="info">
+                            data-on="&#11044;" data-off="&#9644;" data-onstyle="success" data-offstyle="info">
                     </div>
                     <!--Screen Size-->
                     <span data-app-translate="1" data-app-text="screen_size">Screen Size : Width* and Height*</span>
@@ -135,9 +135,9 @@
                     <!--Screen Size physical-->
                     <div class="input-group pad5">
                         <input type="number" data-app-reference="unit-width" data-app-convertable="1" id="app_phys_width" name="phys_width" class="form-control"
-                            step="0.1" value="6.9" min="0.1" max="2000" disabled>
+                            step="0.1" value="6.85" min="0.1" max="2000" disabled>
                         <input type="number" data-app-reference="unit-height" data-app-convertable="1" id="app_phys_height" name="phys_height" class="form-control"
-                            step="" value="12.1" min="1" max="1500" disabled>
+                            step="" value="12.18" min="1" max="1500" disabled>
                         <input type="checkbox" checked class="switcheroo" data-toggle="toggle" data-on="&#11044;" data-off="&#9644;" data-onstyle="success"
                             data-offstyle="info">
                     </div>
@@ -182,9 +182,7 @@
     <!--my pathetic scripts-->
     <script src="custom-events.js "></script>
     <script src="util.js "></script>
-    <script src="toggle.js "></script>
     <script src="translate.js "></script>
-    <script src="script.js "></script>
     <script src="app.js "></script>
 
 </body>
