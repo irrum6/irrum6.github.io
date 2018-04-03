@@ -23,19 +23,30 @@
 }
 
 span.unit {
+    border:2px solid black;
     padding: 3px;
     display: flex;
     flex-basis: 0;
     flex-grow: 1;
     cursor: pointer;
+    background-color:#404040;
+    /*the coffee color lol*/
+    color:#c0ffee;
+}
+span.unit:first-child{
+    border-top-left-radius: 3%;
+    border-bottom-left-radius: 3%;
+}
+span.unit:last-child{
+    border-top-right-radius: 3%;
+    border-bottom-right-radius: 3%;
 }
 
-span.unit:not(.selected-unit)::before {
-    content: "";
+span.selected-unit {
+    background-color:#808080;
 }
-
-span.selected-unit::before {
-    content: "";
+span.selected-unit::after {
+    content: " ⬤";
 }
 
 /* Bootstrap Toggle v2.2.2 corrections for Bootsrtap 4*/

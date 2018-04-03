@@ -19,7 +19,7 @@ const INCH_STEP = 0.1;
 //list of references to html element 
 //constant and immutable
 const references = ["diagonal", "aspect-ratio", "aspect-ratio-calculated", "pixel-width", "pixel-height",
-    "pixels-per-unit","unit-width", "unit-height", "unit-area"];
+    "pixels-per-unit", "unit-width", "unit-height", "unit-area"];
 Object.freeze(references);
 
 class ScreenCalc {
@@ -32,8 +32,8 @@ class ScreenCalc {
         this.addUnitElements();
         let len = this.UnitSwitch.length;
         for (let i = 0; i < len; i++) {
-            if (this.UnitSwitch[i].checked) {
-                this.Unit = this.UnitSwitch[i].value;
+            if (this.UnitSwitch[i].classList.contains('selected-unit')) {
+                this.Unit = this.UnitSwitch[i].getAttribute('data-value');
             }
         }
         this.calc();
@@ -50,24 +50,18 @@ class ScreenCalc {
         let units = document.querySelectorAll('[data-app-reference="unit"]');
         let arr = [];
         for (let i = 0, len = units.length; i < len; i++) {
-            arr.push(units[i].value);
+            arr.push(units[i].getAttribute('data-value'));
             units[i].addEventListener('click', (event) => {
-                let checked = event.target.checked;
-                if (checked) {
+                Lib.q('span.selected-unit').classList.remove('selected-unit');
+                event.target.classList.add('selected-unit');
+                if (1) {
                     let from = this.Unit;
-                    let to = event.target.value;
-                    let convertables = Lib.qa('[data-app-convertable="1"]');
-                    for (let i = 0, len = convertables.length; i < len; i++) {
-                        let value = Number.parseFloat(convertables[i].value);
-                        value = Convert.FromTo(from, to, value);
-                        if (value.success) {
-                            convertables[i].value = Number.parseFloat(value.result);
-                        }
-                    }
-                    this.Unit = event.target.value;
+                    let to = event.target.getAttribute('data-value');
+                    this.Unit = to;
                 }
-            });
+            }, { passive: true });
         }
+
         this["-valid-units"] = arr;
         this.elements["-units"] = units;
     }
