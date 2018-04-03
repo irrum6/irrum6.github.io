@@ -21,35 +21,29 @@ for (let i = 0; i < len; i++) {
         }
 
     });
-    switchers[i].addEventListener('toggle', (event) => {
+
+    switchers[i].addEventListener('off', (event) => {
         let target = event.target;
-        //current status /computing /using input
-        let switchon = target.getAttribute('data-app-switch-value');
-        let isComputing = (switchon === '1') ? true : false;
         let linked = target.getAttribute('data-app-linked-inputs').split(',');
-        if (isComputing) {
-            //switch to using input
-            //switch the flag
-            target.setAttribute('data-app-switch-value', '0');
-            //enable inputs
-            for (let i = 0, len = linked.length; i < len; i++) {
-                let selector = '[data-app-reference="#ref"]'.replace("#ref", linked[i]);
-                Lib.q(selector).disabled = false;
-            }
-            //visual flag change
-            target.children[0].style.display = "none";
-            target.children[1].style.display = "flex";
-        } else {
-            //switch to use computed value
-            target.setAttribute('data-app-switch-value', '1');
-            //disable inputs
-            for (let i = 0, len = linked.length; i < len; i++) {
-                let selector = '[data-app-reference="#ref"]'.replace("#ref", linked[i]);
-                Lib.q(selector).disabled = true;
-            }
-            //visual flag change
-            target.children[0].style.display = "flex";
-            target.children[1].style.display = "none";
+        //disable inputs
+        for (let i = 0, len = linked.length; i < len; i++) {
+            let selector = '[data-app-reference="#ref"]'.replace("#ref", linked[i]);
+            Lib.q(selector).disabled = true;
         }
+        //visual flag change
+        target.children[0].style.display = "flex";
+        target.children[1].style.display = "none";
+    });
+    switchers[i].addEventListener('on', (event) => {
+        let target = event.target;
+        let linked = target.getAttribute('data-app-linked-inputs').split(',');
+        //enable inputs
+        for (let i = 0, len = linked.length; i < len; i++) {
+            let selector = '[data-app-reference="#ref"]'.replace("#ref", linked[i]);
+            Lib.q(selector).disabled = false;
+        }
+        //visual flag change
+        target.children[0].style.display = "none";
+        target.children[1].style.display = "flex";
     });
 }

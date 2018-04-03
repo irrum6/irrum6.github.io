@@ -1,8 +1,9 @@
 .pad5 {
     padding: 2px;
 }
-.pad10{
-    padding:4px;
+
+.pad10 {
+    padding: 4px;
 }
 
 .bg-light-green {
@@ -20,10 +21,29 @@
 .bold700 {
     font-weight: 700;
 }
+
+span.unit {
+    padding: 3px;
+    display: flex;
+    flex-basis: 0;
+    flex-grow: 1;
+    cursor: pointer;
+}
+
+span.unit:not(.selected-unit)::before {
+    content: "";
+}
+
+span.selected-unit::before {
+    content: "";
+}
+
 /* Bootstrap Toggle v2.2.2 corrections for Bootsrtap 4*/
+
 .toggle-off {
     box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
 }
+
 .toggle.off {
     border-color: rgba(0, 0, 0, .25);
 }

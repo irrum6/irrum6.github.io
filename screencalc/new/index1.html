@@ -27,24 +27,17 @@
     </nav>
     <div class="container" id="mainbox">
         <div class="row">
-            <div class="col-md-6 text-center">
+            <div class="col-md-5 text-center">
                 <!--Unit Switcher-->
-                <div class="input-group pad10">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" data-app-reference="unit" type="radio" name="unitoptions" id="unitradio1" value="inch">
-                        <label class="form-check-label" for="unitradio1" data-app-translate="1" data-app-text="inch">Inch</label>
-                        <input class="form-check-input" data-app-reference="unit" type="radio" name="unitoptions" id="unitradio2" value="centimetre"
-                            checked>
-                        <label class="form-check-label" for="unitradio2" data-app-translate="1" data-app-text="centimetre">Centimetre</label>
-                        <input class="form-check-input" data-app-reference="unit" type="radio" name="unitoptions" id="unitradio3" value="millimetre">
-                        <label class="form-check-label" for="unitradio3" data-app-translate="1" data-app-text="millimetre">Millimetre</label>
-                    </div>
+                <div class="input-group pad10" style="display:flex;">
+                    <span class="unit" data-app-reference="unit" data-app-translate="1" data-app-text="inch">Inch</span>
+                    <span class="unit selected-unit" data-app-reference="unit" data-app-translate="1" data-app-text="centimetre">Centimetre</span>
+                    <span class="unit" data-app-reference="unit" data-app-translate="1" data-app-text="millimetre">Millimetre</span>
                 </div>
-
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6" id="calcformdiv">
+            <div class="col-md-5" id="calcformdiv">
                 <form>
                     <!--instruction-->
                     <span>
@@ -105,21 +98,6 @@
                             </span>
                         </div>
                     </div>
-                    <!--Screen Aspect Ratio (Decimal)-->
-                    <div class="input-group pad5">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text " data-app-translate="1" data-app-text="aspect_ratio">Ratio(Decimal)</span>
-                        </div>
-                        <input type="number" data-app-reference="aspect-ratio-decimal" class="form-control" id="app_aspect_ratio_decimal" step="0.1"
-                            value="1.78" min="0.25" max="4" onfocusout="" disabled>
-                        <div class="input-group-append">
-                            <span class="span-switcher" id="app_switch_aspect_ratio_decimal" data-app-switch-value="1" data-app-linked-inputs="aspect-ratio-decimal"
-                                data-app-switch-contra="#" data-app-switch-disabled="1">
-                                <img src="images/on.svg" alt="click to use computed value" width="70px">
-                                <img src="images/off.svg" alt="click to use input" style="display:none;" width="70px">
-                            </span>
-                        </div>
-                    </div>
                     <!--Screen Resolution-->
                     <span data-app-translate="1" data-app-text="screen_res_pixels">Screen Resolution : Width and Height (pixels)</span>
                     </span>
@@ -135,6 +113,12 @@
                                 <img src="images/off.svg" alt="click to use input" style="display:none;" width="70px">
                             </span>
                         </div>
+                    </div>
+                    <!--Screen Aspect Ratio (Decimal)-->
+                    <div class="pad5">
+                        <span data-app-translate="1" data-app-text="aspect_ratio_calculated">Calculated Aspect Ratio:
+                        </span>
+                        <span class="bold700" data-app-reference="aspect-ratio-calculated">1.78</span>
                     </div>
                     <!--Pixels per unit-->
                     <div class="input-group pad5">
@@ -178,19 +162,6 @@
                             <span class="input-group-text" data-app-translate="1" data-app-text="cm" addhtmlentity="1" charcodes="178" style="font-weight:bold;">cm&#178;</span>
                         </div>
                     </div>
-                    <!--Scren area pixels-->
-                    <div class="input-group pad5">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" data-app-translate="1" data-app-text="screen_area">Screen area</span>
-                        </div>
-                        <input type="text" data-app-reference="pixel-area" data-convertable="0" class="form-control" disabled>
-                        <div class="input-group-append">
-                            <span class="input-group-text" style="font-weight:bold;" data-app-translate="1" data-app-text="pixels">pixels</span>
-                        </div>
-                    </div>
-                    <a href="#" id="App_calc_button" data-app-reference="calc-button" role="button" class="btn btn-outline-primary" data-app-translate="1"
-                        data-app-text="calculate">
-                        Calculate </a>
                 </form>
             </div>
         </div>

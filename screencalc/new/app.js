@@ -18,8 +18,8 @@ const INCH_STEP = 0.1;
 
 //list of references to html element 
 //constant and immutable
-const references = ["diagonal", "aspect-ratio", "aspect-ratio-decimal", "pixel-width", "pixel-height",
-    "pixels-per-unit", "pixel-area", "unit-width", "unit-height", "unit-area", "calc-button"];
+const references = ["diagonal", "aspect-ratio", "aspect-ratio-calculated", "pixel-width", "pixel-height",
+    "pixels-per-unit","unit-width", "unit-height", "unit-area"];
 Object.freeze(references);
 
 class ScreenCalc {

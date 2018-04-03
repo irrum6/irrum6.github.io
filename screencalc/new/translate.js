@@ -3,13 +3,13 @@ var TranslateData = {
         english: 'diagonal',
         georgian: 'დიაგონალი'
     }, inch: {
-        english: 'inches',
+        english: 'Inch',
         georgian: 'დუიმი'
     }, centimetre: {
-        english: 'centimetres',
+        english: 'Centimetre',
         georgian: 'სანტიმეტრი'
     }, millimetre: {
-        english: 'millimetres',
+        english: 'Millimetre',
         georgian: 'მილიმეტრი'
     }, in: {
         english: 'In',
@@ -80,6 +80,10 @@ var TranslateData = {
     }, pixels: {
         english: 'pixels',
         georgian: 'პიქსელი'
+    },
+    aspect_ratio_calculated: {
+        english: 'Calculated aspect ratio:',
+        georgian: 'გამოთვლილი შეფარდება:'
     }
 };
 
