@@ -118,8 +118,8 @@ ScreenCalc.w600();
 var myApp = new ScreenCalc('myApp');
 
 function clickf(event) {
-    //Lib.q('.selected-unit').classList.remove('selected-unit');
-    //event.target.classList.add('selected-unit');
+    Lib.q('.selected-unit').classList.remove('selected-unit');
+    event.target.classList.add('selected-unit');
     //alert('clickf');
-    myApp.switchUnit(event);
+    //myApp.switchUnit(event);
 }
