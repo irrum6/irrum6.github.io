@@ -64,7 +64,6 @@ class ScreenCalc {
             let from = this.Unit;
             let to = event.target.getAttribute('data-value');
             this.Unit = to;
-            alert(to);
         }
     }
     addElements() {

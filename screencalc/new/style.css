@@ -22,33 +22,6 @@
     font-weight: 700;
 }
 
-.unit {
-    border:2px solid black;
-    padding: 3px;
-    display: flex;
-    flex-basis: 0;
-    flex-grow: 1;
-    cursor: pointer;
-    background-color:#404040;
-    /*the coffee color lol*/
-    color:#c0ffee;
-}
-.unit:first-child{
-    border-top-left-radius: 3%;
-    border-bottom-left-radius: 3%;
-}
-.unit:last-child{
-    border-top-right-radius: 3%;
-    border-bottom-right-radius: 3%;
-}
-
-.selected-unit {
-    background-color:#808080;
-}
-.selected-unit::after {
-    content: " ⬤";
-}
-
 /* Bootstrap Toggle v2.2.2 corrections for Bootsrtap 4*/
 
 .toggle-off {

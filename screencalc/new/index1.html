@@ -29,12 +29,16 @@
         <div class="row" style="margin-top:8px;">
             <div class="col-md-5 text-center">
                 <!--Unit Switcher-->
-                <div style="display:flex;">
-                    <span onclick="clickf(event)" class="unit bold700" data-app-reference="unit" data-value="inch" data-app-translate="1" data-app-text="inch">Inch</span>
-                    <span onclick="clickf(event)" class="unit bold700 selected-unit" data-app-reference="unit" data-value="centimetre" data-app-translate="1"
-                        data-app-text="centimetre">Centimetre</span>
-                    <span onclick="clickf(event)" class="unit bold700" data-app-reference="unit" data-value="millimetre" data-app-translate="1"
-                        data-app-text="millimetre">Millimetre</span>
+                <div class="input-group pad10">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" data-app-reference="unit" type="radio" name="unitoptions" id="unitradio1" value="inch">
+                        <label class="form-check-label" for="unitradio1" data-app-translate="1" data-app-text="inch">Inch</label>
+                        <input class="form-check-input" data-app-reference="unit" type="radio" name="unitoptions" id="unitradio2" value="centimetre"
+                            checked>
+                        <label class="form-check-label" for="unitradio2" data-app-translate="1" data-app-text="centimetre">Centimetre</label>
+                        <input class="form-check-input" data-app-reference="unit" type="radio" name="unitoptions" id="unitradio3" value="millimetre">
+                        <label class="form-check-label" for="unitradio3" data-app-translate="1" data-app-text="millimetre">Millimetre</labesl>
+                    </div>
                 </div>
             </div>
         </div>
