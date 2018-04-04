@@ -23,13 +23,24 @@ const references = ["diagonal", "aspect-ratio", "aspect-ratio-calculated", "pixe
 Object.freeze(references);
 
 class ScreenCalc {
-    constructor() {
+
+    /**
+     * @param {string} name 
+     */
+    constructor(name) {
+        //force converto to string
+        name = '' + name;
+        Object.defineProperty(this, "name", {
+            value: name,
+            writable: false,
+            enumerable: true,
+            configurable: true
+        });
         this.init();
     }
     init() {
         this.elements = {};
         this.addElements();
-        this.addUnitElements();
         let len = this.UnitSwitch.length;
         for (let i = 0; i < len; i++) {
             if (this.UnitSwitch[i].classList.contains('selected-unit')) {
@@ -42,40 +53,39 @@ class ScreenCalc {
         //if(this)        
     }
     //add references to html elements to app
-    //unit switcher
-    addUnitElements() {
-        if (typeof this.elements === 'undefined' || this.elements === null) {
-            this.elements = {};
-        }
-        let units = document.querySelectorAll('[data-app-reference="unit"]');
-        let arr = [];
-        for (let i = 0, len = units.length; i < len; i++) {
-            arr.push(units[i].getAttribute('data-value'));
-            units[i].addEventListener('click', (event) => {
-                Lib.q('span.selected-unit').classList.remove('selected-unit');
-                event.target.classList.add('selected-unit');
-                if (1) {
-                    let from = this.Unit;
-                    let to = event.target.getAttribute('data-value');
-                    this.Unit = to;
-                }
-            }, { passive: true });
-        }
-
-        this["-valid-units"] = arr;
-        this.elements["-units"] = units;
-    }
     //get unit switchers
     get UnitSwitch() {
         return this.elements["-units"];
     }
+    switchUnit(event) {
+        Lib.q('.selected-unit').classList.remove('selected-unit');
+        event.target.classList.add('selected-unit');
+        if (1) {
+            let from = this.Unit;
+            let to = event.target.getAttribute('data-value');
+            this.Unit = to;
+            alert(to);
+        }
+    }
     addElements() {
-        let len = references.length;
-        for (let i = 0; i < len; i++) {
+        if (typeof this.elements === 'undefined' || this.elements === null) {
+            this.elements = {};
+        }
+        //inputs
+        for (let i = 0, len = references.length; i < len; i++) {
             let selector = '[data-app-reference="#ref"]'.replace("#ref", references[i]);
             let elem = document.querySelector(selector);
             this.elements[references[i]] = elem;
         }
+        //unit switcher
+        let units = document.querySelectorAll('[data-app-reference="unit"]');
+        let arr = [];
+        for (let i = 0, len = units.length; i < len; i++) {
+            arr.push(units[i].getAttribute('data-value'));
+        }
+        this["-valid-units"] = arr;
+        this.elements["-units"] = units;
+
     }
     get ValidUnits() {
         return this["-valid-units"];
@@ -105,4 +115,11 @@ class ScreenCalc {
 }
 
 ScreenCalc.w600();
-var myApp = new ScreenCalc();
+var myApp = new ScreenCalc('myApp');
+
+function clickf(event) {
+    //Lib.q('.selected-unit').classList.remove('selected-unit');
+    //event.target.classList.add('selected-unit');
+    //alert('clickf');
+    myApp.switchUnit(event);
+}

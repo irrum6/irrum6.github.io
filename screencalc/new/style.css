@@ -22,7 +22,7 @@
     font-weight: 700;
 }
 
-span.unit {
+.unit {
     border:2px solid black;
     padding: 3px;
     display: flex;
@@ -33,19 +33,19 @@ span.unit {
     /*the coffee color lol*/
     color:#c0ffee;
 }
-span.unit:first-child{
+.unit:first-child{
     border-top-left-radius: 3%;
     border-bottom-left-radius: 3%;
 }
-span.unit:last-child{
+.unit:last-child{
     border-top-right-radius: 3%;
     border-bottom-right-radius: 3%;
 }
 
-span.selected-unit {
+.selected-unit {
     background-color:#808080;
 }
-span.selected-unit::after {
+.selected-unit::after {
     content: " ⬤";
 }
 
