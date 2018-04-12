@@ -45,9 +45,9 @@ class ScreenCalc {
         this["-valid-units"] = arr;
         this.Unit = 'centimetre';
         this.getAppElement('unit-option-centimetre').checked = true;
-        this.getAppElement('diagonal').value = '15';
-        this.getAppElement('aspect-ratio').value = '18/9';
-        this.getAppElement('pixels-per-unit').value = '128';
+        this.getAppElement('diagonal').value = '16';
+        this.getAppElement('aspect-ratio').value = '17/9';
+        this.getAppElement('pixels-per-unit').value = '160';
         console.log(this);
         this.calc();
     }
@@ -78,11 +78,11 @@ class ScreenCalc {
             let uarea = unitw * unith;
 
             d.value = dd.toFixed(1).toString();
-            arc.textContent = (asrat * 9).toFixed(1).toString();
+            arc.textContent = asrat.toFixed(2);
             ua.textContent = uarea.toFixed(2).toString();
 
-            pw.value = (ppu * unitw).toFixed(0).toString();
-            ph.value = (ppu * unith).toFixed(0).toString();
+            pw.value = (ppunit * unitw).toFixed(0).toString();
+            ph.value = (ppunit * unith).toFixed(0).toString();
 
             ar.value = '0';
             ar.lastChild.text = asrat.toFixed(1).toString();
@@ -100,8 +100,8 @@ class ScreenCalc {
                 let unitw = unith * asrat;
 
                 ar.value = '0';
-                ar.lastChild.text = asrat.toFixed(1).toString();
-                arc.textContent = (asrat * 9).toFixed(1).toString();
+                ar.lastChild.text = (asrat * 9).toFixed(1) + '/9';
+                arc.textContent = asrat.toFixed(2);
 
                 let uarea = unitw * unith;
                 ua.textContent = uarea.toFixed(2).toString();
@@ -109,26 +109,30 @@ class ScreenCalc {
                 uw.value = unitw.toFixed(1).toString();
                 uh.value = unith.toFixed(1).toString();
 
-                //disabling aspect ratio disable ppu so
+                //disabling aspect ratio disables ppu so
                 ppu.value = (pixelw / unitw).toFixed(0).toString();
             } else {
                 //if aspect ratio is enabled so is ppu and resolution is disabled
                 //we have display aspect ratio and ppu
 
                 let asrs = ar.value.split('/').map((elem) => {
-                    return Number.parseFloat(elem)
+                    return Number.parseFloat(elem);
                 });
                 let asrat = asrs[0] / asrs[1];
 
                 let unith = Math.sqrt((dd * dd) / (1 + (asrat * asrat)));
                 let unitw = unith * asrat;
                 let uarea = unitw * unith;
+                uw.value = unitw.toFixed(1).toString();
+                uh.value = unith.toFixed(1).toString();
                 ua.textContent = uarea.toFixed(2).toString();
 
-                arc.textContent = (asrat * 9).toFixed(1).toString();
+                arc.textContent = asrat.toFixed(2);
 
-                pw.value = (ppu * unitw).toFixed(0).toString();
-                ph.value = (ppu * unith).toFixed(0).toString();
+
+                let ppunit = Number.parseFloat(ppu.value);
+                pw.value = (ppunit * unitw).toFixed(0).toString();
+                ph.value = (ppunit * unith).toFixed(0).toString();
             }
         }
     }
