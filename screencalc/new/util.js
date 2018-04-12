@@ -1,4 +1,4 @@
-class Lib {
+class Util {
     /**
      * Check if is positive integer
      * @param {*} args
@@ -30,24 +30,6 @@ class Lib {
             return true;
         }
         return false;
-    }
-    /**
-     * Query one element matching selector
-     * @param {string} selector
-     * @returns {HTMLElementsCollection}
-     */
-    static q(selector) {
-        //force convert to string and query
-        return document.body.querySelector(('' + selector));
-    }
-    /**
-     * Query all elements matching selector
-     * @param {string} selector
-     * @returns {HTMLElementsCollection}
-     */
-    static qa(selector) {
-        //force convert to string and query
-        return document.body.querySelectorAll(('' + selector));
     }
 }
 

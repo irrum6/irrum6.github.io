@@ -1,26 +1,23 @@
 //limits
-//maximum diagonal length
-const DIAGONAL_LENGTH_MAX_MM = 2060;
-const DIAGONAL_LENGTH_MAX_CM = 206;
-const DIAGONAL_LENGTH_MAX_iN = 81;
-//maximum length
-const LENGTH_MAX_MM = 1900;
-const LENGTH_MAX_CM = 190;
-const LENGTH_MAX_IN = 74.5;
-//minimum length
-const LENGTH_MIN_CM = 2;
-const LENGTH_MIN_MM = 20;
-const LENGTH_MIN_IN = 0.8
-//step
-const CENTIMERE_STEP = 0.1;
-const MILLIMETRE_STEP = 1;
-const INCH_STEP = 0.1;
-
-//list of references to html element 
-//constant and immutable
-const references = ["diagonal", "aspect-ratio", "aspect-ratio-calculated", "pixel-width", "pixel-height",
-    "pixels-per-unit", "unit-width", "unit-height", "unit-area"];
-Object.freeze(references);
+const LIMITS = {
+    //maximum diagonal length
+    DIAGONAL_LENGTH_MAX_MM: 2060,
+    DIAGONAL_LENGTH_MAX_CM: 206,
+    DIAGONAL_LENGTH_MAX_iN: 81,
+    //maximum length
+    LENGTH_MAX_MM: 1900,
+    LENGTH_MAX_CM: 190,
+    LENGTH_MAX_IN: 74.5,
+    //minimum length
+    LENGTH_MIN_CM: 2,
+    LENGTH_MIN_MM: 20,
+    LENGTH_MIN_IN: 0.8,
+    //step
+    CENTIMERE_STEP: 0.1,
+    MILLIMETRE_STEP: 1,
+    INCH_STEP: 0.1
+}
+Object.freeze(LIMITS);
 
 class ScreenCalc {
 
@@ -39,52 +36,122 @@ class ScreenCalc {
         this.init();
     }
     init() {
-        this.elements = {};
-        this.addElements();
-        let len = this.UnitSwitch.length;
-        for (let i = 0; i < len; i++) {
-            if (this.UnitSwitch[i].classList.contains('selected-unit')) {
-                this.Unit = this.UnitSwitch[i].getAttribute('data-value');
-            }
+        //unit switcher
+        let units = document.querySelectorAll('[name="unitoptions"]');
+        let arr = [];
+        for (let i = 0, len = units.length; i < len; i++) {
+            arr.push(units[i].value);
         }
+        this["-valid-units"] = arr;
+        this.Unit = 'centimetre';
+        this.getAppElement('unit-option-centimetre').checked = true;
+        this.getAppElement('diagonal').value = '15';
+        this.getAppElement('aspect-ratio').value = '18/9';
+        this.getAppElement('pixels-per-unit').value = '128';
+        console.log(this);
         this.calc();
     }
     calc() {
-        //if(this)        
+        //if(this)
+        let d = this.getAppElement('diagonal');
+        let ar = this.getAppElement('aspect-ratio');
+        let arc = this.getAppElement('aspect-ratio-calculated');
+        let pw = this.getAppElement('pixel-width');
+        let ph = this.getAppElement('pixel-height');
+        let ppu = this.getAppElement('pixels-per-unit');
+        let uw = this.getAppElement('unit-width');
+        let uh = this.getAppElement('unit-height');
+        let ua = this.getAppElement('unit-area');
+        //document.body.querySelector('option[value="0"]').text='gelava';
+        if (d.disabled) {
+            //if disdiagonal is disabled, we get physical size inputs
+            //which means aspect ratio should be disabled too at this point so
+            //we will ignore them
+            //unitwidth
+            let unitw = Number.parseFloat(uw.value);
+            let unith = Number.parseFloat(uh.value);
+            let ppunit = Number.parseFloat(ppu.value);
+
+            let asrat = unitw / unith;
+
+            let dd = Math.sqrt((unitw * unitw) + (unith * unith));
+            let uarea = unitw * unith;
+
+            d.value = dd.toFixed(1).toString();
+            arc.textContent = (asrat * 9).toFixed(1).toString();
+            ua.textContent = uarea.toFixed(2).toString();
+
+            pw.value = (ppu * unitw).toFixed(0).toString();
+            ph.value = (ppu * unith).toFixed(0).toString();
+
+            ar.value = '0';
+            ar.lastChild.text = asrat.toFixed(1).toString();
+
+        } else {
+            let dd = Number.parseFloat(d.value);
+            //diagonal is enabled , but not aspect ratio
+            //get aspect ratio from resolutions
+            if (ar.disabled) {
+                let pixelw = Number.parseFloat(pw.value);
+                let pixelh = Number.parseFloat(ph.value);
+                let asrat = pixelw / pixelh;
+
+                let unith = Math.sqrt((dd * dd) / (1 + (asrat * asrat)));
+                let unitw = unith * asrat;
+
+                ar.value = '0';
+                ar.lastChild.text = asrat.toFixed(1).toString();
+                arc.textContent = (asrat * 9).toFixed(1).toString();
+
+                let uarea = unitw * unith;
+                ua.textContent = uarea.toFixed(2).toString();
+
+                uw.value = unitw.toFixed(1).toString();
+                uh.value = unith.toFixed(1).toString();
+
+                //disabling aspect ratio disable ppu so
+                ppu.value = (pixelw / unitw).toFixed(0).toString();
+            } else {
+                //if aspect ratio is enabled so is ppu and resolution is disabled
+                //we have display aspect ratio and ppu
+
+                let asrs = ar.value.split('/').map((elem) => {
+                    return Number.parseFloat(elem)
+                });
+                let asrat = asrs[0] / asrs[1];
+
+                let unith = Math.sqrt((dd * dd) / (1 + (asrat * asrat)));
+                let unitw = unith * asrat;
+                let uarea = unitw * unith;
+                ua.textContent = uarea.toFixed(2).toString();
+
+                arc.textContent = (asrat * 9).toFixed(1).toString();
+
+                pw.value = (ppu * unitw).toFixed(0).toString();
+                ph.value = (ppu * unith).toFixed(0).toString();
+            }
+        }
     }
-    //add references to html elements to app
-    //get unit switchers
-    get UnitSwitch() {
-        return this.elements["-units"];
+    /**
+     * 
+     * @param {string} ref
+     * @return {HTMLElement} 
+     */
+    getAppElement(ref) {
+        //force convert to string
+        let appreference = '' + ref;
+        let selector = '[data-app-reference="#ref"]'.replace("#ref", appreference);
+        let elem = document.body.querySelector(selector);
+        return elem;
     }
     switchUnit(event) {
-        Lib.q('.selected-unit').classList.remove('selected-unit');
+        document.body.querySelector('.selected-unit').classList.remove('selected-unit');
         event.target.classList.add('selected-unit');
         if (1) {
             let from = this.Unit;
             let to = event.target.getAttribute('data-value');
             this.Unit = to;
         }
-    }
-    addElements() {
-        if (typeof this.elements === 'undefined' || this.elements === null) {
-            this.elements = {};
-        }
-        //inputs
-        for (let i = 0, len = references.length; i < len; i++) {
-            let selector = '[data-app-reference="#ref"]'.replace("#ref", references[i]);
-            let elem = document.querySelector(selector);
-            this.elements[references[i]] = elem;
-        }
-        //unit switcher
-        let units = document.querySelectorAll('[data-app-reference="unit"]');
-        let arr = [];
-        for (let i = 0, len = units.length; i < len; i++) {
-            arr.push(units[i].getAttribute('data-value'));
-        }
-        this["-valid-units"] = arr;
-        this.elements["-units"] = units;
-
     }
     get ValidUnits() {
         return this["-valid-units"];
@@ -115,10 +182,3 @@ class ScreenCalc {
 
 ScreenCalc.w600();
 var myApp = new ScreenCalc('myApp');
-
-function clickf(event) {
-    Lib.q('.selected-unit').classList.remove('selected-unit');
-    event.target.classList.add('selected-unit');
-    //alert('clickf');
-    //myApp.switchUnit(event);
-}

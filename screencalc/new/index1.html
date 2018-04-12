@@ -31,12 +31,13 @@
                 <!--Unit Switcher-->
                 <div class="input-group pad10">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" data-app-reference="unit" type="radio" name="unitoptions" id="unitradio1" value="inch">
+                        <input class="form-check-input" data-app-reference="unit-option-inch" type="radio" name="unitoptions" id="unitradio1" value="inch">
                         <label class="form-check-label" for="unitradio1" data-app-translate="1" data-app-text="inch">Inch</label>
-                        <input class="form-check-input" data-app-reference="unit" type="radio" name="unitoptions" id="unitradio2" value="centimetre"
-                            checked>
+                        <input class="form-check-input" data-app-reference="unit-option-centimetre" type="radio" name="unitoptions" id="unitradio2"
+                            value="centimetre" checked>
                         <label class="form-check-label" for="unitradio2" data-app-translate="1" data-app-text="centimetre">Centimetre</label>
-                        <input class="form-check-input" data-app-reference="unit" type="radio" name="unitoptions" id="unitradio3" value="millimetre">
+                        <input class="form-check-input" data-app-reference="unit-option-millimetre" type="radio" name="unitoptions" id="unitradio3"
+                            value="millimetre">
                         <label class="form-check-label" for="unitradio3" data-app-translate="1" data-app-text="millimetre">Millimetre</labesl>
                     </div>
                 </div>
@@ -45,20 +46,13 @@
         <div class="row">
             <div class="col-md-5" id="calcformdiv">
                 <form>
-                    <!--instruction-->
-                    <span>
-                        <input type="checkbox" data-size="small" data-toggle="toggle" data-on="&#11044; Compute Field" data-off="&#9644; Input Field"
-                            data-onstyle="success" data-offstyle="info">
-                        <input type="checkbox" checked data-size="small" data-toggle="toggle" data-on="&#11044; ველის გამოთვლა" data-off="&#9644; ველის შევსება"
-                            data-onstyle="success" data-offstyle="info">
-                    </span>
                     <!--Diagonal size-->
                     <div class=" input-group pad5 ">
                         <div class="input-group-prepend ">
                             <span class="input-group-text " data-app-translate="1" data-app-text="diagonal">Diagonal</span>
                         </div>
-                        <input type="number" data-app-reference="diagonal" data-app-convertable="1" class="form-control" name="diagonal-size" step="0.1"
-                            value="14" onfocusout="">
+                        <input type="number" data-app-reference="diagonal" data-app-disabled="0" data-app-convertable="1" class="form-control" name="diagonal-size"
+                            step="0.1" value="14">
                         <div class="input-group-append">
                             <span class="span-switcher" id="app_switch_diagonal" data-app-switch-value="0" data-app-linked-inputs="diagonal" data-app-switch-contra="app_switch_phys_dimensions">
                                 <img src="images/on.svg" alt="click to use computed value" style="display:none;" width="70px">
@@ -71,7 +65,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" data-app-translate="1" data-app-text="aspect_ratio">Aspect Ratio</span>
                         </div>
-                        <select name="ratio" class="form-control" data-app-reference="aspect-ratio" id="app_aspect_ratio">
+                        <select name="ratio" class="form-control" data-app-reference="aspect-ratio" data-app-disabled="0" id="app_aspect_ratio">
                             <optgroup label="squarish" data-app-translate="1" data-app-text="squarish">
                                 <option value="5/4">5:4</option>
                                 <option value="4/3">4:3</option>
@@ -93,7 +87,7 @@
                                 <option value="21/9">21:9</option>
                             </optgroup>
                             <optgroup label="Computed" data-app-translate="1" data-app-text="computed">
-                                <option value="0 ">Computed</option>
+                                <option value="0">Computed</option>
                             </optgroup>
                         </select>
                         <div class="input-group-append">
@@ -108,10 +102,10 @@
                     <span data-app-translate="1" data-app-text="screen_res_pixels">Screen Resolution : Width and Height (pixels)</span>
                     </span>
                     <div class="input-group pad5">
-                        <input type="number" data-app-reference="pixel-width" id="width" name="app_res_width" class="form-control" step="1" value="1920"
-                            min="160 " max="8640" disabled>
-                        <input type="number" id="height" data-app-reference="pixel-height" name="app_res_height" class="form-control" step="1" value="1080"
-                            min="128" max="4320" disabled>
+                        <input type="number" data-app-reference="pixel-width" data-app-disabled="1" id="width" name="app_res_width" class="form-control"
+                            step="1" value="1920" min="160 " max="8640" disabled>
+                        <input type="number" id="height" data-app-reference="pixel-height" data-app-disabled="1" name="app_res_height" class="form-control"
+                            step="1" value="1080" min="128" max="4320" disabled>
                         <div class="input-group-append">
                             <span class="span-switcher" id="app_switch_screen_res" data-app-switch-value="1" data-app-linked-inputs="pixel-width,pixel-height"
                                 data-app-switch-contra="app_switch_aspect_ratio,app_switch_pixels_per_unit">
@@ -124,7 +118,7 @@
                     <div class="pad5">
                         <span data-app-translate="1" data-app-text="aspect_ratio_calculated">Calculated Aspect Ratio:
                         </span>
-                        <span class="bold700" data-app-reference="aspect-ratio-calculated">1.78</span>
+                        <span class="bold700" data-app-reference="aspect-ratio-calculated" data-app-disabled="1">1.78</span>
                     </div>
                     <!--Pixels per unit-->
                     <div class="input-group pad5">
@@ -145,10 +139,10 @@
                     </span>
                     <!--Screen Size physical-->
                     <div class="input-group pad5">
-                        <input type="number" data-app-reference="unit-width" data-app-convertable="1" id="app_phys_width" name="phys_width" class="form-control"
-                            step="0.1" value="6.85" min="0.1" max="2000" disabled>
-                        <input type="number" data-app-reference="unit-height" data-app-convertable="1" id="app_phys_height" name="phys_height" class="form-control"
-                            step="" value="12.18" min="1" max="1500" disabled>
+                        <input type="number" data-app-reference="unit-width" data-app-disabled="1" data-app-convertable="1" id="app_phys_width" name="phys_width"
+                            class="form-control" step="0.1" value="6.85" min="0.1" max="2000" disabled>
+                        <input type="number" data-app-reference="unit-height" data-app-disabled="1" data-app-convertable="1" id="app_phys_height"
+                            name="phys_height" class="form-control" step="" value="12.18" min="1" max="1500" disabled>
                         <div class="input-group-append">
                             <span class="span-switcher" id="app_switch_phys_dimensions" data-app-switch-value="1" data-app-linked-inputs="unit-width,unit-height"
                                 data-app-switch-contra="app_switch_diagonal,app_switch_aspect_ratio">
@@ -162,8 +156,8 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" data-app-translate="1" data-app-text="screen_area">Screen area</span>
                         </div>
-                        <input type="text" data-app-reference="unit-area" data-app-convertable="0" id="app_screen_area" name="area" class="form-control"
-                            disabled>
+                        <input type="text" data-app-reference="unit-area" data-app-disabled="1" data-app-convertable="0" id="app_screen_area" name="area"
+                            class="form-control" disabled>
                         <div class="input-group-append">
                             <span class="input-group-text" data-app-translate="1" data-app-text="cm" addhtmlentity="1" charcodes="178" style="font-weight:bold;">cm&#178;</span>
                         </div>
@@ -181,7 +175,6 @@
         crossorigin="anonymous "></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js " integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl "
         crossorigin="anonymous "></script>
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js "></script>
     <!--my pathetic scripts-->
     <script src="util.js "></script>
     <script src="translate.js "></script>
