@@ -47,12 +47,26 @@ for (let i = 0; i < len; i++) {
     });
 }
 
-let unitswitchers = document.getElementsByName('unitoptions');
-let len1 = unitswitchers.length;
-for (let i = 0; i < len1; i++) {
-    unitswitchers[i].addEventListener('click', function (event) {
-        let targ = event.target
-        let val = targ.value;
-        alert(val);
-    });
+function setUnitEvents(calcapp) {
+    let unitswitchers = document.getElementsByName('unitoptions');
+    let len = unitswitchers.length;
+    for (let i = 0; i < len; i++) {
+        unitswitchers[i].addEventListener('click', function (event) {
+            let targ = event.target
+            let val = targ.value;
+            calcapp.Unit = val;
+        });
+    }
+}
+
+function setElementChangeEvents(calcapp) {
+    let elements = document.body.querySelectorAll('[data-app-reference]')
+    for (let i = 0, len = elements.length; i < len; i++) {
+        elements[i].addEventListener('change', function (event) {
+            let targ = event.target;
+            if (!targ.disabled) {
+                calcapp.calc();
+            }
+        });
+    }
 }

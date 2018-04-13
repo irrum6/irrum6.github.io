@@ -62,7 +62,6 @@ class ScreenCalc {
         let uw = this.getAppElement('unit-width');
         let uh = this.getAppElement('unit-height');
         let ua = this.getAppElement('unit-area');
-        //document.body.querySelector('option[value="0"]').text='gelava';
         if (d.disabled) {
             //if disdiagonal is disabled, we get physical size inputs
             //which means aspect ratio should be disabled too at this point so
@@ -148,15 +147,6 @@ class ScreenCalc {
         let elem = document.body.querySelector(selector);
         return elem;
     }
-    switchUnit(event) {
-        document.body.querySelector('.selected-unit').classList.remove('selected-unit');
-        event.target.classList.add('selected-unit');
-        if (1) {
-            let from = this.Unit;
-            let to = event.target.getAttribute('data-value');
-            this.Unit = to;
-        }
-    }
     get ValidUnits() {
         return this["-valid-units"];
     }
@@ -186,3 +176,4 @@ class ScreenCalc {
 
 ScreenCalc.w600();
 var myApp = new ScreenCalc('myApp');
+setElementChangeEvents(myApp);
