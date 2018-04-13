@@ -48,7 +48,6 @@ class ScreenCalc {
         this.getAppElement('diagonal').value = '16';
         this.getAppElement('aspect-ratio').value = '17/9';
         this.getAppElement('pixels-per-unit').value = '160';
-        console.log(this);
         this.calc();
     }
     calc() {
@@ -77,7 +76,7 @@ class ScreenCalc {
             let uarea = unitw * unith;
 
             d.value = dd.toFixed(1).toString();
-            arc.textContent = asrat.toFixed(2);
+            arc.textContent = asrat.toFixed(2) + ':1';
             ua.textContent = uarea.toFixed(2).toString();
 
             pw.value = (ppunit * unitw).toFixed(0).toString();
@@ -100,7 +99,7 @@ class ScreenCalc {
 
                 ar.value = '0';
                 ar.lastChild.text = (asrat * 9).toFixed(1) + '/9';
-                arc.textContent = asrat.toFixed(2);
+                arc.textContent = asrat.toFixed(2) + ':1';
 
                 let uarea = unitw * unith;
                 ua.textContent = uarea.toFixed(2).toString();
@@ -126,7 +125,7 @@ class ScreenCalc {
                 uh.value = unith.toFixed(1).toString();
                 ua.textContent = uarea.toFixed(2).toString();
 
-                arc.textContent = asrat.toFixed(2);
+                arc.textContent = asrat.toFixed(2) + ':1';
 
 
                 let ppunit = Number.parseFloat(ppu.value);
@@ -177,3 +176,5 @@ class ScreenCalc {
 ScreenCalc.w600();
 var myApp = new ScreenCalc('myApp');
 setElementChangeEvents(myApp);
+
+setToggles();

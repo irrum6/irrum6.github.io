@@ -54,7 +54,8 @@
                         <input type="number" data-app-reference="diagonal" data-app-disabled="0" data-app-convertable="1" class="form-control" name="diagonal-size"
                             step="0.1" value="14">
                         <div class="input-group-append">
-                            <span class="span-switcher" id="app_switch_diagonal" data-app-switch-value="0" data-app-linked-inputs="diagonal" data-app-switch-contra="app_switch_phys_dimensions">
+                            <span class="span-switcher" id="app_switch_diagonal" data-app-on="0" data-app-direct-input="diagonal" data-app-on-disable="diagonal,aspect-ratio"
+                                data-app-on-enable="unit-width,unit-height" data-app-off-disable="unit-width,unit-height" data-app-off-enable="diagonal">
                                 <img src="images/on.svg" alt="click to use computed value" style="display:none;" width="70px">
                                 <img src="images/off.svg" alt="click to use computed value" width="70px">
                             </span>
