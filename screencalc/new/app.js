@@ -176,4 +176,5 @@ class ScreenCalc {
 ScreenCalc.w600();
 var myApp = new ScreenCalc('myApp');
 setElementChangeEvents(myApp);
+setUnitEvents(myApp)
 setToggles();

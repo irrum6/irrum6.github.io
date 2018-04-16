@@ -81,9 +81,19 @@ function setUnitEvents(calcapp) {
     let len = unitswitchers.length;
     for (let i = 0; i < len; i++) {
         unitswitchers[i].addEventListener('click', function (event) {
-            let targ = event.target
-            let val = targ.value;
-            calcapp.Unit = val;
+            let to = event.target.value;
+            let from = calcapp.Unit;
+            calcapp.Unit = to;
+            let convertables = document.body.querySelectorAll('[data-app-convertable="1"]');
+            for (let i = 0, len = convertables.length; i < len; i++) {
+                let val = Number.parseFloat(convertables[i].value);
+                console.log(val);
+                let convert = Convert.FromTo(from, to, val);
+                if (convert.success) {
+                    convertables[i].value = convert.result;
+                }
+            }
+            calcapp.calc();
         });
     }
 }
