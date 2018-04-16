@@ -4,7 +4,8 @@ function setToggles() {
     for (let i = 0; i < len; i++) {
         switchers[i].addEventListener('click', (event) => {
             let target = event.target.parentElement;
-            let on = (target.getAttribute('data-app-on') === '0') ? true : false;
+            let on = (target.getAttribute('data-app-on') === '1') ? true : false;
+            //console.log(on);
             if (on) {
                 //if compute is on, then set off
                 target.setAttribute('data-app-on', '0');
