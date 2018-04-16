@@ -54,8 +54,9 @@
                         <input type="number" data-app-reference="diagonal" data-app-disabled="0" data-app-convertable="1" class="form-control" name="diagonal-size"
                             step="0.1" value="14">
                         <div class="input-group-append">
-                            <span class="span-switcher" id="app_switch_diagonal" data-app-on="0" data-app-direct-input="diagonal" data-app-on-disable="diagonal,aspect-ratio"
-                                data-app-on-enable="unit-width,unit-height" data-app-off-disable="unit-width,unit-height" data-app-off-enable="diagonal">
+                            <span class="span-switcher" id="app_switch_diagonal" data-app-on="0" data-app-linked-inputs="diagonal" data-app-switch-reference="diagonal"
+                                data-app-on-disable="diagonal,aspect-ratio" data-app-on-enable="unit-sizes" data-app-off-disable="unit-sizes"
+                                data-app-off-enable="diagonal">
                                 <img src="images/on.svg" alt="click to use computed value" style="display:none;" width="70px">
                                 <img src="images/off.svg" alt="click to use computed value" width="70px">
                             </span>
@@ -92,8 +93,9 @@
                             </optgroup>
                         </select>
                         <div class="input-group-append">
-                            <span class="span-switcher" id="app_switch_aspect_ratio" data-app-switch-value="0" data-app-linked-inputs="aspect-ratio"
-                                data-app-switch-contra="app_switch_screen_res">
+                            <span class="span-switcher" id="app_switch_aspect_ratio" data-app-on="0" data-app-linked-inputs="aspect-ratio" data-app-switch-reference="aspect-ratio"
+                                data-app-on-enable="pixel-sizes" data-app-on-disable="aspect-ratio" data-app-off-enable="aspect-ratio"
+                                data-app-off-disable="pixel-sizes">
                                 <img src="images/on.svg" alt="click to use computed value" style="display:none;" width="70px">
                                 <img src="images/off.svg" alt="click to use computed value" width="70px">
                             </span>
@@ -108,8 +110,9 @@
                         <input type="number" id="height" data-app-reference="pixel-height" data-app-disabled="1" name="app_res_height" class="form-control"
                             step="1" value="1080" min="128" max="4320" disabled>
                         <div class="input-group-append">
-                            <span class="span-switcher" id="app_switch_screen_res" data-app-switch-value="1" data-app-linked-inputs="pixel-width,pixel-height"
-                                data-app-switch-contra="app_switch_aspect_ratio,app_switch_pixels_per_unit">
+                            <span class="span-switcher" id="app_switch_screen_res" data-app-on="1" data-app-switch-reference="pixel-sizes" data-app-linked-inputs="pixel-width,pixel-height"
+                                data-app-on-enable="pixels-per-unit,aspect-ratio" data-app-on-disable="pixel-sizes" data-app-off-enable="pixel-sizes"
+                                data-app-off-disable="pixels-per-unit,aspect-ratio">
                                 <img src="images/on.svg" alt="click to use computed value" width="70px">
                                 <img src="images/off.svg" alt="click to use input" style="display:none;" width="70px">
                             </span>
@@ -129,8 +132,9 @@
                         <input type="number" data-app-reference="pixels-per-unit" id="app_pixels_per_unit" name="ppu" class="form-control" step="1"
                             value="158" min="1" max="1000">
                         <div class="input-group-append">
-                            <span class="span-switcher" id="app_switch_pixels_per_unit" data-app-switch-value="0" data-app-linked-inputs="pixels-per-unit"
-                                data-app-switch-contra="app_switch_screen_res">
+                            <span class="span-switcher" id="app_switch_pixels_per_unit" data-app-on="0" data-app-switch-reference="pixels-per-unit" data-app-linked-inputs="pixels-per-unit"
+                                data-app-on-enable="pixel-sizes" data-app-on-disable="pixels-per-unit" data-app-off-enable="pixels-per-unit"
+                                data-app-off-disable="pixel-sizes">
                                 <img src="images/on.svg" alt="click to use computed value" style="display:none;" width="70px">
                                 <img src="images/off.svg" alt="click to use computed value" width="70px">
                             </span>
@@ -145,8 +149,9 @@
                         <input type="number" data-app-reference="unit-height" data-app-disabled="1" data-app-convertable="1" id="app_phys_height"
                             name="phys_height" class="form-control" step="" value="12.18" min="1" max="1500" disabled>
                         <div class="input-group-append">
-                            <span class="span-switcher" id="app_switch_phys_dimensions" data-app-switch-value="1" data-app-linked-inputs="unit-width,unit-height"
-                                data-app-switch-contra="app_switch_diagonal,app_switch_aspect_ratio">
+                            <span class="span-switcher" id="app_switch_phys_dimensions" data-app-on="1" data-app-switch-reference="unit-sizes" data-app-linked-inputs="unit-width,unit-height"
+                                data-app-on-enable="diagonal" data-app-on-disable="unit-sizes" data-app-off-enable="unit-sizes"
+                                data-app-off-disable="diagonal">
                                 <img src="images/on.svg" alt="click to use computed value" width="70px">
                                 <img src="images/off.svg" alt="click to use computed value" style="display:none;" width="70px">
                             </span>
