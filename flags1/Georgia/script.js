@@ -12,7 +12,7 @@ window.setTimeout(function () {
     }));
 }, 3000);
 //dial m for multiplier
-let m = 2000;
+let m = 200;
 window.setTimeout(function () {
     hline('topLeftHorizontal');
 }, m * 2);

@@ -75,6 +75,7 @@
             top: 20vh;
         }
     }
+    /*Right Edge*/
     #TopLeftCrossRightEdgeTop {
         border-top-left-radius: 100%;
         animation-name: TopLeftCrossRightEdgeTopArc;
@@ -103,6 +104,7 @@
             top: 20vh;
         }
     }
+    /*Bottom Edge*/
     #TopLeftCrossBottomEdgeLeft {
         border-top-left-radius: 100%;
         animation-name: TopLeftCrossBottomEdgeLeftArc;
@@ -129,6 +131,357 @@
         to {
             left: 32.5vh;
             top: 28.5vh;
+        }
+    }
+    /*Top Right Cross*/
+     /*Top Edge*/
+     #TopRightCrossTopEdgeLeft {
+        border-bottom-left-radius: 100%;
+        animation-name: TopRightCrossTopEdgeLeftArc;
+    }
+    @keyframes TopRightCrossTopEdgeLeftArc {
+        from {
+            left: 112.5vh;
+            top: 9vh;
+        }
+        to {
+            left: 112.5vh;
+            top: 10vh;
+        }
+    }
+    #TopRightCrossTopEdgeRight {
+        border-bottom-right-radius: 100%;
+        animation-name: TopRightCrossTopEdgeRightArc;
+    }
+    @keyframes TopRightCrossTopEdgeRightArc {
+        from {
+            left: 117.5vh;
+            top: 9vh;
+        }
+        to {
+            left: 117.5vh;
+            top: 10vh;
+        }
+    }
+    /* Left Edge*/
+    #TopRightCrossLeftEdgeTop {
+        border-top-right-radius: 100%;
+        animation-name: TopRightCrossLeftEdgeTopArc;
+    }
+    @keyframes TopRightCrossLeftEdgeTopArc {
+        from {
+            left: 106.5vh;
+            top: 15vh;
+        }
+        to {
+            left: 107.5vh;
+            top: 15vh;
+        }
+    }
+    #TopRightCrossLeftEdgeBottom {
+        border-bottom-right-radius: 100%;
+        animation-name: TopRightCrossLeftEdgeBottomArc;
+    }
+    @keyframes TopRightCrossLeftEdgeBottomArc {
+        from {
+            left: 106.5vh;
+            top: 20vh;
+        }
+        to {
+            left: 107.5vh;
+            top: 20vh;
+        }
+    }
+    /*Right Edge*/
+    #TopRightCrossRightEdgeTop {
+        border-top-left-radius: 100%;
+        animation-name: TopRightCrossRightEdgeTopArc;
+    }
+    @keyframes TopRightCrossRightEdgeTopArc {
+        from {
+            left: 127.5vh;
+            top: 15vh;
+        }
+        to {
+            left: 126.0vh;
+            top: 15vh;
+        }
+    }
+    #TopRightCrossRightEdgeBottom {
+        border-bottom-left-radius: 100%;
+        animation-name: TopRightCrossRightEdgeBottomArc;
+    }
+    @keyframes TopRightCrossRightEdgeBottomArc {
+        from {
+            left: 127.5vh;
+            top: 20vh;
+        }
+        to {
+            left: 126.0vh;
+            top: 20vh;
+        }
+    }
+    /*Bottom Edge*/
+    #TopRightCrossBottomEdgeLeft {
+        border-top-left-radius: 100%;
+        animation-name: TopRightCrossBottomEdgeLeftArc;
+    }
+    @keyframes TopRightCrossBottomEdgeLeftArc {
+        from {
+            left: 112.5vh;
+            top: 30vh;
+        }
+        to {
+            left: 112.5vh;
+            top: 28.5vh;
+        }
+    }
+    #TopRightCrossBottomEdgeRight {
+        border-top-right-radius: 100%;
+        animation-name: TopRightCrossBottomEdgeRightArc;
+    }
+    @keyframes TopRightCrossBottomEdgeRightArc {
+        from {
+            left: 117.5vh;
+            top: 30vh;
+        }
+        to {
+            left: 117.5vh;
+            top: 28.5vh;
+        }
+    }
+    /* Bottom Left Cross*/
+    /*Top Edge*/
+    #BottomLeftCrossTopEdgeLeft {
+        border-bottom-left-radius: 100%;
+        animation-name: BottomLeftCrossTopEdgeLeftArc;
+    }
+    @keyframes BottomLeftCrossTopEdgeLeftArc {
+        from {
+            left: 27.5vh;
+            top: 69vh;
+        }
+        to {
+            left: 27.5vh;
+            top: 70vh;
+        }
+    }
+    #BottomLeftCrossTopEdgeRight {
+        border-bottom-right-radius: 100%;
+        animation-name: BottomLeftCrossTopEdgeRightArc;
+    }
+    @keyframes BottomLeftCrossTopEdgeRightArc {
+        from {
+            left: 32.5vh;
+            top: 69vh;
+        }
+        to {
+            left: 32.5vh;
+            top: 70vh;
+        }
+    }
+    /* Left Edge*/
+    #BottomLeftCrossLeftEdgeTop {
+        border-top-right-radius: 100%;
+        animation-name: BottomLeftCrossLeftEdgeTopArc;
+    }
+    @keyframes BottomLeftCrossLeftEdgeTopArc {
+        from {
+            left: 21.5vh;
+            top: 75vh;
+        }
+        to {
+            left: 22.5vh;
+            top: 75vh;
+        }
+    }
+    #BottomLeftCrossLeftEdgeBottom {
+        border-bottom-right-radius: 100%;
+        animation-name: BottomLeftCrossLeftEdgeBottomArc;
+    }
+    @keyframes BottomLeftCrossLeftEdgeBottomArc {
+        from {
+            left: 21.5vh;
+            top: 80vh;
+        }
+        to {
+            left: 22.5vh;
+            top: 80vh;
+        }
+    }
+    /*Right Edge*/
+    #BottomLeftCrossRightEdgeTop {
+        border-top-left-radius: 100%;
+        animation-name: BottomLeftCrossRightEdgeTopArc;
+    }
+    @keyframes BottomLeftCrossRightEdgeTopArc {
+        from {
+            left: 42.5vh;
+            top: 75vh;
+        }
+        to {
+            left: 41.0vh;
+            top: 75vh;
+        }
+    }
+    #BottomLeftCrossRightEdgeBottom {
+        border-bottom-left-radius: 100%;
+        animation-name: BottomLeftCrossRightEdgeBottomArc;
+    }
+    @keyframes BottomLeftCrossRightEdgeBottomArc {
+        from {
+            left: 42.5vh;
+            top: 80vh;
+        }
+        to {
+            left: 41.0vh;
+            top: 80vh;
+        }
+    }
+    /*Bottom Edge*/
+    #BottomLeftCrossBottomEdgeLeft {
+        border-top-left-radius: 100%;
+        animation-name: BottomLeftCrossBottomEdgeLeftArc;
+    }
+    @keyframes BottomLeftCrossBottomEdgeLeftArc {
+        from {
+            left: 27.5vh;
+            top: 90vh;
+        }
+        to {
+            left: 27.5vh;
+            top: 88.5vh;
+        }
+    }
+    #BottomLeftCrossBottomEdgeRight {
+        border-top-right-radius: 100%;
+        animation-name: BottomLeftCrossBottomEdgeRightArc;
+    }
+    @keyframes BottomLeftCrossBottomEdgeRightArc {
+        from {
+            left: 32.5vh;
+            top: 90vh;
+        }
+        to {
+            left: 32.5vh;
+            top: 88.5vh;
+        }
+    }
+    /*Bottom Right Cross*/
+     /*Top Edge*/
+     #BottomRightCrossTopEdgeLeft {
+        border-bottom-left-radius: 100%;
+        animation-name: BottomRightCrossTopEdgeLeftArc;
+    }
+    @keyframes BottomRightCrossTopEdgeLeftArc {
+        from {
+            left: 112.5vh;
+            top: 69vh;
+        }
+        to {
+            left: 112.5vh;
+            top: 70vh;
+        }
+    }
+    #BottomRightCrossTopEdgeRight {
+        border-bottom-right-radius: 100%;
+        animation-name: BottomRightCrossTopEdgeRightArc;
+    }
+    @keyframes BottomRightCrossTopEdgeRightArc {
+        from {
+            left: 117.5vh;
+            top: 69vh;
+        }
+        to {
+            left: 117.5vh;
+            top: 70vh;
+        }
+    }
+    /* Left Edge*/
+    #BottomRightCrossLeftEdgeTop {
+        border-top-right-radius: 100%;
+        animation-name: BottomRightCrossLeftEdgeTopArc;
+    }
+    @keyframes BottomRightCrossLeftEdgeTopArc {
+        from {
+            left: 106.5vh;
+            top: 75vh;
+        }
+        to {
+            left: 107.5vh;
+            top: 75vh;
+        }
+    }
+    #BottomRightCrossLeftEdgeBottom {
+        border-bottom-right-radius: 100%;
+        animation-name: BottomRightCrossLeftEdgeBottomArc;
+    }
+    @keyframes BottomRightCrossLeftEdgeBottomArc {
+        from {
+            left: 106.5vh;
+            top: 80vh;
+        }
+        to {
+            left: 107.5vh;
+            top: 80vh;
+        }
+    }
+    /*Right Edge*/
+    #BottomRightCrossRightEdgeTop {
+        border-top-left-radius: 100%;
+        animation-name: BottomRightCrossRightEdgeTopArc;
+    }
+    @keyframes BottomRightCrossRightEdgeTopArc {
+        from {
+            left: 127.5vh;
+            top: 75vh;
+        }
+        to {
+            left: 126.0vh;
+            top: 75vh;
+        }
+    }
+    #BottomRightCrossRightEdgeBottom {
+        border-bottom-left-radius: 100%;
+        animation-name: BottomRightCrossRightEdgeBottomArc;
+    }
+    @keyframes BottomRightCrossRightEdgeBottomArc {
+        from {
+            left: 127.5vh;
+            top: 80vh;
+        }
+        to {
+            left: 126.0vh;
+            top: 80vh;
+        }
+    }
+    /*Bottom Edge*/
+    #BottomRightCrossBottomEdgeLeft {
+        border-top-left-radius: 100%;
+        animation-name: BottomRightCrossBottomEdgeLeftArc;
+    }
+    @keyframes BottomRightCrossBottomEdgeLeftArc {
+        from {
+            left: 112.5vh;
+            top: 90vh;
+        }
+        to {
+            left: 112.5vh;
+            top: 88.5vh;
+        }
+    }
+    #BottomRightCrossBottomEdgeRight {
+        border-top-right-radius: 100%;
+        animation-name: BottomRightCrossBottomEdgeRightArc;
+    }
+    @keyframes BottomRightCrossBottomEdgeRightArc {
+        from {
+            left: 117.5vh;
+            top: 90vh;
+        }
+        to {
+            left: 117.5vh;
+            top: 88.5vh;
         }
     }
 }
