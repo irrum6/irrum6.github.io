@@ -10,13 +10,13 @@
   padding:0px;
 }
 #block1{
-  background-color:yellow;
+  background-color:blue;
   position:absolute;
   left:0px;
   
 }
 #block2{
-  background-color:cyan;
+  background-color:yellow;
   position:absolute;
   right:0px;
   top:50vh;

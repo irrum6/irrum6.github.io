@@ -1,31 +1,48 @@
-function watchVal(event) {
+let ScreenCalc = {};
+
+ScreenCalc.EnableDisableResolutionInput = function (event) {
+    let w = Lib.q("#width");
+    let h = Lib.q("#height");
+    let v = event.target.checked;
+    if (!v) {
+        w.disabled = true;
+        h.disabled = true;
+    } else {
+        w.disabled = false;
+        h.disabled = false;
+    }
+};
+
+ScreenCalc.WatchVal = function (event) {
     let val = parseFloat(event.target.value);
     let max = parseFloat(event.target.max);
     let min = parseFloat(event.target.min);
     if (Number.isNaN(val)) { }
     if (val > max) {
-        showMessage('Maximum value for this input is ' + max);
+        ScreenCalc.ShowMessage('Maximum value for this input is ' + max, false);
         val = max;
     }
     if (val < min) {
-        showMessage('Minimum value for this input is ' + min);
+        ScreenCalc.ShowMessage('Minimum value for this input is ' + min, false);
         val = min
     }
     event.target.value = val;
-}
-function showMessage(message) {
-    let el = Lib.q('div.alert-bar');
-    el.innerHTML = '' + message + ' (click to hide this message)';
-    el.style.display = "flex;";
-    el.style.backgroundColor = "#ff6060";
-}
-function hideMessage(event) {
-    event.target.innerHTML = "";
-    event.target.style.backgroundColor = "#ffffff";
-}
-function calcRatio(len, wid, normalize) {
-    if (Lib.isPositiveInteger(len, wid)) {
-        let ratio = len / wid;
+};
+
+ScreenCalc.ShowMessage = function (message, reverse) {
+    let el = Lib.q('#alertbar > p');
+    if (typeof reverse === "boolean" & reverse) {
+        el.parentElement.style.visibility = "hidden";
+    } else {
+        el.innerHTML = '' + message + ' (click to hide this message)';
+        el.parentElement.style.visibility = "visible";
+    }
+
+};
+
+ScreenCalc.CalcRatio = function (height, width, normalize) {
+    if (Lib.isPositiveInteger(height, width)) {
+        let ratio = height / width;
         let ratioPrecision = Lib.toPrecision(ratio, 2);
         if (normalize) {
             let wideAspect = Lib.toPrecision((ratio * 9), 1);
@@ -35,27 +52,32 @@ function calcRatio(len, wid, normalize) {
         return { success: true, ratio: ratio };
     }
     return { success: false };
-}
-function calc() {
+};
 
+ScreenCalc.Calc = function () {
     let [ratio, correctedRatio, normalizedRatio] = [1, 1, 1];
 
-    let [diagSize, resLength, resWidth, providedRatio] = ['#diagsize', '#length', '#width', '#ratio'].map((elem) => {
+    let [diagSize, resLength, resWidth, providedRatio] = ['#diag', '#height', '#width', '#ratio'].map((elem) => {
         return Lib.q(elem).value;
     });
 
     providedRatio = providedRatio.split('/');
 
     if (diagSize.length === 0) {
-        Lib.q('#diagsize').classList.add('warning');
-        showMessage('Enter diagonal size');
+        Lib.q("#diag").classList.add("warning");
+        ScreenCalc.ShowMessage('Enter diagonal size');
     } else {
         let normalize = true;
         resLength = parseInt(resLength, 10);
         resWidth = parseInt(resWidth, 10);
 
-        let calcratio = calcRatio(resLength, resWidth, true);
+        let calcratio = { success: false };
 
+        let inputEnabled = Lib.q("#confresinput").checked;
+
+        if (inputEnabled) {
+            calcratio = ScreenCalc.CalcRatio(resLength, resWidth, true);
+        }
         if (calcratio.success) {
             ratio = calcratio.ratio;
             correctedRatio = calcratio.correctedRatio;
@@ -92,19 +114,24 @@ function calc() {
             area: screenArea
         };
 
-        update(updateObj);
+        ScreenCalc.Update(updateObj);
     }
-}
+};
 
-function update(updateObj) {
+ScreenCalc.Update = function (updateObj) {
     Lib.q('#diag-par').textContent = 'Diagonal Size : $i inches ($m mm)'
         .replace("$i", updateObj.diag).replace("$m", updateObj.diagmm);
     Lib.q('#inp-ratio-par').textContent = 'Inputed Aspect Ratio : $ratio'
         .replace("$ratio", updateObj.ratio);
-    Lib.q('#calc-ratio-par').textContent = 'Calculated Aspect Ratio : $cratio'
-        .replace("$cratio", updateObj.cratio);
-    Lib.q('#calc-ratio-norm-par').textContent = 'Calculatiod Aspect Ratio (Normalized to 16/9 format) : $ncratio'
-        .replace("$ncratio", updateObj.ncratio);
+    if (updateObj.cratio > 1) {
+        Lib.q('#calc-ratio-par').textContent = 'Calculated Aspect Ratio : $cratio'
+            .replace("$cratio", updateObj.cratio);
+        Lib.q('#calc-ratio-norm-par').textContent = 'Calculated Aspect Ratio (Normalized to 16/9 format) : $ncratio'
+            .replace("$ncratio", updateObj.ncratio);
+    } else {
+        Lib.q('#calc-ratio-par').textContent = '';
+        Lib.q('#calc-ratio-norm-par').textContent = '';
+    }
     Lib.q('#calc-width-par').textContent = 'Calculated Width:$m mm ($i inches)'
         .replace("$m", Lib.toPrecision(updateObj.wid, 1))
         .replace("$i", Lib.toPrecision(updateObj.wid / 25.4, 1));
@@ -114,6 +141,12 @@ function update(updateObj) {
     Lib.q('#calc-area-par').innerHTML = 'Calculated Area: $m mm<sup>2</sup> $cm cm<sup>2</sup> ($i inch<sup>2</sup>)'
         .replace("$m", Lib.toPrecision(updateObj.area, 1))
         .replace("$cm", Lib.toPrecision(updateObj.area / 100, 1))
-        .replace("$i", Lib.toPrecision((updateObj.len / 25.4) / 25.4, 1));
-    Lib.q('#result').style.display = "flex";
-}
+        .replace("$i", Lib.toPrecision((updateObj.area / 25.4) / 25.4, 1));
+    Lib.q('#result').style.visibility = "visible";
+};
+
+//prevent form submiting
+
+document.getElementsByTagName('form')[0].onsubmit = function (event) {
+    event.preventDefault();
+};
