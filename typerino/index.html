@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Typerino</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/main.css" />
+</head>
+
+<body>
+    <canvas id="mocanvas"></canvas>
+    <script src="assets/js/howler.min.js"></script>
+    <script src="assets/js/paper.0.11.5.full.min.js"></script>
+    <script>
+        function rgb() {
+            function random255() {
+                return Number(Math.floor(Math.random() * 255));
+            }
+            let [r, g, b] = [random255(), random255(), random255()];
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+    </script>
+    <script>
+        //because of ... fuck other developers, that's why !
+        paper.install(window);
+        var canvas = document.getElementById('mocanvas');
+        paper.setup(canvas);
+
+        var mappings = {}
+
+        var circles = [];
+        var texts = []
+
+        var soundSources = ["bubbles.mp3", "flash2.mp3", "piston2.mp3", " splits.mp3 ", "veil.mp3",
+            "clay.mp3  ", " flash3.mp3 ", "piston.mp3 ", "squiggle.mp3", "wipe.mp3",
+            "confetti.mp3  ", "glimmer.mp3 ", "prism1.mp3 ", "strike.mp3 ", "zigzag.mp3",
+            "corona.mp3  ", "moon.mp3  ", "prism2.mp3 ", "suspension.mp3",
+            "dottedspiral.mp3 ", "pinwheel.mp3", "prism3.mp3 ", "timer.mp3",
+            "flash1.mp3  ", "piston1.mp3", " ufo.mp3"];
+
+
+        "qwertyuiop".split("").forEach((elem, index) => {
+            mappings[elem] = {
+                "coords": {
+                    x: (++index * 120),
+                    y: 100
+                }
+            }
+        });
+
+        "QWERTYUIOP".split("").forEach((elem, index) => {
+            mappings[elem] = {
+                "coords": {
+                    x: (++index * 120),
+                    y: 100
+                }
+            }
+        });
+
+        "asdfghjkl;".split("").forEach((elem, index) => {
+            mappings[elem] = {
+                "coords": {
+                    x: (++index * 120),
+                    y: 240
+                }
+            }
+        });
+        "ASDFGHJKL:".split("").forEach((elem, index) => {
+            mappings[elem] = {
+                "coords": {
+                    x: (++index * 120),
+                    y: 240
+                }
+            }
+        });
+
+        "zxcvbnm,./".split("").forEach((elem, index) => {
+            mappings[elem] = {
+                "coords": {
+                    x: (++index * 120),
+                    y: 360
+                }
+            }
+        });
+
+        "ZXCVBNM<>?".split("").forEach((elem, index) => {
+            mappings[elem] = {
+                "coords": {
+                    x: (++index * 120),
+                    y: 360
+                }
+            }
+        });
+
+        let len = soundSources.length;
+
+        var stringTotal = "qwertyuiop" + "QWERTYUIOP" + "asdfghjkl;"
+            + "ASDFGHJKL:" + "zxcvbnm,./" + "ZXCVBNM<>?";
+
+        stringTotal.split("").forEach((elem, index) => {
+            mappings[elem]["sounds"] = new Howl({
+                src: [`./assets/sounds/${soundSources[index % len]}`]
+            });
+        });
+
+        document.addEventListener('keypress', (event) => {
+            let key = event.key;
+            if (stringTotal.indexOf(key) > -1) {
+                let coords = mappings[key]["coords"];
+                mappings[key]["sounds"].play();
+
+                if (typeof coords !== 'undefined') {
+                    let circle = new Path.Circle(new Point(coords.x, coords.y), 50);
+                    circle.fillColor = rgb();
+                    circles.push(circle);
+                    let text = new PointText(new Point(coords.x, coords.y + 10));
+                    text.justification = 'center';
+                    text.fillColor = 'black';
+                    text.fontSize = 30;
+                    text.content = key;
+                    texts.push(text);
+                }
+            }
+
+        });
+
+        view.onFrame = () => {
+            circles.forEach((circle) => {
+                circle.scale(0.985);
+                if (circle.area < 1) {
+                    let i = circles.indexOf(circle);
+                    circle.remove();
+                    circles.splice(i, 1);
+                }
+            });
+            texts.forEach((text) => {
+                text.scale(0.985);
+            });
+        }
+    </script>
+</body>
+
+</html>
