@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="compare.css">
+    <title>Mobile Screen Size Comparison</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1></h1>
+    <div class="container">
+        <h1>Compare Mobile Screens</h1>
+        <div class="row">
+            <!-- phone 1 -->
+            <div class="box">
+                <div class="input-group">
+                    <div>
+                        <label for="phdiag1">Phone 1 Screen Size</label>
+                    </div>
+                    <div>
+                        <input type="number" id="phdiag1" class="" step="0.1" value="5.5" min="3.2" max="7" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div>
+                        <label for="phratio1">Phone 1 Aspect Ratio</label>
+                    </div>
+                    <div>
+                        <select id="phratio1"></select>
+                    </div>
+                </div>
+            </div>
+            <!-- phone 2 -->
+            <div class="box">
+                <div class="input-group">
+                    <div>
+                        <label for="phdiag2">Phone 2 Screen Size</label>
+                    </div>
+                    <div>
+                        <input type="number" id="phdiag2" class="" step="0.1" value="5.5" min="3.2" max="7" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div>
+                        <label for="phratio2">Phone 2 Aspect Ratio</label>
+                    </div>
+                    <div>
+                        <select id="phratio2"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button class="btn">Compare</button>
+            </div>
+        </div>
+        <div class="row">
+            <div id="visualize">
+                <div id="phone1"></div>
+                <div id="phone2"></div>
+            </div>
+        </div>
+    </div>
+    <script src="populate_selects.js"></script>
+    <script src="compare.js"></script>
+</body>
+
+</html>
