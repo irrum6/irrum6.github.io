@@ -1,0 +1,73 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+div#hangman>svg {
+    background-color: grey;
+}
+
+div.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+div#hangman {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5vw;
+}
+
+svg>g>text {
+    font-size: 4vmin;
+    font-weight: 700;
+    fill: black;
+
+}
+
+g>text {
+    text-transform: uppercase;
+}
+
+div#hint>span {
+    font-size: 24px;
+    font-weight: 700;
+}
+#keyboard{
+    margin-top:10px;
+    width:50vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+@media screen and (orientation:portrait){
+    #keyboard{
+        width:80vw;
+    }
+}
+div.lettergroup{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+div.lettergroup > button{
+    flex-basis: 0;
+    flex-grow: 1;
+    font-size:20px;
+    font-weight:bold;
+    padding:4px;
+    border:1px solid black;
+    background: none;
+    margin: 5px;
+    text-transform: uppercase;
+}
+#space{
+    flex-basis: 0;
+    flex-grow: 4;
+}
