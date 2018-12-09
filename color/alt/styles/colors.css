@@ -1,0 +1,34 @@
+.all {
+    background-color: white;
+    border: 1px black solid;
+}
+.red {
+    background-color: rgb(255, 96, 96);
+}
+.green {
+    background-color: rgb(96, 255, 96);
+}
+.blue {
+    background-color: rgb(96, 96, 255);
+}
+.cyan {
+    background-color: cyan;
+}
+.magenta {
+    background-color: magenta;
+}
+.yellow {
+    background-color: yellow;
+}
+.settings.lang.main {
+    background-color: rgb(160, 255, 192);
+}
+.settings.mode.main {
+    background-color: rgb(160, 192, 255);
+}
+.settings.lang:hover {
+    background-color: rgb(128, 255, 128);
+}
+.settings.mode:hover {
+    background-color: rgb(128, 128, 255);
+}

@@ -1,0 +1,67 @@
+@media screen and (orientation:landscape) {
+    #container {
+        width: 95vw;
+        flex-flow: row;
+        margin-bottom: 1vmin;
+    }
+    #options {
+        display: flex;
+        flex-grow: 3;
+        flex-basis: 0;
+        flex-direction: column;
+        margin-right: 1vmin;
+    }
+    #grid {
+        flex-grow: 4;
+        flex-basis: 0;
+        margin-bottom: 1vmin;
+    }
+    #interface {
+        display: flex;
+        flex-grow: 3;
+        flex-basis: 0;
+        flex-direction: column;
+        margin-left: 1vmin;
+    }
+    #timewidget, #scorewidget {
+        flex-basis: 0;
+        flex-grow: 2;
+    }
+    .menu {
+        display: flex;
+        flex-grow: 1;
+        flex-basis: 0;
+        flex-direction: column;
+        margin-top: 1vmin;
+    }
+    #bottombar {
+        flex-basis: 0;
+        flex-grow: 1;
+    }
+    #countdown, #score, #start, #hint {
+        font-size: 6vmin;
+        padding: 10px 10px 10px 10px;
+        outline: 0;
+        border: 0;
+        margin-bottom: 1vmin;
+    }
+    #bottombar {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+    #countdown, #score {
+        flex-basis: 0;
+        flex-grow: 1;
+        display: none;
+    }
+    #start, #hint {
+        flex-basis: 0;
+        flex-grow: 1;
+        background-color: coral;
+        font-weight: bold;
+    }
+    #start {
+        margin-left: 1vmin;
+    }
+}

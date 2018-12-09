@@ -1,0 +1,52 @@
+@media screen and (orientation:portrait) {
+    #container {
+        flex-flow: column;
+        width: 90vw;
+    }
+    #options {
+        flex-flow: row;
+        width: 100%;
+        z-index: 1;
+    }
+    #grid {
+        margin-bottom: 1vmin;
+        z-index: 1;
+    }
+    .widget {
+        display: none;
+    }
+    #interface {
+        display: flex;
+        flex-flow: row;
+        width: 100%;
+        z-index: 1;
+    }
+    #bottombar {
+        display: flex;
+        flex-flow: row;
+        width: 100%;
+    }
+    #countdown, #score, #start, #hint {
+        font-size: 3vmin;
+        padding: 10px 10px 10px 10px;
+    }
+    #countdown, #score {
+        flex-basis: 0;
+        flex-grow: 1;
+    }
+    #hint {
+        flex-grow: 1.5;
+        flex-basis: 0;
+        border: 0;
+    }
+    #start {
+        flex-grow: 1;
+        flex-basis: 0;
+        border: 0;
+        margin-left: 1vmin;
+    }
+    #hint, #start {
+        background-color: coral;
+        font-weight: bold;
+    }
+}
