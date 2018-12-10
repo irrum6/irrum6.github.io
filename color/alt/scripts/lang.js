@@ -20,6 +20,7 @@ let languages = {
             magenta: 'შინდისფერი',
             yellow: 'ყვითელი',
             all: 'ყველა',
+            black: 'შავი'
         },
         modes: {
             easy: 'იოლი',
@@ -48,7 +49,8 @@ let languages = {
             cyan: 'Cyan',
             magenta: 'Magenta',
             yellow: 'Yellow',
-            all: 'All'
+            all: 'All',
+            black: 'black'
         },
         modes: {
             easy: 'Easy',
@@ -75,7 +77,8 @@ let languages = {
             cyan: 'Cyan',
             magenta: 'Magenta',
             yellow: 'Gelb',
-            all: 'Alle'
+            all: 'Alle',
+            black: 'Schwarze'
         },
         modes: {
             easy: 'Einfach',
@@ -107,7 +110,8 @@ let languages = {
             cyan: 'Cyan',
             magenta: 'Magenta',
             yellow: 'Yellow',
-            all: 'Все'
+            all: 'Все',
+            black: 'черний'
         },
         modes: {
             easy: 'Легкий',
