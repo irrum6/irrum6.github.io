@@ -19,6 +19,7 @@ var ColorToolBox = (function () {
          *@returns {String} 
          */
         generateCMYK(range, delta, mode) {
+            console.log(range, delta, mode);
             /**
              * CMYK to RGB conversion formula
              * The R,G,B values are given in the range of 0..255.
@@ -31,7 +32,7 @@ var ColorToolBox = (function () {
              */
             let cmyk = h5.random(4);
             let [min, max, interval] = [range[0], range[1], range[1] - range[0]];
-            cmyk = cmyk.map((elem) => Math.floor(((elem * interval + min) * 100)) / 100);
+            cmyk = cmyk.map((elem) => (elem * interval + min));
             console.log(cmyk);
             let [cyan, magenta, yellow, key] = cmyk;
             let [dcyan, dmagenta, dyellow, dkey] = cmyk.map((elem) => (elem + delta < max ? elem + delta : elem - delta));

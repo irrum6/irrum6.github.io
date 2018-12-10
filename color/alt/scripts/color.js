@@ -68,6 +68,7 @@ class ColorGame {
     setLocale(l) {
         if (!h5.isString(l) || !this.supportedLocales.includes(l)) return false;
         this.locale = l;
+        this.options.locale = l;
         //fire locale change event
         let event = new Event('localechange');
         document.body.dispatchEvent(event);
@@ -76,17 +77,21 @@ class ColorGame {
      * @param {String} m //mode
      */
     setMode(m) {
-        if (h5.isString(m) && this.supportedModes.includes(m)) this.mode = m;
+        if (!h5.isString(m) || !this.supportedModes.includes(m)) return false;
+        this.mode = m;
+        this.options.mode = m;
     }
     /**
      * @param {String} c //colormode 
      */
     setColorMode(c) {
-        if (h5.isString(c) && this.SupportedColorModes.includes(c)) this.colorMode = c;
+        if (!h5.isString(c) || !this.SupportedColorModes.includes(c)) return false
+        this.colorMode = c;
+        this.options.colorMode = c;
     }
     calculateDelta() {
         if (this.level > 0) {
-            let colorspace = ["cyam", "magenta", "yellow", "black"].includes(this.colorMode) ? "cmyk" : "rgb";
+            let colorspace = ["cyan", "magenta", "yellow", "black"].includes(this.colorMode) ? "cmyk" : "rgb";
             this.delta = (this.level > this.deltas[colorspace].get(this.mode).length) ?
                 this.deltas[colorspace].get("minimal") : this.deltas[colorspace].get(this.mode)[this.level - 1]
         }
