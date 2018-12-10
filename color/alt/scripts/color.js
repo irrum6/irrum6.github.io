@@ -13,7 +13,7 @@ class ColorGame {
         //note 
         //since cmyk and rgb are both full color modes but rgb is wider
         //we use rgb for all color mode
-        this.SupportedColorModes = ["rgb", "red", "green", "blue", "cyan", "magenta", "yellow", "black"];
+        this.SupportedColorModes = ["all", "red", "green", "blue", "cyan", "magenta", "yellow", "black"];
         this.supportedLocales = ["english", "georgian", "german", "russian"];
         this.initDeltas();
         this.initColorRAnge();
@@ -134,7 +134,7 @@ class ColorGame {
     ApplyDefaultSettings() {
         let defaultOptions = {
             mode: 'easy',
-            colorMode: 'rgb',
+            colorMode: 'all',
             time: 100,
             level: 1,
             visible: true,

@@ -19,8 +19,6 @@ let languages = {
             cyan: 'ცისფერი',
             magenta: 'შინდისფერი',
             yellow: 'ყვითელი',
-            rgb: 'წითელი-მწვანე-ლურჯი',
-            cmy: 'ცისფერი-შინდისფერი-ყვითელი',
             all: 'ყველა',
         },
         modes: {
@@ -50,8 +48,6 @@ let languages = {
             cyan: 'Cyan',
             magenta: 'Magenta',
             yellow: 'Yellow',
-            rgb: 'Red-Green-Blue',
-            cmy: 'Cyan-Magenta-Yellow',
             all: 'All'
         },
         modes: {
@@ -79,8 +75,6 @@ let languages = {
             cyan: 'Cyan',
             magenta: 'Magenta',
             yellow: 'Gelb',
-            rgb: 'Rot-Grün-Blau',
-            cmy: 'Cyan-Magenta-Gelb',
             all: 'Alle'
         },
         modes: {
@@ -113,8 +107,6 @@ let languages = {
             cyan: 'Cyan',
             magenta: 'Magenta',
             yellow: 'Yellow',
-            rgb: 'Красний-Зеленый-Синий-',
-            cmy: 'CMY',
             all: 'Все'
         },
         modes: {

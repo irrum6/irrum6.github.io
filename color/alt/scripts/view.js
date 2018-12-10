@@ -21,7 +21,7 @@ class ColorGameView {
 
         let grid = q('#grid');
 
-        if (row > this.currentRowCount) {
+        if (row !== this.currentRowCount) {
             //remove current container to make room for another
             this.clearGrid();
             //update row count
