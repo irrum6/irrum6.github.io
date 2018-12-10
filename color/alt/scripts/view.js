@@ -157,9 +157,9 @@ class ColorGameView {
                     let main = q(`${selector}.main`);
                     main.classList.remove('main');
                     event.target.classList.add('main');
-                    event.target.parentElement.insertBefore(event.target, main);
-                    callback(game, event);
+                    main.parentElement.insertBefore(event.target, main);
                     self.toggleMenu(selector);
+                    callback(game, event);
                 }
             });
         }
@@ -169,7 +169,7 @@ class ColorGameView {
             return element.style.display === "flex";
         }
         if (!h5.isString(selector)) return false;
-        let entries = qa(selector);
+        let entries = qa(`${selector}:not(.main)`);
         let main = q(`${selector}.main`);
         if (!h5.defined(entries, main)) return false;
         let len = entries.length;
@@ -178,6 +178,22 @@ class ColorGameView {
                 entries[i].style.display = isFlex(entries[i]) ? "none" : "flex";
             }
             main.style.display = 'flex';
+        } else if (this.isPortrait()) {
+            //cut the crap, we don't need to check every element
+            if (isFlex(entries[0])) {
+                for (let i = 0; i < len; i++) {
+                    main.parentElement.appendChild(entries[i]);
+                    entries[i].style.display = "none";
+                    entries[i].classList.remove("contained")
+                }
+            } else {
+                let container = q("#vmenucontainer");
+                for (let i = 0; i < len; i++) {
+                    container.appendChild(entries[i]);
+                    entries[i].style.display = "flex";
+                    entries[i].classList.add("contained");
+                }
+            }
         }
     }
 
@@ -209,12 +225,5 @@ class ColorGameView {
     }
     isPortrait() {
         return window.matchMedia("(orientation:portrait)").matches;
-    }
-    alert(text) {
-        let alert = q('#alertbar');
-        let span = alert.querySelector('span');
-        span.textContent = text;
-        alert.style.display = "flex";
-        alert.addEventListener('click', (event) => event.target.style.display = "none");
     }
 }

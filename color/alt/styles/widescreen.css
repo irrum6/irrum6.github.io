@@ -11,6 +11,9 @@
         flex-direction: column;
         margin-right: 1vmin;
     }
+    #vmenucontainer {
+        display: none;
+    }
     #grid {
         flex-grow: 4;
         flex-basis: 0;

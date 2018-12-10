@@ -4,9 +4,15 @@
         width: 90vw;
     }
     #options {
+        display: flex;
         flex-flow: row;
         width: 100%;
         z-index: 1;
+    }
+    #vmenucontainer {
+        display: flex;
+        flex-flow: row;
+        flex-wrap: wrap;
     }
     #grid {
         margin-bottom: 1vmin;
@@ -48,5 +54,16 @@
     #hint, #start {
         background-color: coral;
         font-weight: bold;
+    }
+    .menu {
+        display: flex;
+        flex-basis: 0;
+        flex-grow: 1;
+    }
+    .settings.contained {
+        display: flex;
+        flex-basis: 25%;
+        flex-grow: 1;
+        flex-flow: row;
     }
 }
