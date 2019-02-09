@@ -1,5 +1,3 @@
-// var options = new Map();
-
 var options = {
     squarish: ["1/1", "5/4", "4/3"],
     wide: ["3/2", "16/10", "5/3"],
@@ -8,12 +6,12 @@ var options = {
 }
 
 /**
- * @param {string} select
- * @returns {void}
+ * populates a select element
+ * @param {String} select
  */
 function populate(select) {
     let s = document.querySelector(select);
-    for (var opts in options) {
+    for (let opts in options) {
         let og = document.createElement('optgroup');
         og.label = opts;
         options[opts].forEach(opt => {
@@ -25,6 +23,3 @@ function populate(select) {
         s.appendChild(og);
     }
 }
-
-populate("#phratio1");
-populate("#phratio2");

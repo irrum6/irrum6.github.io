@@ -1,0 +1,16 @@
+body {
+    background-color: #c0c0a0;
+}
+
+#formdiv {
+    padding: 30px 40px;
+    background-color: #808080;
+}
+
+button.btn.darkify:hover {
+    background-color: slategray;
+}
+
+button.btn.darkness {
+    background-color: darkslategray;
+}
