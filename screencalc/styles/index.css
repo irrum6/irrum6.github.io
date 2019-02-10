@@ -10,3 +10,7 @@ body {
 button.btn.darkness {
     background-color: darkslategray;
 }
+
+span#ard{
+    font-size:1.6rem;
+}
