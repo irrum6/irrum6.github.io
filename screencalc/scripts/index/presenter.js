@@ -20,7 +20,7 @@ class Presenter {
     setupDom() {
         const strArray = ['Ratio1', 'Ratio2', 'Diagonal', 'Width', 'Height',
             'PixelsPerUnit', 'ResolutionWidth', 'ResolutionHeight', 'inches',
-            'centi', 'milli'];
+            'centi', 'milli', 'eng', 'geo'];
         for (let str of strArray) this.dom = str;
     }
     setupHandlers() {
@@ -83,6 +83,9 @@ class Presenter {
         this.dom.milli[on]('click', this.onUnitChangeMM.bind(this));
         this.dom.centi[on]('click', this.onUnitChangeCM.bind(this));
         this.dom.inches[on]('click', this.onUnitChangeIn.bind(this));
+
+        this.dom.eng[on]('click', this.translateEng.bind(this));
+        this.dom.geo[on]('click', this.translateGeo.bind(this));
     }
     display() {
         this.dom.Ratio1.value = lib.toPrecision(this.model.Ratio1, 2);
@@ -91,7 +94,7 @@ class Presenter {
         this.dom.Width.value = lib.toPrecision(this.model.Width, 2);
         this.dom.Height.value = lib.toPrecision(this.model.Height, 2);
 
-        this.dom.PixelsPerUnit.value = this.model.PixelsPerUnit;
+        this.dom.PixelsPerUnit.value = lib.toPrecision(this.model.PixelsPerUnit, 2);
         this.dom.ResolutionWidth.value = this.model.ResolutionWidth;
         this.dom.ResolutionHeight.value = this.model.ResolutionHeight;
     }
@@ -161,8 +164,6 @@ class Presenter {
     onUnitChangeMM() {
         this.dom.inches.classList.remove('darkness');
         this.dom.centi.classList.remove('darkness');
-
-        this.dom.milli.classList.remove('darkify');
         this.dom.milli.classList.add('darkness');
 
         let unit = this.model.Unit;
@@ -172,8 +173,6 @@ class Presenter {
     onUnitChangeCM() {
         this.dom.inches.classList.remove('darkness');
         this.dom.milli.classList.remove('darkness');
-
-        this.dom.centi.classList.remove('darkify');
         this.dom.centi.classList.add('darkness');
 
         let unit = this.model.Unit;
@@ -183,8 +182,6 @@ class Presenter {
     onUnitChangeIn() {
         this.dom.centi.classList.remove('darkness');
         this.dom.milli.classList.remove('darkness');
-
-        this.dom.inches.classList.remove('darkify');
         this.dom.inches.classList.add('darkness');
 
         let unit = this.model.Unit;
@@ -219,5 +216,22 @@ class Presenter {
         this.model.Diagonal = f(this.model.Diagonal);
         this.model.PixelsPerUnit = this.model.PixelsPerUnit / f(1);
         this.display();
+    }
+    translateEng() {
+        this.dom.geo.classList.remove('darkness');
+        this.dom.eng.classList.add('darkness');
+        this.translate('eng');
+    }
+    translateGeo() {
+        this.dom.geo.classList.add('darkness');
+        this.dom.eng.classList.remove('darkness');
+        this.translate('geo');
+    }
+    translate(lang) {
+        let translatables = qa('[data-app-translate="1"]');
+        for (let i = 0, len = translatables.length; i < len; i++) {
+            let text = translatables[i].getAttribute('data-app-text');
+            translatables[i].textContent = translateData[text][lang];
+        }
     }
 }

@@ -7,10 +7,6 @@ body {
     background-color: #808080;
 }
 
-button.btn.darkify:hover {
-    background-color: slategray;
-}
-
 button.btn.darkness {
     background-color: darkslategray;
 }
