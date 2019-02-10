@@ -79,13 +79,17 @@ class Presenter {
         this.dom.PixelsPerUnit[on]('focusout', e => {
             this.dom.PixelsPerUnit[un]('change', this.onPixelsPerUnitChange.bind(this));
         });
+
+        this.dom.milli[on]('click', this.onUnitChangeMM.bind(this));
+        this.dom.centi[on]('click', this.onUnitChangeCM.bind(this));
+        this.dom.inches[on]('click', this.onUnitChangeIn.bind(this));
     }
     display() {
-        this.dom.Ratio1.value = lib.toPrecision(this.model.Ratio1, 1);
-        this.dom.Ratio2.value = lib.toPrecision(this.model.Ratio2, 1);
-        this.dom.Diagonal.value = lib.toPrecision(this.model.Diagonal, 1);
-        this.dom.Width.value = lib.toPrecision(this.model.Width, 1);
-        this.dom.Height.value = lib.toPrecision(this.model.Height, 1);
+        this.dom.Ratio1.value = lib.toPrecision(this.model.Ratio1, 2);
+        this.dom.Ratio2.value = lib.toPrecision(this.model.Ratio2, 2);
+        this.dom.Diagonal.value = lib.toPrecision(this.model.Diagonal, 2);
+        this.dom.Width.value = lib.toPrecision(this.model.Width, 2);
+        this.dom.Height.value = lib.toPrecision(this.model.Height, 2);
 
         this.dom.PixelsPerUnit.value = this.model.PixelsPerUnit;
         this.dom.ResolutionWidth.value = this.model.ResolutionWidth;
@@ -152,6 +156,68 @@ class Presenter {
         this.model.PixelsPerUnit = Number(this.dom.PixelsPerUnit.value)
         this.model.ResolutionWidth = this.model.PixelsPerUnit * this.model.Width;
         this.model.ResolutionHeight = this.model.PixelsPerUnit * this.model.Height;
+        this.display();
+    }
+    onUnitChangeMM() {
+        this.dom.inches.classList.remove('darkness');
+        this.dom.centi.classList.remove('darkness');
+
+        this.dom.milli.classList.remove('darkify');
+        this.dom.milli.classList.add('darkness');
+
+        let unit = this.model.Unit;
+        this.model.Unit = "Millimetres";
+        this.onUnitChange(unit);
+    }
+    onUnitChangeCM() {
+        this.dom.inches.classList.remove('darkness');
+        this.dom.milli.classList.remove('darkness');
+
+        this.dom.centi.classList.remove('darkify');
+        this.dom.centi.classList.add('darkness');
+
+        let unit = this.model.Unit;
+        this.model.Unit = "Centimetres";
+        this.onUnitChange(unit);
+    }
+    onUnitChangeIn() {
+        this.dom.centi.classList.remove('darkness');
+        this.dom.milli.classList.remove('darkness');
+
+        this.dom.inches.classList.remove('darkify');
+        this.dom.inches.classList.add('darkness');
+
+        let unit = this.model.Unit;
+        this.model.Unit = "Inches";
+        this.onUnitChange(unit);
+    }
+    onUnitChange(unitFrom) {
+        let f;
+        let fromto = `${unitFrom}:${this.model.Unit}`;
+        switch (fromto) {
+            case 'Inches:Millimetres':
+                f = convert.itomm;
+                break;
+            case 'Inches:Centimetres':
+                f = convert.itocm;
+                break;
+            case 'Centimetres:Inches':
+                f = convert.cmtoi;
+                break;
+            case 'Centimetres:Millimetres':
+                f = convert.cmtomm;
+                break;
+            case 'Millimetres:Inches':
+                f = convert.mmtoi;
+                break;
+            case 'Millimetres:Centimetres':
+                f = convert.mmtocm;
+                break;
+        }
+        this.model.Width = f(this.model.Width);
+        this.model.Height = f(this.model.Height);
+        this.model.Diagonal = f(this.model.Diagonal);
+        this.model.PixelsPerUnit = this.model.PixelsPerUnit / f(1);
         this.display();
     }
 }
