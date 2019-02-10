@@ -25,30 +25,59 @@ class Presenter {
     }
     setupHandlers() {
         this.dom.Ratio1[on]('focus', e => {
-            this.dom.Ratio1[on]('change', this.changeOnRatio1.bind(this));
+            this.dom.Ratio1[on]('change', this.onRatio1Change.bind(this));
         });
         this.dom.Ratio1[on]('focusout', e => {
-            this.dom.Ratio1[un]('change', this.changeOnRatio1.bind(this));
+            this.dom.Ratio1[un]('change', this.onRatio1Change.bind(this));
         });
 
         this.dom.Ratio2[on]('focus', e => {
-            this.dom.Ratio2[on]('change', this.changeOnRatio2.bind(this));
+            this.dom.Ratio2[on]('change', this.onRatio2Change.bind(this));
         });
         this.dom.Ratio2[on]('focusout', e => {
-            this.dom.Ratio2[un]('change', this.changeOnRatio2.bind(this));
+            this.dom.Ratio2[un]('change', this.onRatio2Change.bind(this));
         });
 
         this.dom.Width[on]('focus', e => {
-            this.dom.Width[on]('change', this.changeOnWidth.bind(this));
+            this.dom.Width[on]('change', this.onWidthChange.bind(this));
         });
         this.dom.Width[on]('focusout', e => {
-            this.dom.Width[un]('change', this.changeOnWidth.bind(this));
+            this.dom.Width[un]('change', this.onWidthChange.bind(this));
         });
+
         this.dom.Height[on]('focus', e => {
-            this.dom.Height[on]('change', this.changeOnHeight.bind(this));
+            this.dom.Height[on]('change', this.onHeightChange.bind(this));
         });
         this.dom.Height[on]('focusout', e => {
-            this.dom.Height[un]('change', this.changeOnHeight.bind(this));
+            this.dom.Height[un]('change', this.onHeightChange.bind(this));
+        });
+
+        this.dom.Diagonal[on]('focus', e => {
+            this.dom.Diagonal[on]('change', this.onDiagonalChange.bind(this));
+        });
+        this.dom.Diagonal[on]('focusout', e => {
+            this.dom.Diagonal[un]('change', this.onDiagonalChange.bind(this));
+        });
+
+        this.dom.ResolutionWidth[on]('focus', e => {
+            this.dom.ResolutionWidth[on]('change', this.onResolutionWidthChange.bind(this));
+        });
+        this.dom.ResolutionWidth[on]('focusout', e => {
+            this.dom.ResolutionWidth[un]('change', this.onResolutionWidthChange.bind(this));
+        });
+
+        this.dom.ResolutionHeight[on]('focus', e => {
+            this.dom.ResolutionHeight[on]('change', this.onResolutionHeightChange.bind(this));
+        });
+        this.dom.ResolutionHeight[on]('focusout', e => {
+            this.dom.ResolutionHeight[un]('change', this.onResolutionHeightChange.bind(this));
+        });
+
+        this.dom.PixelsPerUnit[on]('focus', e => {
+            this.dom.PixelsPerUnit[on]('change', this.onPixelsPerUnitChange.bind(this));
+        });
+        this.dom.PixelsPerUnit[on]('focusout', e => {
+            this.dom.PixelsPerUnit[un]('change', this.onPixelsPerUnitChange.bind(this));
         });
     }
     display() {
@@ -62,7 +91,7 @@ class Presenter {
         this.dom.ResolutionWidth.value = this.model.ResolutionWidth;
         this.dom.ResolutionHeight.value = this.model.ResolutionHeight;
     }
-    changeOnRatio1() {
+    onRatio1Change() {
         this.model.Ratio1 = Number(this.dom.Ratio1.value);
         let ratio = this.model.Ratio1 / this.model.Ratio2;
         this.model.Width = this.model.Height * ratio;
@@ -70,7 +99,7 @@ class Presenter {
         this.model.Diagonal = Math.sqrt(Math.pow(this.model.Width, 2) + Math.pow(this.model.Height, 2));
         this.display();
     }
-    changeOnRatio2() {
+    onRatio2Change() {
         this.model.Ratio2 = Number(this.dom.Ratio2.value);
         let ratio = this.model.Ratio1 / this.model.Ratio2;
         this.model.Height = this.model.Width / ratio;
@@ -78,7 +107,7 @@ class Presenter {
         this.model.Diagonal = Math.sqrt(Math.pow(this.model.Width, 2) + Math.pow(this.model.Height, 2));
         this.display();
     }
-    changeOnWidth() {
+    onWidthChange() {
         this.model.Width = Number(this.dom.Width.value);
         let ratio = this.model.Width / this.model.Height;
         this.model.Ratio1 = ratio * this.model.Ratio2;
@@ -86,12 +115,43 @@ class Presenter {
         this.model.Diagonal = Math.sqrt(Math.pow(this.model.Width, 2) + Math.pow(this.model.Height, 2));
         this.display();
     }
-    changeOnHeight() {
+    onHeightChange() {
         this.model.Height = Number(this.dom.Height.value);
         let ratio = this.model.Width / this.model.Height;
         this.model.Ratio2 = this.model.Ratio1 / ratio;
         this.model.ResolutionHeight = this.model.PixelsPerUnit * this.model.Height;
         this.model.Diagonal = Math.sqrt(Math.pow(this.model.Width, 2) + Math.pow(this.model.Height, 2));
+        this.display();
+    }
+    onDiagonalChange() {
+        this.model.Diagonal = Number(this.dom.Diagonal.value);
+        let ratio = this.model.Ratio1 / this.model.Ratio2;
+        this.model.Height = Math.sqrt((Math.pow(this.model.Diagonal, 2) / (1 + (ratio * ratio))));
+        this.model.Width = this.model.Height * ratio;
+        this.model.ResolutionWidth = this.model.PixelsPerUnit * this.model.Width;
+        this.model.ResolutionHeight = this.model.PixelsPerUnit * this.model.Height;
+        this.display();
+    }
+    onResolutionWidthChange() {
+        this.model.ResolutionWidth = Number(this.dom.ResolutionWidth.value);
+        this.model.Width = this.model.ResolutionWidth / this.model.PixelsPerUnit;
+        let ratio = this.model.Width / this.model.Height;
+        this.model.Ratio1 = ratio * this.model.Ratio2;
+        this.model.Diagonal = Math.sqrt(Math.pow(this.model.Width, 2) + Math.pow(this.model.Height, 2));
+        this.display();
+    }
+    onResolutionHeightChange() {
+        this.model.ResolutionHeight = Number(this.dom.ResolutionHeight.value);
+        this.model.Height = this.model.ResolutionHeight / this.model.PixelsPerUnit;
+        let ratio = this.model.Width / this.model.Height;
+        this.model.Ratio2 = this.model.Ratio1 / ratio;
+        this.model.Diagonal = Math.sqrt(Math.pow(this.model.Width, 2) + Math.pow(this.model.Height, 2));
+        this.display();
+    }
+    onPixelsPerUnitChange() {
+        this.model.PixelsPerUnit = Number(this.dom.PixelsPerUnit.value)
+        this.model.ResolutionWidth = this.model.PixelsPerUnit * this.model.Width;
+        this.model.ResolutionHeight = this.model.PixelsPerUnit * this.model.Height;
         this.display();
     }
 }
