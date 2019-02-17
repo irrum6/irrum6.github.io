@@ -1,0 +1,22 @@
+div.pop.box {
+    position: absolute;
+    left: 5vw;
+    top: 10vh;
+    width: 90vw;
+    height: auto;
+    padding: 0.5rem;
+    background-color:mediumseagreen;
+    z-index:9;
+}
+
+div.pop.close {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+button.pop.close {
+    font-size: 1.6rem;
+    padding: 0;
+    margin: 0;
+    background: none;
+}

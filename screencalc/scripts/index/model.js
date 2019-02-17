@@ -1,4 +1,5 @@
 const UNITS = ["Inches", "Centimetres", "Millimetres"];
+Object.freeze(UNITS);
 class Screen {
     constructor(w, h, ppu, u) {
         this.Width = w;
@@ -10,6 +11,7 @@ class Screen {
         this.ResolutionWidth = Math.round(this.PixelsPerUnit * this.Width);
         this.ResolutionHeight = Math.round(this.PixelsPerUnit * this.Height);
         this.Unit = u;
+        this.Language = 'eng';
     }
     get Width() {
         return this._width_;
@@ -81,5 +83,84 @@ class Screen {
         if (!lib.isNumber(r)) throw "ratio2 is not a number";
         if (r < 0) throw "ratio2 is a negative number";
         this._ratio2_ = r;
+    }
+    get Language() {
+        return this._language_;
+    }
+    set Language(l) {
+        if (!lib.isString(l)) throw "Language must be a string";
+        if (!CURRENT_SUPPORTED_TRANSLATIONS.includes(l)) throw "language not supported";
+        this._language_ = l;
+    }
+    get Ratio1Lock() {
+        return this._ratio1lock_;
+    }
+    set Ratio1Lock(b) {
+        if (typeof b !== 'boolean') throw "lock value must be a boolean"
+        this._ratio1lock_ = b;
+    }
+
+    get Ratio2Lock() {
+        return this._ratio2lock_;
+    }
+    set Ratio2Lock(b) {
+        if (typeof b !== 'boolean') throw "lock value must be a boolean"
+        this._ratio2lock_ = b;
+    }
+
+    get WidthLock() {
+        return this._widthlock_;
+    }
+    set WidthLock(b) {
+        if (typeof b !== 'boolean') throw "lock value must be a boolean"
+        this._widthlock_ = b;
+    }
+
+    get HeightLock() {
+        return this._heightlock_;
+    }
+    set HeightLock(b) {
+        if (typeof b !== 'boolean') throw "lock value must be a boolean"
+        this._heightlock_ = b;
+    }
+
+    get DiagonalLock() {
+        return this._diagonallock_;
+    }
+    set DiagonalLock(b) {
+        if (typeof b !== 'boolean') throw "lock value must be a boolean"
+        this._diagonallock_ = b;
+    }
+
+    get ResolutionWidthLock() {
+        return this._resolutionwidthlock_;
+    }
+    set ResolutionWidthLock(b) {
+        if (typeof b !== 'boolean') throw "lock value must be a boolean"
+        this._resolutionwidthlock_ = b;
+    }
+
+    get ResolutionHeightLock() {
+        return this._resolutionheightlock_;
+    }
+    set ResolutionHeightLock(b) {
+        if (typeof b !== 'boolean') throw "lock value must be a boolean"
+        this._resolutionheightlock_ = b;
+    }
+
+    get DimmensionLink() {
+        return this._dimmensionslink_;
+    }
+    set DimmensionLink(b) {
+        if (typeof b !== 'boolean') throw "link value must be a boolean"
+        this._dimmensionslink_ = b;
+    }
+
+    get ResolutionLink() {
+        return this._resolutionlink_;
+    }
+    set ResolutionLink(b) {
+        if (typeof b !== 'boolean') throw "link value must be a boolean"
+        this._resolutionlink_ = b;
     }
 }

@@ -9,8 +9,28 @@ body {
 
 button.btn.darkness {
     background-color: darkslategray;
+    color:white;
 }
 
-span#ard{
-    font-size:1.6rem;
+button.btn.border-dark {
+    border-color: darkolivegreen;
+}
+
+button.btn.linker {
+    border-radius: 10%;
+}
+
+button.btn.linker.linked {
+    letter-spacing: -0.2rem;
+}
+
+button.btn.linker.unlinked {
+    letter-spacing: unset;
+}
+
+button.btn.linker.broken {}
+
+span#ard {
+    font-size: 1.2rem;
+    font-weight: 600;
 }

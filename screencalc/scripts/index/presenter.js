@@ -18,9 +18,13 @@ class Presenter {
         this._dom_[prop] = elem;
     }
     setupDom() {
-        const strArray = ['Ratio1', 'Ratio2', 'Diagonal', 'Width', 'Height',
+        const mainArray = ['Ratio1', 'Ratio2', 'Diagonal', 'Width', 'Height',
             'PixelsPerUnit', 'ResolutionWidth', 'ResolutionHeight', 'inches',
-            'centi', 'milli', 'eng', 'geo'];
+            'centi', 'milli', 'eng', 'geo', 'question'];
+        const locksArray = ['Ratio1Lock', 'Ratio2Lock', 'DiagonalLock', 'WidthLock', 'HeightLock',
+            'PixelsPerUnitLock', 'ResolutionWidthLock', 'ResolutionHeightLock'];
+        const links = ['DimensionsLink', 'ResolutionLink'];
+        const strArray = mainArray.concat(locksArray).concat(links);
         for (let str of strArray) this.dom = str;
     }
     setupHandlers() {
@@ -84,8 +88,25 @@ class Presenter {
         this.dom.centi[on]('click', this.onUnitChangeCM.bind(this));
         this.dom.inches[on]('click', this.onUnitChangeIn.bind(this));
 
-        this.dom.eng[on]('click', this.translateEng.bind(this));
-        this.dom.geo[on]('click', this.translateGeo.bind(this));
+        //
+        this.dom.eng[on]('click', this.translate.bind(this, 'eng'));
+        this.dom.geo[on]('click', this.translate.bind(this, 'geo'));
+
+        //question mark
+        this.dom.question[on]('click', this.onQuestionPopupAlert.bind(this));
+        //locks and links
+        this.dom.Ratio1Lock[on]('click', this.onElementLock.bind(this, 'Ratio1'));
+        this.dom.Ratio2Lock[on]('click', this.onElementLock.bind(this, 'Ratio2'));
+        this.dom.DiagonalLock[on]('click', this.onElementLock.bind(this, 'Diagonal'));
+        this.dom.WidthLock[on]('click', this.onElementLock.bind(this, 'Width'));
+        this.dom.HeightLock[on]('click', this.onElementLock.bind(this, 'Height'));
+        this.dom.PixelsPerUnitLock[on]('click', this.onElementLock.bind(this, 'PixelsPerUnit'));
+        this.dom.ResolutionWidthLock[on]('click', this.onElementLock.bind(this, 'ResolutionWidth'));
+        this.dom.ResolutionHeightLock[on]('click', this.onElementLock.bind(this, 'ResolutionHeight'));
+
+        this.dom.DimensionsLink[on]('click', this.onElementLink.bind(this, 'Dimensions'));
+        this.dom.ResolutionLink[on]('click', this.onElementLink.bind(this, 'Resolution'));
+
     }
     display() {
         this.dom.Ratio1.value = lib.toPrecision(this.model.Ratio1, 2);
@@ -217,21 +238,47 @@ class Presenter {
         this.model.PixelsPerUnit = this.model.PixelsPerUnit / f(1);
         this.display();
     }
-    translateEng() {
-        this.dom.geo.classList.remove('darkness');
-        this.dom.eng.classList.add('darkness');
-        this.translate('eng');
+    onElementLock(elem) {
+        let elems = ['Ratio1', 'Ratio2', 'Diagonal', 'Width', 'Height',
+            'PixelsPerUnit', 'ResolutionWidth', 'ResolutionHeight'];
+        if (!elems.includes(elem)) throw "not valid lock selection";
+        let lock = `${elem}Lock`;
+        let val = (this.dom[lock].getAttribute('data-value') === "true");
+        //if current val is fale, then change it to false
+        this.model[lock] = !val;
+        this.dom[lock].textContent = !val ? '🔒' : '🔓';
+        this.dom[lock].setAttribute('data-value', `${!val}`);
     }
-    translateGeo() {
-        this.dom.geo.classList.add('darkness');
-        this.dom.eng.classList.remove('darkness');
-        this.translate('geo');
+    onElementLink(elem) {
+        let elems = ['Resolution', 'Dimensions'];
+        if (!elems.includes(elem)) throw "not valid link selection";
+        let link = `${elem}Link`;
+        let val = (this.dom[link].getAttribute('data-value') === "true");
+        //if current val is fale, then change it to false
+        this.model[link] = !val;
+        if (!val) {
+            this.dom[link].classList.remove('unlinked')
+            this.dom[link].classList.add('linked')
+        } else {
+            this.dom[link].classList.add('unlinked')
+            this.dom[link].classList.remove('linked')
+        }
+        this.dom[link].setAttribute('data-value', `${!val}`);
+
+    }
+    onQuestionPopupAlert() {
+        pop.alert(TRANSLATE_DATA['popup_text'][this.model.Language]);
     }
     translate(lang) {
+        if (lang === 'geo') this.dom.eng.classList.remove('darkness');
+        if (lang === 'eng') this.dom.geo.classList.remove('darkness');
+        if (lang === 'geo') this.dom.geo.classList.add('darkness');
+        if (lang === 'eng') this.dom.eng.classList.add('darkness');
         let translatables = qa('[data-app-translate="1"]');
         for (let i = 0, len = translatables.length; i < len; i++) {
             let text = translatables[i].getAttribute('data-app-text');
-            translatables[i].textContent = translateData[text][lang];
+            translatables[i].textContent = TRANSLATE_DATA[text][lang];
         }
+        this.model.Language = lang;
     }
 }

@@ -1,4 +1,6 @@
 const lib = (function () {
+    const SUPPORTED_HTML_TAGS = ['div', 'p', 'button'];
+    Object.freeze(SUPPORTED_HTML_TAGS);
     class Lib {
         /**
          * Check if is positive integer
@@ -24,6 +26,18 @@ const lib = (function () {
             for (let i = 0; i < len; i++) {
                 if (typeof args[i] !== "number") return false;
                 if (Number.isNaN(args[i])) return false;
+            }
+            return true;
+        }
+        /**
+         * @param  {...any} args
+         * @returns {Boolean}
+         */
+        isString(...args) {
+            let len = args.length;
+            if (len === 0) return false;
+            for (let arg of args) {
+                if (typeof arg !== 'string') return false;
             }
             return true;
         }
@@ -61,6 +75,17 @@ const lib = (function () {
             let n = Number.parseInt(str);
             if (Number.isNaN(n)) throw "String couldn't be parsed to INT";
             return n;
+        }
+        make(tag, classesArray) {
+            if (!this.isString(tag)) throw "Tag must be a string";
+            if (!SUPPORTED_HTML_TAGS.includes(tag)) throw "tag not supported";
+            let elem = document.createElement(tag);
+            if (Array.isArray(classesArray) && classesArray.length > 0) {
+                for (let cssClass of classesArray) {
+                    elem.classList.add(cssClass);
+                }
+            }
+            return elem;
         }
     }
     let l = new Lib();
