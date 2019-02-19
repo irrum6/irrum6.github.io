@@ -27,10 +27,3 @@ button.btn.linker.linked {
 button.btn.linker.unlinked {
     letter-spacing: unset;
 }
-
-button.btn.linker.broken {}
-
-span#ard {
-    font-size: 1.2rem;
-    font-weight: 600;
-}

@@ -121,10 +121,52 @@ class Presenter {
     }
     onRatio1Change() {
         this.model.Ratio1 = Number(this.dom.Ratio1.value);
-        let ratio = this.model.Ratio1 / this.model.Ratio2;
-        this.model.Width = this.model.Height * ratio;
-        this.model.ResolutionWidth = this.model.ResolutionHeight * ratio;
-        this.model.Diagonal = Math.sqrt(Math.pow(this.model.Width, 2) + Math.pow(this.model.Height, 2));
+        if (this.model.DimensionsLink || this.model.ResolutionLink
+            || (this.model.WidthLock && this.model.HeightLock)
+            || (this.model.ResolutionWidthLock && this.model.ResolutionHeightLock)) {
+            //if width and height are linked, or resolutions are linked or are
+            //locked in couple the ratio can't be changed
+            //so it will end here
+            let ratio = this.model.Width / this.model.Height;
+            this.model.Ratio2 = this.model.Ratio1 / ratio;
+        } else if (this.model.DiagonalLock) {
+            //if diagonal is locked its value can't be changed
+            //meaning
+            if (this.model.WidthLock || this.model.ResolutionWidthLock) {
+                //width and resolution width can't be changed
+                let ratio = this.model.Ratio1 / this.model.Ratio2;
+                this.model.Height = Math.sqrt((Math.pow(this.model.Diagonal, 2) / (1 + (ratio * ratio))));
+                this.model.ResolutionHeight = this.model.Height * this.model.PixelsPerUnit;
+            } else if (this.model.HeightLock || this.model.ResolutionHeightLock) {
+                //height and resolution height can't be changed
+                let ratio = this.model.Ratio1 / this.model.Ratio2;
+                this.model.Width = this.model.Height * Math.sqrt((Math.pow(this.model.Diagonal, 2) / (1 + (ratio * ratio))));
+                this.model.ResolutionWidth = this.model.Width * this.model.PixelsPerUnit;
+            } else {
+                let ratio = this.model.Ratio1 / this.model.Ratio2;
+                this.model.Height = Math.sqrt((Math.pow(this.model.Diagonal, 2) / (1 + (ratio * ratio))));
+                this.model.Width = this.model.Height * ratio;
+                this.model.ResolutionWidth = this.model.Width * this.model.PixelsPerUnit;
+                this.model.ResolutionHeight = this.model.Height * this.model.PixelsPerUnit;
+            }
+        } else if (this.model.WidthLock || this.model.ResolutionWidthLock) {
+            //if width can be changed , height will and so will diagonal (might shrink or grow)
+            let ratio = this.model.Ratio1 / this.model.Ratio2;
+            this.model.Height = this.model.Width / ratio;
+            this.model.Diagonal = Math.sqrt(Math.pow(this.model.Width, 2) + Math.pow(this.model.Height, 2));
+            this.model.ResolutionHeight = this.model.Height * this.model.PixelsPerUnit;
+        } else if (this.model.HeightLock || this.model.ResolutionHeightLock) {
+            //inverted code from above
+            let ratio = this.model.Ratio1 / this.model.Ratio2;
+            this.model.Width = this.model.Height * ratio;
+            this.model.Diagonal = Math.sqrt(Math.pow(this.model.Width, 2) + Math.pow(this.model.Height, 2));
+            this.model.ResolutionWidth = this.model.Width * this.model.PixelsPerUnit;
+        } else {
+            let ratio = this.model.Ratio1 / this.model.Ratio2;
+            this.model.Width = this.model.Height * ratio;
+            this.model.ResolutionWidth = this.model.Width * this.model.PixelsPerUnit;
+            this.model.ResolutionHeight = this.model.Height * this.model.PixelsPerUnit;
+        }
         this.display();
     }
     onRatio2Change() {
@@ -247,6 +289,7 @@ class Presenter {
         //if current val is fale, then change it to false
         this.model[lock] = !val;
         this.dom[lock].textContent = !val ? '🔒' : '🔓';
+        this.dom[elem].disabled = !val;
         this.dom[lock].setAttribute('data-value', `${!val}`);
     }
     onElementLink(elem) {

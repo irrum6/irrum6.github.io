@@ -5,8 +5,14 @@ div.pop.box {
     width: 90vw;
     height: auto;
     padding: 0.5rem;
-    background-color:mediumseagreen;
-    z-index:9;
+    background-color: mediumseagreen;
+    z-index: 9;
+}
+
+@media screen and (orientation:landscape) {
+    div.pop.box {
+        width: 300px;
+    }
 }
 
 div.pop.close {
