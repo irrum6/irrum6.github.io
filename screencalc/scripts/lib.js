@@ -8,10 +8,9 @@ const lib = (function () {
         * $@returns {Boolean} 
         */
         isPositiveInteger(...args) {
-            let len = args.length;
-            if (len === 0) return false;
-            for (let i = 0; i < len; i++) {
-                if (!Number.isInteger(args[i]) || args[i] < 0) return false;
+            if (args.length === 0) return false;
+            for (const arg of args) {
+                if (!Number.isInteger(arg) || arg < 0) return false;
             }
             return true;
         }
@@ -21,11 +20,10 @@ const lib = (function () {
          * @returns {Boolean} 
          */
         isNumber(...args) {
-            let len = args.length;
-            if (len === 0) return false;
-            for (let i = 0; i < len; i++) {
-                if (typeof args[i] !== "number") return false;
-                if (Number.isNaN(args[i])) return false;
+            if (args.length === 0) return false;
+            for (const arg of args) {
+                if (typeof arg !== "number") return false;
+                if (Number.isNaN(arg)) return false;
             }
             return true;
         }
@@ -34,10 +32,20 @@ const lib = (function () {
          * @returns {Boolean}
          */
         isString(...args) {
-            let len = args.length;
-            if (len === 0) return false;
-            for (let arg of args) {
+            if (args.length === 0) return false;
+            for (const arg of args) {
                 if (typeof arg !== 'string') return false;
+            }
+            return true;
+        }
+        /**
+         * @param  {...any} args
+         * @returns {Boolean}
+         */
+        isFunction(...args) {
+            if (args.length === 0) return false;
+            for (const arg of args) {
+                if (typeof arg !== 'function') return false;
             }
             return true;
         }
@@ -49,8 +57,8 @@ const lib = (function () {
          * @returns {String}
          */
         toPrecision(number, precision) {
-            if (!this.isNumber(number)) throw "invalid: not a number";
-            if (!this.isPositiveInteger(precision)) throw "invalid : precision not an integer";
+            if (!this.isNumber(number)) throw new Error("not a number");
+            if (!this.isPositiveInteger(precision)) throw new Error("precision not an integer");
             let digistBeforePoint = number.toString().indexOf(".");
             if (digistBeforePoint < 0) {
                 digistBeforePoint = number.toString().length;
@@ -64,7 +72,7 @@ const lib = (function () {
         */
         float(str) {
             let n = Number.parseFloat(str);
-            if (Number.isNaN(n)) throw "String couldn't be parsed to FLOAT";
+            if (Number.isNaN(n)) throw new Error("String couldn't be parsed to FLOAT");
             return n;
         }
         /**
@@ -73,12 +81,12 @@ const lib = (function () {
          */
         int(str) {
             let n = Number.parseInt(str);
-            if (Number.isNaN(n)) throw "String couldn't be parsed to INT";
+            if (Number.isNaN(n)) throw new Error("String couldn't be parsed to INT");
             return n;
         }
         make(tag, classesArray) {
-            if (!this.isString(tag)) throw "Tag must be a string";
-            if (!SUPPORTED_HTML_TAGS.includes(tag)) throw "tag not supported";
+            if (!this.isString(tag)) throw new Error("Tag must be a string");
+            if (!SUPPORTED_HTML_TAGS.includes(tag)) throw new Error("tag not supported");
             let elem = document.createElement(tag);
             if (Array.isArray(classesArray) && classesArray.length > 0) {
                 for (let cssClass of classesArray) {

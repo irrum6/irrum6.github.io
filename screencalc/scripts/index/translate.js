@@ -23,26 +23,26 @@ const TRANSLATE_DATA = {
         eng: 'Aspect Ratio'
     },
     physical_dims_label: {
-        geo: 'ფიზიკური ზომები:სიგრძე და სიგანე',
-        eng: 'Physical Width and Height'
+        geo: 'სიგრძე და სიგანე',
+        eng: 'Width and Height'
     },
     resolutions: {
         geo: 'გაფართოება',
-        eng: 'Resolution: Width and Height'
+        eng: 'Resolution'
     },
     pixels_per_unit: {
         geo: 'პიქსელები',
         eng: 'Pixels'
     },
     popup_text: {
-        geo: 'გამოიყენეთ ღილაკები ბოქლომით რათა ველის მნიშვნელობა უცვლელი'
+        geo: 'გამოიყენეთ ღილაკები ბოქლომით რათა ველის მნიშვნელობა უცვლელი '
             .concat('გახადოთ, დააჭირეთ ღილაკს ისრებით  ველების ერთმანეთთან ')
             .concat('დასაკავშირებლად (განსაკავშირებლად).\n')
             .concat('პიქსელები აღნიშნავს პიქსელების რაოდენობას არჩეულ ')
             .concat('სიგრძის ერთეულზე'),
         eng: 'Use Lock icons to freeze input\'s value, click button with arrows '
             .concat('to link (unlink) on input values (width to height for example); ')
-            .concat('so they chagne together.\n')
+            .concat('so they change together.\n')
             .concat('Pixels indicate number of pixels per user chosen length unit')
     }
 }

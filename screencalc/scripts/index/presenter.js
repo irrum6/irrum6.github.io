@@ -1,7 +1,9 @@
 //glue code between html(view) and model
 class Presenter {
     constructor(model) {
-        if (!(model instanceof Screen)) throw "model was not passed to presenter constructor";
+        if (!(model instanceof Screen)) {
+            throw new Error("argument type:screen, not passed");
+        }
         this.model = model;
         this._dom_ = {};
         this.setupDom();
@@ -13,100 +15,54 @@ class Presenter {
     //this indeed effectively ovverrides = operator
     //as it adds property intead of reassigning
     set dom(prop) {
-        let elem = q(`#${prop}`);
-        if (elem === undefined || elem === null) throw "dom element not found";
-        this._dom_[prop] = elem;
+        // let elem = q(`#${prop}`);
+        let el = document.getElementById(prop);
+        if (el === undefined || el === null) throw new Error("dom element not found");
+        this._dom_[prop] = el;
     }
     setupDom() {
-        const mainArray = ['Ratio1', 'Ratio2', 'Diagonal', 'Width', 'Height',
+        const arr = ['Ratio1', 'Ratio2', 'Diagonal', 'Width', 'Height',
             'PixelsPerUnit', 'ResolutionWidth', 'ResolutionHeight', 'inches',
             'centi', 'milli', 'eng', 'geo', 'question'];
-        const locksArray = ['Ratio1Lock', 'Ratio2Lock', 'DiagonalLock', 'WidthLock', 'HeightLock',
-            'PixelsPerUnitLock', 'ResolutionWidthLock', 'ResolutionHeightLock'];
-        const links = ['DimensionsLink', 'ResolutionLink'];
-        const strArray = mainArray.concat(locksArray).concat(links);
-        for (let str of strArray) this.dom = str;
+        for (const str of arr) this.dom = str;
     }
     setupHandlers() {
-        this.dom.Ratio1[on]('focus', e => {
-            this.dom.Ratio1[on]('change', this.onRatio1Change.bind(this));
-        });
-        this.dom.Ratio1[on]('focusout', e => {
-            this.dom.Ratio1[un]('change', this.onRatio1Change.bind(this));
-        });
+        this.setupElementFocusHandler('Ratio1', 'onRatio1Change');
+        this.setupElementFocusHandler('Ratio2', 'onRatio2Change');
 
-        this.dom.Ratio2[on]('focus', e => {
-            this.dom.Ratio2[on]('change', this.onRatio2Change.bind(this));
-        });
-        this.dom.Ratio2[on]('focusout', e => {
-            this.dom.Ratio2[un]('change', this.onRatio2Change.bind(this));
-        });
+        this.setupElementFocusHandler('Width', 'onWidthChange');
+        this.setupElementFocusHandler('Height', 'onHeightChange');
 
-        this.dom.Width[on]('focus', e => {
-            this.dom.Width[on]('change', this.onWidthChange.bind(this));
-        });
-        this.dom.Width[on]('focusout', e => {
-            this.dom.Width[un]('change', this.onWidthChange.bind(this));
-        });
+        this.setupElementFocusHandler('Diagonal', 'onDiagonalChange');
 
-        this.dom.Height[on]('focus', e => {
-            this.dom.Height[on]('change', this.onHeightChange.bind(this));
-        });
-        this.dom.Height[on]('focusout', e => {
-            this.dom.Height[un]('change', this.onHeightChange.bind(this));
-        });
+        this.setupElementFocusHandler('ResolutionWidth', 'onResolutionWidthChange');
+        this.setupElementFocusHandler('ResolutionHeight', 'onResolutionHeightChange');
 
-        this.dom.Diagonal[on]('focus', e => {
-            this.dom.Diagonal[on]('change', this.onDiagonalChange.bind(this));
-        });
-        this.dom.Diagonal[on]('focusout', e => {
-            this.dom.Diagonal[un]('change', this.onDiagonalChange.bind(this));
-        });
+        this.setupElementFocusHandler('PixelsPerUnit', 'onPixelsPerUnitChange');
 
-        this.dom.ResolutionWidth[on]('focus', e => {
-            this.dom.ResolutionWidth[on]('change', this.onResolutionWidthChange.bind(this));
-        });
-        this.dom.ResolutionWidth[on]('focusout', e => {
-            this.dom.ResolutionWidth[un]('change', this.onResolutionWidthChange.bind(this));
-        });
-
-        this.dom.ResolutionHeight[on]('focus', e => {
-            this.dom.ResolutionHeight[on]('change', this.onResolutionHeightChange.bind(this));
-        });
-        this.dom.ResolutionHeight[on]('focusout', e => {
-            this.dom.ResolutionHeight[un]('change', this.onResolutionHeightChange.bind(this));
-        });
-
-        this.dom.PixelsPerUnit[on]('focus', e => {
-            this.dom.PixelsPerUnit[on]('change', this.onPixelsPerUnitChange.bind(this));
-        });
-        this.dom.PixelsPerUnit[on]('focusout', e => {
-            this.dom.PixelsPerUnit[un]('change', this.onPixelsPerUnitChange.bind(this));
-        });
-
-        this.dom.milli[on]('click', this.onUnitChangeMM.bind(this));
-        this.dom.centi[on]('click', this.onUnitChangeCM.bind(this));
-        this.dom.inches[on]('click', this.onUnitChangeIn.bind(this));
-
+        this.dom.milli[on]('click', this.onUnitChange.bind(this, "Millimetres"));
+        this.dom.centi[on]('click', this.onUnitChange.bind(this, "Centimetres"));
+        this.dom.inches[on]('click', this.onUnitChange.bind(this, "Inches"));
         //
         this.dom.eng[on]('click', this.translate.bind(this, 'eng'));
         this.dom.geo[on]('click', this.translate.bind(this, 'geo'));
 
         //question mark
         this.dom.question[on]('click', this.onQuestionPopupAlert.bind(this));
-        //locks and links
-        this.dom.Ratio1Lock[on]('click', this.onElementLock.bind(this, 'Ratio1'));
-        this.dom.Ratio2Lock[on]('click', this.onElementLock.bind(this, 'Ratio2'));
-        this.dom.DiagonalLock[on]('click', this.onElementLock.bind(this, 'Diagonal'));
-        this.dom.WidthLock[on]('click', this.onElementLock.bind(this, 'Width'));
-        this.dom.HeightLock[on]('click', this.onElementLock.bind(this, 'Height'));
-        this.dom.PixelsPerUnitLock[on]('click', this.onElementLock.bind(this, 'PixelsPerUnit'));
-        this.dom.ResolutionWidthLock[on]('click', this.onElementLock.bind(this, 'ResolutionWidth'));
-        this.dom.ResolutionHeightLock[on]('click', this.onElementLock.bind(this, 'ResolutionHeight'));
-
-        this.dom.DimensionsLink[on]('click', this.onElementLink.bind(this, 'Dimensions'));
-        this.dom.ResolutionLink[on]('click', this.onElementLink.bind(this, 'Resolution'));
-
+    }
+    setupElementFocusHandler(el, func) {
+        if (!this.dom[el]) {
+            throw new Error('arg1: el not found in dom');
+        }
+        if (!lib.isFunction(this[func])) {
+            throw new Error('arg2 function needed, not passed');
+        }
+        this.dom[el][on]('focus', e => {
+            this.dom[el][on]('change', this[func].bind(this))
+        });
+        this.dom[el][on]('focusout', e => {
+            this.dom[el][un]('change', this[func].bind(this))
+        });
     }
     display() {
         this.dom.Ratio1.value = lib.toPrecision(this.model.Ratio1, 2);
@@ -121,60 +77,18 @@ class Presenter {
     }
     onRatio1Change() {
         this.model.Ratio1 = Number(this.dom.Ratio1.value);
-        if (this.model.DimensionsLink || this.model.ResolutionLink
-            || (this.model.WidthLock && this.model.HeightLock)
-            || (this.model.ResolutionWidthLock && this.model.ResolutionHeightLock)) {
-            //if width and height are linked, or resolutions are linked or are
-            //locked in couple the ratio can't be changed
-            //so it will end here
-            let ratio = this.model.Width / this.model.Height;
-            this.model.Ratio2 = this.model.Ratio1 / ratio;
-        } else if (this.model.DiagonalLock) {
-            //if diagonal is locked its value can't be changed
-            //meaning
-            if (this.model.WidthLock || this.model.ResolutionWidthLock) {
-                //width and resolution width can't be changed
-                let ratio = this.model.Ratio1 / this.model.Ratio2;
-                this.model.Height = Math.sqrt((Math.pow(this.model.Diagonal, 2) / (1 + (ratio * ratio))));
-                this.model.ResolutionHeight = this.model.Height * this.model.PixelsPerUnit;
-            } else if (this.model.HeightLock || this.model.ResolutionHeightLock) {
-                //height and resolution height can't be changed
-                let ratio = this.model.Ratio1 / this.model.Ratio2;
-                this.model.Width = this.model.Height * Math.sqrt((Math.pow(this.model.Diagonal, 2) / (1 + (ratio * ratio))));
-                this.model.ResolutionWidth = this.model.Width * this.model.PixelsPerUnit;
-            } else {
-                let ratio = this.model.Ratio1 / this.model.Ratio2;
-                this.model.Height = Math.sqrt((Math.pow(this.model.Diagonal, 2) / (1 + (ratio * ratio))));
-                this.model.Width = this.model.Height * ratio;
-                this.model.ResolutionWidth = this.model.Width * this.model.PixelsPerUnit;
-                this.model.ResolutionHeight = this.model.Height * this.model.PixelsPerUnit;
-            }
-        } else if (this.model.WidthLock || this.model.ResolutionWidthLock) {
-            //if width can be changed , height will and so will diagonal (might shrink or grow)
-            let ratio = this.model.Ratio1 / this.model.Ratio2;
-            this.model.Height = this.model.Width / ratio;
-            this.model.Diagonal = Math.sqrt(Math.pow(this.model.Width, 2) + Math.pow(this.model.Height, 2));
-            this.model.ResolutionHeight = this.model.Height * this.model.PixelsPerUnit;
-        } else if (this.model.HeightLock || this.model.ResolutionHeightLock) {
-            //inverted code from above
-            let ratio = this.model.Ratio1 / this.model.Ratio2;
-            this.model.Width = this.model.Height * ratio;
-            this.model.Diagonal = Math.sqrt(Math.pow(this.model.Width, 2) + Math.pow(this.model.Height, 2));
-            this.model.ResolutionWidth = this.model.Width * this.model.PixelsPerUnit;
-        } else {
-            let ratio = this.model.Ratio1 / this.model.Ratio2;
-            this.model.Width = this.model.Height * ratio;
-            this.model.ResolutionWidth = this.model.Width * this.model.PixelsPerUnit;
-            this.model.ResolutionHeight = this.model.Height * this.model.PixelsPerUnit;
-        }
+        let ratio = this.model.Ratio1 / this.model.Ratio2;
+        this.model.Width = this.model.Height * ratio;
+        this.model.ResolutionWidth = this.model.Width * this.model.PixelsPerUnit;
+        this.model.ResolutionHeight = this.model.Height * this.model.PixelsPerUnit;
         this.display();
     }
     onRatio2Change() {
         this.model.Ratio2 = Number(this.dom.Ratio2.value);
         let ratio = this.model.Ratio1 / this.model.Ratio2;
-        this.model.Height = this.model.Width / ratio;
-        this.model.ResolutionHeight = this.model.ResolutionWidth / ratio;
-        this.model.Diagonal = Math.sqrt(Math.pow(this.model.Width, 2) + Math.pow(this.model.Height, 2));
+        this.model.Width = this.model.Height * ratio;
+        this.model.ResolutionWidth = this.model.Width * this.model.PixelsPerUnit;
+        this.model.ResolutionHeight = this.model.Height * this.model.PixelsPerUnit;
         this.display();
     }
     onWidthChange() {
@@ -195,8 +109,10 @@ class Presenter {
     }
     onDiagonalChange() {
         this.model.Diagonal = Number(this.dom.Diagonal.value);
-        let ratio = this.model.Ratio1 / this.model.Ratio2;
-        this.model.Height = Math.sqrt((Math.pow(this.model.Diagonal, 2) / (1 + (ratio * ratio))));
+        const ratio = this.model.Ratio1 / this.model.Ratio2;
+        const rs = ratio * ratio;
+        const ds = Math.pow(this.model.Diagonal, 2)
+        this.model.Height = Math.sqrt(ds / (1 + rs));
         this.model.Width = this.model.Height * ratio;
         this.model.ResolutionWidth = this.model.PixelsPerUnit * this.model.Width;
         this.model.ResolutionHeight = this.model.PixelsPerUnit * this.model.Height;
@@ -224,99 +140,57 @@ class Presenter {
         this.model.ResolutionHeight = this.model.PixelsPerUnit * this.model.Height;
         this.display();
     }
-    onUnitChangeMM() {
-        this.dom.inches.classList.remove('darkness');
-        this.dom.centi.classList.remove('darkness');
-        this.dom.milli.classList.add('darkness');
-
-        let unit = this.model.Unit;
-        this.model.Unit = "Millimetres";
-        this.onUnitChange(unit);
-    }
-    onUnitChangeCM() {
-        this.dom.inches.classList.remove('darkness');
-        this.dom.milli.classList.remove('darkness');
-        this.dom.centi.classList.add('darkness');
-
-        let unit = this.model.Unit;
-        this.model.Unit = "Centimetres";
-        this.onUnitChange(unit);
-    }
-    onUnitChangeIn() {
+    onUnitChange(newUnit) {
         this.dom.centi.classList.remove('darkness');
         this.dom.milli.classList.remove('darkness');
-        this.dom.inches.classList.add('darkness');
+        this.dom.inches.classList.remove('darkness');
 
-        let unit = this.model.Unit;
-        this.model.Unit = "Inches";
-        this.onUnitChange(unit);
-    }
-    onUnitChange(unitFrom) {
-        let f;
-        let fromto = `${unitFrom}:${this.model.Unit}`;
-        switch (fromto) {
-            case 'Inches:Millimetres':
-                f = convert.itomm;
+        let f, func;//function, function name;
+        const u1 = this.model.getUnit();
+        const u2 = newUnit;
+
+        func = `${u1}to${u2}`;
+        f = convert[func];
+
+        this.model.setWidth(f(this.model.getWidth()));
+        this.model.setHeight(f(this.model.getHeight()));
+        this.model.setDiagonal(f(this.model.getDiagonal()));
+        this.model.setPixelsPerUnit(this.model.PixelsPerUnit() / f(1));
+
+        switch (newUnit) {
+            case "Centimetres":
+                this.dom.centi.classList.add('darkness');
+                this.dom.PixelsPerUnit.setAttribute('step', '0.01');
                 break;
-            case 'Inches:Centimetres':
-                f = convert.itocm;
+            case "Millimetres":
+                this.dom.milli.classList.add('darkness');
+                this.dom.PixelsPerUnit.setAttribute('step', '0.01');
                 break;
-            case 'Centimetres:Inches':
-                f = convert.cmtoi;
+            case "Inches":
+                this.dom.inches.classList.add('darkness');
+                this.dom.PixelsPerUnit.setAttribute('step', '1');
                 break;
-            case 'Centimetres:Millimetres':
-                f = convert.cmtomm;
-                break;
-            case 'Millimetres:Inches':
-                f = convert.mmtoi;
-                break;
-            case 'Millimetres:Centimetres':
-                f = convert.mmtocm;
-                break;
+
+            default:
         }
-        this.model.Width = f(this.model.Width);
-        this.model.Height = f(this.model.Height);
-        this.model.Diagonal = f(this.model.Diagonal);
-        this.model.PixelsPerUnit = this.model.PixelsPerUnit / f(1);
+        if (u2 === 'i') {
+            this.model.PixelsPerUnit = lib.toPrecision(this.model.PixelsPerUnit, 0);
+        }
         this.display();
     }
-    onElementLock(elem) {
-        let elems = ['Ratio1', 'Ratio2', 'Diagonal', 'Width', 'Height',
-            'PixelsPerUnit', 'ResolutionWidth', 'ResolutionHeight'];
-        if (!elems.includes(elem)) throw "not valid lock selection";
-        let lock = `${elem}Lock`;
-        let val = (this.dom[lock].getAttribute('data-value') === "true");
-        //if current val is fale, then change it to false
-        this.model[lock] = !val;
-        this.dom[lock].textContent = !val ? '🔒' : '🔓';
-        this.dom[elem].disabled = !val;
-        this.dom[lock].setAttribute('data-value', `${!val}`);
-    }
-    onElementLink(elem) {
-        let elems = ['Resolution', 'Dimensions'];
-        if (!elems.includes(elem)) throw "not valid link selection";
-        let link = `${elem}Link`;
-        let val = (this.dom[link].getAttribute('data-value') === "true");
-        //if current val is fale, then change it to false
-        this.model[link] = !val;
-        if (!val) {
-            this.dom[link].classList.remove('unlinked')
-            this.dom[link].classList.add('linked')
-        } else {
-            this.dom[link].classList.add('unlinked')
-            this.dom[link].classList.remove('linked')
-        }
-        this.dom[link].setAttribute('data-value', `${!val}`);
 
-    }
     onQuestionPopupAlert() {
         pop.alert(TRANSLATE_DATA['popup_text'][this.model.Language]);
     }
     translate(lang) {
-        if (lang === 'geo') this.dom.eng.classList.remove('darkness');
-        if (lang === 'eng') this.dom.geo.classList.remove('darkness');
-        if (lang === 'geo') this.dom.geo.classList.add('darkness');
-        if (lang === 'eng') this.dom.eng.classList.add('darkness');
+        if (lang === 'geo') {
+            this.dom.eng.classList.remove('darkness');
+            this.dom.geo.classList.add('darkness');
+        }
+        if (lang === 'eng') {
+            this.dom.geo.classList.remove('darkness');
+            this.dom.eng.classList.add('darkness');
+        }
         let translatables = qa('[data-app-translate="1"]');
         for (let i = 0, len = translatables.length; i < len; i++) {
             let text = translatables[i].getAttribute('data-app-text');

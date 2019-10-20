@@ -1,0 +1,116 @@
+html {
+  font-size: 16px;
+}
+
+.green {
+  color: #44ff88;
+}
+
+.white {
+  color: #d0d0d0;
+}
+
+.bold {
+  font-weight: 900;
+}
+
+.remfont {
+  font-size: 1rem;
+}
+
+.remplusfont {
+  font-size: 1.5rem;
+}
+
+.qrempad {
+  padding: 0.25rem;
+}
+
+.hrempad {
+  padding: 0.5rem;
+}
+
+.rempad {
+  padding: 1rem;
+}
+
+.rempluspad {
+  padding: 1.5rem;
+}
+
+.eremborder {
+  border: 0.125rem solid transparent;
+  border-radius: 12.5%;
+}
+
+.cocoa {
+  background-color: #c0c0a0;
+}
+
+#calcform {
+  display: grid;
+  grid-template-columns: auto;
+}
+
+div.inlinegrid {
+  display: inline-grid;
+}
+
+div.box {
+  width: 90vw;
+  display: inline-grid;
+  grid-template-columns: auto 30% 10% 10% 20%;
+  padding: 0.25rem;
+}
+
+body {
+  background-color: #d0d0d0;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 60px auto;
+}
+
+button.btn {
+  padding: 0.25rem;
+  border: 1px solid black;
+  border-radius: 3%;
+  font-size: 1rem;
+}
+
+button.darkness {
+  background-color: #305050;
+  color: white;
+}
+
+button.border-dark {
+  border-color: #607030;
+}
+
+input.text {
+  line-height: 1.25rem;
+  padding: 0;
+  border: 1px solid black;
+  background-color: #e0d0d0;
+}
+
+/*topbar*/
+#topbar {
+  width: 90vw;
+  padding: 0.25rem;
+  display: inline-grid;
+  grid-template-columns: 48% 32% 16%;
+  grid-template-rows: 30px auto;
+  column-gap: 2%;
+}
+
+#unitbar {
+  display: inline-grid;
+  grid-template-columns: repeat(3, 33%);
+}
+
+#langbar {
+  display: inline-grid;
+  grid-template-columns: 50% 50%;
+}
+
+/*# sourceMappingURL=main.css.map */

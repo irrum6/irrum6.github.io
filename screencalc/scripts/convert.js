@@ -1,33 +1,36 @@
 const convert = (function () {
-    function all(num, div) {
-        if (!lib.isNumber(num, div)) throw "not a number";
-        if (num < 0 || div < 0) throw "negative numbers not allowd";
+    const UNITS = ['Inches', 'Centimetres', 'Millimetres']
+
+    const all = (num, div) => {
+        if (!lib.isNumber(num, div)) throw new Error("not a number");
+        if (num < 0 || div < 0) throw new Error("negative numbers not allowed");
         return num / div;
     }
-    class Convert {
-        //centimeter to inch
-        cmtoi(cm) {
-            return all(cm, 2.54);
+    const cmtoi = (cm) => all(cm, 2.54);
+    const cmtomm = (cm) => all(cm, 0.1);
+    const mmtoi = (mm) => all(mm, 25.4);
+    const mmtocm = (mm) => all(mm, 10);
+    const itocm = (i) => all(i, (1 / 2.54));
+    const itomm = (i) => all(i, (1 / 25.4));
+
+    const getUnitShort = (u) => {
+        if (!UNITS.includes(u)) throw new Error("unsupported unit");
+        let us;
+        switch (u) {
+            case 'Inches':
+                us = "i";
+                break;
+            case 'Centimetres':
+                us = "cm";
+                break;
+            case 'Millimetres':
+                us = "mm";
+                break;
         }
-        cmtomm(cm) {
-            return all(cm, 0.1);
-        }
-        //millimeter to inch
-        mmtoi(mm) {
-            return all(mm, 25.4);
-        }
-        //millimeter to inch
-        mmtocm(mm) {
-            return all(mm, 10);
-        }
-        itocm(i) {
-            return all(i, (1 / 2.54));
-        }
-        itomm(i) {
-            return all(i, (1 / 25.4));
-        }
+        return us;
     }
-    let c = new Convert();
+
+    let c = { cmtoi, cmtomm, mmtoi, mmtocm, itocm, itomm, getUnitShort };
     Object.freeze(c);
     return c;
 }());

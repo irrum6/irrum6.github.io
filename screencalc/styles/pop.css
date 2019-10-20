@@ -7,10 +7,12 @@ div.pop.box {
     padding: 0.5rem;
     background-color: mediumseagreen;
     z-index: 9;
+    word-wrap: break-word;
 }
 
 @media screen and (orientation:landscape) {
     div.pop.box {
+        left: 30vw;
         width: 300px;
     }
 }

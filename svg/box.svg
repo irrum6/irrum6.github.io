@@ -1,0 +1,108 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg viewbox="0 0 1200 1200" preserveAspectRatio="xMinYMid meet" width="100%" version="1.1" 
+  xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .tex { font: italic 30px sans-serif;}
+    .purple{fill:purple}
+    .darkcyan{fill:#408080}
+    .red{fill:#804020}
+    .blue{fill:#202080}
+  </style>
+  <desc>Caliber comparision</desc>
+  <rect x="10" y="10" width="182" height="860" stroke="black" stroke-width="5" fill="white" />
+  <circle cx="60" cy="60" r="45" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="142" cy="108" r="45" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="60" cy="155" r="45" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="142" cy="203" r="45" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="60" cy="250" r="45" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="142" cy="298" r="45" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="60" cy="250" r="45" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="142" cy="298" r="45" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="60" cy="345" r="45" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="142" cy="393" r="45" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="60" cy="440" r="45" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="142" cy="488" r="45" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="60" cy="535" r="45" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="142" cy="583" r="45" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="60" cy="630" r="45" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="142" cy="678" r="45" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="60" cy="725" r="45" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="142" cy="773" r="45" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="60" cy="820" r="45" stroke="orange" stroke-width="5" fill="white"/>
+  <!-- second box -->
+  <rect x="210" y="10" width="162" height="860" stroke="black" stroke-width="5" fill="white" />
+  <circle cx="255" cy="55" r="40" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="328" cy="98" r="40" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="255" cy="140" r="40" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="328" cy="183" r="40" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="255" cy="225" r="40" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="328" cy="268" r="40" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="255" cy="310" r="40" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="328" cy="353" r="40" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="255" cy="395" r="40" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="328" cy="438" r="40" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="255" cy="480" r="40" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="328" cy="523" r="40" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="255" cy="565" r="40" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="328" cy="608" r="40" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="255" cy="650" r="40" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="328" cy="693" r="40" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="255" cy="735" r="40" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="328" cy="778" r="40" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="255" cy="820" r="40" stroke="orange" stroke-width="5" fill="white"/>
+  <!-- third box -->
+  <rect x="410" y="10" width="182" height="860" stroke="black" stroke-width="5" fill="white" />
+  <circle cx="465" cy="65" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="538" cy="140" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="465" cy="215" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="538" cy="290" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="465" cy="365" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="538" cy="440" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="465" cy="515" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="538" cy="590" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="465" cy="665" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="538" cy="740" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="465" cy="815" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <!-- fourt box -->
+  <rect x="610" y="10" width="202" height="860" stroke="black" stroke-width="5" fill="white" />
+  <circle cx="665" cy="65" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="755" cy="118" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="665" cy="170" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="755" cy="223" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="665" cy="275" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="755" cy="328" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="665" cy="380" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="755" cy="433" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="665" cy="485" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="755" cy="538" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="665" cy="590" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="755" cy="643" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="665" cy="695" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="755" cy="748" r="50" stroke="orange" stroke-width="5" fill="white"/>
+  <circle cx="665" cy="800" r="50" stroke="orange" stroke-width="5" fill="white"/>
+
+  <rect x="840" y="10" width="8" height="860" stroke="black" stroke-width="1" fill="black" />
+  <!-- texts -->
+  <text x="880" y="50" class="tex">Caliber Comparison</text>
+  <text x="880" y="90" class="tex">Scale - 10px:1mm</text>
+  <text x="880" y="130" class="tex">Height of Boxes -  96mm</text>
+  <text x="880" y="170" class="tex">Thickness of all Cases -  0.5mm</text>
+  <text x="880" y="210" class="tex">1st Box</text>
+  <text x="880" y="250" class="tex purple">Caliber - 9.0mm (.354)</text>
+  <text x="880" y="290" class="tex purple">Count - 17 Rounds</text>
+  <text x="880" y="330" class="tex purple">Width of Box - 19.2mm</text>
+  <text x="880" y="370" class="tex">2nd Box</text>
+  <text x="880" y="410" class="tex red">Caliber - 8.0mm (.315)</text>
+  <text x="880" y="450" class="tex red">Count - 19 Rounds</text>
+  <text x="880" y="490" class="tex red">Width of Box - 17.2mm</text>
+  <text x="880" y="530" class="tex">3rd Box</text>
+  <text x="880" y="570" class="tex darkcyan">Caliber - 10.0mm (.394)</text>
+  <text x="880" y="610" class="tex darkcyan">Count - 11 Rounds</text>
+  <text x="880" y="650" class="tex darkcyan">Width of Box - 19.2mm</text>
+  <text x="880" y="690" class="tex">4th Box</text>
+  <text x="880" y="730" class="tex blue">Caliber - 10.0mm (.394)</text>
+  <text x="880" y="770" class="tex blue">Count - 15 Rounds</text>
+  <text x="880" y="810" class="tex blue">Width of Box - 21.2mm</text>
+</svg>

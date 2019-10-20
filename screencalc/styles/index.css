@@ -1,4 +1,5 @@
 body {
+    /* cocoa */
     background-color: #c0c0a0;
 }
 
@@ -9,21 +10,36 @@ body {
 
 button.btn.darkness {
     background-color: darkslategray;
-    color:white;
+    color: white;
 }
 
 button.btn.border-dark {
     border-color: darkolivegreen;
 }
 
-button.btn.linker {
-    border-radius: 10%;
+.green {
+    color: #44ff88;
+}
+.white{
+    color:white'
 }
 
-button.btn.linker.linked {
-    letter-spacing: -0.2rem;
+.bold {
+    font-weight: 900;
 }
 
-button.btn.linker.unlinked {
-    letter-spacing: unset;
+.rem {
+    font-size: 1rem;
+}
+
+.remplus {
+    font-size: 1.5rem;
+}
+
+.tworem {
+    font-size: 2rem;
+}
+
+.emplus {
+    font-size: 1.5em;
 }
