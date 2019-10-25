@@ -47,9 +47,12 @@ html {
   background-color: #c0c0a0;
 }
 
-#calcform {
-  display: grid;
-  grid-template-columns: auto;
+.center {
+  justify-self: center;
+}
+
+.end {
+  justify-self: end;
 }
 
 div.inlinegrid {
@@ -61,8 +64,34 @@ div.box {
   display: inline-grid;
   grid-template-columns: auto 30% 10% 10% 20%;
   padding: 0.25rem;
+  justify-self: center;
 }
 
+@media screen and (min-width: 800px) {
+  div.box {
+    width: 60vw;
+  }
+}
+@media screen and (min-width: 1200px) {
+  div.box {
+    width: 50vw;
+  }
+}
+@media screen and (min-width: 1600px) {
+  div.box {
+    width: 40vw;
+  }
+}
+@media screen and (min-width: 2000px) {
+  div.box {
+    width: 30vw;
+  }
+}
+@media screen and (min-width: 3200px) {
+  div.box {
+    width: 25vw;
+  }
+}
 body {
   background-color: #d0d0d0;
   display: grid;
@@ -93,6 +122,11 @@ input.text {
   background-color: #e0d0d0;
 }
 
+#calcform {
+  display: grid;
+  grid-template-columns: auto;
+}
+
 /*topbar*/
 #topbar {
   width: 90vw;
@@ -100,7 +134,8 @@ input.text {
   display: inline-grid;
   grid-template-columns: 48% 32% 16%;
   grid-template-rows: 30px auto;
-  column-gap: 2%;
+  column-gap: 3rem;
+  justify-self: center;
 }
 
 #unitbar {
@@ -111,6 +146,12 @@ input.text {
 #langbar {
   display: inline-grid;
   grid-template-columns: 50% 50%;
+}
+
+@media screen and (min-width: 1600px) {
+  #topbar {
+    width: 45vw;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */
