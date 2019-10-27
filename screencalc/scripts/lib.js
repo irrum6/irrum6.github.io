@@ -1,9 +1,8 @@
 const lib = (function () {
-    const SUPPORTED_HTML_TAGS = ['div', 'p', 'button'];
+    const SUPPORTED_HTML_TAGS = ['div', 'p', 'button', 'label', 'input'];
     Object.freeze(SUPPORTED_HTML_TAGS);
     class Lib {
         /**
-         * Check if is positive integer
         * @param {*} args
         * $@returns {Boolean} 
         */
@@ -15,7 +14,6 @@ const lib = (function () {
             return true;
         }
         /**
-         * check if is number
          * @param {*} args
          * @returns {Boolean} 
          */
@@ -89,7 +87,7 @@ const lib = (function () {
             if (!SUPPORTED_HTML_TAGS.includes(tag)) throw new Error("tag not supported");
             let elem = document.createElement(tag);
             if (Array.isArray(classesArray) && classesArray.length > 0) {
-                for (let cssClass of classesArray) {
+                for (const cssClass of classesArray) {
                     elem.classList.add(cssClass);
                 }
             }

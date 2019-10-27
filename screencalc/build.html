@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" type="image/png" href="images/icon.png">
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/build/main.css">
     <link rel="stylesheet" href="styles/pop.css">
     <title>Screen Size Calculator</title>
     <style>
@@ -27,13 +27,14 @@
     </div>
     <div id="calcform">
         <div id="diagonal_box" class="box">
-            <label for="input_diagonal">
-                <span class="input-group-text" data-app-translate="1" data-app-text="diagonal">Diagonal</span>
+            <label for="input_diagonal" data-app-translate="1" data-app-text="diagonal">
+                Diagonal
             </label>
             <input class="text" type="text" id="input_diagonal" data-min="1" data-step="0.01">
-            <button class="btn">+</button>
-            <button class="btn">-</button>
-            <button class="btn" data-app-translate="1" data-app-text="lock">Lock</button>
+            <button class="btn" data-app-behavior="plus" data-app-target="input_diagonal">+</button>
+            <button class="btn" data-app-behavior="minus" data-app-target="input_diagonal">-</button>
+            <button class="btn" data-app-translate="1" data-app-text="lock" data-app-behavior="lock"
+                data-app-target="input_diagonal">Lock</button>
         </div>
         <div class="center"> <label data-app-translate="1" data-app-text="aspect_ratio">Aspect Ratio</label></div>
         <div id="ratio1box" class="box">
@@ -94,7 +95,7 @@
         </div>
         <div id="pixelbox" class="box">
             <label for="input_pixels">
-                <span class="input-group-text" data-app-translate="1" data-app-text="pixels_per_unit">Pixels </span>
+                <span data-app-translate="1" data-app-text="pixels_per_unit">Pixels </span>
             </label>
             <input class="text" type="text" id="input_pixels" data-min="0" data-step="0.01">
             <button class="btn">+</button>
@@ -106,9 +107,10 @@
     <script src="scripts/lib.js"></script>
     <script src="scripts/pop.js"></script>
     <script src="scripts/convert.js"></script>
-    <script src="scripts/index/translate.js"></script>
-    <script src="scripts/index/model.js"></script>
-    <script src="scripts/index/presenter.js"></script>
+    <script src="scripts/build/translate.js"></script>
+    <script src="scripts/build/model.js"></script>
+    <script src="scripts/build/presenter.js"></script>
+    <script src="scripts/build/dom.js"></script>
     <!-- <script src="scripts/index/main.js"></script> -->
 </body>
 
