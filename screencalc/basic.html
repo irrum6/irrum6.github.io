@@ -18,7 +18,7 @@
     </div>
     <div id="calcform">
         <div id="diag_box">
-            <label for="input_diagonal" data-app-translate="1" data-app-text="diagonal">Diagonal(inches):</label>
+            <label for="input_diagonal" data-app-translate="enabled" data-app-text="diag">Diagonal(inches):</label>
             <input type="number" id="input_diagonal" min="1" max="100" step="0.1" value="6.7">
             <button data-app-button="true" data-app-behavior="value-control" data-app-role="plus"
                 data-app-target="input_diagonal">+</button>
@@ -26,10 +26,10 @@
                 data-app-target="input_diagonal">-</button>
         </div>
         <div>
-            <p>Resolution:</p>
+            <p data-app-translate="enabled" data-app-text="resolution">Resolution:</p>
         </div>
         <div id="width_box">
-            <label for="input_width" data-app-translate="1" data-app-text="width">Width (pixels):</label>
+            <label for="input_width" data-app-translate="enabled" data-app-text="widthp">Width (pixels):</label>
             <input type="number" id="input_width" min="32" max="8640" step="1" value="1920">
             <button data-app-button="true" data-app-behavior="value-control" data-app-role="plus"
                 data-app-target="input_width">+</button>
@@ -37,7 +37,7 @@
                 data-app-target="input_width">-</button>
         </div>
         <div id="height_box">
-            <label for="input_width" data-app-translate="1" data-app-text="height">Height (pixels):</label>
+            <label for="input_width" data-app-translate="enabled" data-app-text="heightp">Height (pixels):</label>
             <input type="number" id="input_height" min="18" max="4320" step="1" value="1080">
             <button data-app-button="true" data-app-behavior="value-control" data-app-role="plus"
                 data-app-target="input_height">+</button>
@@ -45,66 +45,66 @@
                 data-app-target="input_height">-</button>
         </div>
         <div>
-            <button id="doCalculation" data-app-translate="1" data-app-text="calculate">Calculate</button>
+            <button id="doCalculation" data-app-translate="enabled" data-app-text="calculate">Calculate</button>
         </div>
     </div>
     <div id="results" style="visibility: hidden;">
-        <p data-app-translate="1" data-app-text="input"> Input data:</p>
+        <p data-app-translate="enabled" data-app-text="input"> Input data:</p>
         <p>
-            <span data-app-translate="1" data-app-text="diag">Size of Diagonal(inches)</span>
+            <span data-app-translate="enabled" data-app-text="diag">Diagonal(inches)</span>
             <span data-app-behavior="value-display" data-app-value="diag"></span>
         </p>
         <p>
-            <span data-app-translate="1" data-app-text="resw">Resolution:Width</span>
+            <span data-app-translate="enabled" data-app-text="resw">Resolution:Width</span>
             <span data-app-behavior="value-display" data-app-value="resw"></span>
         </p>
         <p>
-            <span data-app-translate="1" data-app-text="resh">Resolution:Height</span>
+            <span data-app-translate="enabled" data-app-text="resh">Resolution:Height</span>
             <span data-app-behavior="value-display" data-app-value="resh"></span>
         </p>
-        <p data-app-translate="1" data-app-text="calculated"> Calculated data:</p>
+        <p data-app-translate="enabled" data-app-text="calculated"> Calculated data:</p>
         <p>
-            <span data-app-translate="1" data-app-text="diagmm">Size of Diagonal(Millimetres)</span>
+            <span data-app-translate="enabled" data-app-text="diagmm">Size of Diagonal(Millimetres)</span>
             <span data-app-behavior="value-display" data-app-value="diagmm"></span>
         </p>
         <p>
-            <span data-app-translate="1" data-app-text="widthmm">Width(Millimetres)</span>
+            <span data-app-translate="enabled" data-app-text="widthmm">Width(Millimetres)</span>
             <span data-app-behavior="value-display" data-app-value="widthmm"></span>
         </p>
         <p>
-            <span data-app-translate="1" data-app-text="widthin">Width(Icnhes)</span>
+            <span data-app-translate="enabled" data-app-text="widthin">Width(Icnhes)</span>
             <span data-app-behavior="value-display" data-app-value="widthin"></span>
         </p>
         <p>
-            <span data-app-translate="1" data-app-text="heightmm">Height(Millimetres)</span>
+            <span data-app-translate="enabled" data-app-text="heightmm">Height(Millimetres)</span>
             <span data-app-behavior="value-display" data-app-value="heightmm"></span>
         </p>
         <p>
-            <span data-app-translate="1" data-app-text="heightin">Height(Icnhes)</span>
+            <span data-app-translate="enabled" data-app-text="heightin">Height(Icnhes)</span>
             <span data-app-behavior="value-display" data-app-value="heightin"></span>
         </p>
         <p>
-            <span data-app-translate="1" data-app-text="ppmm">Pixels per Unit(Millimetres)</span>
+            <span data-app-translate="enabled" data-app-text="ppmm">Pixels per Unit(Millimetres)</span>
             <span data-app-behavior="value-display" data-app-value="ppmm"></span>
         </p>
         <p>
-            <span data-app-translate="1" data-app-text="ppi">Pixels per Unit(Icnhes)</span>
+            <span data-app-translate="enabled" data-app-text="ppi">Pixels per Unit(Icnhes)</span>
             <span data-app-behavior="value-display" data-app-value="ppi"></span>
         </p>
         <p>
-            <span data-app-translate="1" data-app-text="ratio">Aspect Ratio</span>
+            <span data-app-translate="enabled" data-app-text="ratio">Aspect Ratio</span>
             <span data-app-behavior="value-display" data-app-value="ratio"></span>
         </p>
         <p>
-            <span data-app-translate="1" data-app-text="ration">Aspect Ratio (nornmalized in /9 notation)</span>
+            <span data-app-translate="enabled" data-app-text="ration">Aspect Ratio (nornmalized in /9 notation)</span>
             <span data-app-behavior="value-display" data-app-value="ration"></span>
         </p>
         <p>
-            <span data-app-translate="1" data-app-text="areamm">Screen Area(Square Millimetres)</span>
+            <span data-app-translate="enabled" data-app-text="areamm">Screen Area(Square Millimetres)</span>
             <span data-app-behavior="value-display" data-app-value="areamm"></span>
         </p>
         <p>
-            <span data-app-translate="1" data-app-text="areain">Screen Area(Square Icnhes)</span>
+            <span data-app-translate="enabled" data-app-text="areain">Screen Area(Square Icnhes)</span>
             <span data-app-behavior="value-display" data-app-value="areain"></span>
         </p>
 

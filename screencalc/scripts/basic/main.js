@@ -107,7 +107,86 @@ q('#doCalculation')[on]('click', doCalculation);
 const SUPPORTED_LOCALES = ['eng', 'geo'];
 
 const translateData = {
-
+    "diag": {
+        "eng": "Diagonal(inches)-",
+        "geo": "დიაგონალი(დუიმებში)-"
+    },
+    "resw": {
+        "eng": "Resolution:Width-",
+        "geo": "გაფართოება:სიგანე-"
+    },
+    "resh": {
+        "eng": "Resolution:Height-",
+        "geo": "გაფართოება:სიმაღლე-"
+    },
+    "diagmm": {
+        "eng": "Size of Diagonal(Millimetres)-",
+        "geo": "დიაგონალის ზომა (მილიმეტრებში)-"
+    },
+    "widthp": {
+        "eng": "Width (pixels):",
+        "geo": "სიგანე(პიქსელებში):"
+    },
+    "heightp": {
+        "eng": "Height (pixels):",
+        "geo": "სიმაღლე(პიქსელებში):"
+    },
+    "widthmm": {
+        "eng": "Width(Millimetres)-",
+        "geo": "სიგანე(მილიმეტრებში)-"
+    },
+    "heightmm": {
+        "eng": "Height(Millimetres)-",
+        "geo": "სიმაღლე(მილიმეტრებში)-"
+    },
+    "widthin": {
+        "eng": "Width(Icnhes)-",
+        "geo": "სიგანე(დუიმებში)-"
+    },
+    "heightin": {
+        "eng": "Height(Icnhes)-",
+        "geo": "სიმაღლე(დუიმებში)-"
+    },
+    "ppmm": {
+        "eng": "Pixels per Unit(Millimetres)-",
+        "geo": "პიქსელები ერთეულზე(მილიმეტრი)-"
+    },
+    "ppi": {
+        "eng": "Pixels per Unit(Icnhes)-",
+        "geo": "პიქსელები ერთეულზე(დუიმი)-"
+    },
+    "ratio": {
+        "eng": "Aspect Ratio-",
+        "geo": "შეფარდება"
+    },
+    "ration": {
+        "eng": "Aspect Ratio (nornmalized in /9 notation)-",
+        "geo": "შეფარდება (/9 ფორმატში)-"
+    },
+    "areamm": {
+        "eng": "Screen Area(Square Millimetres)",
+        "geo": "ეკრანის ფართობი(კვადრატულ მილიმეტრებში)"
+    },
+    "areain": {
+        "eng": "Screen Area(Square Icnhes)",
+        "geo": "ეკრანის ფართობი(კვადრატულ დუიმებში)"
+    },
+    "input": {
+        "eng": "Input data:",
+        "geo": "შეყვანილი მონაცემები:"
+    },
+    "resolution": {
+        "eng": "Resolution:",
+        "geo": "გაფართოება:"
+    },
+    "calculate": {
+        "eng": "Calculate",
+        "geo": "გამოთვლა"
+    },
+    "calculated": {
+        "eng": "Calculated data:",
+        "geo": "გამოთვლილი მონაცემები:"
+    }
 }
 
 function translate(lang) {
@@ -117,6 +196,11 @@ function translate(lang) {
     }
     lang = lang.toLowerCase();
     if (!SUPPORTED_LOCALES.includes(lang)) throw new Error("Unsupported locale");
+    const translates = qa('[data-app-translate=enabled]');
+    for (let i = 0, len = translates.length; i < len; i++) {
+        const text = translates[i].getAttribute('data-app-text');
+        translates[i].textContent = translateData[text][lang];
+    }
 }
 
 q('#eng')[on]('click', (e) => {
