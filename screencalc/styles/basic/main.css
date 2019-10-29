@@ -43,36 +43,6 @@ div.box {
     justify-self: center;
 }
 
-@media screen and (min-width: 800px) {
-    div.box {
-        width: 60vw;
-    }
-}
-
-@media screen and (min-width: 1200px) {
-    div.box {
-        width: 50vw;
-    }
-}
-
-@media screen and (min-width: 1600px) {
-    div.box {
-        width: 40vw;
-    }
-}
-
-@media screen and (min-width: 2000px) {
-    div.box {
-        width: 30vw;
-    }
-}
-
-@media screen and (min-width: 3200px) {
-    div.box {
-        width: 25vw;
-    }
-}
-
 body {
     background-color: #d0d0d0;
     display: grid;
@@ -105,7 +75,46 @@ input.text {
 
 #calcform {
     display: grid;
+    width: 90vw;
+    justify-self: center;
     grid-template-columns: auto;
+}
+
+#results {
+    display: grid;
+    width: 90vw;
+    justify-self: center;
+    grid-template-columns: auto;
+}
+
+@media screen and (min-width: 800px) {
+    #calcform, #results {
+        width: 60vw;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    #calcform, #results {
+        width: 50vw;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    #calcform, #results {
+        width: 40vw;
+    }
+}
+
+@media screen and (min-width: 2000px) {
+    #calcform, #results {
+        width: 30vw;
+    }
+}
+
+@media screen and (min-width: 3200px) {
+    #calcform, #results {
+        width: 25vw;
+    }
 }
 
 /*topbar*/
