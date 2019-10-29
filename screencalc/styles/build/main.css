@@ -115,7 +115,7 @@ button.border-dark {
   border-color: #607030;
 }
 
-input.text {
+input {
   line-height: 1.25rem;
   padding: 0;
   border: 1px solid black;

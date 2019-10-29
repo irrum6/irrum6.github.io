@@ -30,7 +30,7 @@
             <label for="input_diagonal" data-app-translate="1" data-app-text="diagonal">
                 Diagonal
             </label>
-            <input class="text" type="text" id="input_diagonal" data-min="1" data-step="0.01">
+            <input type="number" id="input_diagonal" min="1" max="100" step="0.1" data-min="1" data-step="0.1">
             <button class="btn" data-app-behavior="plus" data-app-target="input_diagonal">+</button>
             <button class="btn" data-app-behavior="minus" data-app-target="input_diagonal">-</button>
             <button class="btn" data-app-translate="1" data-app-text="lock" data-app-behavior="lock"
@@ -41,66 +41,73 @@
             <label for="input_ratio1">
                 <span data-app-translate="1" data-app-text="width">Width</span>
             </label>
-            <input class="text" type="text" id="input_ratio1" data-min="0" data-step="0.01">
+            <input type="number" min="1" max="100" step="0.1" id="input_ratio1" data-min="0" data-step="0.1">
             <button class="btn">+</button>
             <button class="btn">-</button>
-            <button class="btn" data-app-translate="1" data-app-text="lock">Lock</button>
+            <button class="btn" data-app-translate="1" data-app-text="lock" data-app-behavior="lock"
+                data-app-target="input_ratio1">Lock</button>
         </div>
         <div id="ratio2box" class="box">
             <label for="input_ratio2">
                 <span data-app-translate="1" data-app-text="height">Height</span>
             </label>
-            <input class="text" type="text" id="input_ratio2" data-min="0" data-step="0.01">
+            <input type="number" min="1" max="100" step="0.1" id="input_ratio2" data-min="0" data-step="0.1">
             <button class="btn">+</button>
             <button class="btn">-</button>
-            <button class="btn" data-app-translate="1" data-app-text="lock">Lock</button>
+            <button class="btn" data-app-translate="1" data-app-text="lock" data-app-behavior="lock"
+                data-app-target="input_ratio2">Lock</button>
         </div>
         <div class="center"><label data-app-translate="1" data-app-text="physical_dims_label">Physical</label></div>
         <div id="widthbox" class="box">
             <label for="input_width">
                 <span data-app-translate="1" data-app-text="width">Width</span>
             </label>
-            <input class="text" type="text" id="input_width" data-min="0" data-step="0.01">
+            <input type="number" min="1" max="2000" step=1" id="input_width" data-min="0" data-step="1">
             <button class="btn">+</button>
             <button class="btn">-</button>
-            <button class="btn" data-app-translate="1" data-app-text="lock">Lock</button>
+            <button class="btn" data-app-translate="1" data-app-text="lock" data-app-behavior="lock"
+                data-app-target="input_width">Lock</button>
         </div>
         <div id="heightbox" class="box">
             <label for="input_height">
                 <span data-app-translate="1" data-app-text="height">Height</span>
             </label>
-            <input class="text" type="text" id="input_height" data-min="0" data-step="0.01">
+            <input type="number" min="1" max="2000" step=1" id="input_height" data-min="0" data-step="1">
             <button class="btn">+</button>
             <button class="btn">-</button>
-            <button class="btn" data-app-translate="1" data-app-text="lock">Lock</button>
+            <button class="btn" data-app-translate="1" data-app-text="lock" data-app-behavior="lock"
+                data-app-target="input_height">Lock</button>
         </div>
         <div class="center"><label data-app-translate="1" data-app-text="resolutions">Screen Resolution</label></div>
         <div id="res_widthbox" class="box">
             <label for="input_res_width">
                 <span data-app-translate="1" data-app-text="width">Width</span>
             </label>
-            <input class="text" type="text" id="input_res_width" data-min="0" data-step="0.01">
+            <input type="number" min="96" max="8640" step=1" id="input_res_width" data-min="0" data-step="1">
             <button class="btn">+</button>
             <button class="btn">-</button>
-            <button class="btn" data-app-translate="1" data-app-text="lock">Lock</button>
+            <button class="btn" data-app-translate="1" data-app-text="lock" data-app-behavior="lock"
+                data-app-target="input_res_width">Lock</button>
         </div>
         <div id="res_heightbox" class="box">
             <label for="input_res_height">
                 <span data-app-translate="1" data-app-text="height">Height</span>
             </label>
-            <input class="text" type="text" id="input_res_height" data-min="0" data-step="0.01">
+            <input type="number" min="96" max="4320" step=1" id="input_res_height" data-min="0" data-step="1">
             <button class="btn">+</button>
             <button class="btn">-</button>
-            <button class="btn" data-app-translate="1" data-app-text="lock">Lock</button>
+            <button class="btn" data-app-translate="1" data-app-text="lock" data-app-behavior="lock"
+                data-app-target="input_res_height">Lock</button>
         </div>
         <div id="pixelbox" class="box">
             <label for="input_pixels">
                 <span data-app-translate="1" data-app-text="pixels_per_unit">Pixels </span>
             </label>
-            <input class="text" type="text" id="input_pixels" data-min="0" data-step="0.01">
+            <input type="number" min="96" max="1000" step=1" id="input_pixels" data-min="0" data-step="1">
             <button class="btn">+</button>
             <button class="btn">-</button>
-            <button class="btn" data-app-translate="1" data-app-text="lock">Lock</button>
+            <button class="btn" data-app-translate="1" data-app-text="lock" data-app-behavior="lock"
+                data-app-target="input_pixels">Lock</button>
         </div>
     </div>
     <script src="scripts/query.js"></script>
@@ -110,8 +117,7 @@
     <script src="scripts/build/translate.js"></script>
     <script src="scripts/build/model.js"></script>
     <script src="scripts/build/presenter.js"></script>
-    <script src="scripts/build/dom.js"></script>
-    <!-- <script src="scripts/index/main.js"></script> -->
+    <script src="scripts/build/main.js"></script>
 </body>
 
 </html>

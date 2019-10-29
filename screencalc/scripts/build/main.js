@@ -2,8 +2,8 @@
 //q("form")[on]('submit', e => e.preventDefault());
 
 try {
-    let screen = new Screen(5.7, 3, 403, "Inches");
-    let presenter = new Presenter(screen);
+    let s1 = new Screen(5.7, 3, 403, "Inches");
+    let presenter = new Presenter(s1);
     presenter.display();
 }
 catch (ex) {
