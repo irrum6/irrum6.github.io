@@ -13,7 +13,7 @@ class Presenter {
                 //get app target id
                 const tid = e.target.getAttribute('data-app-target');
                 const t = q(`#${tid}`);
-                t.disabled = true;
+                t.disabled = t.disabled ? false : true;
             })
         }
     }

@@ -45,8 +45,6 @@ class Screen {
         this.getProperty = this.getProperty.bind(this, inner);
         this.getPropertyValue = this.getPropertyValue.bind(this, inner);
         this.setPropertyValue = this.setPropertyValue.bind(this, inner);
-        this.getLanguage = this.getLanguage.bind(this, inner);
-        this.setLanguage = this.setLanguage.bind(this, inner);
     }
     /**
      * @param {Object} p //bind 
@@ -89,13 +87,5 @@ class Screen {
         this.setPropertyValue('resolutionHeight', Math.round(ppu * h));
         this.setPropertyValue('unit', u);
         this.setPropertyValue('language', 'eng');
-    }
-    getLanguage(p) {
-        return p.language;
-    }
-    setLanguage(l) {
-        if (!lib.isString(l)) throw new Error("Language must be a string");
-        if (!CURRENT_SUPPORTED_TRANSLATIONS.includes(l)) throw new Error("language not supported");
-        p.language = l;
     }
 }
