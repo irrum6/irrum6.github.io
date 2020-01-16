@@ -186,6 +186,14 @@ const translateData = {
     "calculated": {
         "eng": "Calculated data:",
         "geo": "გამოთვლილი მონაცემები:"
+    },
+    "mm": {
+        "eng": "mm",
+        "geo": "მმ"
+    },
+    "in": {
+        "eng": "In",
+        "geo": "დმ"
     }
 }
 
@@ -209,3 +217,33 @@ q('#eng')[on]('click', (e) => {
 q('#geo')[on]('click', (e) => {
     translate('geo');
 });
+
+/**
+ * use template to create display node
+ * @param string
+ * @param string
+ * @param string
+ * @returns void
+ * @adds HTMLElement
+ */
+function createDisplayNode(text, valuetext, lang) {
+    let t = document.createElement('template');
+    if ('content' in t) {
+        let template = q('#displayT');
+        let clone = document.importNode(template.content, true);
+        let p = clone.children[0];
+        p.children[0].setAttribute('data-app-text', text);
+        p.children[1].setAttribute('data-app-value', valuetext);
+        p.children[0].textContent = translateData[text][lang];
+        let res = q('#results');
+        res.appendChild(clone);
+    }
+}
+
+let currentLocale = 'eng';
+
+let displaybars = ["diagmm", "widthmm", "widthin", "heightmm", "heightin", "ppmm", "ppi", "ratio", "ration", "areamm", "areain"]
+
+for (const dbar of displaybars) {
+    createDisplayNode(dbar, dbar, currentLocale);
+}
