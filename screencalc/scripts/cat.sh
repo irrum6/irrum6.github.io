@@ -1,1 +1,0 @@
-cat query.js lib.js pop.js convert.js index/translate.js index/model.js index/presenter.js index/main.js > app.min.js

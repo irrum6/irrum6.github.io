@@ -1,9 +1,5 @@
-//prevent form submiting
-//q("form")[on]('submit', e => e.preventDefault());
-
 try {
-    let s1 = new Screen(5.7, 3, 403, "Inches");
-    let presenter = new Presenter(s1);
+    let presenter = new Presenter(5.4, 2.7, 403, "Inches", "eng");
     presenter.display();
 }
 catch (ex) {
@@ -11,3 +7,16 @@ catch (ex) {
     console.log(ex);
 }
 
+function drawRedrawCanvas() {
+    let canvas = q('#display-canvas');
+    let ratio = 1.78;
+    let proportion = innerWidth > innerHeight ? 0.45 : 0.9;
+    let w = Math.round(innerWidth * proportion);
+    let h = w / ratio;
+    canvas.width = w;
+    canvas.height = h;
+    let color = 'rgb(160,192,176)';
+    canvas.style.backgroundColor = color;
+}
+
+drawRedrawCanvas();
