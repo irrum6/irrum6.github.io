@@ -126,6 +126,14 @@ class Presenter {
         e.target.classList.toggle('darkness');
         e.target.classList.toggle('border-light');
         document.body.classList.toggle('body-dark');
+        q("#diagonal").setDark();
+        q("#aswidth").setDark();
+        q("#asheight").setDark();
+        q("#pwidth").setDark();
+        q("#pheight").setDark();
+        q("#rwidth").setDark();
+        q("#rheight").setDark();
+        q("#pixelsperunit").setDark();
     }
     translate(lang) {
         if (lang === 'geo') {

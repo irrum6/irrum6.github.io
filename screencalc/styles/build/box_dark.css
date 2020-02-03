@@ -1,0 +1,16 @@
+.input-dark {
+    background-color: #406020;
+    color: white;
+    border: 1px solid white;
+}
+
+button.btn-dark {
+    background-color: #103020;
+    color: white;
+    border: 1px solid white;
+}
+
+.input-dark:disabled{
+    background-color: grey;
+    color:black;
+}

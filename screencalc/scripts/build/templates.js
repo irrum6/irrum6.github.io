@@ -98,5 +98,13 @@ class InputBox extends HTMLElement {
         let event = new CustomEvent('ibchange', { detail: e });//inputbox change
         this.dispatchEvent(event);
     }
+    setDark() {
+        let inp = this.getInput();
+        inp.classList.toggle('input-dark');
+        let buttons = this.shadowRoot.querySelectorAll('button.btn');
+        for (const butt of buttons) {
+            butt.classList.toggle('btn-dark');
+        }
+    }
 }
 customElements.define('input-box', InputBox);
