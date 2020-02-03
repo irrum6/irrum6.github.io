@@ -114,16 +114,39 @@ class Presenter {
         this.display();
     }
     onPhysHeightchange() {
-
+        let data = this.collectData();
+        this.castDataToNumbers(data);
+        let { ratio, diagonal } = Helper.calculateFromPhysDimensions(data.width, data.height);
+        let ratio2 = 9;
+        let ratio1 = ratio * 9;
+        let { rwidth, rheight } = Helper.getResolutions(data.width, data.height, data.pixels);
+        this.state = { ...data, ratio, ratio1, ratio2, diagonal, rwidth, rheight };
+        this.display();
     }
     onResolutionWidthChange() {
-
+        let data = this.collectData();
+        this.castDataToNumbers(data);
+        let { width, height, ratio, diagonal } = Helper.calculateFromResolutions(data.rwidth, data.rheight, data.pixels);
+        let ratio2 = 9;
+        let ratio1 = ratio * 9;
+        this.state = { ...data, ratio, ratio1, ratio2, diagonal, width, height };
+        this.display();
     }
     onResolutionHeightChange() {
-
+        let data = this.collectData();
+        this.castDataToNumbers(data);
+        let { width, height, ratio, diagonal } = Helper.calculateFromResolutions(data.rwidth, data.rheight, data.pixels);
+        let ratio2 = 9;
+        let ratio1 = ratio * 9;
+        this.state = { ...data, ratio, ratio1, ratio2, diagonal, width, height };
+        this.display();
     }
     onPixelsPerUnitChange() {
-
+        let data = this.collectData();
+        this.castDataToNumbers(data);
+        let { rwidth, rheight } = Helper.getResolutions(data.width, data.height, data.pixels);
+        this.state = { ...data, rwidth, rheight };
+        this.display();
     }
     onQuestionPopupAlert() {
         let msg = TRANSLATE_DATA['popup_text'][this.state.language]
