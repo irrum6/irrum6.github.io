@@ -124,6 +124,8 @@ class Presenter {
     }
     onDarkChange(e) {
         e.target.classList.toggle('darkness');
+        e.target.classList.toggle('border-light');
+        document.body.classList.toggle('body-dark');
     }
     translate(lang) {
         if (lang === 'geo') {

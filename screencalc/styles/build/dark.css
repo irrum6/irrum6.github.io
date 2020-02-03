@@ -1,13 +1,22 @@
+.body-dark {
+  background-color: #103020;
+  color: white;
+}
+
 .darkness {
-    background-color: #305050;
-    color: white;
-  }
-  
-  .darkness2{
-    background-color: #208040;
-    color: white;
-  }
-  
-  .border-dark {
-    border-color: #607030;
-  }
+  background-color: #305050;
+  color: white;
+}
+
+.darkness2 {
+  background-color: #208040;
+  color: white;
+}
+
+.border-dark {
+  border-color: #607030;
+}
+
+.border-light {
+  border-color: white;
+}
