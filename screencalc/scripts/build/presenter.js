@@ -59,28 +59,49 @@ class Presenter {
     dummy() {
         console.log("gela");
     }
+    /**
+     * casts all data to numbers
+     * @param {Object} data 
+     */
+    castDataToNumbers(data) {
+        for (let d in data) {
+            data[d] = Number(data[d].value);
+        }
+    }
     onDiagonalChange(e) {
         let data = this.collectData();
+        this.castDataToNumbers(data);
         //disabled can't fire
         //ignore phys w and h
-        //damn cast
-        let diagonal = Number(data.diagonal.value);
-        let ratio1 = Number(data.ratio1.value);
-        let ratio2 = Number(data.ratio2.value);
-        let ratio = ratio1 / ratio2;
-        let pixels = Number(data.pixels.value);
-        let { width, height } = Helper.calculatefromDiagonal(diagonal, ratio);
-        let { rwidth, rheight } = Helper.getResolutions(width, height, pixels);
-        this.state = { diagonal, ratio1, ratio2, width, height, rwidth, rheight, pixels };
+        let ratio = data.ratio1 / data.ratio2;
+        let { width, height } = Helper.calculatefromDiagonal(data.diagonal, ratio);
+        let { rwidth, rheight } = Helper.getResolutions(width, height, data.pixels);
+        this.state = { ...data, width, height, rwidth, rheight };
         this.display();
         // this.state=()
         if (data.rwidth.disabled) { }
     }
     onRatioWidthChange() {
-
+        let data = this.collectData();
+        this.castDataToNumbers(data);
+        //disabled can't fire
+        //ignore phys w and h
+        let ratio = data.ratio1 / data.ratio2;
+        let { width, height } = Helper.calculatefromDiagonal(data.diagonal, ratio);
+        let { rwidth, rheight } = Helper.getResolutions(width, height, data.pixels);
+        this.state = { ...data, width, height, rwidth, rheight };
+        this.display();
     }
     onRatioHeightChange() {
-
+        let data = this.collectData();
+        this.castDataToNumbers(data);
+        //disabled can't fire
+        //ignore phys w and h
+        let ratio = data.ratio1 / data.ratio2;
+        let { width, height } = Helper.calculatefromDiagonal(data.diagonal, ratio);
+        let { rwidth, rheight } = Helper.getResolutions(width, height, data.pixels);
+        this.state = { ...data, width, height, rwidth, rheight };
+        this.display();
     }
     onPhysWidthChange() {
 
