@@ -54,4 +54,16 @@ class Helper {
         let rheight = Math.round(h * ppi);
         return { rwidth, rheight };
     }
+    /**
+     * get ppi from width
+     * @param {Number} rw 
+     * @param {Number} w
+     * @returns {Object} 
+     */
+    static getPixelsPerUnit(rw, w) {
+        if (typeof rw != 'number') throw new Error("first argument not a number");
+        if (typeof w != 'number') throw new Error("second argument not a number");
+        let pixels = rw / w;
+        return { pixels }
+    }
 }

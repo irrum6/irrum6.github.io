@@ -80,8 +80,6 @@ class Presenter {
         let { rwidth, rheight } = Helper.getResolutions(width, height, data.pixels);
         this.state = { ...data, width, height, rwidth, rheight };
         this.display();
-        // this.state=()
-        if (data.rwidth.disabled) { }
     }
     onRatioChange() {
         let dat = this.collectData();
