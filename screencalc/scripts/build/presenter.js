@@ -21,12 +21,12 @@ class Presenter {
             this.onQuestionPopupAlert();
         });
         q("#diagonal")[on]('ibchange', this.onDiagonalChange.bind(this));
-        q("#aswidth")[on]('ibchange', this.onRatioWidthChange.bind(this));
-        q("#asheight")[on]('ibchange', this.onRatioHeightChange.bind(this));
-        q("#pwidth")[on]('ibchange', this.onPhysWidthChange.bind(this));
-        q("#pheight")[on]('ibchange', this.onPhysHeightchange.bind(this));
-        q("#rwidth")[on]('ibchange', this.onResolutionWidthChange.bind(this));
-        q("#rheight")[on]('ibchange', this.onResolutionHeightChange.bind(this));
+        q("#aswidth")[on]('ibchange', this.onRatioChange.bind(this));
+        q("#asheight")[on]('ibchange', this.onRatioChange.bind(this));
+        q("#pwidth")[on]('ibchange', this.onPhysChange.bind(this));
+        q("#pheight")[on]('ibchange', this.onPhysChange.bind(this));
+        q("#rwidth")[on]('ibchange', this.onResolutionChange.bind(this));
+        q("#rheight")[on]('ibchange', this.onResolutionChange.bind(this));
         q("#pixelsperunit")[on]('ibchange', this.onPixelsPerUnitChange.bind(this));
     }
 
@@ -83,7 +83,7 @@ class Presenter {
         // this.state=()
         if (data.rwidth.disabled) { }
     }
-    onRatioWidthChange() {
+    onRatioChange() {
         let dat = this.collectData();
         let data = this.castDataToNumbers(dat);
         //disabled can't fire
@@ -94,18 +94,7 @@ class Presenter {
         this.state = { ...data, width, height, rwidth, rheight };
         this.display();
     }
-    onRatioHeightChange() {
-        let dat = this.collectData();
-        let data = this.castDataToNumbers(dat);
-        //disabled can't fire
-        //ignore phys w and h
-        let ratio = data.ratio1 / data.ratio2;
-        let { width, height } = Helper.calculatefromDiagonal(data.diagonal, ratio);
-        let { rwidth, rheight } = Helper.getResolutions(width, height, data.pixels);
-        this.state = { ...data, width, height, rwidth, rheight };
-        this.display();
-    }
-    onPhysWidthChange() {
+    onPhysChange() {
         let dat = this.collectData();
         let data = this.castDataToNumbers(dat);
         let { ratio, diagonal } = Helper.calculateFromPhysDimensions(data.width, data.height);
@@ -115,26 +104,7 @@ class Presenter {
         this.state = { ...data, ratio, ratio1, ratio2, diagonal, rwidth, rheight };
         this.display();
     }
-    onPhysHeightchange() {
-        let dat = this.collectData();
-        let data = this.castDataToNumbers(dat);
-        let { ratio, diagonal } = Helper.calculateFromPhysDimensions(data.width, data.height);
-        let ratio2 = 9;
-        let ratio1 = ratio * 9;
-        let { rwidth, rheight } = Helper.getResolutions(data.width, data.height, data.pixels);
-        this.state = { ...data, ratio, ratio1, ratio2, diagonal, rwidth, rheight };
-        this.display();
-    }
-    onResolutionWidthChange() {
-        let dat = this.collectData();
-        let data = this.castDataToNumbers(dat);
-        let { width, height, ratio, diagonal } = Helper.calculateFromResolutions(data.rwidth, data.rheight, data.pixels);
-        let ratio2 = 9;
-        let ratio1 = ratio * 9;
-        this.state = { ...data, ratio, ratio1, ratio2, diagonal, width, height };
-        this.display();
-    }
-    onResolutionHeightChange() {
+    onResolutionChange() {
         let dat = this.collectData();
         let data = this.castDataToNumbers(dat);
         let { width, height, ratio, diagonal } = Helper.calculateFromResolutions(data.rwidth, data.rheight, data.pixels);
