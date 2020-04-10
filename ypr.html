@@ -5,25 +5,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Screen Reported Resolution</title>
-    <!-- You -->
+    <style>
+        html {
+            font-size: 16px;
+        }
+
+        body.dark {
+            background-color: #203020;
+            color: #f0f0a0;
+        }
+
+        div {
+            display: flex;
+            justify-content: end;
+        }
+
+        button {
+            font-size: 2rem;
+            border-radius: 5%;
+            padding: 0.25rem 0.25rem;
+            background-color: white;
+            color: black;
+            border: 2px solid black;
+        }
+
+        button.darkify {
+            background-color: #203020;
+            color: #f0f0a0;
+            border: 2px solid #f0f0a0;
+        }
+    </style>
 </head>
 
-<body>
-    <h1>Reported Screen Resolution is : </h1>
-    <h2>Width : <span id="wp"></span>pixels *</h2>
-    <h2>Height : <span id="hp"></span>Pixels *</h2>
+<body class="dark">
+    <div>
+        <button class="darkify" id="darker">&#9680;</button>
+    </div>
+    <main>
+        <h1>Reported Screen Resolution is : </h1>
+        <h2>Width : <span id="wp"></span>pixels *</h2>
+        <h2>Height : <span id="hp"></span>Pixels *</h2>
 
-    <h4>* Reported width and height might be affected by toolbars, status panels, and browsers taking space for their own.</h4>
+        <h4>* Reported width and height might be affected by toolbars, status panels, and browsers taking space for
+            their own.</h4>
 
-    <h4>Device Pixel Ratio = <span id="pr"></h4>
+        <h4>Device Pixel Ratio = <span id="pr"></h4>
+    </main>
     <script>
         const q = (s) => document.body.querySelector(s);
+        const on = "addEventListener";
         const width = window.innerWidth;
         const height = window.innerHeight;
         q("#wp").textContent = width;
         q("#hp").textContent = height;
         q("#pr").textContent = devicePixelRatio;
 
+        q("#darker")[on]("click", (e) => {
+            e.target.classList.toggle('darkify');
+            document.body.classList.toggle('dark');
+        });
     </script>
 </body>
 
