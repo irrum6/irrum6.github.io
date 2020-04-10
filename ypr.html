@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Screen Reported Resolution</title>
+    <!-- You -->
+</head>
+
+<body>
+    <h1>Your Scren's Reported Resolution is : </h1>
+    <h2>Width : <span id="wp"></span>pixels *</h2>
+    <h2>Height : <span id="hp"></span>Pixels *</h2>
+
+    <h4>* reported width and height might be affected by browsers taking space for their own.</h4>
+    <script>
+        const q = (s) => document.body.querySelector(s);
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        q("#wp").textContent = width;
+        q("#hp").textContent = height;
+
+    </script>
+</body>
+
+</html>
