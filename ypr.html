@@ -14,12 +14,15 @@
     <h2>Height : <span id="hp"></span>Pixels *</h2>
 
     <h4>* Reported width and height might be affected by toolbars, status panels, and browsers taking space for their own.</h4>
+
+    <h4>Device Pixel Ratio = <span id="pr"></h4>
     <script>
         const q = (s) => document.body.querySelector(s);
         const width = window.innerWidth;
         const height = window.innerHeight;
         q("#wp").textContent = width;
         q("#hp").textContent = height;
+        q("#pr").textContent = devicePixelRatio;
 
     </script>
 </body>
