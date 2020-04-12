@@ -8,6 +8,10 @@ class PopMenu extends HTMLElement {
 
         const shadowRoot = this.attachShadow({ mode: 'open' })
             .appendChild(clone);
+
+        this.query("div.closex>button").addEventListener("click", (e) => {
+            this.close();
+        })
     }
     query(s) {
         if (typeof s !== 'string') throw "not a string";
@@ -25,18 +29,14 @@ class PopMenu extends HTMLElement {
         let mb = this.query('.menu-box');
         mb.style.display = 'none';
     }
-    fill(list) {
+    fill(list, fun) {
         //array of strings like ["abc","def","ghi"]
         let mb = this.query('.menu-box');
         for (const el of list) {
             let button = document.createElement('button');
             button.setAttribute("data-lang", el);
             button.textContent = el;
-            button.addEventListener('click', (e) => {
-                const lang = e.target.getAttribute("data-lang");
-                localStorage.lang = lang;
-                translate();
-            });
+            button.addEventListener('click', fun);
             let div = document.createElement('div');
             div.appendChild(button);
             mb.appendChild(div);
@@ -48,7 +48,12 @@ class TranslateMenu extends PopMenu {
     constructor() {
         super();
         const list = ["ქართული", "English", "Deutsch", "Русский"];
-        this.fill(list);
+        this.fill(list, (e) => {
+            const lang = e.target.getAttribute("data-lang");
+            localStorage.lang = lang;
+            translate();
+            this.close()
+        });
     }
 }
 
