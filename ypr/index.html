@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Screen Reported Resolution</title>
+    <link rel="stylesheet" href="ypr.css">
+</head>
+
+<body class="dark">
+    <div class="topbar">
+        <button class="darkify" id="lang">EN</button>
+        <button class="darkify" id="darker">&#9680;</button>
+    </div>
+    <main>
+        <report-box>
+            <span slot="title">Reported Screen Resolution is : </span>
+            <span slot="width">Width</span>
+            <span slot="height">Height</span>
+            <span slot="pixels">pixels *</span>
+            <span slot="pixels1">pixels *</span>
+            <span slot="report-notice">* Reported width and height might be affected by toolbars, status panels, and
+                browsers taking space for
+                their own.</span>
+            <span slot="pixel-ratio">Device Pixel Ratio</span>
+        </report-box>
+    </main>
+    <translate-menu id="transmenu"></translate-menu>
+    <template id="report-box-template">
+        <style>
+            .big1 {
+                font-size: 40px;
+            }
+
+            .big2 {
+                font-size: 32px;
+            }
+
+            .big3 {
+                font-size: 24px;
+            }
+
+            .big4 {
+                font-size: 18px;
+            }
+
+            .very-bold {
+                font-weight: 900;
+            }
+
+            .dark {
+                background-color: #203020;
+                color: #f0f0a0;
+            }
+
+            .center-box {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                flex-grow: inherit;
+            }
+
+            div {
+                margin-bottom: 1rem;
+            }
+        </style>
+        <div class="center-box">
+            <div>
+                <span class="big1 very-bold">
+                    <slot name="title"></slot>
+                </span>
+            </div>
+            <div>
+                <div>
+                    <span class="big2 very-bold">
+                        <slot name="width"></slot>:<span class="wp"></span>
+                        <slot name="pixels"></slot>
+                    </span>
+                </div>
+                <div>
+                    <span class="big2 very-bold">
+                        <slot name="height"></slot>:<span class="hp"></span>
+                        <slot name="pixels1"></slot>
+                    </span>
+                </div>
+            </div>
+            <div>
+                <span class="big4 very-bold">
+                    <slot name="report-notice"></slot>
+                </span>
+            </div>
+            <div>
+                <span class="big4 very-bold">
+                    <slot name="pixel-ratio"></slot>=<span class="pr"></span>
+                </span>
+            </div>
+        </div>
+
+    </template>
+
+    <template id="pop-menu-template">
+        <style>
+            div.menu-box {
+                display: flex;
+                flex-direction: column;
+                padding: 0.5rem 1rem;
+                position: absolute;
+                left: 30vw;
+                top: 30vh;
+                width: 30vmin;
+                z-index: 9;
+                background-color: #ffffa0;
+                color: black;
+                border: 2px solid black;
+                border-radius: 5%;
+                display: none;
+                font-weight:900;
+            }
+
+            div.menu-box.dark {
+                color: #f0f0a0;
+                background-color: #408020;
+            }
+
+            div.closex {
+                display: flex;
+                flex-direction: row;
+                justify-content: end;
+                font-weight: inherit;
+            }
+
+            button {
+                width: 90%;
+                margin-bottom: 0.5rem;
+                color:inherit;
+                background-color:inherit;
+                border-radius:2%;
+                border:2px solid black;
+                padding:0.25rem 0.25rem;
+                font-weight: inherit;
+            }
+
+            div.closex>button {
+                width: unset;
+                padding: unset;
+                color:inherit;
+                background-color:inherit;
+                border-radius:5%;
+                border:2px solid black;
+                padding:0.25rem 0.25rem;
+                font-weight: inherit;
+            }
+        </style>
+        <div class="menu-box dark">
+            <div class="closex">
+                <button><span>X</span></button>
+            </div>
+        </div>
+    </template>
+    <script src="element.js"></script>
+    <script src="pop.js"></script>
+    <script src="translate.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>

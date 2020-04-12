@@ -1,0 +1,36 @@
+html {
+    font-size: 16px;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+body.dark {
+    background-color: #203020;
+    color: #f0f0a0;
+}
+
+div.topbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin-bottom: 1rem;
+}
+
+button {
+    font-size: 2rem;
+    border-radius: 8%;
+    padding: 0.25rem 0.5rem;
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    margin-left:0.25rem;
+}
+
+button.darkify {
+    background-color: #203020;
+    color: #f0f0a0;
+    border: 2px solid #f0f0a0;
+}
