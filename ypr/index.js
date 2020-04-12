@@ -7,12 +7,14 @@ let repbox = q('report-box');
 repbox.putValues(width, height, devicePixelRatio);
 
 const darkenToggle = () => {
+    darkClassToggle();
+    localStorage.dark = localStorage.dark == "true" ? "false" : "true";
+}
+const darkClassToggle = () => {
     q("#darker").classList.toggle('darkify');
     document.body.classList.toggle('dark');
     q("#transmenu").darken();
     q("#lang").classList.toggle('darkify');
-    
-    localStorage.dark = localStorage.dark=="true" ? "false" : "true";
 }
 
 q("#darker")[on]("click", (e) => {
@@ -24,3 +26,9 @@ q("#lang")[on]("click", (e) => {
 });
 
 translate();
+
+const isDark = document.body.classList.contains("dark");
+const savedDark = (localStorage.dark == "true");
+if ((savedDark && !isDark) || (!savedDark && isDark)) {
+    darkClassToggle();
+}
