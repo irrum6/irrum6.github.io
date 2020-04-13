@@ -33,7 +33,7 @@ const translateData = {
     "report-notice": {
         "English": `* Reported width and height might be affected by toolbars,
          status panels, and browsers taking space for their own.`,
-        "ქართული": `ხელსაწყოების დაფა, სტატუსთა დაფამ და ვებ ბრაუზერის მიერ
+        "ქართული": `ხელსაწყოების დაფამ, სტატუსთა დაფამ და ვებ ბრაუზერის მიერ
          დაკავებულმა სივრცემ შეიძლება გავლენა იქონიოს ამოცნობილ ეკრანის გარჩევადობაზე`,
         "Deutsch": `* Die gemeldete Breite und Höhe kann durch Symbolleisten, 
         Statusfenster und Browser beeinflusst werden, die Platz für ihre eigenen Elemente beanspruchen.`,
