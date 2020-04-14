@@ -18,14 +18,14 @@ body {
 @media screen and (max-aspect-ratio:1/1){
     #mainbox{
         display: grid;
-        grid-template-columns: auto ;
+        grid-template-columns: auto;
     }
 }
 
 #calcform {
     display: grid;
     grid-template-columns: auto;
-    grid-template-rows:repeat(5,10vh);
+    grid-template-rows:repeat(4,10vh);
     row-gap: 1rem;
 }
 
@@ -33,7 +33,7 @@ body {
     #calcform{
         display: grid;
         grid-template-columns: auto;
-        grid-template-rows: repeat(20vh);
+        grid-template-rows: 30% 10% 30% 30%;
         row-gap: 1rem;
     }
 }
@@ -58,7 +58,6 @@ body {
 
 #langbar {
     display: inline-grid;
-    width:10vmax;
     grid-template-columns: repeat(2, 45%);
     column-gap: 1rem;
 }
