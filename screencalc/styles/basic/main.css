@@ -52,12 +52,13 @@ body {
     display: grid;
     grid-template-columns: auto;
     column-gap: 0rem;
-    row-gap: 2rem;;
-   justify-content: end;
+    row-gap: 2rem;
+    justify-content: end;
 }
 
 #langbar {
     display: inline-grid;
+    width:10vmax;
     grid-template-columns: repeat(2, 45%);
     column-gap: 1rem;
 }
@@ -74,6 +75,11 @@ div.box > label , div.box > p {
 }
 p[data-app-text]{
     font-size:1.25rem;
+}
+
+#results p[data-app-text]{
+    font-size:1.25rem;
+    font-weight: 600;
 }
 
 @media screen and (max-aspect-ratio:1/1){
@@ -95,7 +101,6 @@ button.btn {
     padding: 0.25rem;
     border: 1px solid black;
     border-radius: 3%;
-    font-size: 1rem;
 }
 
 button.darkness {
@@ -136,4 +141,7 @@ input {
 .slategreen-bg {
     background-color: #204040;
     color: white;
+}
+.rem125{
+    font-size:1.25rem;
 }
