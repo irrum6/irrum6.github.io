@@ -22,15 +22,19 @@ const TRANSLATE_DATA = {
         geo: 'შეფარდება',
         eng: 'Aspect Ratio'
     },
-    physical_dims_label: {
-        geo: 'სიგრძე და სიგანე',
-        eng: 'Width and Height'
+    width: {
+        geo: 'სიგანე',
+        eng: 'Width'
+    },
+    height: {
+        geo: 'სიმაღლე',
+        eng: 'Height'
     },
     resolutions: {
         geo: 'გაფართოება',
         eng: 'Resolution'
     },
-    pixels_per_unit: {
+    pixels: {
         geo: 'პიქსელები',
         eng: 'Pixels'
     },

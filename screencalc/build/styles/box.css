@@ -1,0 +1,47 @@
+input {
+  line-height: 1.25rem;
+  padding: 0;
+  border: 1px solid black;
+  background-color: #e0d0d0;
+  padding-left: 0.5rem;
+  font-size: 1.25rem;
+}
+
+input:disabled{
+  background-color: #a0a090;
+}
+
+div.box {
+  width: 95%;
+  display: inline-grid;
+  grid-template-columns: auto 70%;
+  column-gap: 0.5rem;
+  font-size: 1.5rem;
+  padding: 0.25rem;
+  justify-self: center;
+}
+
+div.box-controls {
+  display: inline-grid;
+  grid-template-columns: 10% auto 10% auto;
+  column-gap: 0.5rem;
+}
+
+div.box-controls>span {
+  text-align: center;
+  text-decoration: underline;
+}
+
+@media screen and (max-aspect-ratio:1/1) {
+  div.box {
+    display: grid;
+    grid-template-columns: auto;
+    row-gap: 0.2rem;
+  }
+}
+
+button.btn {
+  padding: 0.25rem;
+  border: 1px solid black;
+  font-size: 1.25rem;
+}

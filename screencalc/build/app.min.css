@@ -1,0 +1,112 @@
+html {
+  font-size: 16px;
+}
+
+body {
+  background-color: #d0d0d0;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 60px auto;
+  padding: 0;
+}
+
+main {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto;
+  row-gap: 1rem;
+  padding: 0;
+}
+
+/*topbar*/
+
+#topbar {
+  display: inline-grid;
+  width: 80%;
+  grid-template-columns: repeat(4, auto);
+  column-gap: 1rem;
+  padding: 2rem 1rem;
+}
+
+.topbar-button {
+  padding: 0.5rem;
+  border: 1px solid black;
+  border-radius: 3%;
+  font-size: 1.25rem;
+}
+
+@media screen and (max-aspect-ratio:1/1) {
+  #topbar {
+    display: grid;
+    width: 100%;
+    grid-template-columns: auto;
+    row-gap: 1.5rem;
+  }
+}
+
+/* end of topbar */
+
+/* main part */
+
+#display {
+  display: grid;
+  grid-template-columns: auto 50%;
+  column-gap: 1rem;
+}
+
+@media screen and (max-aspect-ratio:1/1) {
+  #display {
+    display: grid;
+    grid-template-columns: auto;
+    row-gap: 1.5rem;
+  }
+}
+
+div.center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+div.center>label {
+  font-size: 1.5rem;
+}
+
+/* theming */
+
+.green {
+  color: #44ff88;
+}
+
+.white {
+  color: #d0d0d0;
+}
+
+.bold {
+  font-weight: 900;
+}
+
+.cocoa {
+  background-color: #c0c0a0;
+}.body-dark {
+  background-color: #103020;
+  color: white;
+}
+
+.darkness {
+  background-color: #305050;
+  color: white;
+}
+
+.darkness2 {
+  background-color: #208040;
+  color: white;
+}
+
+.border-dark {
+  border-color: #607030;
+}
+
+.border-light {
+  border-color: white;
+}

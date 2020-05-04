@@ -1,0 +1,40 @@
+/* pop-alert */
+
+div.pop-container {
+    padding: 0.5rem;
+    position: absolute;
+    top: 40vh;
+    left: 40vw;
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    border: 0.25rem solid #606060;
+    background-color: #c0c060;
+    z-index: 9;
+}
+
+div.button-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+@media screen and (max-aspect-ratio:1/1) {
+    div.pop-container {
+        position: absolute;
+        top: 20vh;
+        left: 5vw;
+        width: 80vw;
+        z-index:9;
+    }
+}
+
+/* end pop-alert *//* pop-alert */
+
+div.pop-container.dark {
+    border: 0.25rem solid #c0c060;
+    background-color: #606060;
+    color: #c0c060;
+}
+
+/* end po-alert */

@@ -1,1 +1,0 @@
-cat query.js lib.js pop.js convert.js build/translate.js build/helper.js build/presenter.js build/main.js > build/app.min.js
