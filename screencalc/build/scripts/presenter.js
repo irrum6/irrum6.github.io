@@ -5,7 +5,7 @@ class Presenter {
         if (!lib.isNumber(w, h, ppu)) throw new Error('invalid type: not a number');
         if (!lib.isString(u, l)) throw new Error('invalids type:not a string');
         if (!UNITS.includes(u)) throw new Error('invalid  value, unit not supported');
-        if (!CURRENT_SUPPORTED_TRANSLATIONS.includes(l)) throw new Error('invalid value, language not supported');
+        if (!SUPPORTED_TRANSLATIONS.includes(l)) throw new Error('invalid value, language not supported');
         let { ratio, diagonal } = Helper.calculateFromPhysDimensions(w, h);
         let ratio2 = 9;//ratio height
         let ratio1 = Math.round(ratio * 9); //ratio width
@@ -64,24 +64,12 @@ class Presenter {
         let pixels = q("#pixelsperunit").getState();
         return { diagonal, ratio1, ratio2, width, height, rwidth, rheight, pixels };
     }
-    /**
-     * casts all data to numbers
-     * @param {Object} data
-     * @return {Object} 
-     */
-    castDataToNumbers(data) {
-        let o = {};
-        for (let d in data) {
-            o[d] = Number(data[d].value);
-        }
-        return o;
-    }
+
     onDiagonalChange() {
         let dat = this.collectData();
-        let data = this.castDataToNumbers(dat);
-        //disabled can't fire
-        // debugger;
-        //if physical width and height are disabled then diagonal can't grow
+        let data = Helper.castDataToNumbers(dat);
+        debugger;
+        //if physical width and height are disabled then return
         if (dat.width.disabled || dat.height.disabled) {
             return;
         }
@@ -89,15 +77,18 @@ class Presenter {
         let { width, height } = Helper.calculatefromDiagonal(data.diagonal, ratio);
         //see if resolution is disabled too
         if (dat.rwidth.disabled || dat.rheight.disabled) {
-            
+            let pixels = Helper.getPixelsPerUnit(data.rwidth, width);
+            this.state = { ...data, width, height, pixels };
+            this.display();
+            return;
         }
         let { rwidth, rheight } = Helper.getResolutions(width, height, data.pixels);
         this.state = { ...data, width, height, rwidth, rheight };
-        this.display();
+
     }
     onRatioChange(input) {
         let dat = this.collectData();
-        let data = this.castDataToNumbers(dat);
+        let data = Helper.castDataToNumbers(dat);
         //disabled can't fire
         //ignore phys w and h
         let ratio = data.ratio1 / data.ratio2;
@@ -108,7 +99,7 @@ class Presenter {
     }
     onPhysChange(input) {
         let dat = this.collectData();
-        let data = this.castDataToNumbers(dat);
+        let data = Helper.castDataToNumbers(dat);
         let { ratio, diagonal } = Helper.calculateFromPhysDimensions(data.width, data.height);
         let ratio2 = 9;
         let ratio1 = ratio * 9;
@@ -118,7 +109,7 @@ class Presenter {
     }
     onResolutionChange(input) {
         let dat = this.collectData();
-        let data = this.castDataToNumbers(dat);
+        let data = Helper.castDataToNumbers(dat);
         let { width, height, ratio, diagonal } = Helper.calculateFromResolutions(data.rwidth, data.rheight, data.pixels);
 
         if (dat.width.disabled || data.height.disabled) {
@@ -138,7 +129,7 @@ class Presenter {
     }
     onPixelsPerUnitChange() {
         let dat = this.collectData();
-        let data = this.castDataToNumbers(dat);
+        let data = Helper.castDataToNumbers(dat);
         let { rwidth, rheight } = Helper.getResolutions(data.width, data.height, data.pixels);
         this.state = { ...data, rwidth, rheight };
         this.display();

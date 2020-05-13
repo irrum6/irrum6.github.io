@@ -103,22 +103,14 @@ const attr = 'setAttribute';const lib = (function () {
     let l = new Lib();
     Object.freeze(l);
     return l;
-}());const convert = (function () {
-    const UNITS = ['Inches', 'Centimetres', 'Millimetres']
-
-    const all = (num, div) => {
+}());class Convert {
+    static all(num, div) {
         if (!lib.isNumber(num, div)) throw new Error("not a number");
         if (num < 0 || div < 0) throw new Error("negative numbers not allowed");
         return num / div;
     }
-    const cmtoi = (cm) => all(cm, 2.54);
-    const cmtomm = (cm) => all(cm, 0.1);
-    const mmtoi = (mm) => all(mm, 25.4);
-    const mmtocm = (mm) => all(mm, 10);
-    const itocm = (i) => all(i, (1 / 2.54));
-    const itomm = (i) => all(i, (1 / 25.4));
-
-    const getUnitShort = (u) => {
+    static getUnitShort(u) {
+        const UNITS = ['Inches', 'Centimetres', 'Millimetres'];
         if (!UNITS.includes(u)) throw new Error("unsupported unit");
         let us;
         switch (u) {
@@ -134,12 +126,14 @@ const attr = 'setAttribute';const lib = (function () {
         }
         return us;
     }
-
-    let c = { cmtoi, cmtomm, mmtoi, mmtocm, itocm, itomm, getUnitShort };
-    Object.freeze(c);
-    return c;
-}());const CURRENT_SUPPORTED_TRANSLATIONS = ['eng', 'geo'];
-Object.freeze(CURRENT_SUPPORTED_TRANSLATIONS);
+    static cmtoi(cm) { return this.all(cm, 2.54); }
+    static cmtomm(cm) { return this.all(cm, 0.1); }
+    static mmtoi(mm) { return this.all(mm, 25.4); }
+    static mmtocm(mm) { return this.all(mm, 10); }
+    static itocm(i) { return this.all(i, (1 / 2.54)); }
+    static itomm(i) { return this.all(i, (1 / 25.4)); }
+}
+Object.freeze(Convert);const SUPPORTED_TRANSLATIONS = ['eng', 'geo'];
 
 const TRANSLATE_DATA = {
     inches: {
@@ -179,16 +173,31 @@ const TRANSLATE_DATA = {
         eng: 'Pixels'
     },
     popup_text: {
-        geo: 'გამოიყენეთ ღილაკები ბოქლომით რათა ველის მნიშვნელობა უცვლელი '
-            .concat('გახადოთ, დააჭირეთ ღილაკს ისრებით  ველების ერთმანეთთან ')
-            .concat('დასაკავშირებლად (განსაკავშირებლად).\n')
-            .concat('პიქსელები აღნიშნავს პიქსელების რაოდენობას არჩეულ ')
-            .concat('სიგრძის ერთეულზე'),
-        eng: 'Use Lock icons to freeze input\'s value, click button with arrows '
-            .concat('to link (unlink) on input values (width to height for example); ')
-            .concat('so they change together.\n')
-            .concat('Pixels indicate number of pixels per user chosen length unit')
+        geo: `გამოიყენეთ ღილაკები ბოქლომით რათა ველის მნიშვნელობა უცვლელი
+        გახადოთ.\n პიქსელები აღნიშნავს პიქსელების რაოდენობას არჩეულ
+        სიგრძის ერთეულზე`,
+        eng: `Use Lock icons to freeze input\'s value.\n
+        Pixels indicate number of pixels per user chosen length unit`
     }
 }
 
+class Translator {
+    static getTranslation(word, lang) {
+        if (!lib.isString(word, lang)) {
+            throw new Error("Not a string");
+        }
+        if (!SUPPORTED_TRANSLATIONS.includes(lang)) {
+            throw new Error('invalid value, language not supported');
+        }
+        if (SUPPORTED_TRANSLATIONS[word] === undefined) {
+            throw new Error("word not found in dictionary");
+        }
+        if (SUPPORTED_TRANSLATIONS[word][lang] === undefined) {
+            throw new Error("ranslation not found for language");
+        }
+    }
+}
+
+Object.freeze(SUPPORTED_TRANSLATIONS);
 Object.freeze(TRANSLATE_DATA);
+Object.freeze(Translator);

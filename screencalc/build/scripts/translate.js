@@ -1,5 +1,4 @@
-const CURRENT_SUPPORTED_TRANSLATIONS = ['eng', 'geo'];
-Object.freeze(CURRENT_SUPPORTED_TRANSLATIONS);
+const SUPPORTED_TRANSLATIONS = ['eng', 'geo'];
 
 const TRANSLATE_DATA = {
     inches: {
@@ -39,16 +38,31 @@ const TRANSLATE_DATA = {
         eng: 'Pixels'
     },
     popup_text: {
-        geo: 'გამოიყენეთ ღილაკები ბოქლომით რათა ველის მნიშვნელობა უცვლელი '
-            .concat('გახადოთ, დააჭირეთ ღილაკს ისრებით  ველების ერთმანეთთან ')
-            .concat('დასაკავშირებლად (განსაკავშირებლად).\n')
-            .concat('პიქსელები აღნიშნავს პიქსელების რაოდენობას არჩეულ ')
-            .concat('სიგრძის ერთეულზე'),
-        eng: 'Use Lock icons to freeze input\'s value, click button with arrows '
-            .concat('to link (unlink) on input values (width to height for example); ')
-            .concat('so they change together.\n')
-            .concat('Pixels indicate number of pixels per user chosen length unit')
+        geo: `გამოიყენეთ ღილაკები ბოქლომით რათა ველის მნიშვნელობა უცვლელი
+        გახადოთ.\n პიქსელები აღნიშნავს პიქსელების რაოდენობას არჩეულ
+        სიგრძის ერთეულზე`,
+        eng: `Use Lock icons to freeze input\'s value.\n
+        Pixels indicate number of pixels per user chosen length unit`
     }
 }
 
+class Translator {
+    static getTranslation(word, lang) {
+        if (!lib.isString(word, lang)) {
+            throw new Error("Not a string");
+        }
+        if (!SUPPORTED_TRANSLATIONS.includes(lang)) {
+            throw new Error('invalid value, language not supported');
+        }
+        if (SUPPORTED_TRANSLATIONS[word] === undefined) {
+            throw new Error("word not found in dictionary");
+        }
+        if (SUPPORTED_TRANSLATIONS[word][lang] === undefined) {
+            throw new Error("ranslation not found for language");
+        }
+    }
+}
+
+Object.freeze(SUPPORTED_TRANSLATIONS);
 Object.freeze(TRANSLATE_DATA);
+Object.freeze(Translator);

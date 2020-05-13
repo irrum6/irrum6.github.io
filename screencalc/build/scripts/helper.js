@@ -63,7 +63,19 @@ class Helper {
     static getPixelsPerUnit(rw, w) {
         if (typeof rw != 'number') throw new Error("first argument not a number");
         if (typeof w != 'number') throw new Error("second argument not a number");
-        let pixels = rw / w;
-        return { pixels }
+        return rw / w
+    }
+    /**
+     * casts all data to numbers
+     * @param {Object} data
+     * @return {Object} 
+     */
+    static castDataToNumbers(data) {
+        let o = {};
+        for (let d in data) {
+            o[d] = Number(data[d].value);
+        }
+        return o;
     }
 }
+Object.freeze(Helper);
