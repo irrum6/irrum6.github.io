@@ -17,7 +17,7 @@ class Helper {
     /**
      * @param {number} w width
      * @param {number} h height
-     * @returns {object}
+     * @returns {Object}
      */
     static calculateFromPhysDimensions(w, h) {
         if (typeof w != 'number') throw new Error("first argument not a number");

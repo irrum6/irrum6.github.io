@@ -43,23 +43,29 @@ const TRANSLATE_DATA = {
         სიგრძის ერთეულზე`,
         eng: `Use Lock icons to freeze input\'s value.\n
         Pixels indicate number of pixels per user chosen length unit`
+    },
+    unblock_phys: {
+        geo: `გთხოვთ მოხსნათ ფიზიკური ზომების ბლოკი`,
+        eng: `Please, unlock physical width and height`
     }
 }
 
 class Translator {
     static getTranslation(word, lang) {
+        //debugger;
         if (!lib.isString(word, lang)) {
             throw new Error("Not a string");
         }
         if (!SUPPORTED_TRANSLATIONS.includes(lang)) {
             throw new Error('invalid value, language not supported');
         }
-        if (SUPPORTED_TRANSLATIONS[word] === undefined) {
+        if (TRANSLATE_DATA[word] === undefined) {
             throw new Error("word not found in dictionary");
         }
-        if (SUPPORTED_TRANSLATIONS[word][lang] === undefined) {
-            throw new Error("ranslation not found for language");
+        if (TRANSLATE_DATA[word][lang] === undefined) {
+            throw new Error("Translation not found for language");
         }
+        return TRANSLATE_DATA[word][lang];
     }
 }
 

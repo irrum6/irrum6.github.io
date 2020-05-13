@@ -44,16 +44,19 @@ class InputBox extends HTMLElement {
      * @throws {invalid}
      */
     setState(s) {
-        if (typeof s !== 'object') throw new Error('setState-invalid type:not an object');
+        if (typeof s !== 'object') throw new Error("InputBox::setState-invalid type:not an object");
         let { value, disabled } = s;
         let inp = this.getInput();
         let type = inp.getAttribute('type');
-        if (typeof value === type) {
-            inp.value = value;
+        disabled = (typeof disabled === 'boolean') ? disabled : this.getState().disabled;
+        (disabled) ? inp.setAttribute('disabled', true) : inp.removeAttribute('disabled');
+        if (disabled) {
+            return;//throw new Error("InputBox::setState - can't set new value on disabled");
         }
-        if (typeof disabled === 'boolean') {
-            (disabled) ? inp.setAttribute('disabled', true) : inp.removeAttribute('disabled');
+        if (typeof value !== type) {
+            throw new Error("InputBox::setState - value type not match");
         }
+        inp.value = value;
     }
     /**
      * @param {String} s
