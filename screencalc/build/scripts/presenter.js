@@ -17,7 +17,7 @@ class Presenter {
         return this.state;
     }
     setState(o, v) {
-        if (typeof o === "string") throw new Error("Presenter::setState- parameter not string");
+        if (typeof o !== "string") throw new Error("Presenter::setState- parameter not string");
         if (v === undefined || v === null || Number.isNaN(v) || typeof v === "object") {
             throw new Error("Presenter::setState - invalid value")
         }
@@ -25,6 +25,9 @@ class Presenter {
     }
     query(s) {
         return document.body.querySelector(s);
+    }
+    queryAll(s) {
+        return document.body.querySelectorAll(s);
     }
     setupHandlers() {
         const q = this.query.bind(this);
@@ -39,8 +42,8 @@ class Presenter {
         q("#asheight")[on]('ibchange', this.onRatioChange.bind(this, "height"));
         q("#pwidth")[on]('ibchange', this.onPhysChange.bind(this, "width"));
         q("#pheight")[on]('ibchange', this.onPhysChange.bind(this, "height"));
-        q("#rwidth")[on]('ibchange', this.onResolutionChange.bind(this, "width"));
-        q("#rheight")[on]('ibchange', this.onResolutionChange.bind(this, "height"));
+        q("#rwidth")[on]('ibchange', this.onResolutionChange.bind(this, "rwidth"));
+        q("#rheight")[on]('ibchange', this.onResolutionChange.bind(this, "rheight"));
         q("#pixelsperunit")[on]('ibchange', this.onPixelsPerUnitChange.bind(this));
     }
 
@@ -93,7 +96,7 @@ class Presenter {
         }
         let { rwidth, rheight } = Helper.getResolutions(width, height, data.pixels);
         this.state = { ...data, width, height, rwidth, rheight };
-
+        this.display();
     }
     onRatioChange(input) {
         let dat = this.collectData();
@@ -101,6 +104,7 @@ class Presenter {
         //disabled can't fire
         let ratio = data.ratio1 / data.ratio2;
         if (dat.width.disabled || dat.height.disabled) {
+            this.inform("unblock_phys")
             return;
         }
         var { width, height } = data;
@@ -117,7 +121,9 @@ class Presenter {
             this.display();
             return;
         }
+
         let diagonal = Helper.calculateFromPhysDimensions(width, height);
+
         if (dat.rwidth.disabled || dat.rheight.disabled) {
             let pixels = Helper.getPixelsPerUnit(data.rwidth, width);
             this.state = { ...data, width, height, pixels, diagonal };
@@ -125,15 +131,37 @@ class Presenter {
             return;
         }
         let { rwidth, rheight } = Helper.getResolutions(width, height, data.pixels);
-
+        this.sate = { ...data, width, height, rwidth, rheight, diagonal };
         this.display();
     }
     onPhysChange(input) {
         let dat = this.collectData();
         let data = Helper.castDataToNumbers(dat);
+        if (dat.diagonal.disabled) {
+            this.inform("unblock_diag");
+            return;
+        }
+        if (dat.width.disabled || dat.height.disabled) {
+            this.inform("unblock_phys")
+            return;
+        }
+        if (dat.ratio1.disabled || dat.ratio2.disabled) {
+            this.inform("unblock_ratio");
+            return;
+        }
         let { ratio, diagonal } = Helper.calculateFromPhysDimensions(data.width, data.height);
         let ratio2 = 9;
         let ratio1 = ratio * 9;
+        if (dat.rwidth.disabled || dat.rheight.disabled) {
+            if (dat.pixels.disabled) {
+                this.inform("unblock_pixels");
+                return;
+            }
+            let pixels = Helper.getPixelsPerUnit(data.rwidth, data.width);
+            this.state = { ...data, pixels };
+            this.display();
+            return;
+        }
         let { rwidth, rheight } = Helper.getResolutions(data.width, data.height, data.pixels);
         this.state = { ...data, ratio, ratio1, ratio2, diagonal, rwidth, rheight };
         this.display();
@@ -141,19 +169,52 @@ class Presenter {
     onResolutionChange(input) {
         let dat = this.collectData();
         let data = Helper.castDataToNumbers(dat);
-        let { width, height, ratio, diagonal } = Helper.calculateFromResolutions(data.rwidth, data.rheight, data.pixels);
-
-        if (dat.width.disabled || data.height.disabled) {
+        //if diagonal disabled, it can't be changed   
+        //then width and height will be inadequate
+        //so it's the same then
+        if (dat.width.disabled || data.height.disabled || dat.diagonal.disabled) {
             //then only pixels can be changed
+            if (dat.pixels.disabled) {
+                return;//darn it;
+            }
+            let pixels = Helper.getPixelsPerUnit(data.rwidth, data.width);
+            if (input === "rheight") {
+                pixels = Helper.getPixelsPerUnit(data.rheight, data.height);
+            }
+            let { rwidth, rheight } = Helper.getResolutions(data.width, data.height, pixels);
+            if (!dat.rwidth.disabled) {
+                this.setState("rwidth", rwidth);
+            }
+            if (!dat.rheight.disabled) {
+                this.setState("rheight", rheight);
+            }
+            this.setState("pixels", pixels);
+            this.display();
+            return;
         }
 
-        if (dat.diagonal.disabled) {
-            //if diagonal disabled, it can't be changed   
-        }
+        let { width, height, ratio, diagonal } = Helper.calculateFromResolutions(data.rwidth, data.rheight, data.pixels);
 
         let ratio2 = 9;
         let ratio1 = ratio * 9;
 
+        if (dat.ratio1.disabled && dat.ratio2.disabled) {
+            this.inform("unblock_ratio");
+            return;
+        }
+
+        if (dat.ratio2.disabled) {
+            let ratio1 = ratio2 * data.ratio2;
+            this.state = { ...data, ratio, ratio1, diagonal, width, height };
+            this.display();
+            return;
+        }
+        if (dat.ratio1.disabled) {
+            let ratio2 = data.ratio1 / ratio;
+            this.state = { ...data, ratio, ratio2, diagonal, width, height };
+            this.display();
+            return;
+        }
 
         this.state = { ...data, ratio, ratio1, ratio2, diagonal, width, height };
         this.display();
@@ -163,6 +224,7 @@ class Presenter {
         let data = Helper.castDataToNumbers(dat);
         let { rwidth, rheight } = Helper.getResolutions(data.width, data.height, data.pixels);
         if (dat.rwidth.disabled || dat.rheight.disabled) {
+            this.inform("unblock_res");
             return;
         }
         this.state = { ...data, rwidth, rheight };
@@ -190,7 +252,7 @@ class Presenter {
         q("#pixelsperunit").setDark();
         q("#alert").setDark();
     }
-    translate(lang) {
+    translate() {
         // if (lang === 'geo') {
         //     // this.dom.eng.classList.remove('darkness');
         //     // this.dom.geo.classList.add('darkness');
@@ -199,11 +261,13 @@ class Presenter {
         //     // this.dom.geo.classList.remove('darkness');
         //     // this.dom.eng.classList.add('darkness');
         // }
-        // let translatables = qa('[data-app-translate="1"]');
-        // for (let i = 0, len = translatables.length; i < len; i++) {
-        //     let text = translatables[i].getAttribute('data-app-text');
-        //     translatables[i].textContent = TRANSLATE_DATA[text][lang];
-        // }
+        const { language } = this.getState();
+        let translatables = this.queryAll('[data-app-translate="1"]');
+        for (let i = 0, len = translatables.length; i < len; i++) {
+            let text = translatables[i].getAttribute('data-app-text');
+            let translation = Translator.getTranslation(text, lang);
+            translatables[i].textContent = translation;
+        }
         // this.state.Language = lang;
     }
     inform(text) {
