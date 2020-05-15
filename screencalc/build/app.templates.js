@@ -30,6 +30,10 @@ class PopAlert extends HTMLElement {
     close() {
         this.style.display = 'none';
     }
+    setDark() {
+        const cont = this.query('div.pop-container');
+        cont.classList.toggle('dark');
+    }
 }
 customElements.define('pop-alert', PopAlert);
 
@@ -95,6 +99,9 @@ class InputBox extends HTMLElement {
         if (disabled) {
             return;//throw new Error("InputBox::setState - can't set new value on disabled");
         }
+        if (value === undefined) {
+            return;
+        }
         if (typeof value !== type) {
             throw new Error("InputBox::setState - value type not match");
         }
@@ -130,15 +137,12 @@ class InputBox extends HTMLElement {
         let label = this.query('label');
         label.children[0].textContent = text;
     }
-    translateLabel(lan, trans) {
+    translateLabel(lan) {
         if (typeof lan !== "string") return;
         if (lan === "") return;
-        if (typeof trans !== "object") return;
-        if (trans == {}) return;
-        let text = this.getAttribute("data-app-label");
-        if (typeof trans[text] === undefined) throw "InputBox::translateLabel-word not found in dictionary";
-        if (typeof trans[text][lan] === undefined) throw "InputBox::translateLabel-translation not found for language";
-        this.setLabel(trans[text][lan]);
+        const text = this.getAttribute("data-app-label");
+        const translation = Translator.getTranslation(text, lan);
+        this.setLabel(translation);
     }
     /**
      * @param {void}

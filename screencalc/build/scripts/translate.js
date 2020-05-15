@@ -47,6 +47,22 @@ const TRANSLATE_DATA = {
     unblock_phys: {
         geo: `გთხოვთ მოხსნათ ფიზიკური ზომების ბლოკი`,
         eng: `Please, unlock physical width and height`
+    },
+    unblock_res: {
+        geo: `გთხოვთ მოხსნათ გარჩევადობის ბლოკი`,
+        eng: `Please, unlock resolution width and height`
+    },
+    unblock_pixels: {
+        geo: `გთხოვთ მოხსნათ პიქსელების  ბლოკი`,
+        eng: `Please, unlock pixels`
+    },
+    unblock_ratio: {
+        geo: `გთხოვთ მოხსნათ შეფარდების ბლოკი`,
+        eng: `Please, unlock ratio`
+    },
+    unblock_diag: {
+        geo: `გთხოვთ მოხსნათ დიაგონალის ბლოკი`,
+        eng: `Please, unlock diagonal`
     }
 }
 

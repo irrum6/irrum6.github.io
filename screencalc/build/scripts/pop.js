@@ -30,6 +30,10 @@ class PopAlert extends HTMLElement {
     close() {
         this.style.display = 'none';
     }
+    setDark() {
+        const cont = this.query('div.pop-container');
+        cont.classList.toggle('dark');
+    }
 }
 customElements.define('pop-alert', PopAlert);
 
