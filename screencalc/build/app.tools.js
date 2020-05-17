@@ -136,6 +136,10 @@ const attr = 'setAttribute';const lib = (function () {
 Object.freeze(Convert);const SUPPORTED_TRANSLATIONS = ['eng', 'geo'];
 
 const TRANSLATE_DATA = {
+    languages: {
+        geo: "ქართული",
+        eng: "English"
+    },
     inches: {
         geo: 'დუიმი',
         eng: 'Inches'
@@ -156,9 +160,9 @@ const TRANSLATE_DATA = {
         geo: 'შეფარდება',
         eng: 'Aspect Ratio'
     },
-    physical_dims_label:{
-        geo:'ფიზიკური ზომები',
-        eng:'Physical Dimmension'
+    physical_dims_label: {
+        geo: 'ფიზიკური ზომები',
+        eng: 'Physical Dimmension'
     },
     width: {
         geo: 'სიგანე',

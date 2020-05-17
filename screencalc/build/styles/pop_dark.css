@@ -6,4 +6,13 @@ div.pop-container.dark {
     color: #c0c060;
 }
 
-/* end po-alert */
+/* end pop-alert */
+
+/* Pop Menu */
+
+div.menu-box.dark {
+    color: #f0f0a0;
+    background-color: #408020;
+}
+
+/* End of Pop Menu */

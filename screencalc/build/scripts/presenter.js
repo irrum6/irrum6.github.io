@@ -37,6 +37,7 @@ class Presenter {
         q("#question")[on]("click", (e) => {
             this.onQuestionPopupAlert();
         });
+        q("#lang")[on]("click", this.showLanguageChooser.bind(this));
         q("#diagonal")[on]('ibchange', this.onDiagonalChange.bind(this));
         q("#aswidth")[on]('ibchange', this.onRatioChange.bind(this, "width"));
         q("#asheight")[on]('ibchange', this.onRatioChange.bind(this, "height"));
@@ -242,25 +243,34 @@ class Presenter {
         e.target.classList.toggle('darkness');
         e.target.classList.toggle('border-light');
         document.body.classList.toggle('body-dark');
-        q("#diagonal").setDark();
-        q("#aswidth").setDark();
-        q("#asheight").setDark();
-        q("#pwidth").setDark();
-        q("#pheight").setDark();
-        q("#rwidth").setDark();
-        q("#rheight").setDark();
-        q("#pixelsperunit").setDark();
-        q("#alert").setDark();
+        //search for every element with significance i.e ID
+        let elements = this.queryAll("input-box , pop-alert, pop-menu");
+        for (const el of elements) {
+            if (el.id !== undefined) {
+                el.setDark();
+            }
+        }
+    }
+    showLanguageChooser() {
+        const languages = SUPPORTED_TRANSLATIONS.map(e => {
+            return {
+                display: Translator.getTranslation("languages", e),
+                attrValue: e
+            }
+        });
+
+        let popmenu = this.query('pop-menu');
+
+        const fun = (e) => {
+            const lang = e.target.getAttribute("data-lang");
+            this.setState("language", lang);
+            this.translate();
+            this.query('pop-menu').close();
+        }
+        popmenu.fill(languages, "data-lang", fun);
+        popmenu.open();
     }
     translate() {
-        // if (lang === 'geo') {
-        //     // this.dom.eng.classList.remove('darkness');
-        //     // this.dom.geo.classList.add('darkness');
-        // }
-        // if (lang === 'eng') {
-        //     // this.dom.geo.classList.remove('darkness');
-        //     // this.dom.eng.classList.add('darkness');
-        // }
         const { language } = this.getState();
         let translatables = this.queryAll('[data-app-translate="1"]');
         for (let i = 0, len = translatables.length; i < len; i++) {
@@ -272,7 +282,6 @@ class Presenter {
         for (let i = 0, len = inputs.length; i < len; i++) {
             inputs[i].translateLabel(language);
         }
-        // this.state.Language = lang;
     }
     inform(text) {
         const { language } = this.state;

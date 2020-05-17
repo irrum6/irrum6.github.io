@@ -14,7 +14,7 @@
 <body>
     <main id="maincont">
         <div id="topbar">
-            <button class="topbar-button" id="eng">Eng</button>
+            <button class="topbar-button" id="lang">Eng</button>
             <button class="topbar-button" id="unit_inches" data-app-translate="1" data-app-text="inches">In</button>
             <button class="topbar-button" id="question">?</button>
             <button class="topbar-button" id="darkify">&#9680;</button>
@@ -48,6 +48,7 @@
         </div>
     </main>
     <pop-alert id="alert" style="display: none;"></pop-alert>
+    <pop-menu id="popup-menu" style="display: none"></pop-menu>
 
     <template id="input-box-template">
         <div class="box">
@@ -69,6 +70,13 @@
             </div>
             <div class="button-box">
                 <span><button name="ok">OK</button></span>
+            </div>
+        </div>
+    </template>
+    <template id="pop-menu-template">
+        <div class="menu-box">
+            <div class="closex">
+                <button><span>X</span></button>
             </div>
         </div>
     </template>

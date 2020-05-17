@@ -1,3 +1,6 @@
+/**
+ * Popup Alert
+ */
 class PopAlert extends HTMLElement {
     constructor() {
         super();
@@ -44,3 +47,73 @@ class Pop {
         pop.open(text, okText);
     }
 }
+Object.freeze(Pop);
+Object.freeze(PopAlert);
+
+/**
+ * Popup Menu
+ */
+
+class PopMenu extends HTMLElement {
+    constructor() {
+        super();
+        const t = document.getElementById('pop-menu-template');
+        const template = t.content;
+
+        const clone = template.cloneNode(true);
+
+        const stylee = document.createElement('link');
+        stylee.setAttribute('rel', 'stylesheet');
+        stylee.setAttribute('href', 'styles/pop.all.css');
+
+        const shadowRoot = this.attachShadow({ mode: 'open' });
+
+        shadowRoot.appendChild(stylee)
+        shadowRoot.appendChild(clone);
+
+        const on = "addEventListener";
+        this.query("div.closex>button")[on]("click", (e) => {
+            this.close();
+        })
+    }
+    query(s) {
+        if (typeof s !== 'string') throw "not a string";
+        return this.shadowRoot.querySelector(s);
+    }
+    setDark() {
+        let mb = this.query('.menu-box');
+        mb.classList.toggle("dark");
+    }
+    open() {
+        let mb = this.query('.menu-box');
+        mb.style.display = 'flex';
+        this.style.display = 'flex';
+    }
+    close() {
+        let mb = this.query('.menu-box');
+        mb.style.display = 'none';
+        this.style.display = 'none';
+    }
+    /**
+     * 
+     * @param {Array} list 
+     * @param {String} attr 
+     * @param {Function} fun 
+     */
+    fill(list, attr, fun) {
+        //[{display,attrValue}]
+        //attr like "data-lang"
+        let mb = this.query('.menu-box');
+        for (const el of list) {
+            let button = document.createElement('button');
+            button.setAttribute(attr, el.attrValue);
+            button.textContent = el.display;
+            button[on]('click', fun);
+            let div = document.createElement('div');
+            div.appendChild(button);
+            mb.appendChild(div);
+        }
+    }
+}
+
+customElements.define('pop-menu', PopMenu);

@@ -1,6 +1,10 @@
 const SUPPORTED_TRANSLATIONS = ['eng', 'geo'];
 
 const TRANSLATE_DATA = {
+    languages: {
+        geo: "ქართული",
+        eng: "English"
+    },
     inches: {
         geo: 'დუიმი',
         eng: 'Inches'

@@ -1,7 +1,7 @@
 try {
-    var presenter = new Presenter(5.4, 2.7, 403, "Inches", "geo");
+    var presenter = new Presenter(5.4, 2.7, 403, "Inches", "eng");
     presenter.display();
-    presenter.translate();
+    //presenter.translate();
     // drawRedrawCanvas();
 }
 catch (ex) {

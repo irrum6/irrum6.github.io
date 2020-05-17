@@ -25,8 +25,67 @@ div.button-box {
         top: 20vh;
         left: 5vw;
         width: 80vw;
-        z-index:9;
+        z-index: 9;
     }
 }
 
 /* end pop-alert */
+
+/* Pop Menu */
+
+div.menu-box {
+    flex-direction: column;
+    padding: 0.5rem 1rem;
+    position: absolute;
+    left: 30vw;
+    top: 30vh;
+    width: 30vmin;
+    z-index: 9;
+    background-color: #ffffa0;
+    color: black;
+    border: 2px solid black;
+    border-radius: 5%;
+    display: none;
+    font-weight: 900;
+}
+
+@media screen and (max-aspect-ratio: 1/1) {
+    div.menu-box {
+        position: absolute;
+        left: 40vmin;
+        top: 30vmin;
+        width: 40vmin;
+        font-size: 2rem;
+    }
+}
+
+div.closex {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    font-weight: inherit;
+}
+
+div.menu-box button {
+    width: 90%;
+    margin-bottom: 0.5rem;
+    color: inherit;
+    background-color: inherit;
+    border-radius: 2%;
+    border: 2px solid black;
+    padding: 0.25rem 0.25rem;
+    font-weight: inherit;
+}
+
+div.closex>button {
+    width: unset;
+    padding: unset;
+    color: inherit;
+    background-color: inherit;
+    border-radius: 5%;
+    border: 2px solid black;
+    padding: 0.25rem 0.25rem;
+    font-weight: inherit;
+}
+
+/* End of Pop Menu */
