@@ -21,6 +21,10 @@ const TRANSLATE_DATA = {
         geo: 'შეფარდება',
         eng: 'Aspect Ratio'
     },
+    physical_dims_label: {
+        geo: 'ფიზიკური ზომები',
+        eng: 'Physical Dimmension'
+    },
     width: {
         geo: 'სიგანე',
         eng: 'Width'
@@ -36,6 +40,10 @@ const TRANSLATE_DATA = {
     pixels: {
         geo: 'პიქსელები',
         eng: 'Pixels'
+    },
+    lock: {
+        geo: 'გამუდმივება',
+        eng: 'Lock'
     },
     popup_text: {
         geo: `გამოიყენეთ ღილაკები ბოქლომით რათა ველის მნიშვნელობა უცვლელი
@@ -75,6 +83,7 @@ class Translator {
         if (!SUPPORTED_TRANSLATIONS.includes(lang)) {
             throw new Error('invalid value, language not supported');
         }
+        //debugger;
         if (TRANSLATE_DATA[word] === undefined) {
             throw new Error("word not found in dictionary");
         }

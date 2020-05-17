@@ -265,8 +265,12 @@ class Presenter {
         let translatables = this.queryAll('[data-app-translate="1"]');
         for (let i = 0, len = translatables.length; i < len; i++) {
             let text = translatables[i].getAttribute('data-app-text');
-            let translation = Translator.getTranslation(text, lang);
+            let translation = Translator.getTranslation(text, language);
             translatables[i].textContent = translation;
+        }
+        let inputs = this.queryAll('input-box');
+        for (let i = 0, len = inputs.length; i < len; i++) {
+            inputs[i].translateLabel(language);
         }
         // this.state.Language = lang;
     }
