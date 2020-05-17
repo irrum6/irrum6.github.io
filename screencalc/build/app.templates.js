@@ -93,6 +93,7 @@ class PopMenu extends HTMLElement {
         let mb = this.query('.menu-box');
         mb.style.display = 'none';
         this.style.display = 'none';
+        this.empty();
     }
     /**
      * 
@@ -110,8 +111,28 @@ class PopMenu extends HTMLElement {
             button.textContent = el.display;
             button[on]('click', fun);
             let div = document.createElement('div');
+            div.classList.add("menu-item");
             div.appendChild(button);
             mb.appendChild(div);
+        }
+    }
+    empty() {
+        let mb = this.query('.menu-box');
+        let hasItems = true;
+        while (hasItems) {
+            let index = -1, allcount = -1;//to zero properly 1st to be 0
+            for (const chi of mb.childNodes) {
+                allcount++
+                if (chi.classList !== undefined && chi.classList.contains("menu-item")) {
+                    index = allcount;
+                }
+            }
+            if (index < 0) {
+                hasItems = false;
+                break;
+            }
+            const chill = mb.childNodes[index];
+            chill.remove();//ha ha  remove self go brrr...
         }
     }
 }
