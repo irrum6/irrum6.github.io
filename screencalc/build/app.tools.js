@@ -103,15 +103,17 @@ const attr = 'setAttribute';const lib = (function () {
     let l = new Lib();
     Object.freeze(l);
     return l;
-}());class Convert {
+}());const SUPPORTED_UNITS = ["Inches", "Centimetres", "Millimetres"];
+
+class Convert {
     static all(num, div) {
         if (!lib.isNumber(num, div)) throw new Error("not a number");
         if (num < 0 || div < 0) throw new Error("negative numbers not allowed");
         return num / div;
     }
     static getUnitShort(u) {
-        const UNITS = ['Inches', 'Centimetres', 'Millimetres'];
-        if (!UNITS.includes(u)) throw new Error("unsupported unit");
+        //const UNITS = ['Inches', 'Centimetres', 'Millimetres'];
+        if (!SUPPORTED_UNITS.includes(u)) throw new Error("unsupported unit");
         let us;
         switch (u) {
             case 'Inches':
@@ -133,6 +135,7 @@ const attr = 'setAttribute';const lib = (function () {
     static itocm(i) { return this.all(i, (1 / 2.54)); }
     static itomm(i) { return this.all(i, (1 / 25.4)); }
 }
+Object.freeze(SUPPORTED_UNITS);
 Object.freeze(Convert);const SUPPORTED_TRANSLATIONS = ['eng', 'geo'];
 
 const TRANSLATE_DATA = {
@@ -214,11 +217,17 @@ const TRANSLATE_DATA = {
 }
 
 class Translator {
+    /**
+     * 
+     * @param {String} word 
+     * @param {String} lang 
+     */
     static getTranslation(word, lang) {
         //debugger;
         if (!lib.isString(word, lang)) {
             throw new Error("Not a string");
         }
+        word = word.toLowerCase();
         if (!SUPPORTED_TRANSLATIONS.includes(lang)) {
             throw new Error('invalid value, language not supported');
         }
