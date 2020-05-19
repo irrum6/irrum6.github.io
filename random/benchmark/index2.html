@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Options Page</title>
+    <link rel="stylesheet" href="common.css">
+    <style>
+        div {
+            display: grid;
+            grid-template-columns: 1;
+            grid-template-rows: auto;
+            row-gap: 1.25rem;
+            width: 80vmin;
+        }
+    </style>
+</head>
+
+<body>
+    <a class="blue link-hd" href="index.html">OnScreen Test (Layers 16384)</a>
+    <a class="blue link-hd" href="pixels1080.html">1080p Test (Layers 16384)</a>
+    <a class="blue link-hd" href="custom.html?pixels=1920&layers=16384">1920p Test (Layers 16384)</a>
+    <a class="blue link-hd" href="pixels4096.html">4096p Test (Layers 16384)</a>
+    <a class="blue link-hd" href="custom.html?pixels=8192&layers=16384">8192p Test (Layers 16384)</a>
+    <a class="blue link-hd" href="custom.html?pixels=16384&layers=16384">16384p Test (Layers 16384)</a>
+
+    <h3>Custom Test</h3>
+    <div>
+        <label for="pixels">Type Number of pixels in resolution</label>
+        <input class="input-hd" type="Number" name="pixels" id="pixels" min="256" max="32768">
+        <label for="layers">Type Number of Layers * (max 2097152) </label>
+        <input class="input-hd" type="Number" name="layers" id="layers" min="256" max="2097152">
+        <button class="button-hd">Go</button>
+    </div>
+    * algorithm will chose closest factor of 2 as number of layers to render.
+    <script>
+        const q = (s) => document.body.querySelector(s);
+        const on = "addEventListener";
+        q('button')[on]('click', (e) => {
+            const px = q("#pixels").value;
+            const lrs = q("#layers").value;
+            if (px == "" || lrs == "") {
+                return;
+            }
+            let url = `custom.html?pixels=${px}&layers=${lrs}`;
+            document.location.href = url;
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+/* Only common styles */
+
+body {
+    padding: 0;
+}
+
+#results {
+    font-size: 1.75rem;
+    font-weight: 900;
+}
+
+a.blue {
+    color: #4440ff;
+    text-decoration: underline;
+}
+
+a.blue:visited {
+    color: black;
+}
+
+input.input-hd {
+    line-height: 2rem;
+    font-size: 1.75rem;
+    font-weight: 900;
+}
+
+button.button-hd {
+    font-size: 1.75rem;
+    font-weight: 900;
+}
+
+a.link-hd {
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+
+/*  */
