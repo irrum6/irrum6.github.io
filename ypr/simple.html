@@ -54,8 +54,8 @@
     <script>
         const q = (s) => document.body.querySelector(s);
         const on = "addEventListener";
-        const width = window.innerWidth;
-        const height = window.innerHeight;
+        const width = window.screen.width;
+        const height = window.screen.height;
         q("#wp").textContent = width;
         q("#hp").textContent = height;
         q("#pr").textContent = devicePixelRatio;
