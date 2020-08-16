@@ -1,0 +1,45 @@
+canvas{
+    -webkit-transition: width 2s; /* For Safari 3.1 to 6.0 */
+    transition: width 2s;
+    background-color: #FF3F04;
+}
+@media (min-width: 3841px) {
+    canvas{
+        background-color:#00FF00;
+    }
+}
+@media (min-width: 2881px) and (max-width: 3840px){
+    canvas{
+        background-color:#1BFF1F;
+    }
+}
+@media (min-width: 2561px) and (max-width: 2880px){
+    canvas{
+        background-color:#3EFF0F;
+    }
+}
+@media (min-width: 1921px) and (max-width: 2560px){
+    canvas{
+        background-color:#80FF0F;
+    }
+}
+@media (min-width: 1601px) and (max-width: 1920px){
+    canvas{
+        background-color:#BBFF0F;
+    }
+}
+@media (min-width: 1281px) and (max-width: 1600px){
+    canvas{
+        background-color:#FFDE04;
+    }
+}
+@media (min-width: 801px) and (max-width: 1280px){
+    canvas{
+        background-color:#FFBE04;
+    }
+}
+@media (min-width: 480px) and (max-width: 800px){
+    canvas{
+        background-color:#FF6E04;
+    }
+}
