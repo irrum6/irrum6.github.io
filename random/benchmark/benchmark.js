@@ -9,33 +9,49 @@ const _max = closestFactorOf2(layers);
 const half = canvas.width / 2;
 
 const times = [];
-times.push(Date.now());
+times.push({'time':Date.now(),'frames':0});
 
 mainer(1);
 
 function finale() {
+    const framesTotal = times.map(e=>e.frames).reduce((a,v,i,ar)=>a+v,0);
+    const score=calculateScore(times)
     // document.body.querySelector('canvas').style.display = 'none';
     document.body.querySelector("#results").textContent = `
 Render Resolution : ${dimm} X ${dimm} pixels
 Compensation Factor to 1080p : ${compensationFactor}
 Max Layers : ${_max}
-Score : ${calculateScore(times)}
+Total Frames:${framesTotal}
+Score : ${score}
 `;
+}
+function current(num){
+    if(num<2){return}
+    const l = times.length;
+    // debugger;
+    const lrt=((times[l-1].time-times[l-2].time)/1000);
+    const timeTotal=((times[l-1].time-times[0].time)/1000);
+    document.body.querySelector("#current").textContent=`
+    Current: ${num*2 <= _max?num*2:0}
+    Last round: ${num}
+    Time for last round: ${lrt}
+    Total Time :${timeTotal}`;
 }
 
 function mainer(num) {
-    if (num >= _max) {
+    current(num);
+    num = num << 1;
+    if (num > _max) {
         finale();
         return;
-    }
-    num = num << 1;
+    }    
     doPaint(num, num);
 }
 function doPaint(n, n1) {
     if (n < 1) {
-        // console.log(n);
+        // debugger;        
+        times.push({'time':Date.now(),'frames':n1});
         mainer(n1);
-        times.push(Date.now());
         return;
     }
     console.log(n1);
@@ -70,7 +86,7 @@ function calculateScore(times) {
     let score = 0;
     for (let i = 1; i < len; i++) {
         const maxScore = shifted << (i - 1);
-        let diff = times[i] - times[i - 1];
+        let diff = times[i].time - times[i - 1].time;
         // console.log(diff);
         if (diff == 0) diff = 1;//avoid infinity
         let subScore = maxScore * compensationFactor;
