@@ -3,29 +3,42 @@ const standardRes = 1080;
 const compensationFactor = Math.pow(dimm / standardRes, 2);
 let colArr = new Uint8Array(6);
 
-const START_NUM = 2;
-const END_NUM = closestFactorOf2(layers);
+const _start = 2;
+const _max = closestFactorOf2(layers);
 
 const half = canvas.width / 2;
 
 const times = [];
 times.push(Date.now());
 
-for (let s = START_NUM; s <= END_NUM; s = s * 2) {
-    for (let i = 0; i < s; i++) {
-        randata();
-    }
-    times.push(Date.now());
-}
-// document.body.querySelector('canvas').style.display = 'none';
-document.body.querySelector("#results").textContent = `
+mainer(1);
+
+function finale() {
+    // document.body.querySelector('canvas').style.display = 'none';
+    document.body.querySelector("#results").textContent = `
 Render Resolution : ${dimm} X ${dimm} pixels
 Compensation Factor to 1080p : ${compensationFactor}
-Max Layers : ${END_NUM}
+Max Layers : ${_max}
 Score : ${calculateScore(times)}
 `;
+}
 
-function randata() {
+function mainer(num) {
+    if (num >= _max) {
+        finale();
+        return;
+    }
+    num = num << 1;
+    doPaint(num, num);
+}
+function doPaint(n, n1) {
+    if (n < 1) {
+        // console.log(n);
+        mainer(n1);
+        times.push(Date.now());
+        return;
+    }
+    console.log(n1);
     window.crypto.getRandomValues(colArr);
 
     const sx = Math.floor(colArr[0] / 255 * canvas.width);
@@ -41,6 +54,7 @@ function randata() {
     context.rect(sx, sy, half, half);
     context.fill();
     context.closePath();
+    window.requestAnimationFrame(doPaint.bind(null, n - 1, n1));
 }
 
 function calculateScore(times) {
@@ -72,4 +86,3 @@ function closestFactorOf2(num) {
     let hd = Math.abs(half - num);
     return xd > hd ? half : x;
 }
-//memory n-back
