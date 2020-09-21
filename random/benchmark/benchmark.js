@@ -54,7 +54,6 @@ function doPaint(n, n1) {
         mainer(n1);
         return;
     }
-    console.log(n1);
     window.crypto.getRandomValues(colArr);
 
     const sx = Math.floor(colArr[0] / 255 * canvas.width);
