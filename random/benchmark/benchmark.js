@@ -6,10 +6,14 @@ let colArr = new Uint8Array(6);
 const _start = 2;
 const _max = closestFactorOf2(layers);
 
-const half = canvas.width / 2;
+const _threeQuarters = Math.round(canvas.width * 0.75);
+
+const _upwest =  36;
 
 const times = [];
 times.push({'time':Date.now(),'frames':0});
+
+let fpstime1 = Date.now();
 
 mainer(1);
 
@@ -18,13 +22,13 @@ function finale() {
     const score=calculateScore(times)
     // document.body.querySelector('canvas').style.display = 'none';
     document.body.querySelector("#results").textContent = `
-Render Resolution : ${dimm} X ${dimm} pixels
-Compensation Factor to 1080p : ${compensationFactor}
-Max Layers : ${_max}
-Total Frames:${framesTotal}
-Score : ${score}
-`;
+    Render Resolution : ${dimm} X ${dimm} pixels
+    Compensation Factor to 1080p : ${compensationFactor}
+    Max Layers : ${_max}
+    Total Frames:${framesTotal}
+    Score : ${score}`;
 }
+
 function current(num){
     if(num<2){return}
     const l = times.length;
@@ -54,6 +58,11 @@ function doPaint(n, n1) {
         mainer(n1);
         return;
     }
+
+    let _time = Date.now();
+    let fps = Math.round((1 / (_time - fpstime1)) * 1000);
+    fpstime1 = _time;
+
     window.crypto.getRandomValues(colArr);
 
     const sx = Math.floor(colArr[0] / 255 * canvas.width);
@@ -65,10 +74,25 @@ function doPaint(n, n1) {
     const color = `rgba(${red} ,${green} ,${blue} ,${alpha})`;
 
     context.beginPath();
+
+    context.font = "20px Arial";
+
     context.fillStyle = color;
-    context.rect(sx, sy, half, half);
+    context.rect(sx, sy, _threeQuarters, _threeQuarters);
     context.fill();
+
+    context.fillStyle = "black";
+    context.clearRect(_upwest, _upwest-25, 200,30);
+    const _text = `Frames left :${n}`
+    context.fillText(_text, _upwest+10, _upwest);
+
+    if (n % 5 == 0) {
+        context.clearRect(_upwest, _upwest + 40, 200, 30);
+        const _fpsText = `FPS: ${fps}`;
+        context.fillText(_fpsText, _upwest+10, _upwest + 60);
+    }    
     context.closePath();
+
     window.requestAnimationFrame(doPaint.bind(null, n - 1, n1));
 }
 
@@ -93,6 +117,7 @@ function calculateScore(times) {
     }
     return score;
 }
+
 function closestFactorOf2(num) {
     let x = 1;
     for (; x < num; x = x << 1);
