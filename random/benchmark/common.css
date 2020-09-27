@@ -9,6 +9,11 @@ body {
     font-weight: 900;
 }
 
+.display-big{
+    font-size: 1.75rem;
+    font-weight: 900;
+}
+
 a.blue {
     color: #4440ff;
     text-decoration: underline;

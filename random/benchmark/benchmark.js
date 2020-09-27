@@ -1,4 +1,13 @@
 // debugger;
+let ticker = new Worker("./ticker.js");
+ticker.postMessage({ msg: "start" });
+ticker.onmessage = (e) => {
+    let _time = document.body.querySelector("#ticker");
+    if (_time) {
+        _time.textContent = e.data.msgback;
+    }   
+}
+
 const standardRes = 1080;
 const compensationFactor = Math.pow(dimm / standardRes, 2);
 let colArr = new Uint8Array(6);
@@ -8,18 +17,18 @@ const _max = closestFactorOf2(layers);
 
 const _threeQuarters = Math.round(canvas.width * 0.75);
 
-const _upwest =  36;
+const _upwest = 36;
 
 const times = [];
-times.push({'time':Date.now(),'frames':0});
+times.push({ 'time': Date.now(), 'frames': 0 });
 
 let fpstime1 = Date.now();
 
 mainer(1);
 
 function finale() {
-    const framesTotal = times.map(e=>e.frames).reduce((a,v,i,ar)=>a+v,0);
-    const score=calculateScore(times)
+    const framesTotal = times.map(e => e.frames).reduce((a, v, i, ar) => a + v, 0);
+    const score = calculateScore(times)
     // document.body.querySelector('canvas').style.display = 'none';
     document.body.querySelector("#results").textContent = `
     Render Resolution : ${dimm} X ${dimm} pixels
@@ -27,16 +36,17 @@ function finale() {
     Max Layers : ${_max}
     Total Frames:${framesTotal}
     Score : ${score}`;
+    ticker.postMessage({ msg: "stop" });
 }
 
-function current(num){
-    if(num<2){return}
+function current(num) {
+    if (num < 2) { return }
     const l = times.length;
     // debugger;
-    const lrt=((times[l-1].time-times[l-2].time)/1000);
-    const timeTotal=((times[l-1].time-times[0].time)/1000);
-    document.body.querySelector("#current").textContent=`
-    Current: ${num*2 <= _max?num*2:0}
+    const lrt = ((times[l - 1].time - times[l - 2].time) / 1000);
+    const timeTotal = ((times[l - 1].time - times[0].time) / 1000);
+    document.body.querySelector("#current").textContent = `
+    Current: ${num * 2 <= _max ? num * 2 : 0}
     Last round: ${num}
     Time for last round: ${lrt}
     Total Time :${timeTotal}`;
@@ -48,13 +58,13 @@ function mainer(num) {
     if (num > _max) {
         finale();
         return;
-    }    
+    }
     doPaint(num, num);
 }
 function doPaint(n, n1) {
     if (n < 1) {
         // debugger;        
-        times.push({'time':Date.now(),'frames':n1});
+        times.push({ 'time': Date.now(), 'frames': n1 });
         mainer(n1);
         return;
     }
@@ -82,15 +92,15 @@ function doPaint(n, n1) {
     context.fill();
 
     context.fillStyle = "black";
-    context.clearRect(_upwest, _upwest-25, 200,30);
+    context.clearRect(_upwest, _upwest - 25, 200, 30);
     const _text = `Frames left :${n}`
-    context.fillText(_text, _upwest+10, _upwest);
+    context.fillText(_text, _upwest + 10, _upwest);
 
     if (n % 5 == 0) {
         context.clearRect(_upwest, _upwest + 40, 200, 30);
         const _fpsText = `FPS: ${fps}`;
-        context.fillText(_fpsText, _upwest+10, _upwest + 60);
-    }    
+        context.fillText(_fpsText, _upwest + 10, _upwest + 60);
+    }
     context.closePath();
 
     window.requestAnimationFrame(doPaint.bind(null, n - 1, n1));
