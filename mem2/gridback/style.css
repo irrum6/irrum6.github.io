@@ -1,0 +1,145 @@
+.grey {
+    color: #888;
+}
+
+.night-orange{
+    color:#ba8;
+}
+.green {
+    color: #8f8;
+}
+
+.bgrey {
+    background-color: #888;
+}
+
+.bgreen {
+    background-color: #8f8;
+}
+.bnight-orange{
+    color:#e0a066;
+}
+
+/* normal css */
+
+html {
+    font-size: 16px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+/* upper */
+#upper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding:1vmin;
+}
+#upper > button.control {
+    font-size: inherit;
+    padding: 1vmin;
+    color:black;
+    border:0.25rem solid black;
+    background-color: inherit;
+    border-radius: 1vmin;
+    /* offset-x | offset-y | blur-radius | spread-radius | color */
+    box-shadow: -0.25vmin -0.25vmin 1vmin 0.1vmin #ccc;
+}
+
+#upper > button.control:hover {
+    transform: translate(0.5vmin, -0.25vmin);
+    box-shadow: none;
+}
+
+#upper > button.control:active {
+    background-color: #aaa;
+}
+#upper .display {
+    font-size: 2rem;
+}
+/* end upper */
+
+/* lower */
+#lower{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+/* end lower */
+/* grid */
+#grid {
+    display: grid;
+    grid-template-columns: repeat(3, 25vmin);
+    grid-template-rows: auto;
+    row-gap: 1rem;
+    column-gap: 1rem;
+}
+
+#grid button {
+    display: inline-block;
+    height: 25vmin;
+    border-radius: 2%;
+    background-color: #888;
+}
+#grid button.marked {
+    background-color: #8f8;
+}
+/* end grid */
+
+/* left and right pads */
+.padbox {
+    margin: 2vmin;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    font-size: 4vmin;
+}
+
+.padbox__playpad {
+    display: inline-block;
+    height: 100%;
+    border-radius: 2%;
+    width: 20vmin;
+    background-color: #66c;
+}
+
+.padbox__playpad.pressed {
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-name:firepad
+}
+
+@keyframes firepad{
+    0%{background-color: #66c;}
+    50%{background-color: #99c;}
+    100%{background-color: #66c;}
+  }
+/* end of normal css */
+/* dark css */
+
+body.dark {
+    background-color: #444;
+}
+
+#upper > button.control.dark {
+    border: 0.25rem solid white;
+    color: white;
+    box-shadow: -0.25vmin -0.25vmin 1vmin 0.1vmin #454;
+}
+
+#upper > button.control.dark:active {
+    background-color: #555;
+}
+
+#grid button.dark {
+    background-color:#e0a066;
+}
+
+#grid button.dark.marked {
+    background-color:#a0e066;
+}
+/* end of dark css */

@@ -1,0 +1,24 @@
+/* dark css */
+
+body.dark {
+    background-color: #444;
+}
+
+#upper > button.control.dark {
+    border: 0.25rem solid white;
+    color: white;
+    box-shadow: -0.25vmin -0.25vmin 1vmin 0.1vmin #454;
+}
+
+#upper > button.control.dark:active {
+    background-color: #555;
+}
+
+#grid button.dark {
+    background-color:#e0a066;
+}
+
+#grid button.dark.marked {
+    background-color:#a0e066;
+}
+/* end of dark css */

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GridBack - beta</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="rect16.png">
+</head>
+
+<body>
+    <div id="upper">
+        <div class="display">Score: <span id="score">0</span></div>
+        <div class="display">Strike: <span id="strike">0</span></div>
+        <div id="progress">
+            <span style="font-size: 4vmin;">■</span>
+        </div>
+        <button class="control" id="start">Start</button>
+        <button class="control" id="restart">Restart</button>
+        <button class="control" id="dark">Dark off</button>
+        <button class="control" id="explain">?</button>
+    </div>
+    <div id="lower">
+        <div class="padbox">
+            <button class="padbox__playpad" id="padleft"></button>
+        </div>
+        <div id="grid">
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+        </div>
+        <div class="padbox">
+            <button class="padbox__playpad" id="padright"></button>
+        </div>
+    </div>
+    <audio src="beep_ping.mp3"></audio>
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
