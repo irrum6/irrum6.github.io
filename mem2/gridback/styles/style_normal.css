@@ -96,4 +96,25 @@ body {
     50%{background-color: #99c;}
     100%{background-color: #66c;}
   }
+/* portrait fix */
+@media (orientation: portrait) {
+    #lower{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    #grid{
+        justify-content: center;
+    }
+    #padleft {
+        display: none;
+    }
+    .padbox{
+        justify-content: center;
+    }
+    .padbox__playpad {
+        width: 100%;
+        height: 20vmin;
+    }
+}
 /* end of normal css */

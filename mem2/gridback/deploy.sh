@@ -16,5 +16,5 @@ cp ./scripts/main.js app.js
 echo "//@`date -I'minutes'`" >> app.js
 
 cp -R ./ $dir/sandbox
-
+chmod -R 777 ./
 
