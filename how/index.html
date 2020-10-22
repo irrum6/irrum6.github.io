@@ -6,116 +6,79 @@
 <title>Stupid Hangman Game</title>
 <div class="container">
     <div id="hangman">
-        <svg viewBox="0 0 300 400" width="360" height="400" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 300 400" width="300" height="400" version="1.1" xmlns="http://www.w3.org/2000/svg">
             <!--Rope-->
-            <line id="part0" x1="20" x2="20" y1="30" y2="400" stroke="black" stroke-width="10"></line>
-            <line id="part1" x1="20" x2="290" y1="60" y2="60" stroke="black" stroke-width="10"></line>
-            <line id="part2" x1="180" x2="180" y1="60" y2="150" stroke="black" stroke-width="10"></line>
+            <line x1="20" x2="20" y1="30" y2="400" stroke="black" stroke-width="10"></line>
+            <line x1="20" x2="290" y1="60" y2="60" stroke="black" stroke-width="10"></line>
+            <line x1="180" x2="180" y1="60" y2="150" stroke="black" stroke-width="10"></line>
             <!--head-->
-            <circle id="part3" cx="180" cy="180" r="30" stroke="black" fill="transparent" stroke-width="10"></circle>
+            <circle cx="180" cy="180" r="30" stroke="black" fill="transparent" stroke-width="10"></circle>
             <!--neck-->
-            <line id="part4" x1="180" x2="180" y1="210" y2="310" stroke="black" stroke-width="10"></line>
+            <line x1="180" x2="180" y1="210" y2="310" stroke="black" stroke-width="10"></line>
             <!--left hand-->
-            <line id="part5" x1="180" x2="120" y1="250" y2="235" stroke="black" stroke-width="10"></line>
+            <line x1="180" x2="120" y1="250" y2="235" stroke="black" stroke-width="10"></line>
             <!--right hand-->
-            <line id="part6" x1="180" x2="240" y1="250" y2="235" stroke="black" stroke-width="10"></line>
+            <line x1="180" x2="240" y1="250" y2="235" stroke="black" stroke-width="10"></line>
             <!--left leg-->
-            <line id="part7" x1="180" x2="120" y1="300" y2="360" stroke="black" stroke-width="10"></line>
+            <line x1="180" x2="120" y1="300" y2="360" stroke="black" stroke-width="10"></line>
             <!--right leg-->
-            <line id="part8" x1="180" x2="240" y1="300" y2="360" stroke="black" stroke-width="10"></line>
+            <line x1="180" x2="240" y1="300" y2="360" stroke="black" stroke-width="10"></line>
         </svg>
     </div>
     <div id="hint">
         <span>Animal</span>
     </div>
     <div id="input">
-        <svg viewBox="0 0 360 40" width="360" height="40" version="1.1" xmlns="http://www.w3.org/2000/svg">
-            <g id="letter0">
-                <text x="3" y="30"></text>
-                <line x1="3" x2="30" y1="40" y2="40" stroke="black" stroke-width="10"></line>
-            </g>
-            <g id="letter1">
-                <text x="33" y="30"></text>
-                <line x1="33" x2="60" y1="40" y2="40" stroke="black" stroke-width="10"></line>
-            </g>
-            <g id="letter2">
-                <text x="63" y="30"></text>
-                <line x1="63" x2="90" y1="40" y2="40" stroke="black" stroke-width="10"></line>
-            </g>
-            <g id="letter3">
-                <text x="93" y="30"></text>
-                <line x1="93" x2="120" y1="40" y2="40" stroke="black" stroke-width="10"></line>
-            </g>
-            <g id="letter4">
-                <text x="123" y="30"></text>
-                <line x1="123" x2="150" y1="40" y2="40" stroke="black" stroke-width="10"></line>
-            </g>
-            <g id="letter5">
-                <text x="153" y="30"></text>
-                <line x1="153" x2="180" y1="40" y2="40" stroke="black" stroke-width="10"></line>
-            </g>
-            <g id="letter6">
-                <text x="183" y="30"></text>
-                <line x1="183" x2="210" y1="40" y2="40" stroke="black" stroke-width="10"></line>
-            </g>
-            <g id="letter7">
-                <text x="213" y="30"></text>
-                <line x1="213" x2="240" y1="40" y2="40" stroke="black" stroke-width="10"></line>
-            </g>
-            <g id="letter8">
-                <text x="243" y="30"></text>
-                <line x1="243" x2="270" y1="40" y2="40" stroke="black" stroke-width="10"></line>
-            </g>
-            <g id="letter9">
-                <text x="273" y="30"></text>
-                <line x1="273" x2="300" y1="40" y2="40" stroke="black" stroke-width="10"></line>
-            </g>
-            <g id="letter10">
-                <text x="303" y="30"></text>
-                <line x1="303" x2="330" y1="40" y2="40" stroke="black" stroke-width="10"></line>
-            </g>
-            <g id="letter11">
-                <text x="333" y="30"></text>
-                <line x1="333" x2="360" y1="40" y2="40" stroke="black" stroke-width="10"></line>
-            </g>
-        </svg>
+        <span>_</span>
+        <span>_</span>
+        <span>_</span>
+        <span>_</span>
+        <span>_</span>
+        <span>_</span>
+        <span>_</span>
+        <span>_</span>
+        <span>_</span>
+        <span>_</span>
+        <span>_</span>
+        <span>_</span>
     </div>
+    <!-- Virtual OnScreen Keyboard -->
     <div id="keyboard">
         <!-- row1 -->
         <div class="lettergroup">
-            <button>a</button>
-            <button>b</button>
-            <button>c</button>
-            <button>d</button>
-            <button>e</button>
-            <button>f</button>
-            <button>g</button>
-            <button>h</button>
-            <button>i</button>
-            <button>j</button>
+            <button id="key_a">a</button>
+            <button id="key_b">b</button>
+            <button id="key_c">c</button>
+            <button id="key_d">d</button>
+            <button id="key_e">e</button>
+            <button id="key_f">f</button>
+            <button id="key_g">g</button>
+            <button id="key_h">h</button>
+            <button id="key_i">i</button>
+            <button id="key_j">j</button>
         </div>
         <!-- row2 -->
         <div class="lettergroup">
-            <button>k</button>
-            <button>l</button>
-            <button>m</button>
-            <button>n</button>
-            <button>o</button>
-            <button>p</button>
-            <button>q</button>
-            <button>r</button>
-            <button>s</button>
-            <button>t</button>
+            <button id="key_k">k</button>
+            <button id="key_l">l</button>
+            <button id="key_m">m</button>
+            <button id="key_n">n</button>
+            <button id="key_o">o</button>
+            <button id="key_p">p</button>
+            <button id="key_q">q</button>
+            <button id="key_r">r</button>
+            <button id="key_s">s</button>
+            <button id="key_t">t</button>
         </div>
         <!-- row 3 -->
         <div class="lettergroup">
-            <button>u</button>
-            <button>v</button>
-            <button>w</button>
-            <button id="space">space</button>
-            <button>x</button>
-            <button>y</button>
-            <button>z</button>
+            <button id="key_u">u</button>
+            <button id="key_v">v</button>
+            <button id="key_w">w</button>
+            <button id="key_space">space</button>
+            <button id="key_x">x</button>
+            <button id="key_y">y</button>
+            <button id="key_z">z</button>
         </div>
     </div>
 </div>
