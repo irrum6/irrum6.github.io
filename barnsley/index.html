@@ -1,0 +1,63 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barnsley fern - js</title>
+<canvas id="canvas" height="1080" width="720"></canvas>
+<script>
+    // https://en.wikipedia.org/wiki/Barnsley_fern
+    const get_cx = (w, x) => w * (x + 3) / 6;
+    const get_cy = (h, y) => h - h * ((y + 2) / 14);
+    const draw = (ctx, cx, cy) => {
+        ctx.beginPath();
+        ctx.fillStyle = "green";
+        ctx.arc(cx, cy, 1, 0, 2 * Math.PI, true);
+        ctx.fill();
+    };
+    const nextX = (x, y, r) => {
+        if (r < 0.01) {
+            return 0;
+        }
+        if (r < 0.86) {
+            return 0.85 * x + 0.04 * y;
+        }
+        if (r < 0.93) {
+            return 0.20 * x - 0.26 * y;
+        }
+        return -0.15 * x + 0.28 * y;
+    };
+    const nextY = (x, y, r) => {
+        if (r < 0.01) {
+            return 0.16 * y;
+        }
+        if (r < 0.86) {
+            return -0.04 * x + 0.85 * y + 1.6;
+        }
+        if (r < 0.93) {
+            return 0.23 * x + 0.22 * y + 1.6;
+        }
+        return 0.26 * x + 0.24 * y + 0.44;
+    };
+</script>
+<script>
+    let x = 0, y = 0;
+    const canvas = document.querySelector("canvas");
+    canvas.height = Math.floor(window.innerHeight * 0.95);
+    canvas.width = Math.floor((2 * canvas.height) / 3);
+
+    const context = canvas.getContext('2d');
+    context.fillStyle = "black";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    const frameFunction = () => {
+        for (let i = 0; i < 16; i++) {
+            let _cx = get_cx(canvas.width, x);
+            let _cy = get_cy(canvas.height, y);
+            draw(context, _cx, _cy);
+            let r = Math.random();
+            let _x = nextX(x, y, r);
+            y = nextY(x, y, r);
+            x = _x;
+        }
+        window.requestAnimationFrame(frameFunction);
+    }
+    frameFunction();
+</script>
