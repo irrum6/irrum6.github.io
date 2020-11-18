@@ -57,7 +57,7 @@
                     data-app-text="calculate">Calculate</button>
             </div>
         </div>
-        <div id="results" style="visibility: hidden;">
+        <div id="results" style="display: none;">
             <p data-app-translate="enabled" data-app-text="input"> Input data:</p>
             <p>
                 <span data-app-translate="enabled" data-app-text="diag">Diagonal(inches)</span>
@@ -72,6 +72,12 @@
                 <span data-app-behavior="value-display" data-app-value="resh"></span>
             </p>
             <p data-app-translate="enabled" data-app-text="calculated"> Calculated data:</p>
+            <button id="returner">
+                &lt
+                <span data-app-translate="enabled" data-app-text="return_to_form">
+                    Return to form
+                </span>
+            </button>
         </div>
     </div>
     <template id="displayT">

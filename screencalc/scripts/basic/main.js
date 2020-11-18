@@ -47,23 +47,6 @@ for (let i = 0, len = appButtons.length; i < len; i++) {
     appButtons[i][on]('click', appValueControl);
 }
 
-//calculation
-// const calculator = {
-//     diag: 0,
-//     resw: 0,
-//     resh: 0,
-//     diagmm: 0,
-//     widthmm: 0,
-//     heightmm: 0,
-//     widthin: 0,
-//     heightin: 0,
-//     ppmm: 0,
-//     ppi: 0,
-//     ratio: 0,
-//     ration: "",
-//     areamm: 0,
-//     areain: 0,
-// }
 function displayResults(calculator) {
     if (typeof calculator !== 'object') {
         const ex = TypeException('object', typeof calculator);
@@ -74,7 +57,8 @@ function displayResults(calculator) {
         let dav = displays[i].getAttribute('data-app-value');
         displays[i].textContent = lib.toPrecision(calculator[dav], 2);
     }
-    q('#results').style.visibility = 'visible';
+    q('#results').style.display = 'grid';
+    q('#calcform').style.display = 'none';
 }
 function doCalculation() {
     const diag = lib.float(val('#input_diagonal'));
@@ -102,6 +86,10 @@ function doCalculation() {
 
 }
 q('#doCalculation')[on]('click', doCalculation);
+q('#returner')[on]('click',()=>{
+    q('#results').style.display = 'none';
+    q('#calcform').style.display = 'grid';
+})
 
 //translation
 const SUPPORTED_LOCALES = ['eng', 'geo'];
@@ -194,6 +182,10 @@ const translateData = {
     "in": {
         "eng": "In",
         "geo": "დმ"
+    },
+    "return_to_form":{
+        "eng": "Return to form",
+        "geo": "ფორმაზე გადასვლა"
     }
 }
 
@@ -236,7 +228,8 @@ function createDisplayNode(text, valuetext, lang) {
         p.children[1].setAttribute('data-app-value', valuetext);
         p.children[0].textContent = translateData[text][lang];
         let res = q('#results');
-        res.appendChild(clone);
+        let ret = res.children[res.children.length-1]
+        res.insertBefore(clone,ret);
     }
 }
 
