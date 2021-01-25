@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Bad Snake Game</title>
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/layout.css">
+    <style></style>
+</head>
+<body>
+    <div class="box h90" id="controller_left">
+        <button id="new" style="width:60%;">New</button>
+        <button class="arrow-pad" data-direction="up" id="up_pad"></button>
+        <button class="arrow-pad" data-direction="left" id="left_pad"></button>
+    </div>
+    <div class="box h90" id="canvas_box">
+        <canvas id="canvas1" width="600" height="400"></canvas>
+    </div>
+    <div class="box h90" id="controller_right">
+        <button id="settings"></button>
+        <button class="arrow-pad" data-direction="down" id="down_pad"></button>
+        <button class="arrow-pad" data-direction="right" id="right_pad"></button>
+    </div>
+    <settings-dialog></settings-dialog>
+    <template id="dialog_for_settings">
+        <div class="dialog">
+            <div class="tabselector">
+                <button class="basic btn active">Basic</button>
+                <button class="advanced btn">Advanced</button>
+            </div>
+            <div class="settings basic">
+                <div><button>Dark Mode</button></div>
+                <div>
+                    <label data-app-translate="1" data-app-text="show_fps">Show FPS
+                        <input type="checkbox" name="fps">
+                    </label>                    
+                </div>
+                <div>
+                    <label data-app-translate="1" data-app-text="free_bound">Free Bound
+                        <input type="checkbox" name="free_bound">
+                    </label>
+                </div>
+                <div>
+                    <div><span data-app-translate="1" data-app-text="language"></span>Select Language</span></div>
+                    <label>English<input type="radio" value="english" name="language"></label>
+                    <label>ქართული<input type="radio" value="georgian" name="language"></label>
+                    <label>Deutsch<input type="radio" value="german" name="language"></label>
+                </div>
+                <div>
+                    <div><span data-app-translate="1" data-app-text="game_mode">Select Game Mode</span></div>
+                    <div>
+                        <div>
+                            <label data-app-translate="1" data-app-text="long">Long
+                                <input type="radio" value="long" name="mode">
+                            </label>
+                        </div>
+                        <div>
+                            <button class="easy"></button>
+                            <button class="normal"></button>
+                            <button class="hard"></button>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label data-app-translate="1" data-app-text="endurance">Endurance
+                                <input type="radio" value="endurance" name="mode">
+                            </label>
+                        </div>
+                        <div>
+                            <button class="easy"></button>
+                            <button class="normal"></button>
+                            <button class="hard"></button>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label data-app-translate="1" data-app-text="challenge">Challenge
+                                <input type="radio" value="challenge" name="mode">
+                            </label>
+                        </div>
+                        <div>
+                            <button class="easy"></button>
+                            <button class="normal"></button>
+                            <button class="hard"></button>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+            <div class="settings advanced" style="display: none;">
+                <color-box class="snake" data-text="Snake Color"></color-box>
+                <color-box data-text="Food Color"></color-box>
+                <color-box data-text="Text Color"></color-box>
+                <div id="controller">
+                    <span>Controller</span>
+                    <Button>Keyboard</Button>
+                    <Button>OnScreen Arrows</Button>
+                    <Button>OnScreen joystick(portrait mode only)</Button>
+                    <Button>Mouse/Touchpad Gestures</Button>
+                    <button>finger Gestures</button>
+                </div>
+
+            </div>
+            <div style="display: flex;justify-content: center;">
+                <button class="closer" aria-label="close" style=""><span data-app-translate="1" data-app-text="Dismiss">&#11164;&#11164;Dismiss</span></button>
+                <button class="saver" aria-label="save" style="margin-left: 0.5rem;"><span data-app-translate="1" data-app-text="Save">&#10004;Save</span></button>
+            </div>
+        </div>
+    </template>
+    <template id="color_box_template">
+        <div class="color-box">
+            <span class="text" data-app-translate="1" data-app-text="translate_text"></span>
+            <button class="active" data-color="black" style="background-color: black;"></button>
+            <button data-color="red" style="background-color: red;"></button>
+            <button data-color="green" style="background-color: green;"></button>
+            <button data-color="blue" style="background-color: blue;"></button>
+            <button data-color="purple" style="background-color: purple;"></button>
+            <button data-color="violet" style="background-color: violet;"></button>
+            <button data-color="yellow" style="background-color: yellow;"></button>
+            <button data-color="orange" style="background-color: orange;"></button>
+            <input class="activex" type="color">
+        </div>
+    </template>
+    <script src="dialog.js"></script>
+    <script src="colorbox.js"></script>
+    <script>
+        let c = document.getElementById("canvas1");
+        let style = window.getComputedStyle(c.parentElement);
+        c.width = style.width.replace("px",""); //*0.95;
+        c.height = style.height.replace("px",""); //*0.95;
+    </script>
+    <script src="snake.js"></script>
+    <script src="food.js"></script>
+    <script src="controller.js"></script>
+    <script src="inputController.js"></script>    
+    <script src="indexjs.js"></script>
+</body>
+</html>
