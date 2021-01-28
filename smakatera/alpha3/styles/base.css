@@ -11,6 +11,7 @@ body{
     display: grid;
     grid-template-columns: 15% 70% 15%;
     grid-template-rows: max-content;
+    overflow-y: clip;
 }
 div.box.h90 {
     height: 90vh;
@@ -18,4 +19,8 @@ div.box.h90 {
 }
 button{
     outline: 0;
+}
+/* dark */
+body.dark{
+    background-color: black;
 }

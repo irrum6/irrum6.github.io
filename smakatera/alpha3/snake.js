@@ -14,27 +14,41 @@ class Snake {
         this.positions.push({x:last.x,y:last.y});
         this.mass++;
     }
+    Shrink(m){
+        // debugger;
+        //if no mass specified shrink all
+        let l = this.GetLength();
+        if(m===undefined){
+            this.positions.splice(0,l-1);
+            return;
+        }
+        this.positions.splice(l-m,m);
+    }
     /** 
      * @param {String} c 
      */
     UpdateColor(c){
         if (typeof c !=="string") return;
         this.color = c; 
-    }
+    }   
     /**
      * @param {CanvasRenderingContext2D} 
      */
-    Draw(rc,snakegame){
+    Draw(rc,snakeGame){
         if (rc.constructor.name != "CanvasRenderingContext2D"){
             throw "not a canvas";
         }
+        let {radius } = this;
         rc.fillStyle="black";
-        if(snakegame && snakegame.settings&& snakegame.settings.snakeColor){
-            rc.fillStyle = snakegame.settings.snakeColor;
+        if(snakeGame && snakeGame.settings&& snakeGame.settings.snakeColor){
+            rc.fillStyle = snakeGame.settings.snakeColor;
+        }
+        if(snakeGame.settings.scaleEnabled){
+            radius = radius * snakeGame.settings.scale;
         }
         for(const p of this.positions){
             rc.beginPath();
-            rc.arc(p.x, p.y, this.radius, 0, 2* Math.PI);
+            rc.arc(p.x, p.y, radius, 0, 2* Math.PI);
             rc.fill();
             rc.closePath();
         }

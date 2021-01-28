@@ -14,6 +14,7 @@ class SettingsDialog extends HTMLElement {
         shadowRoot.appendChild(stylee);
         shadowRoot.appendChild(clone);
     }
+     //fps count way
     query(s) {
         return this.shadowRoot.querySelector(s);
     }
@@ -22,7 +23,8 @@ class SettingsDialog extends HTMLElement {
             throw "snakegame not passed";
         }
         this.query(".dialog").style.visibility ='visible';
-        this.setup(snakegame);        
+        this.setup(snakegame);
+        this.SetupValues(snakegame);        
     }
     setup(snakegame){
         if(this.gamesetup===true){
@@ -46,7 +48,17 @@ class SettingsDialog extends HTMLElement {
         this.query('button.saver').addEventListener('click', (e) => {
             this.save(snakegame);
         },{once:false});
+        this.query('button.darker').addEventListener('click', (e) => {
+            this.setDark();
+        },{once:false});
         this.gamesetup = true;
+    }
+    SetupValues(snakegame){
+        const {enablefps,freeBound,snakeColor,foodColor} = snakegame.settings;
+        this.query('input[name=fps]').checked = enablefps;
+        this.query('input[name=free_bound]').checked = freeBound;
+        this.query('color-box.snake').SetValue(snakeColor);
+        this.query('color-box.food').SetValue(foodColor);
     }
     save(snakegame){        
         if (snakegame.settings === undefined){
@@ -56,23 +68,24 @@ class SettingsDialog extends HTMLElement {
         snakegame.settings.enablefps = fps;
         // debugger;
         const free_bound= this.query('input[name=free_bound]').checked;
-        snakegame.settings.free_bound = free_bound;
-        const modeCmp = this.query('input[name=mode]:checked');
-        if(modeCmp !==null) {
-            const mode = modeCmp.value;
-            snakegame.settings.mode = mode;
-        }
-        let colorv = this.query('color-box.snake').GetValue();
-        snakegame.settings.snakeColor = colorv;
-        this.close();        
+        snakegame.settings.freeBound = free_bound;
+
+        snakegame.settings.mode = this.query('radio-box.moder').GetValue();
+        snakegame.settings.level = this.query('radio-box.leveler').GetValue();
+
+        let colours = this.query('color-box.snake').GetValue();
+        snakegame.settings.snakeColor = colours;
+        let colourf = this.query('color-box.food').GetValue();
+        snakegame.settings.foodColor = colourf;
+        this.close();
+        snakegame.pause = false;        
     }
     close() {
-        // this.query(".dialog").style.display = 'none';
         this.query(".dialog").style.visibility ='hidden';
     }
     setDark() {
-        const cont = this.query('div.pop-container');
-        cont.classList.toggle('dark');
+        document.body.classList.toggle('dark');
+        
     }
     static Open(snakegame){
         let pop = document.querySelector("settings-dialog");

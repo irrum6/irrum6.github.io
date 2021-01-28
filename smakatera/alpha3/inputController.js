@@ -29,8 +29,8 @@ class BaseInputController {
             this.snakec.UpdateDirection(Directions.Down);
         }
     }
-
 }
+
 class KeyboardController extends BaseInputController {
     constructor(snc){
         super(snc);

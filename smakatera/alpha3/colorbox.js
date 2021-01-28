@@ -30,12 +30,16 @@ class ColorBox extends HTMLElement{
     FindActive(){
         return this.Query(".active");
     }
-    SetActive(e){        
+    SetActive(e,nonEvent){        
         let active = this.FindActive();
         if(active==null){
             return;
         }
         active.classList.remove('active');
+        if(nonEvent===true){
+            e.classList.add('active');
+            return;
+        }
         e.target.classList.add('active');
     }
     GetValue(){
@@ -46,6 +50,26 @@ class ColorBox extends HTMLElement{
             return "";             
         }
         return  active.tagName==="INPUT" ?active.value:active.getAttribute("data-color");
+    }
+    /**
+     * @param {String} c
+     */
+    SetValue(c){
+        if (typeof c !=="string"){
+            throw "ColorBox:incorrect type"
+        }
+        let buttons = this.QueryAll("button");
+        c = c.toLowerCase();
+        for(const b of buttons){
+            const bc = b.getAttribute("data-color").toLowerCase();
+            if (bc===c){
+                this.SetActive(b,true);
+                return;
+            }
+        }
+        let i = this.Query('input');
+        i.value = c;
+        this.SetActive(i,true);
     }
     Setup(){
         let buttons = this.QueryAll("button");
