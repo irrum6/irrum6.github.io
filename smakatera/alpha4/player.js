@@ -1,0 +1,127 @@
+const KeyLayouts = {
+    Arrows: 1,
+    WASD: 2,
+    valid: function (m) {
+        return m === this.Arrows || m === this.WASD;
+    }
+};
+Object.freeze(KeyLayouts);
+
+const Directions = {
+    Left: 1,
+    Right: 2,
+    Up: 3,
+    Down: 4,
+    valid: function (d) {
+        return d === this.Left || d === this.Right || d === this.Up || d === this.Down;
+    }
+};
+Object.freeze(Directions);
+
+class Player extends Snake {
+    constructor(r, v) {
+        super(r, v);
+        this.score = 0;
+        this.alive = true;
+        this.settings = {
+            snakeColor: "#22af00",
+            keyLayout: KeyLayouts.Arrows
+        };
+    }
+    AttachController(c) {
+        if (!c instanceof BaseInputController) {
+            throw "it's not a controller";
+        }
+        this.controller = c;
+    }
+    SetupController() {
+        if (this.controller === undefined || this.controller.setup === undefined) {
+            throw "Controller or Setup function not found"
+        }
+        this.controller.Setup(this);
+    }
+    SetScore(s){
+        if(!Number.isInteger(s) ||s<0){
+            throw "Whole number needed";
+        }
+    }
+    Score(){}
+    Draw(rc, snakeGame, color) {
+        super.Draw(rc, color);
+    }
+    GetDirection() {
+        return this.direction;
+    }
+    UpdateDirection() {
+        if (!Directions.valid(d)) {
+            throw "Error: not a valid direction";
+        }
+        this.direction = d;
+    }
+    Update(food,canvas,game) {
+        const poslen = this.positions.length;
+
+        const current = this.GetDirection();
+        const { velocity } = this;
+
+        //follow head
+        for (let i = poslen - 1; i > 0; i--) {
+            this.positions[i].x = this.positions[i - 1].x;
+            this.positions[i].y = this.positions[i - 1].y;
+        }
+
+        let { x, y } = this.GetHeadPosition();
+        if (current == Directions.Right) { this.SetHeadPosition(x + velocity); }
+        if (current == Directions.Left) { this.SetHeadPosition(x - velocity); }
+        if (current == Directions.Up) { this.SetHeadPosition(null, y - velocity); }
+        if (current == Directions.Down) { this.SetHeadPosition(null, y + velocity); }
+
+        //free bound
+        this.FreeBound(canvas);
+        this.Eat(food,canvas);
+    }
+    Eat(food, canvas) {
+        let { x, y } = this.GetHeadPosition();
+        //eat food
+        if (distance(x, y, food.x, food.y) < snake.radius * 2) {
+            food.Renew(canvas);
+            this.score++;
+            this.AddMass();
+        }
+    }
+    FreeBound(canvas) {
+        if (game.settings.freeBound !== true) {
+            this.BoundsCheck(canvas);
+            return;
+        } //{return;}
+        let { x, y } = this.GetHeadPosition();
+        if (x < 0) this.SetHeadPosition(canvas.width, null);
+        if (x > canvas.width) this.SetHeadPosition(0, null);
+        if (y < 0) this.SetHeadPosition(null, canvas.height);
+        if (y > canvas.height) this.SetHeadPosition(null, 0);
+    }
+    BoundsCheck(canvas) {
+        let { x, y } = this.GetHeadPosition();
+        if (x < 0 || x > canvas.width || y < 0 || y > canvas.height) {
+            // debugger;
+            game.gameover = true;
+            game.score = 0;
+            return;
+        }
+        for (let i = 1, len = snake.positions.length; i < len; i++) {
+            let p = snake.positions[i];
+            if (p.x == x && p.y == y) {
+                // debugger;
+                game.gameover = true;
+                // game.score = 0;
+                return;
+            }
+        }
+    }
+    MoveOver(game){
+        // depending on game settings player can mover over eacher other or crash trying doing so
+        // only in multiplayer
+        // for in other players
+        //if positions match with head crash
+    } 
+}
