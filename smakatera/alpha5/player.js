@@ -32,7 +32,7 @@ class Player extends Snake {
         this.TurnLeft();
     }
     AttachController(c) {
-        if (!c instanceof BaseInputController) {
+        if (!c instanceof BaseController) {
             throw "it's not a controller";
         }
         this.controller = c;
