@@ -1,3 +1,4 @@
+//
 class UIController {
     constructor() { }
     static DisplayScore(game, context, canvas) {
@@ -50,14 +51,15 @@ class UIController {
     static DisplayMultiPlayerControls(context){
         context.fillStyle = "black";
         context.beginPath();
-        context.font = "22px Arial";
+        context.font = "20px Arial";
         context.fillText("Your are playing local machine mulitplayer", 300, 210);
         context.fillText("Game supports up to 4 players",300,240);
         context.fillText("First player uses Arrow controls",300,270);
         context.fillText("Second Player uses WASD controls",300,300);
         context.fillText("Third player can use numpad (must be present on keyboard)",300,330);
-        context.fillText("With followin controls : 8-UP, 4-LEFT, 5-Down, 6-RIGHT",300,360);
-        context.fillText("4th player can use UHJK keys with U-UP, H-LEFT, J-DOWN, K-RIGHT",300,390);
+        context.fillText("With following controls : 8-UP, 4-LEFT, 5-Down, 6-RIGHT",300,360);
+        context.fillText("4th player can use UHJK keys ",300,390);
+        context.fillText("with following controls : U-UP, H-LEFT, J-DOWN, K-RIGHT",300,420);
         context.closePath();
     }
 }

@@ -35,7 +35,6 @@
             </div>
             <div class="settings basic">
                 <div><span  data-app-translate="1" data-app-text="dark_mode">Dark Mode</span>
-                    <!-- <button class="darker">&#9680;</button> -->
                     <button class="darker"></button>
                 </div>
                 <div>
@@ -44,25 +43,10 @@
                     </label>                    
                 </div>
                 <div>
-                    <label data-app-translate="1" data-app-text="free_bound">Free Bound
-                        <input type="checkbox" name="free_bound">
-                    </label>
-                </div>
-                <div>
                     <div><span data-app-translate="1" data-app-text="language"></span>Language</span></div>
                     <label>English<input type="radio" value="english" name="language"></label>
                     <label>ქართული<input type="radio" value="georgian" name="language"></label>
                     <label>Deutsch<input type="radio" value="german" name="language"></label>
-                </div>
-                <div>
-                    <radio-box class="moder" data-names="long;endurance;challenge" data-values="long;endurance;challenge"
-                        data-texts="Long;Endurance;Challenge" data-input-name="mode" data-input-label="Game Mode"
-                        data-label-name="game_mode">
-                    </radio-box>
-                    <radio-box class="leveler" data-names="easy;normal;hard" data-values="easy;normal;hard"
-                        data-texts="Easy;Normal;Hard" data-input-name="level" data-input-label="Game Level"
-                        data-label-name="game_level">
-                    </radio-box>                
                 </div>                
             </div>
             <div class="settings advanced" style="display: none;">
@@ -126,20 +110,23 @@
     </template>
     <!--look for radiobox file instead -->
     <!-- look for colorbox file instead -->
-    <script src="pop.js"></script>
     <script src="utils.js"></script>
+    <!-- <script src="components/pop.js"></script>
     <script src="components/new_game_dialog.js"></script>
     <script src="components/dialog.js"></script>
     <script src="components/radiobox.js"></script>
-    <script src="components/colorbox.js"></script>
-    <script src="layout.js"></script>
-    <script src="entities/snake.js"></script>
-    <script src="entities/food.js"></script>
+    <script src="components/colorbox.js"></script> -->
+    <script src="app.templates.js"></script>
+    <!-- <script src="layout.js"></script> -->
+    <!-- <script src="entities/snake.js"></script>
+    <script src="entities/food.js"></script> -->
+    <script src="app.entities.js"></script>
+    <!-- <script src="player.js"></script>
     <script src="keyboard.js"></script>
-    <script src="player.js"></script>
     <script src="inputController.js"></script>
     <script src="uicontroller.js"></script>
     <script src="snakegame.js"></script>    
-    <script src="indexjs.js"></script>
+    <script src="indexjs.js"></script> -->
+    <script src="app.min.js"></script>
 </body>
 </html>

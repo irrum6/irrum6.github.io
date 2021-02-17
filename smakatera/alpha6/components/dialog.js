@@ -55,31 +55,16 @@ class SettingsDialog extends HTMLElement {
         this.gamesetup = true;
     }
     SetupValues(snakegame){
-        const {enablefps,freeBound,snakeColor,foodColor} = snakegame.settings;
-        const {mode} = snakegame;
+        const {enablefps,snakeColor,foodColor} = snakegame.settings;
         this.query('input[name=fps]').checked = enablefps;
-        this.query('input[name=free_bound]').checked = freeBound;
         this.query('color-box.snake').SetValue(snakeColor);
         this.query('color-box.food').SetValue(foodColor);
-        this.query('radio-box.moder').SetValue(mode);
     }
-    save(snakegame){        
-        if (snakegame.settings === undefined){
-            snakegame.settings = {};           
-        }
-        const fps = this.query('input[name=fps]').checked;        
-        snakegame.settings.enablefps = fps;
-        // debugger;
-        const free_bound= this.query('input[name=free_bound]').checked;
-        snakegame.settings.freeBound = free_bound;
-
-        snakegame.mode = this.query('radio-box.moder').GetValue();
-        snakegame.settings.level = this.query('radio-box.leveler').GetValue();
-
-        let colours = this.query('color-box.snake').GetValue();
-        snakegame.settings.snakeColor = colours;
-        let colourf = this.query('color-box.food').GetValue();
-        snakegame.settings.foodColor = colourf;
+    save(snakegame){
+        let enablefps = this.query('input[name=fps]').checked;
+        let snakeColor = this.query('color-box.snake').GetValue();
+        let foodColor = this.query('color-box.food').GetValue();
+        snakegame.UpdateSettings({enablefps,snakeColor,foodColor});
         this.close(snakegame);        
     }
     close(snakegame) {

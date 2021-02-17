@@ -97,6 +97,7 @@ class SnakeGame {
             if (e instanceof Player){
                 e.Shrink();
                 e.FreeBound(canvas,this,true);
+                e.SetScore(0);
             }
         }
         this.gameover = false;
@@ -201,6 +202,10 @@ class SnakeGame {
     DisplayScore(){
 
     }
+    DisplayMultiControls(){
+        const {renderingContext} = this;
+        UIController.DisplayMultiPlayerControls(renderingContext); 
+    }
     DisplayNewGameMenu(){
         NewGameDialog.Open(this);
     }
@@ -209,5 +214,17 @@ class SnakeGame {
     }
     DisplayMenu() {
         SettingsDialog.Open(this);
+    }
+    UpdateSettings(s){
+        if (typeof s !=="object"){
+            throw "UpdateSettings:not an object";
+        }
+        for(const f in s){
+            if(this.settings[f] === undefined){
+                console.log("UpdateSettings:not a setting, skipping");
+                continue;
+            }
+            this.settings[f] = s[f];
+        }
     }
 }

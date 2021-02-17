@@ -117,6 +117,12 @@ class Player extends Snake {
             this.AddMass();
         }
     }
+    /**
+     * free bound:  snake moves over bounds
+     * @param {HTMLElement} canvas 
+     * @param {SnakeGame} game 
+     * @param {Boolean} force 
+     */
     FreeBound(canvas,game,force) {
         if (game.settings.freeBound || force) {
             let { x, y } = this.GetHeadPosition();
@@ -147,7 +153,7 @@ class Player extends Snake {
         }
     }
     MoveOver(game) {
-        // depending on game settings player can mover over eacher other or crash trying doing so
+        // depending on game settings players can move over eacher other or crash trying doing so
         // only in multiplayer
         // for in other players
         //if positions match with head crash

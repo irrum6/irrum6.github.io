@@ -44,6 +44,9 @@ class NewGameDialog extends HTMLElement {
         this.close();
         snakeGame.NewGame(n,s);
         snakeGame.GetFrame();
+        if (n > 1) {
+            snakeGame.DisplayMultiControls();
+        }
     }
     close() {
         this.query(".dialog").style.visibility = 'hidden';

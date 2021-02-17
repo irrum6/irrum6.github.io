@@ -1,7 +1,3 @@
-// free bound:  snake moves over bounds and 
-
-// move over snake can move over itself and other snakes
-
 // game modes
 // speed 4,6,8,10 - as 1,2,3,4
 
@@ -74,9 +70,6 @@ try{
 
     if(window.innerWidth > 1000){
         UIController.DisplayWelcomeScreen(context);
-        if (snakeGame.entityList.length > 1){
-            UIController.DisplayMultiPlayerControls(context);
-        }
     }
 
     requestAnimationFrame(get_frame);
