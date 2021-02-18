@@ -3,7 +3,11 @@ const Modes = {
     Endurance: 2,
     Challenge: 3,
     valid: function (m) {
-        return m === this.Long || m === this.Endurance || m === this.Challenge;
+        // return m === this.Long || m === this.Endurance || m === this.Challenge;
+        for(const l in this){
+            if (typeof m !=="function" && m===this[l]){return true;}
+        }
+        return false;
     }
 };
 Object.freeze(Modes);
@@ -19,6 +23,8 @@ const Languages = {
     }
 }
 Object.freeze(Languages);
+
+const Level = new Enumer(["Easy","Normal","Hard","Master"]);
 
 class SnakeGame {
     /**
@@ -41,6 +47,7 @@ class SnakeGame {
         this.renderingContext = rc;
         this.entityList = [];
         this.SetMode(_mode);
+        //this.level = "easy";
     }
     AddEntities(someEntity) {
         if (!someEntity instanceof Snake || someEntity instanceof Food) {
@@ -49,14 +56,17 @@ class SnakeGame {
         this.entityList.push(someEntity);
     }
     NewGame(n,s) {
+        this.timerid =null;
         // debugger;
         if (typeof s === "object") {
             this.settings.freeBound = s.freeBound;
             this.settings.moveOver = s.moveOver;
             this.SetMode(Modes[s.mode]);
+            this.SetLevel(s.level);
         }       
 
         this.entityList = [];
+        this.ClearTimers();
 
         let x = this.canvas.width/2;
         let y = this.canvas.height/2;
@@ -89,6 +99,8 @@ class SnakeGame {
         let food = new Food(x1,y1,12);
         //this.AddEntities(food);
         this.food = food;
+        this.food.Renew(this.canvas);
+        this.Pause();
     }
     Restart() {
         // debugger;
@@ -109,11 +121,32 @@ class SnakeGame {
      * @param {Position} p 
      */
     CreatePlayer(p,c,controls) {
-        const player = new Player(12, 4);
+        let velocity = this.SelectVelocity();
+        const player = new Player(12, velocity);
         player.SetHeadPosition(p.x, p.y);
         player.UpdateColor(c);
         player.AttachController(controls);
         this.AddEntities(player);
+    }
+    SelectVelocity(){
+        let v = 0;
+        switch (this.level) {
+            case Level.Easy:
+                v = 2;
+                break;
+            case Level.Normal:
+                v = 4;
+                break;
+            case Level.Hard:
+                v = 6;
+                break;
+            case Level.Master:
+                v = 8;
+                break;
+            default:
+                v = 4;
+        }
+        return v;
     }
     SetMode(m) {
         if (!Modes.valid(m)) {
@@ -121,23 +154,77 @@ class SnakeGame {
         }
         this.mode = m;
     }
+    SetLevel(l){
+        if(!Level.valid(l)){
+            throw "Not a valid level";
+        }
+        this.level = l;
+    }
     Start() {
         //"r" key to start or resume game
     }
+    ClearTimers (){
+        if (this.timerid !== null) {
+            window.clearInterval(this.timerid);
+            this.timerid = null;
+        }
+        
+    }
+    GetInterval(){
+        let i = 20;
+        switch (this.level) {
+            case Level.Easy:
+                i = 20;
+                break;
+            case Level.Normal:
+                i = 10;
+                break;
+            case Level.Hard:
+            case Level.Master:
+                i = 5;
+                break;
+            default:
+                i = 10;
+        }
+        return i;
+    }
+    /**
+     * Endurance : you gain [point and] mass in every 20 seconds, your intent is to last longer
+     * easy every 20 seconds
+     * medium every 10 seconds
+     * hard every 5 seconds
+     * master 5 second and point isn't given for gained mass you need to eat food (only level to feature food);
+     */
     EnduranceMode() {
-        //endurance : you gain [point and] mass in every 20 seconds, your intent is to last longer
-        //easy every 20 seconds
-        //medium every 10 seconds
-        //hard every 5 seconds
-        //master 5 second and point isn't given for gained mass you need to eat food (only level to feature food);
-        window.setInterval(() => {
-            // for in entities
-            //if entity type is snake and snake allive mass +1;
-            //corresponding player  score +1;
+        if (this.timerid !== null) {
+            return;
+        }
+        let interval = this.GetInterval()*1000;
+        if(this.level !== Level.Master){
+            this.food = null;
+        }
+
+        this.timerid = window.setInterval(() => {
+            //debugger;
+            const { canvas } = this;
+            if (this.gameover) {
+                window.clearInterval(this.timerid);
+                this.timerid = null;
+                return;
+            }
+            if (this.pause){
+                return;
+            }
+            for (const e of this.entityList) {
+                if (e instanceof Player) {
+                    e.AddMass();
+                    if (this.level !== Level.Master) e.score++;
+                }
+            }
 
             //in two player mode if one dies other wins
-            //
-        });
+        }, interval);
+        // 
     }
     ChallengeMode() {
         //challenge mode
@@ -146,13 +233,6 @@ class SnakeGame {
         //medium if miss penalty on score 5 point (positive constraint)
         //hard if miss warning , loss of tail (3 positions)
         //in multi player who eats pardon, who don shrink
-    }
-    tem() {
-        let { snake } = this;
-        window.setInterval(() => {
-            // console.log("1");
-            snake.AddMass();
-        }, 2 * 1000);
     }
     GetFrame() {
         // debugger;
@@ -173,8 +253,9 @@ class SnakeGame {
                 e.Draw(renderctx,this);
             }
         }
-        
-        this.food.Draw(renderctx,this);
+        if(this.food !==null){
+            this.food.Draw(renderctx,this);
+        }        
         UIController.DisplayFPS(this,renderctx,canvas);        
         UIController.DisplayScore(this,renderctx,canvas);
     }
@@ -189,10 +270,14 @@ class SnakeGame {
         this.pause = true;
     }
     Resume() {
+        // debugger;
+        if (this.mode=== Modes.Endurance){
+            this.EnduranceMode();
+        }
         this.pause = false;
     }
     GoFullScreen() {
-        debugger;
+        //debugger;
         let { canvas } = this;
         canvas.requestFullscreen();
     }

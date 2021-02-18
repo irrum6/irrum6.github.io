@@ -48,9 +48,10 @@ class Player extends Snake {
     GetScore() {
         return this.score;
     }
-    Score() {
+    ScoreOne() {
         let s = this.GetScore();
-        this.SetScore(++s);
+        s++;
+        this.SetScore(s);
     }
     Draw(rc, snakeGame) {
         super.Draw(rc, snakeGame);
@@ -113,6 +114,7 @@ class Player extends Snake {
         //eat food
         if (distance(x, y, food.x, food.y) < this.radius * 2) {
             food.Renew(canvas);
+            // this.ScoreOne();
             this.score++;
             this.AddMass();
         }

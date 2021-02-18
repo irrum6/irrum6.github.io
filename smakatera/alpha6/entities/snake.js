@@ -46,6 +46,13 @@ class Snake {
             rc.fill();
             rc.closePath();
         }
+        //draw eye or something
+        rc.fillStyle = "white";
+        rc.beginPath();
+        let { x, y } = this.GetHeadPosition();
+        rc.arc(x, y, radius / 4, 0, 2 * Math.PI);
+        rc.fill();
+        rc.closePath();
     }
     GetHeadPosition(){
         return this.positions[0];
