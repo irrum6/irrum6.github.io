@@ -30,6 +30,7 @@ class Player extends Snake {
             keyLayout: KeyLayouts.Arrows
         };
         this.TurnLeft();
+        this.hash = Utils.Hash16(8);
     }
     AttachController(c) {
         if (!c instanceof BaseController) {
@@ -41,9 +42,34 @@ class Player extends Snake {
         this.controller.OnKey(this,key);
     }
     SetScore(s) {
-        if (!Number.isInteger(s) || s < 0) {
+        if (!Utils.IsWholeNumber(s)) {
             throw "Whole number needed";
         }
+        this.score =s;
+    }
+    Die(){
+        this.alive = false;
+    }
+    Reanimate(){
+        this.alive = true;
+    }
+    RandomJump(canvas){
+        let x = Math.floor(Math.random() * (canvas.width));
+        let y = Math.floor(Math.random() * (canvas.height));
+        let distance_required = this.radius * 4
+        if (x < distance_required) {
+            x =  distance_required
+        }
+        if (x > (canvas.width - distance_required)) {
+            x = canvas.width - distance_required;
+        }
+        if (y < distance_required) {
+            y =  distance_required;
+        }
+        if (y > (canvas.height - distance_required)) {
+            y = canvas.height - distance_required;
+        }
+        this.SetHeadPosition(x,y);
     }
     GetScore() {
         return this.score;
@@ -85,6 +111,9 @@ class Player extends Snake {
         this.UpdateDirection(Directions.Right);
     }
     Update(food, canvas,game) {
+        if(!this.alive){
+            return;
+        }
         const poslen = this.positions.length;
 
         const current = this.GetDirection();
@@ -104,6 +133,7 @@ class Player extends Snake {
 
         //free bound
         this.FreeBound(canvas,game);
+        this.Colision(game);
         this.Eat(food, canvas);
     }
     Eat(food, canvas) {
@@ -140,24 +170,47 @@ class Player extends Snake {
         let { x, y } = this.GetHeadPosition();
         if (x < 0 || x > canvas.width || y < 0 || y > canvas.height) {
             // debugger;
-            game.gameover = true;
-            game.score = 0;
+            this.Die();
             return;
         }
         for (let i = 1, len = this.positions.length; i < len; i++) {
             let p = this.positions[i];
             if (p.x == x && p.y == y) {
-                // debugger;
-                game.gameover = true;
-                // game.score = 0;
+                this.Die();
                 return;
             }
         }
     }
-    MoveOver(game) {
-        // depending on game settings players can move over eacher other or crash trying doing so
-        // only in multiplayer
-        // for in other players
-        //if positions match with head crash
+    Colision(snakeGame) {
+        if (snakeGame.entityList.length < 2) {
+            return;
+        }
+        if (snakeGame.settings.moveOver) {
+            return;
+        }
+        const coords = this.GetHeadPosition();
+        let x1 = coords.x;
+        let y1 = coords.y;
+        for(const e of snakeGame.entityList){
+            if(e.hash == this.hash){
+                continue;
+            }            
+            
+            let {x,y} = e.GetHeadPosition();
+            //if head to head both die
+            if(Utils.Distance(x1,y1,x,y)<this.radius){
+                this.Die();
+                e.Die();
+                return;
+            }
+            //the one who hits head, it dies
+            for (const p of e.positions) {
+                let { x, y } = p;
+                if (x1 == x && y1 == y) {
+                    this.Die();
+                }
+            }
+            // if (x == x1 && y == y1) { }
+        }
     }
 }

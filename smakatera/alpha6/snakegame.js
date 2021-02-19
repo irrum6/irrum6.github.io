@@ -40,6 +40,7 @@ class SnakeGame {
         this.settings = {
             enablefps: true,
             freeBound: true,
+            moveOver:false,
             foodColor: "#ff2af0",
             snakeColor: "#22af00"
         };
@@ -59,8 +60,7 @@ class SnakeGame {
         this.timerid =null;
         // debugger;
         if (typeof s === "object") {
-            this.settings.freeBound = s.freeBound;
-            this.settings.moveOver = s.moveOver;
+            this.UpdateSettings(s);
             this.SetMode(Modes[s.mode]);
             this.SetLevel(s.level);
         }       
@@ -104,16 +104,21 @@ class SnakeGame {
     }
     Restart() {
         // debugger;
+        this.Pause();
         const { canvas} = this;
         for (const e of this.entityList){
             if (e instanceof Player){
                 e.Shrink();
+                //this doesn't work if players have colided
                 e.FreeBound(canvas,this,true);
+                e.RandomJump(canvas);
                 e.SetScore(0);
+                e.Reanimate();
             }
         }
         this.gameover = false;
         this.alerted = false;
+        this.Resume();
     }
     /**
      * creates snake
@@ -235,6 +240,15 @@ class SnakeGame {
         //in multi player who eats pardon, who don shrink
     }
     GetFrame() {
+        // if all are dead, then end game
+        let i = 0;
+        for (const e of this.entityList) {
+            if (!e.alive) { i++ };
+        }
+        if (i === this.entityList.length) {
+            this.gameover = true;
+            return;
+        }
         // debugger;
         let dis = this;
         const renderctx = this.renderingContext;
@@ -306,7 +320,7 @@ class SnakeGame {
         }
         for(const f in s){
             if(this.settings[f] === undefined){
-                console.log("UpdateSettings:not a setting, skipping");
+                console.log(`UpdateSettings: ${f} not a setting, skipping`);
                 continue;
             }
             this.settings[f] = s[f];

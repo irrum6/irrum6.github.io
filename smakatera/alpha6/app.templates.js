@@ -126,15 +126,15 @@ customElements.define('pop-alert', PopAlert);class NewGameDialog extends HTMLEle
         this.query('button.starter')[on]('click', this.new.bind(this,snakegame), { once: false });
         this.gamesetup = true;
     }
-    new(snakeGame,e){
-        const s = {}
-        const free_bound = this.query('input[name=free_bound]').checked;
-        s.freeBound = free_bound;
-        s.mode = this.query('radio-box.moder').GetValue();
-        s.level = this.query('radio-box.leveler').GetValue();
+    new(snakeGame,e){        
+        const freeBound = this.query('input[name=free_bound]').checked;
+        const mode = this.query('radio-box.moder').GetValue();
+        const level = this.query('radio-box.leveler').GetValue();
+        const moveOver = this.query('input[name=move_over]').checked;
         const n = this.query('radio-box.player').GetValue();
         this.close();
-        snakeGame.NewGame(n,s);
+        const s = { freeBound, moveOver, mode, level }
+        snakeGame.NewGame(n, s);
         snakeGame.GetFrame();
         if (n > 1) {
             snakeGame.DisplayMultiControls();
