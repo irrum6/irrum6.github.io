@@ -12,9 +12,17 @@ class Snake {
     GetLength(){
         return this.positions.length;
     }
+    /**
+     * gain mass
+     * @returns {void}
+     */
     AddMass(){
-        let last = this.positions[this.GetLength()-1];
-        this.positions.push({x:last.x,y:last.y});
+        let last = this.GetTailPosition();
+        // let x = last.x + this.radius / 2;
+        // let y = last.y + this.radius / 2;
+        let x = last.x;
+        let y = last.y;
+        this.positions.push({ x, y });
         this.mass++;
         // console.log("mass gained");
     }
@@ -60,6 +68,12 @@ class Snake {
     SetHeadPosition(x,y){
         if (typeof x == "number" && !Number.isNaN(x)) { this.positions[0].x = x; }
         if (typeof y == "number" && !Number.isNaN(y)) { this.positions[0].y = y; }
+    }
+    /**
+     * @returns {x,y}
+     */
+    GetTailPosition() {
+        return this.positions[this.positions.length - 1];
     }
 }
 // export default Snake;
