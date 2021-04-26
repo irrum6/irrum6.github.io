@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pentagon</title>
+    <link rel="stylesheet" href="../basic.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div id="container"></div>
+    <script>
+        const count = 50;
+        const cont = document.getElementById("container");
+        const make_spinner = (i) => {
+            const el = document.createElement("div");
+            el.classList.add("oxagon");
+            const sp = document.createElement("span");
+            el.appendChild(sp);
+            cont.appendChild(el);
+        }
+        for (let i = 0; i < count; i++) {
+            make_spinner(i);
+        }
+    </script>
+</body>
+
+</html>

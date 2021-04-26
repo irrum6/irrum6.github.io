@@ -1,2 +1,3 @@
 */deploy.sh
 smakatera/alpha/deploy.sh
+*/*/*.css.map

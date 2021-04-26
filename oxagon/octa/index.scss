@@ -1,0 +1,17 @@
+$count:64;
+$size:150px;
+$speed:3s;
+$gones:8;
+
+/* --delay = -1 * --i * --speed * (--sides / 2) / --count; */
+
+@for $i from 1 through $count {
+    .oxagon:nth-child(#{$i}){
+        transform: rotate(#{$i*360deg/$count}) translate($size);
+        color:hsla($i*360/$count,100%, 50%, 0.5);        
+    }
+    .oxagon:nth-child(#{$i})>span{
+        animation-delay: -$i *$speed * ($gones/2) / $count;
+        background-color: hsla($i*360/$count,100%, 50%, 1);
+    }
+}

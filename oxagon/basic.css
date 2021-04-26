@@ -1,0 +1,68 @@
+:root {
+    --size: 120px;
+    --nsize: -120px;
+    --speed: 3s;
+    --count: 10;
+    --sides: 5;
+    --hsize: 60px;
+    --nhsize: -60px;
+    --qsize: 30px;
+    --nqsize: -30px;
+    --hexsize: 10px;
+    --nhexsize: -10px;
+    --osize: 15px;
+    --nosize: 15px;
+    /* --mover: calc(var(--size)+80); */
+    --mover: 150px;
+}
+
+body {
+    background-color: #3a3a3b;
+    overflow: hidden;
+    margin: 0;
+}
+
+body *, body ::after, body ::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.oxagon {
+    width: var(--size);
+    height: calc(var(--size)/2);
+}
+
+.oxagon, .oxagon>span {
+    border-top-left-radius: var(--size);
+    border-bottom-right-radius: var(--size);
+}
+
+.oxagon>span {
+    animation: oxagon var(--speed) linear infinite;
+}
+
+.oxagon>span::after, .oxagon>span::before {
+    content: '';
+    background-color: currentColor;
+    width: var(--hexsize);
+    height: var(--hexsize);
+    border-radius: 50%;
+}
+
+.oxagon>span::before {
+    transform: translate(var(--hsize), var(--nqsize));
+}
+
+.oxagon>span::after {
+    transform: translate(calc(var(--size) / -2), calc(var(--size) / 4));
+}
+
+@keyframes oxagon {
+    100% {
+        transform: rotate(-360deg);
+    }
+}
