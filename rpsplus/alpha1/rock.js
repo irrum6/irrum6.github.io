@@ -44,15 +44,6 @@ const to_pretty_text = (value) => {
     return switcher[value]
 }
 
-let all_buttons = query_all("button");
-
-for (const single_butt of all_buttons) {
-    // user selection kicks game round
-    single_butt[on]('click', e => {
-        const v = e.target.getAttribute("data-value");
-        game_round(v);
-    });
-}
 /**
  * @param {String} userChoice 
  * @param {String} cpuChoice 
@@ -79,32 +70,34 @@ const drawChoices = (userChoice, cpuChoice) => {
 }
 
 const getImageSrc = choice => {
+    const images_dir = "./images/png"
     let src = "";
     switch (choice) {
         case Choices.Rock:
-            src = "./images/png/rock.png";
+            src = `${images_dir}/rock.png`;
             break;
         case Choices.Paper:
-            src = "./images/png/paper.png";
+            src = `${images_dir}/paper.png`;
             break;
         case Choices.Scissors:
-            src = "./images/png/scissors.png";
+            src = `${images_dir}/scissors.png`;
             break;
         case Choices.FourLegged:
-            src = "./images/png/four_legged_monster.png";
+            src = `${images_dir}/four_legged_monster.png`;
             break;
         case Choices.PrettyFace:
-            src = "./images/png/pretty_face.png";
+            src = `${images_dir}/pretty_face.png`;
             break;
         default:
-            src = "./images/png/paper.png";
+            src = `${images_dir}/paper.png`;
     }
     return src;
 }
 
 const game_round = (userChoice) => {
-
-    //cpu chooses, but is not aware of user selection
+    //We have user selection
+    //Now the CPU chooses
+    //CPU is not aware of user selection
     let validChoices = [Choices.Rock, Choices.Paper, Choices.Scissors, Choices.FourLegged, Choices.PrettyFace];
     let rand = Math.floor(Math.random() * validChoices.length);
     let cpuChoice = validChoices[rand];
@@ -116,4 +109,15 @@ const game_round = (userChoice) => {
     gebid("user_choice").textContent = to_pretty_text(userChoice);
     gebid("result").textContent = textResult;
     drawChoices(userChoice, cpuChoice);
+}
+
+// setup
+let all_buttons = query_all("button");
+
+for (const single_butt of all_buttons) {
+    // user selection kicks game round
+    single_butt[on]('click', e => {
+        const v = e.target.getAttribute("data-value");
+        game_round(v);
+    });
 }
