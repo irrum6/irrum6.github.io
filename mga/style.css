@@ -1,0 +1,16 @@
+div.card {
+    width: 200px;
+    height: 200px;
+    border-radius: 5%;
+    margin: 10px;
+    transition-property: background;
+    transition-delay: 200ms;
+    transition-duration: 300ms;
+    transition-timing-function: ease-out;
+}
+
+#grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

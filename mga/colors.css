@@ -1,0 +1,191 @@
+.color_memred {
+  color: #f03030;
+}
+
+.color_red {
+  color: #ff4040;
+}
+
+.color_memgreen {
+  color: #308030;
+}
+
+.color_green {
+  color: #80ff40;
+}
+
+.color_blue {
+  color: #4080ff;
+}
+
+.color_violet {
+  color: #f040f0;
+}
+
+.color_black {
+  color: black;
+}
+
+.color_white {
+  color: white;
+}
+
+.color_litegray {
+  color: #808080;
+}
+
+.color_darkgray {
+  color: #404040;
+}
+
+.color_neonred {
+  color: #ff2020;
+}
+
+.color_neongreen {
+  color: #40ff40;
+}
+
+.color_neonblue {
+  color: #4040ff;
+}
+
+.color_darkred {
+  color: #802020;
+}
+
+.color_darkgreen {
+  color: #208020;
+}
+
+.color_darkblue {
+  color: #202080;
+}
+
+.color_navy {
+  color: #000080;
+}
+
+.color_navbar_blue {
+  color: #2c3e50;
+}
+
+.color_yellow {
+  color: #f0f030;
+}
+
+.color_orange {
+  color: #b63;
+}
+
+.color_purple {
+  color: #3000ff;
+}
+
+.color_pink {
+  color: #f030f0;
+}
+
+.color_lightskyblue {
+  color: #80e0ff;
+}
+
+.color_grey {
+  color: #606060;
+}
+
+.bg_memred {
+  background-color: #f03030;
+}
+
+.bg_red {
+  background-color: #ff4040;
+}
+
+.bg_memgreen {
+  background-color: #308030;
+}
+
+.bg_green {
+  background-color: #80ff40;
+}
+
+.bg_blue {
+  background-color: #4080ff;
+}
+
+.bg_violet {
+  background-color: #f040f0;
+}
+
+.bg_black {
+  background-color: black;
+}
+
+.bg_white {
+  background-color: white;
+}
+
+.bg_litegray {
+  background-color: #808080;
+}
+
+.bg_darkgray {
+  background-color: #404040;
+}
+
+.bg_neonred {
+  background-color: #ff2020;
+}
+
+.bg_neongreen {
+  background-color: #40ff40;
+}
+
+.bg_neonblue {
+  background-color: #4040ff;
+}
+
+.bg_darkred {
+  background-color: #802020;
+}
+
+.bg_darkgreen {
+  background-color: #208020;
+}
+
+.bg_darkblue {
+  background-color: #202080;
+}
+
+.bg_navy {
+  background-color: #000080;
+}
+
+.bg_navbar_blue {
+  background-color: #2c3e50;
+}
+
+.bg_yellow {
+  background-color: #f0f030;
+}
+
+.bg_orange {
+  background-color: #b63;
+}
+
+.bg_purple {
+  background-color: #3000ff;
+}
+
+.bg_pink {
+  background-color: #f030f0;
+}
+
+.bg_lightskyblue {
+  background-color: #80e0ff;
+}
+
+.bg_grey {
+  background-color: #606060;
+}
