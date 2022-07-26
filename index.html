@@ -4,85 +4,46 @@
     <title>Welcome</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="bootstrap.css">
 </head>
 
 <body>
     <div class="container" style="margin-top:10px;">
         <div class="row text-center">
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card">
-                    <img class="card-img-top" src="flags1/Georgia/flag_georgia.png" alt="">
-                    <div class="card-body">
-                        <h4>
-                            Flags
-                        </h4>
-                        <a href="flags1/Georgia" class="btn btn-primary btn-sm px-4">Go</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card">
-                    <img class="card-img-top" src="typerino/images/icon_keyboard_28.jpg" alt="keyboard icon">
-                    <div class="card-body">
-                        <h4>
-                            Typerino
-                        </h4>
-                        <a href="typerino/" class="btn btn-primary btn-sm px-4">Go</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card">
-                    <img class="card-img-top" src="color/alt/images/icon.png" alt="">
-                    <div class="card-body">
-                        <h4>
-                            Color Game
-                        </h4>
-                        <a href="color/alt/" class="btn btn-primary btn-sm px-4">Go</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card">
-                    <img class="card-img-top" src="how/images/how.png" alt="">
-                    <div class="card-body">
-                        <h4>
-                            Hangman on Web
-                        </h4>
-                        <a href="how" class="btn btn-primary btn-sm px-4">Go</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card">
-                    <img class="card-img-top" src="screencalc/images/icon.png" alt="">
-                    <div class="card-body">
-                        <h4>
-                            Screen Calc
-                        </h4>
-                        <a href="/screencalc/basic.html" class="btn btn-primary btn-sm px-4">Go</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card">
-                    <img class="card-img-top" src="oxagon/oxagon.png" alt="">
-                    <div class="card-body">
-                        <h4>
-                            Oxagon
-                        </h4>
-                        <a href="/oxagon/octa/index.html" class="btn btn-primary btn-sm px-4">Go</a>
-                    </div>
+            <!-- Flags -->
+            <display-block class="col-md-6 col-lg-4 col-xl-3" data-img="flags1/Georgia/flag_georgia.png" data-href="flags1/Georgia" data-text="Flags">
+            </display-block>
+            <!-- Typerino -->
+            <display-block class="col-md-6 col-lg-4 col-xl-3" data-img="typerino/images/icon_keyboard_28.jpg" data-href="typerino/" data-text="Typerino">
+            </display-block>
+            <!-- Color Game -->
+            <display-block class="col-md-6 col-lg-4 col-xl-3" data-img="color/alt/images/icon.png" data-href="color/alt/" data-text=" Color Game">
+            </display-block>
+            <!-- Hangman on Web -->
+            <display-block class="col-md-6 col-lg-4 col-xl-3" data-img="how/images/how.png" data-href="how/index.html" data-text="Hangman on Web">
+            </display-block>
+            <!-- Screen Calc             -->
+            <display-block class="col-md-6 col-lg-4 col-xl-3" data-img="screencalc/images/icon.png" data-href="/screencalc/basic.html" data-text="Screen Calc">
+            </display-block>
+            <!-- Oxagon -->
+            <display-block class="col-md-6 col-lg-4 col-xl-3" data-img="oxagon/oxagon.png" data-href="/oxagon/octa/index.html" data-text="Oxagon">
+            </display-block>
+        </div>
+    </div>
+    </div>
+    <template id="display_block">
+        <div>
+            <div class="card" width="100%">
+                <img class="card-img-top" src="src/image.png" alt="">
+                <div class="card-body">
+                    <h4>
+                        <!-- Text -->
+                    </h4>
+                    <a href="/src/index.html" class="btn btn-primary btn-sm px-4">Go</a>
                 </div>
             </div>
         </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
+    </template>
+    <script src="block.js"></script>
+    <script src="bootstrap.bundle.js"></script>
 </body>
