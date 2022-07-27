@@ -60,6 +60,8 @@ class UIController {
         context.fillText("With following controls : 8-UP, 4-LEFT, 5-Down, 6-RIGHT",300,360);
         context.fillText("4th player can use UHJK keys ",300,390);
         context.fillText("with following controls : U-UP, H-LEFT, J-DOWN, K-RIGHT",300,420);
+        context.fillText("Press 'z' to pause game, 'r' to resume, f or F to fullscreen", 300, 450);
+        context.fillText("'m' to display settings dialog , 'n' to close that dialog", 300, 480);
         context.closePath();
     }
 }
