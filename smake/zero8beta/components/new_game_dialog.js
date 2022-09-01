@@ -25,11 +25,22 @@ class NewGameDialog extends HTMLElement {
             this.close(game);
         });
         this.query('button.starter')[on]('click', this.startNewGame.bind(this, game), { once: false });
+        this.query('input[name=move_over]')[on]('click', this.toggleRollOverState.bind(this), { once: false });
         this.gamesetup = true;
+    }
+    toggleRollOverState() {
+        const moveOver = this.query('input[name=move_over]').checked;
+        const overBody = this.query('input[name=move_over_body]');
+        if (moveOver) {
+            overBody.disabled = false;
+            return;
+        }
+        overBody.disabled = true;
     }
     startNewGame(game, e) {
         const freeBound = this.query('input[name=free_bound]').checked;
         const moveOver = this.query('input[name=move_over]').checked;
+        const moveOverBody = this.query('input[name=move_over_body]').checked;
         const quickSwitch = this.query('input[name=quickswitch]').checked;
 
         const mode = this.query('radio-box.moder').GetValue();
@@ -37,7 +48,7 @@ class NewGameDialog extends HTMLElement {
 
         const n = this.query('radio-box.player').GetValue();
         this.close();
-        const s = { freeBound, moveOver, quickSwitch, mode, level }
+        const s = { freeBound, moveOver, moveOverBody, quickSwitch, mode, level }
         game.NewGame(n, s);
         game.GetFrame();
         if (n > 1) {

@@ -18,9 +18,10 @@ class MontiviperaGame {
         this.canvas = _canvas;
         this.settings = {
             enablefps: true,
-            quickSwitch: false,
             enabledelta: true,
             enabledeltalow: false,
+            quickSwitch: false,
+            moveOverBody:false,
             freeBound: true,
             moveOver: false,
             snakeColor: "#c63",
@@ -30,7 +31,7 @@ class MontiviperaGame {
         this.renderingContext = rc;
         this.entityList = [];
         this.SetMode(_mode);
-        this.#version = "0.8 beta 5"
+        this.#version = "0.8 beta 6"
         this.#name = "Montivipera Redemption"
         this.#stats = Object.create(null);
         this.#stats.frames = 0;
@@ -360,22 +361,11 @@ class MontiviperaGame {
         }
 
         // debugger;
-        let dis = this;
         const renderctx = this.renderingContext;
         const canvas = this.canvas;
 
-        //compensated velocity
-        //60fps standard
-        //define as pixel/second
-        //time between frames
-        //update location
-        //define map 480x270
-        //scale down up
-
         renderctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        //this.UpdatePlayers();
-        //after all entities got update //then draw
         for (const e of this.entityList) {
             if (e instanceof Player) {
                 e.Draw(renderctx, this);

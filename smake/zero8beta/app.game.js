@@ -230,21 +230,23 @@ class Player extends Vipera {
             this.Die();
             return;
         }
-        for (let i = 1, len = this.positions.length; i < len; i++) {
-            let p = this.positions[i];
-            if (p.x == x && p.y == y) {
-                this.Die();
-                return;
-            }
-        }
     }
     Colision(game) {
-        if (game.entityList.length < 2) {
-            return;
-        }
         if (game.settings.moveOver) {
             return;
         }
+        //first check the player itself
+        if (false === game.settings.moveOverBody) {
+            let { x, y } = this.GetHeadPosition();
+            for (let i = 1, len = this.positions.length; i < len; i++) {
+                let p = this.positions[i];
+                if (p.x == x && p.y == y) {
+                    this.Die();
+                    return;
+                }
+            }
+        }
+        //then check in relation to other players
         const coords = this.GetHeadPosition();
         let x1 = coords.x;
         let y1 = coords.y;
@@ -259,6 +261,9 @@ class Player extends Vipera {
                 this.Die();
                 e.Die();
                 return;
+            }
+            if (true === game.settings.moveOverBody) {
+                continue
             }
             //the one who hits head, it dies
             for (const p of e.positions) {
@@ -290,9 +295,10 @@ class MontiviperaGame {
         this.canvas = _canvas;
         this.settings = {
             enablefps: true,
-            quickSwitch: false,
             enabledelta: true,
             enabledeltalow: false,
+            quickSwitch: false,
+            moveOverBody:false,
             freeBound: true,
             moveOver: false,
             snakeColor: "#c63",
@@ -302,7 +308,7 @@ class MontiviperaGame {
         this.renderingContext = rc;
         this.entityList = [];
         this.SetMode(_mode);
-        this.#version = "0.8 beta 5"
+        this.#version = "0.8 beta 6"
         this.#name = "Montivipera Redemption"
         this.#stats = Object.create(null);
         this.#stats.frames = 0;
@@ -632,22 +638,11 @@ class MontiviperaGame {
         }
 
         // debugger;
-        let dis = this;
         const renderctx = this.renderingContext;
         const canvas = this.canvas;
 
-        //compensated velocity
-        //60fps standard
-        //define as pixel/second
-        //time between frames
-        //update location
-        //define map 480x270
-        //scale down up
-
         renderctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        //this.UpdatePlayers();
-        //after all entities got update //then draw
         for (const e of this.entityList) {
             if (e instanceof Player) {
                 e.Draw(renderctx, this);

@@ -330,7 +330,7 @@ class UIController {
         context.fillStyle = "black";
         context.beginPath();
         context.font = "24px Arial";
-        context.fillText(`Welcome to Smake game`, 300, 60);
+        context.fillText(`Welcome to Montivipera Redemption`, 300, 60);
         context.fillText("use arrow keys to navigate", 300, 100);
         context.fillText("Press 'z' to pause game, 'r' to resume, 'f' to fullscreen", 300, 140);
         context.fillText("'m' to display/dissmis settings dialog , 'n' to open/close new game dialog", 300, 180);

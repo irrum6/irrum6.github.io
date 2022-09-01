@@ -202,21 +202,23 @@ class Player extends Vipera {
             this.Die();
             return;
         }
-        for (let i = 1, len = this.positions.length; i < len; i++) {
-            let p = this.positions[i];
-            if (p.x == x && p.y == y) {
-                this.Die();
-                return;
-            }
-        }
     }
     Colision(game) {
-        if (game.entityList.length < 2) {
-            return;
-        }
         if (game.settings.moveOver) {
             return;
         }
+        //first check the player itself
+        if (false === game.settings.moveOverBody) {
+            let { x, y } = this.GetHeadPosition();
+            for (let i = 1, len = this.positions.length; i < len; i++) {
+                let p = this.positions[i];
+                if (p.x == x && p.y == y) {
+                    this.Die();
+                    return;
+                }
+            }
+        }
+        //then check in relation to other players
         const coords = this.GetHeadPosition();
         let x1 = coords.x;
         let y1 = coords.y;
@@ -231,6 +233,9 @@ class Player extends Vipera {
                 this.Die();
                 e.Die();
                 return;
+            }
+            if (true === game.settings.moveOverBody) {
+                continue
             }
             //the one who hits head, it dies
             for (const p of e.positions) {

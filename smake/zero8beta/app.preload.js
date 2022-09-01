@@ -26,6 +26,9 @@ class Utils {
         let msg = `${from}:${message}`
         throw msg;
     }
+    static nodef(varX) {
+        return varX === null || varX === undefined
+    }
 }
 Object.freeze(Utils);class PopAlert extends HTMLElement {
     constructor() {
@@ -96,11 +99,22 @@ customElements.define('pop-alert', PopAlert);class NewGameDialog extends HTMLEle
             this.close(game);
         });
         this.query('button.starter')[on]('click', this.startNewGame.bind(this, game), { once: false });
+        this.query('input[name=move_over]')[on]('click', this.toggleRollOverState.bind(this), { once: false });
         this.gamesetup = true;
+    }
+    toggleRollOverState() {
+        const moveOver = this.query('input[name=move_over]').checked;
+        const overBody = this.query('input[name=move_over_body]');
+        if (moveOver) {
+            overBody.disabled = false;
+            return;
+        }
+        overBody.disabled = true;
     }
     startNewGame(game, e) {
         const freeBound = this.query('input[name=free_bound]').checked;
         const moveOver = this.query('input[name=move_over]').checked;
+        const moveOverBody = this.query('input[name=move_over_body]').checked;
         const quickSwitch = this.query('input[name=quickswitch]').checked;
 
         const mode = this.query('radio-box.moder').GetValue();
@@ -108,7 +122,7 @@ customElements.define('pop-alert', PopAlert);class NewGameDialog extends HTMLEle
 
         const n = this.query('radio-box.player').GetValue();
         this.close();
-        const s = { freeBound, moveOver, quickSwitch, mode, level }
+        const s = { freeBound, moveOver, moveOverBody, quickSwitch, mode, level }
         game.NewGame(n, s);
         game.GetFrame();
         if (n > 1) {
@@ -888,7 +902,7 @@ class UIController {
         context.fillStyle = "black";
         context.beginPath();
         context.font = "24px Arial";
-        context.fillText(`Welcome to Smake game`, 300, 60);
+        context.fillText(`Welcome to Montivipera Redemption`, 300, 60);
         context.fillText("use arrow keys to navigate", 300, 100);
         context.fillText("Press 'z' to pause game, 'r' to resume, 'f' to fullscreen", 300, 140);
         context.fillText("'m' to display/dissmis settings dialog , 'n' to open/close new game dialog", 300, 180);
@@ -1142,21 +1156,23 @@ class Player extends Vipera {
             this.Die();
             return;
         }
-        for (let i = 1, len = this.positions.length; i < len; i++) {
-            let p = this.positions[i];
-            if (p.x == x && p.y == y) {
-                this.Die();
-                return;
-            }
-        }
     }
     Colision(game) {
-        if (game.entityList.length < 2) {
-            return;
-        }
         if (game.settings.moveOver) {
             return;
         }
+        //first check the player itself
+        if (false === game.settings.moveOverBody) {
+            let { x, y } = this.GetHeadPosition();
+            for (let i = 1, len = this.positions.length; i < len; i++) {
+                let p = this.positions[i];
+                if (p.x == x && p.y == y) {
+                    this.Die();
+                    return;
+                }
+            }
+        }
+        //then check in relation to other players
         const coords = this.GetHeadPosition();
         let x1 = coords.x;
         let y1 = coords.y;
@@ -1171,6 +1187,9 @@ class Player extends Vipera {
                 this.Die();
                 e.Die();
                 return;
+            }
+            if (true === game.settings.moveOverBody) {
+                continue
             }
             //the one who hits head, it dies
             for (const p of e.positions) {
@@ -1202,9 +1221,10 @@ class MontiviperaGame {
         this.canvas = _canvas;
         this.settings = {
             enablefps: true,
-            quickSwitch: false,
             enabledelta: true,
             enabledeltalow: false,
+            quickSwitch: false,
+            moveOverBody:false,
             freeBound: true,
             moveOver: false,
             snakeColor: "#c63",
@@ -1214,7 +1234,7 @@ class MontiviperaGame {
         this.renderingContext = rc;
         this.entityList = [];
         this.SetMode(_mode);
-        this.#version = "0.8 beta 5"
+        this.#version = "0.8 beta 6"
         this.#name = "Montivipera Redemption"
         this.#stats = Object.create(null);
         this.#stats.frames = 0;
@@ -1544,22 +1564,11 @@ class MontiviperaGame {
         }
 
         // debugger;
-        let dis = this;
         const renderctx = this.renderingContext;
         const canvas = this.canvas;
 
-        //compensated velocity
-        //60fps standard
-        //define as pixel/second
-        //time between frames
-        //update location
-        //define map 480x270
-        //scale down up
-
         renderctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        //this.UpdatePlayers();
-        //after all entities got update //then draw
         for (const e of this.entityList) {
             if (e instanceof Player) {
                 e.Draw(renderctx, this);
@@ -1687,4 +1696,4 @@ class MontiviperaGame {
 const Translator = Object.create(null);
 Translator.translate =()=>{
 
-}//Build Date : 2022-08-31T09:21+04:00
+}//Build Date : 2022-09-02T00:48+04:00

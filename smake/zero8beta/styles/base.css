@@ -9,12 +9,16 @@ canvas{
 }
 body{
     display: grid;
-    grid-template-columns: 85% 15%;
+    grid-template-columns: auto 150px;
     grid-template-rows: max-content;
     overflow-y: clip;
 }
 div.box.h90 {
     height: 90vh;
+    z-index: 1;
+}
+div.box.h95 {
+    height: 95vh;
     z-index: 1;
 }
 button{

@@ -26,5 +26,8 @@ class Utils {
         let msg = `${from}:${message}`
         throw msg;
     }
+    static nodef(varX) {
+        return varX === null || varX === undefined
+    }
 }
 Object.freeze(Utils);
