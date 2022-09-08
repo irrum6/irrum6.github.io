@@ -24,7 +24,16 @@ class KeyBoardController extends ActionController {
     }
     OnKeyDown(game, e) {
         //debugger;
-        const { key } = e;
+        let { key, code } = e;
+        // console.log(e);
+
+        code = code.replace("Key", "");
+
+        if (key !== code) {
+            key = code;
+        }
+
+        //use event code: "ArrowUp"
         switch (key) {
             case "f":
             case "F":
@@ -32,14 +41,12 @@ class KeyBoardController extends ActionController {
                 break;
             case "z":
             case "Z":
-                //z single time revival, if option for lives enabled
-                //p pause/resume
-                game.Pause();
+                //single time revival, if option for lives enabled
+                //single player only ()              
                 break;
             case "r":
             case "R":
                 // r restart
-                game.Resume();
                 break;
             case "m":
             case "M":
@@ -54,6 +61,12 @@ class KeyBoardController extends ActionController {
             case "X":
                 // die single player only
                 // game.Restart();
+                break;
+            case "p":
+            case "P":
+                // KeyP
+                //p pause Resume
+                game.ToggleResume();
                 break;
             default:
                 game.KeyEvent(key);

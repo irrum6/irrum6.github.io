@@ -86,6 +86,9 @@ class Player extends Vipera {
     Draw(rc, game) {
         super.Draw(rc, game);
     }
+    Erase(rc,game){
+        super.Erase(rc, game);
+    }
     /**
      * @returns {Direction}
      */

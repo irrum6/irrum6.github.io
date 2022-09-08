@@ -24,7 +24,16 @@ class KeyBoardController extends ActionController {
     }
     OnKeyDown(game, e) {
         //debugger;
-        const { key } = e;
+        let { key, code } = e;
+        // console.log(e);
+
+        code = code.replace("Key", "");
+
+        if (key !== code) {
+            key = code;
+        }
+
+        //use event code: "ArrowUp"
         switch (key) {
             case "f":
             case "F":
@@ -32,14 +41,12 @@ class KeyBoardController extends ActionController {
                 break;
             case "z":
             case "Z":
-                //z single time revival, if option for lives enabled
-                //p pause/resume
-                game.Pause();
+                //single time revival, if option for lives enabled
+                //single player only ()              
                 break;
             case "r":
             case "R":
                 // r restart
-                game.Resume();
                 break;
             case "m":
             case "M":
@@ -54,6 +61,12 @@ class KeyBoardController extends ActionController {
             case "X":
                 // die single player only
                 // game.Restart();
+                break;
+            case "p":
+            case "P":
+                // KeyP
+                //p pause Resume
+                game.ToggleResume();
                 break;
             default:
                 game.KeyEvent(key);
@@ -272,7 +285,7 @@ class UIController {
         }
         context.beginPath();
         context.font = "22px Arial";
-        context.fillText(_text, canvas.width - (48 * _text.length), 30);
+        context.fillText(_text, 75, 30);
         context.closePath();
     }
     static DisplayFPS(game, context, canvas, avg) {
@@ -332,7 +345,7 @@ class UIController {
         context.font = "24px Arial";
         context.fillText(`Welcome to Montivipera Redemption`, 300, 60);
         context.fillText("use arrow keys to navigate", 300, 100);
-        context.fillText("Press 'z' to pause game, 'r' to resume, 'f' to fullscreen", 300, 140);
+        context.fillText("Press 'p' to pause game, again 'p' to resume, 'f' to fullscreen", 300, 140);
         context.fillText("'m' to display/dissmis settings dialog , 'n' to open/close new game dialog", 300, 180);
         context.closePath();
     }
@@ -348,7 +361,7 @@ class UIController {
         context.fillText("With following controls : 8-UP, 4-LEFT, 5-Down, 6-RIGHT", 300, 360);
         context.fillText("4th player can use UHJK keys ", 300, 390);
         context.fillText("with following controls : U-UP, H-LEFT, J-DOWN, K-RIGHT", 300, 420);
-        context.fillText("Press 'z' to pause game, 'r' to resume, 'f' to fullscreen", 300, 450);
+        context.fillText("Press 'p' to pause game, again 'p' to resume, 'f' to fullscreen", 300, 450);
         context.fillText("'m' to display/dissmis settings dialog , 'n' to open/close new game dialog", 300, 480);
         context.closePath();
     }

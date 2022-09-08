@@ -444,24 +444,24 @@ Object.freeze(RadioBox);class ColorBox extends HTMLElement {
 }
 customElements.define("color-box", ColorBox);
 Object.freeze(ColorBox);class Vipera {
-    constructor(r,v){
+    constructor(r, v) {
         this.radius = r;
         this.velocity = v;
-        this.positions = [{x:0,y:0}];
+        this.positions = [{ x: 0, y: 0 }];
         this.mass = 1;
-        this.color ="black";      
+        this.color = "black";
     }
-    UpdateColor(c){
+    UpdateColor(c) {
         this.color = c;
     }
-    GetLength(){
+    GetLength() {
         return this.positions.length;
     }
     /**
      * gain mass
      * @returns {void}
      */
-    AddMass(){
+    AddMass() {
         let last = this.GetTailPosition();
         // let x = last.x + this.radius / 2;
         // let y = last.y + this.radius / 2;
@@ -471,31 +471,32 @@ Object.freeze(ColorBox);class Vipera {
         this.mass++;
         // console.log("mass gained");
     }
-    Shrink(m){
+    Shrink(m) {
         // debugger;
         //if no mass specified shrink all
         let l = this.GetLength();
-        if(m===undefined){
-            this.positions.splice(0,l-1);
+        if (m === undefined) {
+            this.positions.splice(0, l - 1);
             return;
         }
-        this.positions.splice(l-m,m);
-    }  
+        this.positions.splice(l - m, m);
+    }
     /**
-     * @param {CanvasRenderingContext2D} 
+     * @param {CanvasRenderingContext2D}
+     * @param {Game} game 
      */
-    Draw(rc,game){
-        if (rc.constructor.name != "CanvasRenderingContext2D"){
+    Draw(rc, game) {
+        if (rc.constructor.name != "CanvasRenderingContext2D") {
             throw "not a canvas";
         }
-        let {radius } = this;
-        rc.fillStyle= this.color;
-        if(game.settings.scaleEnabled){
+        let { radius } = this;
+        rc.fillStyle = this.color;
+        if (game.settings.scaleEnabled) {
             radius = radius * game.settings.scale;
         }
-        for(const p of this.positions){
+        for (const p of this.positions) {
             rc.beginPath();
-            rc.arc(p.x, p.y, radius, 0, 2* Math.PI);
+            rc.arc(p.x, p.y, radius, 0, 2 * Math.PI);
             rc.fill();
             rc.closePath();
         }
@@ -507,10 +508,29 @@ Object.freeze(ColorBox);class Vipera {
         rc.fill();
         rc.closePath();
     }
-    GetHeadPosition(){
+    /**
+     * @param {CanvasRenderingContext2D} rc
+     * @param {Game} game
+     */
+    Erase(rc, game) {
+        if (rc.constructor.name != "CanvasRenderingContext2D") {
+            throw "not a canvas";
+        }
+        let { radius } = this;
+        rc.beginPath();
+        for (const p of this.positions) {
+            rc.clearRect(p.x - radius, p.y - radius, 2 * radius, 2 * radius);
+        }
+        rc.closePath();
+        return;
+        for (const p of this.positions) {
+            rc.clearRect(p.x - radius, p.y - radius, 2 * radius, 2 * radius);
+        }
+    }
+    GetHeadPosition() {
         return this.positions[0];
     }
-    SetHeadPosition(x,y){
+    SetHeadPosition(x, y) {
         if (typeof x == "number" && !Number.isNaN(x)) { this.positions[0].x = x; }
         if (typeof y == "number" && !Number.isNaN(y)) { this.positions[0].y = y; }
     }
@@ -551,18 +571,28 @@ Object.freeze(ColorBox);class Vipera {
         rc.fill();
         rc.closePath();
     }
+    Erase(rc, game) {
+        if (rc.constructor.name != "CanvasRenderingContext2D") {
+            throw "not a canvas";
+        }
+        let { x, y, radius } = this;
+        // rc.clearRect(x - radius, y - radius, 2 * radius, 2 * radius);
+        rc.beginPath();
+        rc.clearRect(x - radius, y - radius, 2 * radius, 2 * radius);
+        rc.closePath();
+    }
     Renew(canvas) {
         let x = Math.floor(Math.random() * (canvas.width));
         let y = Math.floor(Math.random() * (canvas.height));
         let distance_required = this.radius * 2
         if (x < distance_required) {
-            x =  distance_required
+            x = distance_required
         }
         if (x > (canvas.width - distance_required)) {
             x = canvas.width - distance_required;
         }
         if (y < distance_required) {
-            y =  distance_required;
+            y = distance_required;
         }
         if (y > (canvas.height - distance_required)) {
             y = canvas.height - distance_required;
@@ -596,7 +626,16 @@ class KeyBoardController extends ActionController {
     }
     OnKeyDown(game, e) {
         //debugger;
-        const { key } = e;
+        let { key, code } = e;
+        // console.log(e);
+
+        code = code.replace("Key", "");
+
+        if (key !== code) {
+            key = code;
+        }
+
+        //use event code: "ArrowUp"
         switch (key) {
             case "f":
             case "F":
@@ -604,14 +643,12 @@ class KeyBoardController extends ActionController {
                 break;
             case "z":
             case "Z":
-                //z single time revival, if option for lives enabled
-                //p pause/resume
-                game.Pause();
+                //single time revival, if option for lives enabled
+                //single player only ()              
                 break;
             case "r":
             case "R":
                 // r restart
-                game.Resume();
                 break;
             case "m":
             case "M":
@@ -626,6 +663,12 @@ class KeyBoardController extends ActionController {
             case "X":
                 // die single player only
                 // game.Restart();
+                break;
+            case "p":
+            case "P":
+                // KeyP
+                //p pause Resume
+                game.ToggleResume();
                 break;
             default:
                 game.KeyEvent(key);
@@ -844,7 +887,7 @@ class UIController {
         }
         context.beginPath();
         context.font = "22px Arial";
-        context.fillText(_text, canvas.width - (48 * _text.length), 30);
+        context.fillText(_text, 75, 30);
         context.closePath();
     }
     static DisplayFPS(game, context, canvas, avg) {
@@ -904,7 +947,7 @@ class UIController {
         context.font = "24px Arial";
         context.fillText(`Welcome to Montivipera Redemption`, 300, 60);
         context.fillText("use arrow keys to navigate", 300, 100);
-        context.fillText("Press 'z' to pause game, 'r' to resume, 'f' to fullscreen", 300, 140);
+        context.fillText("Press 'p' to pause game, again 'p' to resume, 'f' to fullscreen", 300, 140);
         context.fillText("'m' to display/dissmis settings dialog , 'n' to open/close new game dialog", 300, 180);
         context.closePath();
     }
@@ -920,7 +963,7 @@ class UIController {
         context.fillText("With following controls : 8-UP, 4-LEFT, 5-Down, 6-RIGHT", 300, 360);
         context.fillText("4th player can use UHJK keys ", 300, 390);
         context.fillText("with following controls : U-UP, H-LEFT, J-DOWN, K-RIGHT", 300, 420);
-        context.fillText("Press 'z' to pause game, 'r' to resume, 'f' to fullscreen", 300, 450);
+        context.fillText("Press 'p' to pause game, again 'p' to resume, 'f' to fullscreen", 300, 450);
         context.fillText("'m' to display/dissmis settings dialog , 'n' to open/close new game dialog", 300, 480);
         context.closePath();
     }
@@ -1039,6 +1082,9 @@ class Player extends Vipera {
     }
     Draw(rc, game) {
         super.Draw(rc, game);
+    }
+    Erase(rc,game){
+        super.Erase(rc, game);
     }
     /**
      * @returns {Direction}
@@ -1234,7 +1280,7 @@ class MontiviperaGame {
         this.renderingContext = rc;
         this.entityList = [];
         this.SetMode(_mode);
-        this.#version = "0.8 beta 6"
+        this.#version = "0.8 beta 7"
         this.#name = "Montivipera Redemption"
         this.#stats = Object.create(null);
         this.#stats.frames = 0;
@@ -1569,6 +1615,17 @@ class MontiviperaGame {
 
         renderctx.clearRect(0, 0, canvas.width, canvas.height);
 
+        // renderctx.clearRect(0, 0, canvas.width,60);
+
+        for (const e of this.entityList) {
+            break;
+            if (e instanceof Player) {
+                e.Erase(renderctx, this);
+            }
+        }
+
+        // this.food.Erase(renderctx, this);
+
         for (const e of this.entityList) {
             if (e instanceof Player) {
                 e.Draw(renderctx, this);
@@ -1607,6 +1664,15 @@ class MontiviperaGame {
             this.ChallengeMode();
         }
         this.pause = false;
+    }
+    ToggleResume(){
+        //if paused resume
+        if(true===this.pause){
+            this.Resume();
+            return;
+        }
+        //if resumed , pause
+        this.Pause();
     }
     GoFullScreen() {
         //debugger;
@@ -1696,4 +1762,4 @@ class MontiviperaGame {
 const Translator = Object.create(null);
 Translator.translate =()=>{
 
-}//Build Date : 2022-09-02T00:48+04:00
+}//Build Date : 2022-09-08T20:40+04:00

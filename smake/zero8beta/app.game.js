@@ -114,6 +114,9 @@ class Player extends Vipera {
     Draw(rc, game) {
         super.Draw(rc, game);
     }
+    Erase(rc,game){
+        super.Erase(rc, game);
+    }
     /**
      * @returns {Direction}
      */
@@ -308,7 +311,7 @@ class MontiviperaGame {
         this.renderingContext = rc;
         this.entityList = [];
         this.SetMode(_mode);
-        this.#version = "0.8 beta 6"
+        this.#version = "0.8 beta 7"
         this.#name = "Montivipera Redemption"
         this.#stats = Object.create(null);
         this.#stats.frames = 0;
@@ -643,6 +646,17 @@ class MontiviperaGame {
 
         renderctx.clearRect(0, 0, canvas.width, canvas.height);
 
+        // renderctx.clearRect(0, 0, canvas.width,60);
+
+        for (const e of this.entityList) {
+            break;
+            if (e instanceof Player) {
+                e.Erase(renderctx, this);
+            }
+        }
+
+        // this.food.Erase(renderctx, this);
+
         for (const e of this.entityList) {
             if (e instanceof Player) {
                 e.Draw(renderctx, this);
@@ -681,6 +695,15 @@ class MontiviperaGame {
             this.ChallengeMode();
         }
         this.pause = false;
+    }
+    ToggleResume(){
+        //if paused resume
+        if(true===this.pause){
+            this.Resume();
+            return;
+        }
+        //if resumed , pause
+        this.Pause();
     }
     GoFullScreen() {
         //debugger;
