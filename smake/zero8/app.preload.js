@@ -1280,7 +1280,7 @@ class MontiviperaGame {
         this.renderingContext = rc;
         this.entityList = [];
         this.SetMode(_mode);
-        this.#version = "0.8 beta 7"
+        this.#version = "0.8"
         this.#name = "Montivipera Redemption"
         this.#stats = Object.create(null);
         this.#stats.frames = 0;
@@ -1762,4 +1762,4 @@ class MontiviperaGame {
 const Translator = Object.create(null);
 Translator.translate =()=>{
 
-}//Build Date : 2022-09-08T20:40+04:00
+}//Build Date : 2022-09-12T18:59+04:00
