@@ -892,39 +892,39 @@ class UIController {
         if (game.settings.enablefps !== true) {
             return;
         }
-        context.fillStyle = "black";
-        context.beginPath();
-        context.font = "16px Arial";
-        context.fillText(`${game.fps} FPS`, canvas.width - 200, 30);
-        context.closePath();
+        let display = document.body.querySelector(".fps>span");
+        display.textContent = game.fps;
     }
-    static DisplayFrameDelta(game, context, canvas, avg) {
+    static DisplayFrameDelta(game,) {
         if (game.settings.enabledelta !== true) {
             return;
         }
-        context.fillStyle = "black";
-        context.beginPath();
-        context.font = "16px Arial";
+        let display1 = document.body.querySelector(".delta.high>span");
+        let display2 = document.body.querySelector(".delta.low>span");
+        let display2box =  document.body.querySelector(".delta.low");
+
         let d = game.delta;
         let d2 = game.delta2;
 
         if (d > 0) {
-            context.fillText(`Δh: ${d}ms`, canvas.width - 130, 30);
+            display1.textContent = `${d}ms`;
         } else {
-            context.fillText(`Δh: NA`, canvas.width - 130, 30);
+            display1.textContent = "NA";
         }
 
         if (game.settings.enabledeltalow !== true) {
-            context.closePath();
             return;
         }
 
-        if (d2 < 1000) {
-            context.fillText(`Δl: ${d2}ms`, canvas.width - 60, 30);
-        } else {
-            context.fillText(`Δl: NA`, canvas.width - 60, 30);
+        if ("visible" !== display2box.style.visibility) {
+            display2box.style.visibility = "visible";
         }
-        context.closePath();
+
+        if (d2 < 1000) {
+            display2.textContent = `${d2}ms`;
+        } else {
+            display2.textContent = "NA"
+        }
     }
     static DisplayTime(context, game) {
         if (game.timed !== true) {
@@ -1271,7 +1271,7 @@ class MontiviperaGame {
             enabledelta: true,
             enabledeltalow: false,
             quickSwitch: false,
-            moveOverBody:false,
+            moveOverBody: false,
             freeBound: true,
             moveOver: false,
             snakeColor: "#c63",
@@ -1282,7 +1282,7 @@ class MontiviperaGame {
         this.entityList = [];
         // this players
         this.SetMode(_mode);
-        this.#version = "0.9 beta 1"
+        this.#version = "0.9 beta 2"
         this.#name = "Montivipera Redemption"
         this.#stats = Object.create(null);
         this.#perf = Object.create(null);
@@ -1602,10 +1602,12 @@ class MontiviperaGame {
             this.#stats.delta2 = 1000;
         }, 995);
     }
-    setScoreUpdater(){
+    setScoreUpdater() {
         //ui 20hz update
         this.timer5 = window.setInterval(() => {
             UIController.DisplayScore(this);
+            UIController.DisplayFPS(this);
+            UIController.DisplayFrameDelta(this);
         }, 50);
     }
 
@@ -1652,8 +1654,6 @@ class MontiviperaGame {
         this.update_delta(delta);
         this.timer1 = _time;
         this.increaseFrameCount();
-        UIController.DisplayFPS(this, renderctx, canvas);
-        UIController.DisplayFrameDelta(this, renderctx, canvas);       
     }
     KeyEvent(key) {
         for (const e of this.entityList) {
@@ -1675,9 +1675,9 @@ class MontiviperaGame {
         }
         this.pause = false;
     }
-    ToggleResume(){
+    ToggleResume() {
         //if paused resume
-        if(true===this.pause){
+        if (true === this.pause) {
             this.Resume();
             return;
         }
@@ -1772,4 +1772,4 @@ class MontiviperaGame {
 const Translator = Object.create(null);
 Translator.translate =()=>{
 
-}//Build Date : 2022-09-13T04:05+04:00
+}//Build Date : 2022-09-13T09:47+04:00

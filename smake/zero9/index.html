@@ -8,12 +8,32 @@
     <link rel="stylesheet" href="styles/layout.css">
     <link rel="icon" href="images/snake2.svg" sizes="any" type="image/svg+xml">
     <style>
-        .score {
+        .score,
+        .fps {
             box-shadow: 1px 1px orange, 2px 2px orange, 3px 3px orange, 4px 4px orange, 5px 5px orange, 6px 6px orange;
             /* border-left: 2px solid orange;
             border-top: 2px solid orange; */
             border-right: 1px solid orange;
             border-bottom: 2px solid orange;
+            font-size: 2.0rem;
+            font-weight: bold;
+            margin-right: 8px;
+            padding: 4px;
+        }
+
+        .fps {
+            box-shadow: 1px 1px green, 2px 2px green, 3px 3px green, 4px 4px green, 5px 5px green, 6px 6px green;         
+            border-right: 1px solid green;
+            border-bottom: 2px solid green;
+            font-size: 2.0rem;
+            font-weight: bold;
+            margin-right: 8px;
+            padding: 4px;
+        }
+        .delta{
+            box-shadow: 1px 1px red, 2px 2px red, 3px 3px red, 4px 4px red, 5px 5px red, 6px 6px red;         
+            border-right: 1px solid red;
+            border-bottom: 2px solid red;
             font-size: 2.0rem;
             font-weight: bold;
             margin-right: 8px;
@@ -27,18 +47,21 @@
 </head>
 
 <body>
-    <div class="top">
+    <div class="left">
         <div class="stats" style="margin-bottom: 15px;">
             <span class="score">Score: <span class="display">999</span></span>
             <span class="score" style="visibility:hidden;">Score: <span class="display">000</span></span>
             <span class="score" style="visibility:hidden;">Score: <span class="display">000</span></span>
             <span class="score" style="visibility:hidden;">Score: <span class="display">000</span></span>
+            <span class="fps"><span>0</span>FPS</span>
+            <span class="delta high">ΔHigh:<span>0</span></span>
+            <span class="delta low" style="visibility:hidden;">ΔLow:<span>0</span></span>
         </div>
         <div class="box h90" id="canvas_box">
             <canvas id="canvas1" width="600" height="400"></canvas>
         </div>
     </div>
-    <div class="bottom">
+    <div class="right">
         <div class="box h95" id="rightbox">
             <button id="new" data-app-action="new">New</button>
             <button id="restart" data-app-action="restart"></button>

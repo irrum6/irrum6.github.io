@@ -24,7 +24,7 @@ class MontiviperaGame {
             enabledelta: true,
             enabledeltalow: false,
             quickSwitch: false,
-            moveOverBody:false,
+            moveOverBody: false,
             freeBound: true,
             moveOver: false,
             snakeColor: "#c63",
@@ -35,7 +35,7 @@ class MontiviperaGame {
         this.entityList = [];
         // this players
         this.SetMode(_mode);
-        this.#version = "0.9 beta 1"
+        this.#version = "0.9 beta 2"
         this.#name = "Montivipera Redemption"
         this.#stats = Object.create(null);
         this.#perf = Object.create(null);
@@ -355,10 +355,12 @@ class MontiviperaGame {
             this.#stats.delta2 = 1000;
         }, 995);
     }
-    setScoreUpdater(){
+    setScoreUpdater() {
         //ui 20hz update
         this.timer5 = window.setInterval(() => {
             UIController.DisplayScore(this);
+            UIController.DisplayFPS(this);
+            UIController.DisplayFrameDelta(this);
         }, 50);
     }
 
@@ -405,8 +407,6 @@ class MontiviperaGame {
         this.update_delta(delta);
         this.timer1 = _time;
         this.increaseFrameCount();
-        UIController.DisplayFPS(this, renderctx, canvas);
-        UIController.DisplayFrameDelta(this, renderctx, canvas);       
     }
     KeyEvent(key) {
         for (const e of this.entityList) {
@@ -428,9 +428,9 @@ class MontiviperaGame {
         }
         this.pause = false;
     }
-    ToggleResume(){
+    ToggleResume() {
         //if paused resume
-        if(true===this.pause){
+        if (true === this.pause) {
             this.Resume();
             return;
         }

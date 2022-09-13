@@ -14,39 +14,39 @@ class UIController {
         if (game.settings.enablefps !== true) {
             return;
         }
-        context.fillStyle = "black";
-        context.beginPath();
-        context.font = "16px Arial";
-        context.fillText(`${game.fps} FPS`, canvas.width - 200, 30);
-        context.closePath();
+        let display = document.body.querySelector(".fps>span");
+        display.textContent = game.fps;
     }
-    static DisplayFrameDelta(game, context, canvas, avg) {
+    static DisplayFrameDelta(game,) {
         if (game.settings.enabledelta !== true) {
             return;
         }
-        context.fillStyle = "black";
-        context.beginPath();
-        context.font = "16px Arial";
+        let display1 = document.body.querySelector(".delta.high>span");
+        let display2 = document.body.querySelector(".delta.low>span");
+        let display2box =  document.body.querySelector(".delta.low");
+
         let d = game.delta;
         let d2 = game.delta2;
 
         if (d > 0) {
-            context.fillText(`Δh: ${d}ms`, canvas.width - 130, 30);
+            display1.textContent = `${d}ms`;
         } else {
-            context.fillText(`Δh: NA`, canvas.width - 130, 30);
+            display1.textContent = "NA";
         }
 
         if (game.settings.enabledeltalow !== true) {
-            context.closePath();
             return;
         }
 
-        if (d2 < 1000) {
-            context.fillText(`Δl: ${d2}ms`, canvas.width - 60, 30);
-        } else {
-            context.fillText(`Δl: NA`, canvas.width - 60, 30);
+        if ("visible" !== display2box.style.visibility) {
+            display2box.style.visibility = "visible";
         }
-        context.closePath();
+
+        if (d2 < 1000) {
+            display2.textContent = `${d2}ms`;
+        } else {
+            display2.textContent = "NA"
+        }
     }
     static DisplayTime(context, game) {
         if (game.timed !== true) {
