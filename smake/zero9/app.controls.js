@@ -37,7 +37,7 @@ class KeyBoardController extends ActionController {
         switch (key) {
             case "f":
             case "F":
-                game.GoFullScreen();
+                game.ToggleFullScreen();
                 break;
             case "z":
             case "Z":

@@ -636,7 +636,7 @@ class KeyBoardController extends ActionController {
         switch (key) {
             case "f":
             case "F":
-                game.GoFullScreen();
+                game.ToggleFullScreen();
                 break;
             case "z":
             case "Z":
@@ -1689,6 +1689,14 @@ class MontiviperaGame {
         let left = document.body.querySelector("div.left");
         left.requestFullscreen();
     }
+    ToggleFullScreen() {
+        if (document.fullscreenElement) {
+            document.exitFullscreen();
+            return;
+        } else {
+            this.GoFullScreen();
+        }
+    }
     DisplayFPS() {
 
     }
@@ -1772,4 +1780,4 @@ class MontiviperaGame {
 const Translator = Object.create(null);
 Translator.translate =()=>{
 
-}//Build Date : 2022-09-14T09:22+04:00
+}//Build Date : 2022-09-15T00:26+04:00

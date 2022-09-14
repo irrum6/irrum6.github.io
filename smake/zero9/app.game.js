@@ -723,6 +723,14 @@ class MontiviperaGame {
         let left = document.body.querySelector("div.left");
         left.requestFullscreen();
     }
+    ToggleFullScreen() {
+        if (document.fullscreenElement) {
+            document.exitFullscreen();
+            return;
+        } else {
+            this.GoFullScreen();
+        }
+    }
     DisplayFPS() {
 
     }
