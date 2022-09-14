@@ -523,9 +523,6 @@ Object.freeze(ColorBox);class Vipera {
         }
         rc.closePath();
         return;
-        for (const p of this.positions) {
-            rc.clearRect(p.x - radius, p.y - radius, 2 * radius, 2 * radius);
-        }
     }
     GetHeadPosition() {
         return this.positions[0];
@@ -700,8 +697,10 @@ class OnScreenControls extends ActionController {
     OnScreenEvent(game, e) {
         // debugger;
         let key = e.target.getAttribute("data-app-action");
+        console.log(key);
         switch (key) {
             case "fullscreen":
+            case "Fullscreen":
                 game.GoFullScreen();
                 break;
             case "new":
@@ -1282,7 +1281,7 @@ class MontiviperaGame {
         this.entityList = [];
         // this players
         this.SetMode(_mode);
-        this.#version = "0.9 beta 2"
+        this.#version = "0.9 beta 3"
         this.#name = "Montivipera Redemption"
         this.#stats = Object.create(null);
         this.#perf = Object.create(null);
@@ -1626,7 +1625,9 @@ class MontiviperaGame {
         const renderctx = this.renderingContext;
         const canvas = this.canvas;
 
-        renderctx.clearRect(0, 0, canvas.width, canvas.height);
+        // renderctx.clearRect(0, 0, canvas.width, canvas.height);
+        renderctx.fillStyle = 'grey';
+        renderctx.fillRect(0, 0, canvas.width, canvas.height);
 
         // renderctx.clearRect(0, 0, canvas.width,60);
 
@@ -1685,9 +1686,8 @@ class MontiviperaGame {
         this.Pause();
     }
     GoFullScreen() {
-        //debugger;
-        let { canvas } = this;
-        canvas.requestFullscreen();
+        let left = document.body.querySelector("div.left");
+        left.requestFullscreen();
     }
     DisplayFPS() {
 
@@ -1772,4 +1772,4 @@ class MontiviperaGame {
 const Translator = Object.create(null);
 Translator.translate =()=>{
 
-}//Build Date : 2022-09-13T09:47+04:00
+}//Build Date : 2022-09-14T09:22+04:00

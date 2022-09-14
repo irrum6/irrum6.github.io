@@ -78,9 +78,6 @@ class Vipera {
         }
         rc.closePath();
         return;
-        for (const p of this.positions) {
-            rc.clearRect(p.x - radius, p.y - radius, 2 * radius, 2 * radius);
-        }
     }
     GetHeadPosition() {
         return this.positions[0];

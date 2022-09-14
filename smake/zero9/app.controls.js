@@ -98,8 +98,10 @@ class OnScreenControls extends ActionController {
     OnScreenEvent(game, e) {
         // debugger;
         let key = e.target.getAttribute("data-app-action");
+        console.log(key);
         switch (key) {
             case "fullscreen":
+            case "Fullscreen":
                 game.GoFullScreen();
                 break;
             case "new":

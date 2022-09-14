@@ -1,28 +1,34 @@
 // game modes
 // speed 4,6,8,10 - as 1,2,3,4
-
-//fps count
-//default 5 frame average, every 5th frame count and display
-//user settings applied
-
 try {
     const canvas = document.getElementById("canvas1");
-    const context = canvas.getContext("2d");
+    const context = canvas.getContext("2d", { alpha: false });
+
+    context.fillStyle = 'grey';
+    context.fillRect(0, 0, canvas.width, canvas.height);
 
     let style = window.getComputedStyle(canvas.parentElement);
     canvas.width = style.width.replace("px", ""); //*0.95;
     canvas.height = style.height.replace("px", ""); //*0.95;
 
-    canvas[on]("fullscreenchange", (e) => {
+    let left = document.body.querySelector("div.left");
+    left[on]("fullscreenchange", (e) => {
         if (document.fullscreenElement) {
             window.savedCanvasWidth = canvas.width;
             window.savedCanvasHeight = canvas.height;
-            canvas.width = window.screen.width;
-            canvas.height = window.screen.height;
+            let style = window.getComputedStyle(canvas.parentElement);
+            // debugger;
+            canvas.width = style.width.replace("px", ""); //*0.95;
+            canvas.height = style.height.replace("px", ""); //*0.95;
+            context.fillStyle = 'grey';
+            context.fillRect(0, 0, canvas.width, canvas.height);
         } else {
             canvas.width = window.savedCanvasWidth;
             canvas.height = window.savedCanvasHeight;
+            context.fillStyle = 'grey';
+            context.fillRect(0, 0, canvas.width, canvas.height);
         }
+        left.style.backgroundColor="grey";
     })
     context.imageSmoothingEnabled = true;
 
@@ -49,9 +55,7 @@ try {
         viperaGame.GetFrame();
         requestAnimationFrame(get_frame);
     }
-    query("#fullscreen")[on]("click", () => {
-        canvas.requestFullscreen();
-    });
+
     viperaGame.Pause();
 
     viperaGame.setUpdater();

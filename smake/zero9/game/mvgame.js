@@ -35,7 +35,7 @@ class MontiviperaGame {
         this.entityList = [];
         // this players
         this.SetMode(_mode);
-        this.#version = "0.9 beta 2"
+        this.#version = "0.9 beta 3"
         this.#name = "Montivipera Redemption"
         this.#stats = Object.create(null);
         this.#perf = Object.create(null);
@@ -379,7 +379,9 @@ class MontiviperaGame {
         const renderctx = this.renderingContext;
         const canvas = this.canvas;
 
-        renderctx.clearRect(0, 0, canvas.width, canvas.height);
+        // renderctx.clearRect(0, 0, canvas.width, canvas.height);
+        renderctx.fillStyle = 'grey';
+        renderctx.fillRect(0, 0, canvas.width, canvas.height);
 
         // renderctx.clearRect(0, 0, canvas.width,60);
 
@@ -438,9 +440,8 @@ class MontiviperaGame {
         this.Pause();
     }
     GoFullScreen() {
-        //debugger;
-        let { canvas } = this;
-        canvas.requestFullscreen();
+        let left = document.body.querySelector("div.left");
+        left.requestFullscreen();
     }
     DisplayFPS() {
 
