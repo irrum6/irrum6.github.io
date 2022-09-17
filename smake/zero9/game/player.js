@@ -1,14 +1,3 @@
-const KeyLayouts = {
-    Arrows: 1,
-    WASD: 2,
-    Numpad: 3,
-    UHJK: 4,
-    valid: function (m) {
-        return m === this.Arrows || m === this.WASD || m === this.Numpad || m === this.UHJK;
-    }
-};
-Object.freeze(KeyLayouts);
-
 const Directions = {
     Left: 1,
     Right: 2,
@@ -30,8 +19,7 @@ class Player extends Vipera {
         this.score = 0;
         this.alive = true;
         this.settings = {
-            snakeColor: "#22af00",
-            keyLayout: KeyLayouts.Arrows
+            snakeColor: "#22af00"
         };
         this.TurnLeft();
         this.hash = Utils.Hash16(8);
@@ -86,7 +74,7 @@ class Player extends Vipera {
     Draw(rc, game) {
         super.Draw(rc, game);
     }
-    Erase(rc,game){
+    Erase(rc, game) {
         super.Erase(rc, game);
     }
     /**
@@ -101,6 +89,7 @@ class Player extends Vipera {
      * @param {Game} game
      */
     UpdateDirection(d, game) {
+        // debugger;
         if (!Directions.valid(d)) {
             throw "Error: not a valid direction";
         }

@@ -1,3 +1,7 @@
+rm app.lib.js
+dir="lib"
+cat $dir/enumer.js $dir/utils.js  > app.lib.js
+
 rm app.templates.js
 dir="components"
 cat $dir/pop.js $dir/new_game_dialog.js $dir/dialog.js $dir/radiobox.js $dir/colorbox.js > app.templates.js
@@ -12,10 +16,10 @@ cat  $dir/keyboard.js  $dir/inputController.js  $dir/uicontroller.js > app.contr
 
 rm app.game.js
 dir="game"
-cat  $dir/enumer.js  $dir/player.js  $dir/mvgame.js  $dir/translate.js > app.game.js
+cat $dir/player.js  $dir/mvgame.js  $dir/translate.js > app.game.js
 
 rm app.preload.js
-cat utils.js app.templates.js app.entities.js app.controls.js  app.game.js > app.preload.js
+cat app.lib.js app.templates.js app.entities.js app.controls.js  app.game.js > app.preload.js
 printf "//Build Date : $(date -I'minutes')" >> app.preload.js
 
 echo `date -I'minutes'`

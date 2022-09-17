@@ -279,6 +279,9 @@ class OnScreenControls extends ActionController {
 }//
 class UIController {
     constructor() { }
+    /**
+     * @param {MontiVipera} game 
+     */
     static DisplayScore(game) {
         let displays = document.body.querySelectorAll("span.display");
         let scoreCards = document.body.querySelectorAll("span.score");
@@ -288,31 +291,39 @@ class UIController {
             displays[i].textContent = player.score;
         }
     }
-    static DisplayFPS(game, context, canvas, avg) {
-        if (game.settings.enablefps !== true) {
+    /**
+     * @param {MontiVipera} game 
+     */
+    static DisplayFPS(game) {
+        if (game.settings2.fps !== true) {
             return;
         }
         let display = document.body.querySelector(".fps>span");
-        display.textContent = game.fps;
+        display.textContent = game.performance.fps;
     }
-    static DisplayFrameDelta(game,) {
-        if (game.settings.enabledelta !== true) {
+    /**
+     * @param {MontiVipera} game 
+     */
+    static DisplayFrameDelta(game) {
+        // debugger;
+        if (game.settings2.delta !== true) {
             return;
         }
         let display1 = document.body.querySelector(".delta.high>span");
         let display2 = document.body.querySelector(".delta.low>span");
-        let display2box =  document.body.querySelector(".delta.low");
+        let display2box = document.body.querySelector(".delta.low");
 
-        let d = game.delta;
-        let d2 = game.delta2;
+        let { delta, deltaLow } = game.performance;
 
-        if (d > 0) {
-            display1.textContent = `${d}ms`;
+        // console.log(delta, deltaLow);
+        //debugger;
+        if (delta > 0) {
+            display1.textContent = `${delta}ms`;
         } else {
             display1.textContent = "NA";
         }
 
-        if (game.settings.enabledeltalow !== true) {
+        if (game.settings2.deltaLow !== true) {
             return;
         }
 
@@ -320,8 +331,8 @@ class UIController {
             display2box.style.visibility = "visible";
         }
 
-        if (d2 < 1000) {
-            display2.textContent = `${d2}ms`;
+        if (deltaLow < 1000) {
+            display2.textContent = `${deltaLow}ms`;
         } else {
             display2.textContent = "NA"
         }

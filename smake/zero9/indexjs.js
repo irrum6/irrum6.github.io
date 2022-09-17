@@ -32,7 +32,7 @@ try {
     })
     context.imageSmoothingEnabled = true;
 
-    const viperaGame = new MontiviperaGame(Modes.Long, canvas, context);
+    const viperaGame = new MontiVipera(Modes.Long, canvas, context);
     viperaGame.NewGame(1, undefined);
 
     viperaGame.alerted = false;

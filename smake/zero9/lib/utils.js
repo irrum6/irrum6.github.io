@@ -29,5 +29,14 @@ class Utils {
     static nodef(varX) {
         return varX === null || varX === undefined
     }
+    static isString(s) {
+        return typeof s === "string";
+    }
+    static isFullString(s) {
+        return this.isString(s) && s !== "";
+    }
+    static isBoolean(v) {
+        return typeof v === "boolean";
+    }
 }
 Object.freeze(Utils);

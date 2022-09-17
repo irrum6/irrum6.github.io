@@ -1,16 +1,17 @@
 class Enumer {
+    #methods;
     constructor(list) {
         //list must be iterable
         if (!Array.isArray(list) || typeof list[Symbol.iterator] !== 'function') {
             throw "Enumer():Array must be passed";
         }
-        const o = Object.create(null);
         for (const l of list) {
             if (typeof l !== "string") {
                 throw "Enumer():String was expected"
             }
             this[l] = l;
         }
+        this.#methods = Object.create(null);
         Object.freeze(this);
     }
     /**
@@ -18,7 +19,7 @@ class Enumer {
      * @param {Value} v 
      */
     valid(v) {
-        if (typeof v === "function") {
+        if (typeof v !== "string") {
             return false;
         }
         for (const l in this) {
@@ -27,3 +28,4 @@ class Enumer {
         return false;
     }
 }
+Object.freeze(Enumer);

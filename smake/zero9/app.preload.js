@@ -1,4 +1,34 @@
-const on = "addEventListener";
+class Enumer {
+    #methods;
+    constructor(list) {
+        //list must be iterable
+        if (!Array.isArray(list) || typeof list[Symbol.iterator] !== 'function') {
+            throw "Enumer():Array must be passed";
+        }
+        for (const l of list) {
+            if (typeof l !== "string") {
+                throw "Enumer():String was expected"
+            }
+            this[l] = l;
+        }
+        this.#methods = Object.create(null);
+        Object.freeze(this);
+    }
+    /**
+     * Check if value is valid enum property
+     * @param {Value} v 
+     */
+    valid(v) {
+        if (typeof v !== "string") {
+            return false;
+        }
+        for (const l in this) {
+            if (v === this[l]) { return true; }
+        }
+        return false;
+    }
+}
+Object.freeze(Enumer);const on = "addEventListener";
 const query = (s) => document.body.querySelector(s);
 const all = (s) => document.body.querySelectorAll(s);
 
@@ -28,6 +58,15 @@ class Utils {
     }
     static nodef(varX) {
         return varX === null || varX === undefined
+    }
+    static isString(s) {
+        return typeof s === "string";
+    }
+    static isFullString(s) {
+        return this.isString(s) && s !== "";
+    }
+    static isBoolean(v) {
+        return typeof v === "boolean";
     }
 }
 Object.freeze(Utils);class PopAlert extends HTMLElement {
@@ -225,20 +264,21 @@ Object.freeze(NewGameDialog);class SettingsDialog extends HTMLElement {
         this.gamesetup = true;
     }
     SetupValues(game) {
-        const { enablefps, enabledelta, enabledeltalow, snakeColor, foodColor } = game.settings;
-        this.query('input[name=fps]').checked = enablefps;
-        this.query('input[name=delta_high]').checked = enabledelta;
-        this.query('input[name=delta_low]').checked = enabledeltalow;
+        const {snakeColor, foodColor } = game.settings;
+        const {fps,delta,deltaLow} = game.settings2;
+        this.query('input[name=fps]').checked = fps;
+        this.query('input[name=delta_high]').checked = delta;
+        this.query('input[name=delta_low]').checked = deltaLow;
         this.query('color-box.snake').SetValue(snakeColor);
         this.query('color-box.food').SetValue(foodColor);
     }
     save(game) {
-        let enablefps = this.query('input[name=fps]').checked;
-        let enabledelta = this.query('input[name=delta_high]').checked;
-        let enabledeltalow = this.query('input[name=delta_low]').checked;
+        let fps = this.query('input[name=fps]').checked;
+        let delta = this.query('input[name=delta_high]').checked;
+        let deltaLow = this.query('input[name=delta_low]').checked;
         let snakeColor = this.query('color-box.snake').GetValue();
         let foodColor = this.query('color-box.food').GetValue();
-        game.UpdateSettings({ enablefps, enabledelta, enabledeltalow, snakeColor, foodColor });
+        game.UpdateSettings({ fps, delta, deltaLow, snakeColor, foodColor });
         this.close(game);
     }
     close(game) {
@@ -878,6 +918,9 @@ class OnScreenControls extends ActionController {
 }//
 class UIController {
     constructor() { }
+    /**
+     * @param {MontiVipera} game 
+     */
     static DisplayScore(game) {
         let displays = document.body.querySelectorAll("span.display");
         let scoreCards = document.body.querySelectorAll("span.score");
@@ -887,31 +930,39 @@ class UIController {
             displays[i].textContent = player.score;
         }
     }
-    static DisplayFPS(game, context, canvas, avg) {
-        if (game.settings.enablefps !== true) {
+    /**
+     * @param {MontiVipera} game 
+     */
+    static DisplayFPS(game) {
+        if (game.settings2.fps !== true) {
             return;
         }
         let display = document.body.querySelector(".fps>span");
-        display.textContent = game.fps;
+        display.textContent = game.performance.fps;
     }
-    static DisplayFrameDelta(game,) {
-        if (game.settings.enabledelta !== true) {
+    /**
+     * @param {MontiVipera} game 
+     */
+    static DisplayFrameDelta(game) {
+        // debugger;
+        if (game.settings2.delta !== true) {
             return;
         }
         let display1 = document.body.querySelector(".delta.high>span");
         let display2 = document.body.querySelector(".delta.low>span");
-        let display2box =  document.body.querySelector(".delta.low");
+        let display2box = document.body.querySelector(".delta.low");
 
-        let d = game.delta;
-        let d2 = game.delta2;
+        let { delta, deltaLow } = game.performance;
 
-        if (d > 0) {
-            display1.textContent = `${d}ms`;
+        // console.log(delta, deltaLow);
+        //debugger;
+        if (delta > 0) {
+            display1.textContent = `${delta}ms`;
         } else {
             display1.textContent = "NA";
         }
 
-        if (game.settings.enabledeltalow !== true) {
+        if (game.settings2.deltaLow !== true) {
             return;
         }
 
@@ -919,8 +970,8 @@ class UIController {
             display2box.style.visibility = "visible";
         }
 
-        if (d2 < 1000) {
-            display2.textContent = `${d2}ms`;
+        if (deltaLow < 1000) {
+            display2.textContent = `${deltaLow}ms`;
         } else {
             display2.textContent = "NA"
         }
@@ -964,46 +1015,7 @@ class UIController {
         context.fillText("'m' to display/dissmis settings dialog , 'n' to open/close new game dialog", 300, 480);
         context.closePath();
     }
-}class Enumer {
-    constructor(list) {
-        //list must be iterable
-        if (!Array.isArray(list) || typeof list[Symbol.iterator] !== 'function') {
-            throw "Enumer():Array must be passed";
-        }
-        const o = Object.create(null);
-        for (const l of list) {
-            if (typeof l !== "string") {
-                throw "Enumer():String was expected"
-            }
-            this[l] = l;
-        }
-        Object.freeze(this);
-    }
-    /**
-     * Check if value is valid enum property
-     * @param {Value} v 
-     */
-    valid(v) {
-        if (typeof v === "function") {
-            return false;
-        }
-        for (const l in this) {
-            if (v === this[l]) { return true; }
-        }
-        return false;
-    }
-}const KeyLayouts = {
-    Arrows: 1,
-    WASD: 2,
-    Numpad: 3,
-    UHJK: 4,
-    valid: function (m) {
-        return m === this.Arrows || m === this.WASD || m === this.Numpad || m === this.UHJK;
-    }
-};
-Object.freeze(KeyLayouts);
-
-const Directions = {
+}const Directions = {
     Left: 1,
     Right: 2,
     Up: 3,
@@ -1024,8 +1036,7 @@ class Player extends Vipera {
         this.score = 0;
         this.alive = true;
         this.settings = {
-            snakeColor: "#22af00",
-            keyLayout: KeyLayouts.Arrows
+            snakeColor: "#22af00"
         };
         this.TurnLeft();
         this.hash = Utils.Hash16(8);
@@ -1080,7 +1091,7 @@ class Player extends Vipera {
     Draw(rc, game) {
         super.Draw(rc, game);
     }
-    Erase(rc,game){
+    Erase(rc, game) {
         super.Erase(rc, game);
     }
     /**
@@ -1095,6 +1106,7 @@ class Player extends Vipera {
      * @param {Game} game
      */
     UpdateDirection(d, game) {
+        // debugger;
         if (!Directions.valid(d)) {
             throw "Error: not a valid direction";
         }
@@ -1248,13 +1260,152 @@ class Player extends Vipera {
 const Level = new Enumer(["Easy", "Normal", "Hard", "Master"]);
 const Languages = new Enumer(["English", "Georgian", "German"]);
 
-class MontiviperaGame {
+class GameSettings {
+    #showFPS;
+    #showDelta;
+    #showDeltaLow;
+    #enableQuickSwitch;
+    #moveOverBody;
+    #EnableFreeBound;
+    #moveOver;
+    #snakeColor;
+    #foodColor;
+    constructor() {
+        this.#showFPS = true;
+        this.#showDelta = true;
+        this.#showDeltaLow = false;
+    }
+    /**
+     * check if show fps in settings is enabled
+     * @returns {boolean}
+     */
+    get fps() {
+        return this.#showFPS;
+    }
+    /**
+     * Set parameter: show FPS
+     * @param {boolean} v
+     */
+    set fps(v) {
+        if (!Utils.isBoolean(v)) {
+            return false;
+        }
+        this.#showFPS = v;
+    }
+
+    /**
+     * Show maximum frame delta
+     * Show minimum frame delta
+     */
+
+    get delta() {
+        return this.#showDelta;
+    }
+
+    get deltaLow() {
+        return this.#showDeltaLow;
+    }
+    /**
+     * @param {boolean} v
+     */
+    set delta(v) {
+        if (!Utils.isBoolean(v)) {
+            return false;
+        }
+        this.#showDelta = v;
+    }
+    /**
+     * @param {boolean} v
+     */
+    set deltaLow(v) {
+        if (!Utils.isBoolean(v)) {
+            return false;
+        }
+        this.#showDeltaLow = v;
+    }
+    /**
+     * @param {Object} s 
+     */
+    update(s) {
+        if (typeof s !== "object") {
+            throw "GameSettings->update:not an object";
+        }
+        const { fps, delta, deltaLow } = s;
+        this.fps = fps;
+        this.delta = delta;
+        this.deltaLow = deltaLow;
+    }
+}
+Object.freeze(GameSettings);
+
+class PerformanceMonitor {
+    #frames;
+    #frameCount;
+    //delta refers to interval from frame to frame
+    //max delta is greatest
+    #delta;
+    #deltaLow;
+    #deltaCount;
+    #deltaLowCount;
+    constructor() {
+        this.#frames = 0;
+        this.#frameCount = 0;
+        this.#delta = 0;
+        this.#deltaLow = 1000;
+        this.#deltaCount = 0;
+        this.#deltaLowCount = 1000;
+    }
+
+    get fps() {
+        return this.#frames;
+    }
+
+    get delta() {
+        return this.#delta;
+    }
+
+    get deltaLow() {
+        return this.#deltaLow;
+    }
+
+    increaseFrameCount() {
+        this.#frameCount += 1;
+    }
+    /**
+     * update deltaCount, a temporary variable to hold delta
+     * @param {Number} num 
+     * @returns 
+     */
+    updateDeltaCount(num) {
+        if (!Number.isInteger(num) || num < 0) {
+            return;
+        }
+        if (num > this.#deltaCount) {
+            this.#deltaCount = num;
+        }
+        if (num < this.#deltaLowCount) {
+            this.#deltaLowCount = num;
+        }
+    }
+    update() {        
+        this.#frames = this.#frameCount;
+        this.#delta = this.#deltaCount;
+        this.#deltaLow = this.#deltaLowCount;
+        // reset frame count and delta
+        this.#frameCount = 0;
+        this.#deltaCount = 0;
+        this.#deltaLowCount = 1000;
+    }
+}
+Object.freeze(PerformanceMonitor);
+
+class MontiVipera {
     // this timers
     #version;
     #name;
     #stats;
     #language;
-    #perf;
+    #settings;
     /**
      * @param {Modes} _mode 
      * @param {Canvas} _canvas 
@@ -1266,9 +1417,6 @@ class MontiviperaGame {
         this.metrics = {};//fps
         this.canvas = _canvas;
         this.settings = {
-            enablefps: true,
-            enabledelta: true,
-            enabledeltalow: false,
             quickSwitch: false,
             moveOverBody: false,
             freeBound: true,
@@ -1276,23 +1424,15 @@ class MontiviperaGame {
             snakeColor: "#c63",
             foodColor: "#cc6"
         };
+        this.settings2 = new GameSettings();
         this.timerid = null;
         this.renderingContext = rc;
         this.entityList = [];
         // this players
         this.SetMode(_mode);
-        this.#version = "0.9 beta 3"
+        this.#version = "0.9 beta 4"
         this.#name = "Montivipera Redemption"
-        this.#stats = Object.create(null);
-        this.#perf = Object.create(null);
-        this.#stats.frames = 0;
-        this.#stats.fps = 0;
-        //delta refers to interval from frame to frame
-        //max delta is greatest
-        this.#stats.delta = 0;
-        this.#stats.delta2 = 0;
-        this.#stats.maxdelta = 0;
-        this.#stats.mindelta = 1000;
+        this.performance = new PerformanceMonitor();
         this.#language = Languages.English;
         //this.level = "easy";
     }
@@ -1302,33 +1442,11 @@ class MontiviperaGame {
     get name() {
         return this.#name;
     }
-    get fps() {
-        return this.#stats.fps;
-    }
-    get delta() {
-        return this.#stats.maxdelta;
-    }
-    get delta2() {
-        return this.#stats.mindelta;
-    }
 
     get quickSwitch() {
         return this.settings.quickSwitch;
     }
-    update_delta(num) {
-        if (!Number.isInteger(num) || num < 0) {
-            return;
-        }
-        if (num > this.delta) {
-            this.#stats.delta = num;
-        }
-        if (num < this.delta2) {
-            this.#stats.delta2 = num;
-        }
-    }
-    increaseFrameCount() {
-        this.#stats.frames += 1;
-    }
+
     AddEntities(someEntity) {
         if (!someEntity instanceof Vipera || someEntity instanceof Food) {
             throw "not a valid entity";
@@ -1588,19 +1706,6 @@ class MontiviperaGame {
             this.UpdatePlayers();
         }, 20);
     }
-    //counts fps 
-    //counts delta as well
-    setFPSCounter() {
-        this.timer4 = window.setInterval(() => {
-            this.#stats.fps = this.#stats.frames;
-            this.#stats.maxdelta = this.#stats.delta;
-            this.#stats.mindelta = this.#stats.delta2;
-            // reset frame count and delta
-            this.#stats.frames = 0;
-            this.#stats.delta = 0;
-            this.#stats.delta2 = 1000;
-        }, 995);
-    }
     setScoreUpdater() {
         //ui 20hz update
         this.timer5 = window.setInterval(() => {
@@ -1608,6 +1713,13 @@ class MontiviperaGame {
             UIController.DisplayFPS(this);
             UIController.DisplayFrameDelta(this);
         }, 50);
+    }
+    //counts fps 
+    //counts delta as well
+    setFPSCounter() {
+        this.timer4 = window.setInterval(() => {
+            this.performance.update();
+        }, 995);
     }
 
     GetFrame() {
@@ -1652,9 +1764,9 @@ class MontiviperaGame {
         let delta = _time - this.timer1;
         //save this for later update
         // delta = delta.toFixed(2);
-        this.update_delta(delta);
+        this.performance.updateDeltaCount(delta);
         this.timer1 = _time;
-        this.increaseFrameCount();
+        this.performance.increaseFrameCount();
     }
     KeyEvent(key) {
         for (const e of this.entityList) {
@@ -1697,9 +1809,6 @@ class MontiviperaGame {
             this.GoFullScreen();
         }
     }
-    DisplayFPS() {
-
-    }
     DisplayScore() {
 
     }
@@ -1736,8 +1845,11 @@ class MontiviperaGame {
             }
             this.settings[f] = s[f];
         }
+        this.settings2.update(s);
     }
-}const translateData ={
+}
+
+Object.freeze(MontiVipera);const translateData ={
     "show_fps_counter":{
         "geo":"კადრმთვლელის გამოჩენა",
         "eng":"Show FPS Counter"
@@ -1780,4 +1892,4 @@ class MontiviperaGame {
 const Translator = Object.create(null);
 Translator.translate =()=>{
 
-}//Build Date : 2022-09-15T00:26+04:00
+}//Build Date : 2022-09-17T14:08+04:00

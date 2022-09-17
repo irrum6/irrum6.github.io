@@ -193,20 +193,21 @@ Object.freeze(NewGameDialog);class SettingsDialog extends HTMLElement {
         this.gamesetup = true;
     }
     SetupValues(game) {
-        const { enablefps, enabledelta, enabledeltalow, snakeColor, foodColor } = game.settings;
-        this.query('input[name=fps]').checked = enablefps;
-        this.query('input[name=delta_high]').checked = enabledelta;
-        this.query('input[name=delta_low]').checked = enabledeltalow;
+        const {snakeColor, foodColor } = game.settings;
+        const {fps,delta,deltaLow} = game.settings2;
+        this.query('input[name=fps]').checked = fps;
+        this.query('input[name=delta_high]').checked = delta;
+        this.query('input[name=delta_low]').checked = deltaLow;
         this.query('color-box.snake').SetValue(snakeColor);
         this.query('color-box.food').SetValue(foodColor);
     }
     save(game) {
-        let enablefps = this.query('input[name=fps]').checked;
-        let enabledelta = this.query('input[name=delta_high]').checked;
-        let enabledeltalow = this.query('input[name=delta_low]').checked;
+        let fps = this.query('input[name=fps]').checked;
+        let delta = this.query('input[name=delta_high]').checked;
+        let deltaLow = this.query('input[name=delta_low]').checked;
         let snakeColor = this.query('color-box.snake').GetValue();
         let foodColor = this.query('color-box.food').GetValue();
-        game.UpdateSettings({ enablefps, enabledelta, enabledeltalow, snakeColor, foodColor });
+        game.UpdateSettings({ fps, delta, deltaLow, snakeColor, foodColor });
         this.close(game);
     }
     close(game) {
