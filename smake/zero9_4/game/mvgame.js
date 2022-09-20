@@ -12,7 +12,6 @@ class GameSettings {
     #moveOver;
     #snakeColor;
     #foodColor;
-    #displayTimers;
     constructor() {
         this.#showFPS = true;
         this.#showDelta = true;
@@ -130,7 +129,7 @@ class PerformanceMonitor {
             this.#deltaLowCount = num;
         }
     }
-    update() {
+    update() {        
         this.#frames = this.#frameCount;
         this.#delta = this.#deltaCount;
         this.#deltaLow = this.#deltaLowCount;
@@ -149,7 +148,6 @@ class MontiVipera {
     #stats;
     #language;
     #settings;
-    #mode;
     /**
      * @param {Modes} _mode 
      * @param {Canvas} _canvas 
@@ -174,7 +172,7 @@ class MontiVipera {
         this.entityList = [];
         // this players
         this.SetMode(_mode);
-        this.#version = "0.9 beta 5"
+        this.#version = "0.9 beta 4"
         this.#name = "Montivipera Redemption"
         this.performance = new PerformanceMonitor();
         this.#language = Languages.English;
@@ -354,8 +352,7 @@ class MontiVipera {
         if (this.timerid !== null) {
             return;
         }
-        let inter = this.GetEnduranceInterval();
-        let interval = inter * 1000;
+        let interval = this.GetEnduranceInterval() * 1000;
         if (this.level !== Level.Master) {
             this.food = null;
         }
@@ -382,14 +379,7 @@ class MontiVipera {
 
             //in two player mode if one dies other wins
         }, interval);
-        this.time = inter;
-        //
-        this.secondTimerid = window.setInterval(() => {
-            this.time -= 1;
-            if (0 === this.time) {
-                this.time = inter;
-            }
-        }, 1000);
+        // 
     }
     GetChallengeInterval() {
         let i = 20;
@@ -421,9 +411,8 @@ class MontiVipera {
         if (this.timerid !== null) {
             return;
         }
-        //challenger :renew food time when eaten
-        let inter = this.GetChallengeInterval();
-        let interval = inter * 1000;//seconds
+        let SECOND = 1000;
+        let interval = this.GetChallengeInterval() * SECOND;
 
         this.timerid = window.setInterval(() => {
             //debugger;
@@ -436,16 +425,7 @@ class MontiVipera {
                 return;
             }
             this.food.Renew(this.canvas);
-
         }, interval);
-        this.time = inter;
-
-        this.secondTimerid = window.setInterval(() => {
-            this.time -= 1;
-            if (0 === this.time) {
-                this.time = inter;
-            }
-        }, 1000);
     }
 
     UpdatePlayers() {
@@ -469,14 +449,12 @@ class MontiVipera {
         }, 20);
     }
     setScoreUpdater() {
-        let timeBetween = 20;
-        //ui 50hz update
+        //ui 20hz update
         this.timer5 = window.setInterval(() => {
             UIController.DisplayScore(this);
             UIController.DisplayFPS(this);
             UIController.DisplayFrameDelta(this);
-            UIController.DisplayTime(this);
-        }, timeBetween);
+        }, 50);
     }
     //counts fps 
     //counts delta as well

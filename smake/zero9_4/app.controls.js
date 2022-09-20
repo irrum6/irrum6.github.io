@@ -337,12 +337,15 @@ class UIController {
             display2.textContent = "NA"
         }
     }
-    static DisplayTime(game) {
-        if (!game.timerid) {
+    static DisplayTime(context, game) {
+        if (game.timed !== true) {
             return;
         }
-        let display = document.body.querySelector(".time>span");
-        display.textContent = game.time;
+        context.fillStyle = "black";
+        context.beginPath();
+        context.font = "16px Arial";
+        context.fillText(`Time: ${game.time}`, 100, 30);
+        context.closePath();
     }
     static Alert(msg) {
         PopAlert.OPEN(msg, "OK");

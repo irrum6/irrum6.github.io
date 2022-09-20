@@ -1,4 +1,245 @@
-const Modes = new Enumer(["Long", "Endurance", "Challenge"]);
+const Directions = {
+    Left: 1,
+    Right: 2,
+    Up: 3,
+    Down: 4,
+    valid: function (d) {
+        return d === this.Left || d === this.Right || d === this.Up || d === this.Down;
+    },
+    opposite(d1, d2) {
+        return (d1 == this.Left && d2 == this.Right) || (d1 == this.Right && d2 == this.Left) ||
+            (d1 == this.Up && d2 == this.Down) || (d1 == this.Down && d2 == this.Up);
+    }
+};
+Object.freeze(Directions);
+
+class Player extends Vipera {
+    constructor(r, v) {
+        super(r, v);
+        this.score = 0;
+        this.alive = true;
+        this.settings = {
+            snakeColor: "#22af00"
+        };
+        this.TurnLeft();
+        this.hash = Utils.Hash16(8);
+    }
+    AttachController(c) {
+        if (!c instanceof InputController) {
+            throw "it's not a controller";
+        }
+        this.controller = c;
+    }
+    OnKey(key, game) {
+        this.controller.OnKey(this, key, game);
+    }
+    SetScore(s) {
+        if (!Utils.IsWholeNumber(s)) {
+            throw "Whole number needed";
+        }
+        this.score = s;
+    }
+    Die() {
+        this.alive = false;
+    }
+    Reanimate() {
+        this.alive = true;
+    }
+    RandomJump(canvas) {
+        let x = Math.floor(Math.random() * (canvas.width));
+        let y = Math.floor(Math.random() * (canvas.height));
+        let distance_required = this.radius * 4
+        if (x < distance_required) {
+            x = distance_required
+        }
+        if (x > (canvas.width - distance_required)) {
+            x = canvas.width - distance_required;
+        }
+        if (y < distance_required) {
+            y = distance_required;
+        }
+        if (y > (canvas.height - distance_required)) {
+            y = canvas.height - distance_required;
+        }
+        this.SetHeadPosition(x, y);
+    }
+    GetScore() {
+        return this.score;
+    }
+    ScoreOne() {
+        let s = this.GetScore();
+        s++;
+        this.SetScore(s);
+    }
+    Draw(rc, game) {
+        super.Draw(rc, game);
+    }
+    Erase(rc, game) {
+        super.Erase(rc, game);
+    }
+    /**
+     * @returns {Direction}
+     */
+    GetDirection() {
+        return this.direction;
+    }
+    /**
+     * changes a direction
+     * @param {Direction} d 
+     * @param {Game} game
+     */
+    UpdateDirection(d, game) {
+        // debugger;
+        if (!Directions.valid(d)) {
+            throw "Error: not a valid direction";
+        }
+        if (Directions.opposite(d, this.direction) && !game.quickSwitch) {
+            //do nothing and return;
+            return;
+        }
+        this.lastDirection = this.direction;
+        this.direction = d;
+        this.QuickSwitch();
+    }
+    TurnUp(game) {
+        this.UpdateDirection(Directions.Up, game);
+    }
+    TurnLeft(game) {
+        this.UpdateDirection(Directions.Left, game);
+    }
+    TurnDown(game) {
+        this.UpdateDirection(Directions.Down, game);
+    }
+    TurnRight(game) {
+        this.UpdateDirection(Directions.Right, game);
+    }
+    /**
+     * update player
+     * @param {Food} food 
+     * @param {Canvas} canvas 
+     * @param {game} game 
+     */
+    Update(food, canvas, game) {
+        if (!this.alive) {
+            return;
+        }
+        const poslen = this.positions.length;
+
+        const current = this.GetDirection();
+        const { velocity } = this;
+
+        //follow head
+        for (let i = poslen - 1; i > 0; i--) {
+            this.positions[i].x = this.positions[i - 1].x;
+            this.positions[i].y = this.positions[i - 1].y;
+        }
+
+        let { x, y } = this.GetHeadPosition();
+        if (current == Directions.Right) { this.SetHeadPosition(x + velocity); }
+        if (current == Directions.Left) { this.SetHeadPosition(x - velocity); }
+        if (current == Directions.Up) { this.SetHeadPosition(null, y - velocity); }
+        if (current == Directions.Down) { this.SetHeadPosition(null, y + velocity); }
+
+        //free bound
+        this.FreeBound(canvas, game);
+        this.Colision(game);
+        this.Eat(food, canvas);
+    }
+    /**
+     * this fixes crashin when quickly switching direction to opposite
+     */
+    QuickSwitch() {
+        // debugger;
+        const ld = this.lastDirection;
+        const d = this.direction;
+        if (ld !== undefined && Directions.opposite(d, ld)) {
+            this.positions.reverse();
+        }
+
+    }
+    Eat(food, canvas) {
+        if (food === null) {
+            return;
+        }
+        let { x, y } = this.GetHeadPosition();
+        //eat food
+        if (distance(x, y, food.x, food.y) < this.radius * 2) {
+            food.Renew(canvas);
+            // this.ScoreOne();
+            this.score++;
+            this.AddMass();
+        }
+    }
+    /**
+     * free bound:  vipera moves over bounds
+     * @param {HTMLElement} canvas 
+     * @param {game} game 
+     * @param {Boolean} force 
+     */
+    FreeBound(canvas, game, force) {
+        if (game.settings.freeBound || force) {
+            let { x, y } = this.GetHeadPosition();
+            if (x < 0) this.SetHeadPosition(canvas.width, null);
+            if (x > canvas.width) this.SetHeadPosition(0, null);
+            if (y < 0) this.SetHeadPosition(null, canvas.height);
+            if (y > canvas.height) this.SetHeadPosition(null, 0);
+            return;
+        }
+        this.BoundsCheck(canvas, game);
+    }
+    BoundsCheck(canvas, game) {
+        let { x, y } = this.GetHeadPosition();
+        if (x < 0 || x > canvas.width || y < 0 || y > canvas.height) {
+            // debugger;
+            this.Die();
+            return;
+        }
+    }
+    Colision(game) {
+        if (game.settings.moveOver) {
+            return;
+        }
+        //first check the player itself
+        if (false === game.settings.moveOverBody) {
+            let { x, y } = this.GetHeadPosition();
+            for (let i = 1, len = this.positions.length; i < len; i++) {
+                let p = this.positions[i];
+                if (p.x == x && p.y == y) {
+                    this.Die();
+                    return;
+                }
+            }
+        }
+        //then check in relation to other players
+        const coords = this.GetHeadPosition();
+        let x1 = coords.x;
+        let y1 = coords.y;
+        for (const e of game.entityList) {
+            if (e.hash == this.hash) {
+                continue;
+            }
+
+            let { x, y } = e.GetHeadPosition();
+            //if head to head both die
+            if (Utils.Distance(x1, y1, x, y) < this.radius) {
+                this.Die();
+                e.Die();
+                return;
+            }
+            if (true === game.settings.moveOverBody) {
+                continue
+            }
+            //the one who hits head, it dies
+            for (const p of e.positions) {
+                let { x, y } = p;
+                if (x1 == x && y1 == y) {
+                    this.Die();
+                }
+            }
+            // if (x == x1 && y == y1) { }
+        }
+    }
+}const Modes = new Enumer(["Long", "Endurance", "Challenge"]);
 const Level = new Enumer(["Easy", "Normal", "Hard", "Master"]);
 const Languages = new Enumer(["English", "Georgian", "German"]);
 
@@ -12,7 +253,6 @@ class GameSettings {
     #moveOver;
     #snakeColor;
     #foodColor;
-    #displayTimers;
     constructor() {
         this.#showFPS = true;
         this.#showDelta = true;
@@ -130,7 +370,7 @@ class PerformanceMonitor {
             this.#deltaLowCount = num;
         }
     }
-    update() {
+    update() {        
         this.#frames = this.#frameCount;
         this.#delta = this.#deltaCount;
         this.#deltaLow = this.#deltaLowCount;
@@ -149,7 +389,6 @@ class MontiVipera {
     #stats;
     #language;
     #settings;
-    #mode;
     /**
      * @param {Modes} _mode 
      * @param {Canvas} _canvas 
@@ -174,7 +413,7 @@ class MontiVipera {
         this.entityList = [];
         // this players
         this.SetMode(_mode);
-        this.#version = "0.9 beta 5"
+        this.#version = "0.9 beta 4"
         this.#name = "Montivipera Redemption"
         this.performance = new PerformanceMonitor();
         this.#language = Languages.English;
@@ -354,8 +593,7 @@ class MontiVipera {
         if (this.timerid !== null) {
             return;
         }
-        let inter = this.GetEnduranceInterval();
-        let interval = inter * 1000;
+        let interval = this.GetEnduranceInterval() * 1000;
         if (this.level !== Level.Master) {
             this.food = null;
         }
@@ -382,14 +620,7 @@ class MontiVipera {
 
             //in two player mode if one dies other wins
         }, interval);
-        this.time = inter;
-        //
-        this.secondTimerid = window.setInterval(() => {
-            this.time -= 1;
-            if (0 === this.time) {
-                this.time = inter;
-            }
-        }, 1000);
+        // 
     }
     GetChallengeInterval() {
         let i = 20;
@@ -421,9 +652,8 @@ class MontiVipera {
         if (this.timerid !== null) {
             return;
         }
-        //challenger :renew food time when eaten
-        let inter = this.GetChallengeInterval();
-        let interval = inter * 1000;//seconds
+        let SECOND = 1000;
+        let interval = this.GetChallengeInterval() * SECOND;
 
         this.timerid = window.setInterval(() => {
             //debugger;
@@ -436,16 +666,7 @@ class MontiVipera {
                 return;
             }
             this.food.Renew(this.canvas);
-
         }, interval);
-        this.time = inter;
-
-        this.secondTimerid = window.setInterval(() => {
-            this.time -= 1;
-            if (0 === this.time) {
-                this.time = inter;
-            }
-        }, 1000);
     }
 
     UpdatePlayers() {
@@ -469,14 +690,12 @@ class MontiVipera {
         }, 20);
     }
     setScoreUpdater() {
-        let timeBetween = 20;
-        //ui 50hz update
+        //ui 20hz update
         this.timer5 = window.setInterval(() => {
             UIController.DisplayScore(this);
             UIController.DisplayFPS(this);
             UIController.DisplayFrameDelta(this);
-            UIController.DisplayTime(this);
-        }, timeBetween);
+        }, 50);
     }
     //counts fps 
     //counts delta as well
@@ -613,4 +832,47 @@ class MontiVipera {
     }
 }
 
-Object.freeze(MontiVipera);
+Object.freeze(MontiVipera);const translateData ={
+    "show_fps_counter":{
+        "geo":"კადრმთვლელის გამოჩენა",
+        "eng":"Show FPS Counter"
+    },
+    "enable_dark_mode":{
+        "geo":"მუქი ფონის გააქტიურება",
+        "eng" :"Enable Dark Mode"
+    },
+    "game_mode":{
+        "geo":"თამაშის ტიპი",
+        "eng" :"Game Mode"
+    },
+    "hardness" : {
+        "geo":"სირთულე",
+        "eng" :"Hardness"
+    },
+    "easy" :{
+        "geo":"იოლი",
+        "eng":"easy"
+    },
+    "normal":{
+        "geo":"ჩვეულებრივი",
+        "eng":"normal"
+    },
+    "hard":{
+        "geo":"რთული",
+        "eng":"hard"
+    },
+    "hardest":{
+        "geo":"ურთულესი",
+        "eng":"hardest"
+    },
+    "resolution(canvas)":{
+        "geo":"",
+        "eng":""
+    }
+
+}
+
+const Translator = Object.create(null);
+Translator.translate =()=>{
+
+}
