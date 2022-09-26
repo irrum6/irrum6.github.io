@@ -63,6 +63,7 @@ try {
     viperaGame.setScoreUpdater();
     viperaGame.GetFrame();
 
+    document.title = viperaGame.name;
     const kb1 = new KeyBoardController();
     kb1.Setup(viperaGame);
 

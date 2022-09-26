@@ -63,7 +63,10 @@
             <span class="fps"><span>0</span>FPS</span>
             <span class="delta high">ΔHigh:<span>0</span></span>
             <span class="delta low" style="visibility:hidden;">ΔLow:<span>0</span></span>
-            <span class="time" style="visibility:visible;">Time:<span>0</span></span>
+            <!-- <span class="time" style="visibility:visible;">Time:<span>0</span></span> -->
+            <small-display id="time" dtext="Time" dvalue="00" dcolor="#357"></small-display>
+            <!-- <small-display dtext="Gela" dvalue="gelava" data-color="#357"></small-display>
+            <small-display dtext="Gela" dvalue="gelava" data-color="#357"></small-display> -->
         </div>
         <div class="box h90" id="canvas_box">
             <canvas id="canvas1" width="600" height="400"></canvas>
@@ -81,6 +84,7 @@
 
     <settings-dialog></settings-dialog>
     <new-dialog></new-dialog>
+    <div style="display: none;"></div>
     <template id="dialog_for_settings">
         <div class="dialog">
             <div><span class="info name"></span></div>
@@ -204,54 +208,7 @@
             </div>
         </div>
     </template>
-    <template id="pop_alert_template">
-        <style>
-            /* pop-alert */
-            div.pop-container {
-                padding: 0.5rem;
-                position: absolute;
-                top: 40vh;
-                left: 40vw;
-                width: 20vw;
-                display: flex;
-                flex-direction: column;
-                border: 0.25rem solid #606060;
-                background-color: #c0c060;
-                z-index: 9;
-            }
-
-            div.button-box {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-            }
-
-            @media screen and (max-aspect-ratio:1/1) {
-                div.pop-container {
-                    position: absolute;
-                    top: 20vh;
-                    left: 5vw;
-                    width: 80vw;
-                    z-index: 9;
-                }
-            }
-
-            /*dark*/
-            div.pop-container.dark {
-                border: 0.25rem solid #c0c060;
-                background-color: #606060;
-                color: #c0c060;
-            }
-        </style>
-        <div class="pop-container">
-            <div class="text-content">
-                <!-- text here -->
-            </div>
-            <div class="button-box">
-                <span><button name="ok">OK</button></span>
-            </div>
-        </div>
-    </template>
+    <template id="pop_alert_template"> </template>
     <script src="app.preload.js"></script>
     <script src="indexjs.js"></script>
 </body>

@@ -4,7 +4,7 @@ cat $dir/enumer.js $dir/utils.js  > app.lib.js
 
 rm app.templates.js
 dir="components"
-cat $dir/pop.js $dir/new_game_dialog.js $dir/dialog.js $dir/radiobox.js $dir/colorbox.js > app.templates.js
+cat $dir/small_display.js $dir/pop.js $dir/new_game_dialog.js $dir/dialog.js $dir/radiobox.js $dir/colorbox.js > app.templates.js
 
 rm app.entities.js
 dir="entities"

@@ -59,15 +59,12 @@ class UIController {
             display2.textContent = "NA"
         }
     }
-    static DisplayTime(context, game) {
-        if (game.timed !== true) {
+    static DisplayTime(game) {
+        if (!game.timerid) {
             return;
         }
-        context.fillStyle = "black";
-        context.beginPath();
-        context.font = "16px Arial";
-        context.fillText(`Time: ${game.time}`, 100, 30);
-        context.closePath();
+        let display = document.body.querySelector(".time>span");
+        display.textContent = game.time;
     }
     static Alert(msg) {
         PopAlert.OPEN(msg, "OK");
