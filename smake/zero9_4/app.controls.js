@@ -341,8 +341,8 @@ class UIController {
         if (!game.timerid) {
             return;
         }
-        let display = document.body.querySelector(".time>span");
-        display.textContent = game.time;
+        let time = document.body.querySelector("#time");
+        time.updateValue(String(game.time));
     }
     static Alert(msg) {
         PopAlert.OPEN(msg, "OK");

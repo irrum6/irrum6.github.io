@@ -92,27 +92,13 @@ class SmallDisplay extends HTMLElement {
         //     border-right: 1px solid #357;
         //     border-bottom: 2px solid #357;
         elem.style.boxShadow = boxShadow;
-
-        let hide = this.getAttribute("hide");
-        console.log("1" === hide, this.id);
-        if ("1" === hide) {
-            this.hide();
-        }
-    }
-    get isHidden() {
-        let elem = this.shadowRoot.querySelector(".display");
-        return elem.style.visibility == "hidden";
     }
 
     hide() {
         this.style.visibility = "hidden";
-        let elem = this.shadowRoot.querySelector(".display");
-        elem.style.visibility = "hidden";
     }
     show() {
         this.style.visibility = "visible";
-        let elem = this.shadowRoot.querySelector(".display");
-        elem.style.visibility = "visible";
     }
 }
 
