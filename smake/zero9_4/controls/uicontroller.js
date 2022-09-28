@@ -32,13 +32,10 @@ class UIController {
             return;
         }
         let display1 = document.body.querySelector(".delta.high>span");
-        let display2 = document.body.querySelector(".delta.low>span");
-        let display2box = document.body.querySelector(".delta.low");
+        let deltaLowElement = document.body.querySelector("#delta_low");
 
         let { delta, deltaLow } = game.performance;
 
-        // console.log(delta, deltaLow);
-        //debugger;
         if (delta > 0) {
             display1.textContent = `${delta}ms`;
         } else {
@@ -49,21 +46,25 @@ class UIController {
             return;
         }
 
-        if ("visible" !== display2box.style.visibility) {
-            display2box.style.visibility = "visible";
-        }
+        deltaLowElement.show();
+        let dtext = "";
 
         if (deltaLow < 1000) {
-            display2.textContent = `${deltaLow}ms`;
+            dtext = `${deltaLow}ms`;
         } else {
-            display2.textContent = "NA"
+            dtext = "NA"
         }
+        deltaLowElement.updateValue(dtext);
     }
     static DisplayTime(game) {
         if (!game.timerid) {
             return;
         }
         let time = document.body.querySelector("#time");
+        console.log(time.isHidden)
+        if (time.isHidden) {
+            time.show();
+        }
         time.updateValue(String(game.time));
     }
     static Alert(msg) {

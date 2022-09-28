@@ -5,12 +5,12 @@ class UIController {
      * @param {MontiVipera} game 
      */
     static DisplayScore(game) {
-        let displays = document.body.querySelectorAll("span.display");
-        let scoreCards = document.body.querySelectorAll("span.score");
+        let scoreCards = document.body.querySelectorAll(".score");
         for (let i = 0, len = game.entityList.length; i < len; i++) {
-            scoreCards[i].style.visibility = "visible";
+            let card = scoreCards[i];
             let player = game.entityList[i];
-            displays[i].textContent = player.score;
+            card.show();
+            card.updateValue(String(player.score));
         }
     }
     /**
@@ -20,8 +20,8 @@ class UIController {
         if (game.settings2.fps !== true) {
             return;
         }
-        let display = document.body.querySelector(".fps>span");
-        display.textContent = game.performance.fps;
+        let fpsdisplay = document.body.querySelector("#fps");
+        fpsdisplay.updateValue(String(game.performance.fps));
     }
     /**
      * @param {MontiVipera} game 
@@ -31,16 +31,18 @@ class UIController {
         if (game.settings2.delta !== true) {
             return;
         }
-        let display1 = document.body.querySelector(".delta.high>span");
+        let deltaHiElement = document.body.querySelector("#delta_high");
         let deltaLowElement = document.body.querySelector("#delta_low");
 
         let { delta, deltaLow } = game.performance;
 
+        let dhtext = "";
         if (delta > 0) {
-            display1.textContent = `${delta}ms`;
+            dhtext = `${delta}ms`;
         } else {
-            display1.textContent = "NA";
+            dhtext = "NA";
         }
+        deltaHiElement.updateValue(dhtext);
 
         if (game.settings2.deltaLow !== true) {
             return;
@@ -61,7 +63,6 @@ class UIController {
             return;
         }
         let time = document.body.querySelector("#time");
-        console.log(time.isHidden)
         if (time.isHidden) {
             time.show();
         }
