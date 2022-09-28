@@ -8,60 +8,18 @@
     <link rel="stylesheet" href="styles/layout.css">
     <link rel="icon" href="images/snake2.svg" sizes="any" type="image/svg+xml">
     <style>
-        .score,
-        .fps,
-        .delta,
-        .time {
-            font-size: 2.0rem;
-            font-weight: bold;
-            margin-right: 8px;
-            padding: 4px;
-        }
-
-        .score>span,
-        .fps>span,
-        .delta>span,
-        .time>span {
-            border: none;
-        }
-
-        .score {
-            box-shadow: 1px 1px orange, 2px 2px orange, 3px 3px orange, 4px 4px orange, 5px 5px orange, 6px 6px orange;
-            border-right: 1px solid orange;
-            border-bottom: 2px solid orange;
-        }
-
-        .fps {
-            box-shadow: 1px 1px green, 2px 2px green, 3px 3px green, 4px 4px green, 5px 5px green, 6px 6px green;
-            border-right: 1px solid green;
-            border-bottom: 2px solid green;
-
-        }
-
-        .delta {
-            box-shadow: 1px 1px red, 2px 2px red, 3px 3px red, 4px 4px red, 5px 5px red, 6px 6px red;
-            border-right: 1px solid red;
-            border-bottom: 2px solid red;
-        }
-
-        .time {
-            box-shadow: 1px 1px #357, 2px 2px #357, 3px 3px #357, 4px 4px #357, 5px 5px #357, 6px 6px #357;
-            border-right: 1px solid #357;
-            border-bottom: 2px solid #357;
-        }
     </style>
 </head>
 
 <body>
     <div class="left">
         <div class="stats" style="margin-bottom: 15px;">
-            <!-- make a template instead -->
-            <span class="score">Score: <span class="display">999</span></span>
-            <span class="score" style="visibility:hidden;">Score: <span class="display">000</span></span>
-            <span class="score" style="visibility:hidden;">Score: <span class="display">000</span></span>
-            <span class="score" style="visibility:hidden;">Score: <span class="display">000</span></span>
-            <span class="fps"><span>0</span>FPS</span>
-            <span class="delta high">ΔHigh:<span>0</span></span>
+            <small-display class="score" dtext="Score" dvalue="00" dcolor="orange"></small-display>
+            <small-display class="score" dtext="Score" dvalue="00" dcolor="orange" hide="1"></small-display>
+            <small-display class="score" dtext="Score" dvalue="00" dcolor="orange" hide="1"></small-display>
+            <small-display class="score" dtext="Score" dvalue="00" dcolor="orange" hide="1"></small-display>
+            <small-display id="fps" dtext="FPS" dvalue="00" dcolor="green"></small-display>
+            <small-display id="delta_high" dtext="ΔHigh" dvalue="00" dcolor="red"></small-display>
             <small-display id="delta_low" dtext="ΔLow" dvalue="00" dcolor="#357" hide="1"></small-display>
             <small-display id="time" dtext="Time" dvalue="00" dcolor="#357" hide="1"></small-display>
         </div>

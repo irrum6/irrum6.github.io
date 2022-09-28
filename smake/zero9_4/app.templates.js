@@ -9,11 +9,12 @@
             font-size: 2.0rem;
             font-weight: bold;
             margin-right: 8px;
-            padding: 4px;
+            padding: 3px;
             visibility:visible;
         }
         .display>span {
             border: none;
+            padding:0;
         }
     </style>
     `;
@@ -113,6 +114,12 @@ class SmallDisplay extends HTMLElement {
         this.style.visibility = "visible";
         let elem = this.shadowRoot.querySelector(".display");
         elem.style.visibility = "visible";
+    }
+    nonForcedShow() {
+        if (!this.isHidden) {
+            return;
+        }
+        this.show();
     }
 }
 

@@ -174,7 +174,7 @@ class MontiVipera {
         this.entityList = [];
         // this players
         this.SetMode(_mode);
-        this.#version = "0.9 beta 6"
+        this.#version = "0.9 beta 7"
         this.#name = "Montivipera Redemption"
         this.performance = new PerformanceMonitor();
         this.#language = Languages.English;

@@ -6,15 +6,20 @@
     let style = `
     <style>
         .display {
-            font-size: 2.0rem;
+            font-size: 1.5rem;
             font-weight: bold;
-            margin-right: 8px;
-            padding: 3px;
+            margin-right: 5px;
+            padding: 0;
             visibility:visible;
         }
         .display>span {
             border: none;
-            padding:0;
+            padding:inherit;
+        }
+        @media screen and (width<900){
+            .display {
+                font-size: 1.25rem;
+            }
         }
     </style>
     `;
@@ -88,7 +93,7 @@ class SmallDisplay extends HTMLElement {
         elem.style.borderRight = `1px solid ${color}`;
         elem.style.borderBottom = `2px solid ${color}`;
 
-        let boxShadow = `1px 1px ${color},2px 2px ${color},3px 3px ${color},4px 4px ${color},5px 5px ${color},6px 6px ${color}`;
+        let boxShadow = `1px 1px ${color},2px 2px ${color},3px 3px ${color},4px 4px ${color},5px 5px ${color}`;
         // box-shadow: 1px 1px #357, 2px 2px #357, 3px 3px #357, 4px 4px #357, 5px 5px #357, 6px 6px #357;
         //     border-right: 1px solid #357;
         //     border-bottom: 2px solid #357;
