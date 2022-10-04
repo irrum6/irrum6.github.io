@@ -248,30 +248,31 @@ customElements.define('pop-alert', PopAlert);class NewGameDialog extends HTMLEle
             this.close(game);
         });
         this.query('button.starter')[on]('click', this.startNewGame.bind(this, game), { once: false });
-        this.query('input[name=move_over]')[on]('click', this.toggleRollOverState.bind(this), { once: false });
+        this.query('input[name=disable_collision]')[on]('click', this.toggleRollOverState.bind(this), { once: false });
         this.gamesetup = true;
     }
     toggleRollOverState() {
-        const moveOver = this.query('input[name=move_over]').checked;
-        const overBody = this.query('input[name=move_over_body]');
-        if (moveOver) {
-            overBody.disabled = false;
+        const disableCollision = this.query('input[name=disable_collision]').checked;
+        const glide = this.query('input[name=glide]');
+        if (disableCollision) {
+            glide.disabled = false;
             return;
         }
-        overBody.disabled = true;
+        glide.disabled = true;
     }
     startNewGame(game, e) {
-        const freeBound = this.query('input[name=free_bound]').checked;
-        const moveOver = this.query('input[name=move_over]').checked;
-        const moveOverBody = this.query('input[name=move_over_body]').checked;
-        const quickSwitch = this.query('input[name=quickswitch]').checked;
+        const unbounded = this.query('input[name=free_bound]').checked;
+        const disableCollision = this.query('input[name=disable_collision]').checked;
+        const glide = this.query('input[name=glide]').checked;
+        const fastSwitch = this.query('input[name=quickswitch]').checked;
 
         const mode = this.query('radio-box.moder').GetValue();
         const level = this.query('radio-box.leveler').GetValue();
 
         const n = this.query('radio-box.player').GetValue();
         this.close();
-        const s = { freeBound, moveOver, moveOverBody, quickSwitch, mode, level }
+        const collision = !disableCollision
+        const s = { unbounded, collision, glide, fastSwitch, mode, level }
         game.NewGame(n, s);
         game.GetFrame();
         if (n > 1) {
@@ -374,11 +375,12 @@ Object.freeze(NewGameDialog);class SettingsDialog extends HTMLElement {
         this.gamesetup = true;
     }
     SetupValues(game) {
-        const {snakeColor, foodColor } = game.settings;
-        const {fps,delta,deltaLow} = game.settings2;
+        const { snakeColor, foodColor } = game.settings;
+        const { fps, delta, deltaLow, timers } = game.settings2;
         this.query('input[name=fps]').checked = fps;
         this.query('input[name=delta_high]').checked = delta;
         this.query('input[name=delta_low]').checked = deltaLow;
+        this.query('input[name=show_timers]').checked = timers;
         this.query('color-box.snake').SetValue(snakeColor);
         this.query('color-box.food').SetValue(foodColor);
     }
@@ -386,9 +388,10 @@ Object.freeze(NewGameDialog);class SettingsDialog extends HTMLElement {
         let fps = this.query('input[name=fps]').checked;
         let delta = this.query('input[name=delta_high]').checked;
         let deltaLow = this.query('input[name=delta_low]').checked;
+        let timers = this.query('input[name=show_timers]').checked;
         let snakeColor = this.query('color-box.snake').GetValue();
         let foodColor = this.query('color-box.food').GetValue();
-        game.UpdateSettings({ fps, delta, deltaLow, snakeColor, foodColor });
+        game.UpdateSettings({ fps, delta, deltaLow, timers, snakeColor, foodColor });
         this.close(game);
     }
     close(game) {

@@ -4,10 +4,10 @@ class Vipera {
         this.velocity = v;
         this.positions = [{ x: 0, y: 0 }];
         this.mass = 1;
-        this.color = "black";
+        // this.color = "black";
     }
     UpdateColor(c) {
-        this.color = c;
+        // this.color = c;
     }
     GetLength() {
         return this.positions.length;

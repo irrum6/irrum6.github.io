@@ -2,154 +2,18 @@ const Modes = new Enumer(["Long", "Endurance", "Challenge"]);
 const Level = new Enumer(["Easy", "Normal", "Hard", "Master"]);
 const Languages = new Enumer(["English", "Georgian", "German"]);
 
-class GameSettings {
-    #showFPS;
-    #showDelta;
-    #showDeltaLow;
-    #enableQuickSwitch;
-    #moveOverBody;
-    #EnableFreeBound;
-    #moveOver;
-    #snakeColor;
-    #foodColor;
-    #displayTimers;
-    constructor() {
-        this.#showFPS = true;
-        this.#showDelta = true;
-        this.#showDeltaLow = false;
-    }
-    /**
-     * check if show fps in settings is enabled
-     * @returns {boolean}
-     */
-    get fps() {
-        return this.#showFPS;
-    }
-    /**
-     * Set parameter: show FPS
-     * @param {boolean} v
-     */
-    set fps(v) {
-        if (!Utils.isBoolean(v)) {
-            return false;
-        }
-        this.#showFPS = v;
-    }
-
-    /**
-     * Show maximum frame delta
-     * Show minimum frame delta
-     */
-
-    get delta() {
-        return this.#showDelta;
-    }
-
-    get deltaLow() {
-        return this.#showDeltaLow;
-    }
-    /**
-     * @param {boolean} v
-     */
-    set delta(v) {
-        if (!Utils.isBoolean(v)) {
-            return false;
-        }
-        this.#showDelta = v;
-    }
-    /**
-     * @param {boolean} v
-     */
-    set deltaLow(v) {
-        if (!Utils.isBoolean(v)) {
-            return false;
-        }
-        this.#showDeltaLow = v;
-    }
-    /**
-     * @param {Object} s 
-     */
-    update(s) {
-        if (typeof s !== "object") {
-            throw "GameSettings->update:not an object";
-        }
-        const { fps, delta, deltaLow } = s;
-        this.fps = fps;
-        this.delta = delta;
-        this.deltaLow = deltaLow;
-    }
-}
-Object.freeze(GameSettings);
-
-class PerformanceMonitor {
-    #frames;
-    #frameCount;
-    //delta refers to interval from frame to frame
-    //max delta is greatest
-    #delta;
-    #deltaLow;
-    #deltaCount;
-    #deltaLowCount;
-    constructor() {
-        this.#frames = 0;
-        this.#frameCount = 0;
-        this.#delta = 0;
-        this.#deltaLow = 1000;
-        this.#deltaCount = 0;
-        this.#deltaLowCount = 1000;
-    }
-
-    get fps() {
-        return this.#frames;
-    }
-
-    get delta() {
-        return this.#delta;
-    }
-
-    get deltaLow() {
-        return this.#deltaLow;
-    }
-
-    increaseFrameCount() {
-        this.#frameCount += 1;
-    }
-    /**
-     * update deltaCount, a temporary variable to hold delta
-     * @param {Number} num 
-     * @returns 
-     */
-    updateDeltaCount(num) {
-        if (!Number.isInteger(num) || num < 0) {
-            return;
-        }
-        if (num > this.#deltaCount) {
-            this.#deltaCount = num;
-        }
-        if (num < this.#deltaLowCount) {
-            this.#deltaLowCount = num;
-        }
-    }
-    update() {
-        this.#frames = this.#frameCount;
-        this.#delta = this.#deltaCount;
-        this.#deltaLow = this.#deltaLowCount;
-        // reset frame count and delta
-        this.#frameCount = 0;
-        this.#deltaCount = 0;
-        this.#deltaLowCount = 1000;
-    }
-}
-Object.freeze(PerformanceMonitor);
-
 class MontiVipera {
     // this timers
     #version;
     #name;
     #stats;
+    // total frames rendered
     #language;
     #settings;
     #mode;
+    #playerList;
+    //get players
+    #numberOfPlayers;
     /**
      * @param {Modes} _mode 
      * @param {Canvas} _canvas 
@@ -161,20 +25,16 @@ class MontiVipera {
         this.metrics = {};//fps
         this.canvas = _canvas;
         this.settings = {
-            quickSwitch: false,
-            moveOverBody: false,
-            freeBound: true,
-            moveOver: false,
             snakeColor: "#c63",
             foodColor: "#cc6"
         };
         this.settings2 = new GameSettings();
         this.timerid = null;
         this.renderingContext = rc;
-        this.entityList = [];
+        this.#playerList = [];
         // this players
         this.SetMode(_mode);
-        this.#version = "0.9 beta 8"
+        this.#version = "0.9"
         this.#name = "Montivipera Redemption"
         this.performance = new PerformanceMonitor();
         this.#language = Languages.English;
@@ -190,24 +50,38 @@ class MontiVipera {
     get quickSwitch() {
         return this.settings.quickSwitch;
     }
-
-    AddEntities(someEntity) {
-        if (!someEntity instanceof Vipera || someEntity instanceof Food) {
-            throw "not a valid entity";
-        }
-        this.entityList.push(someEntity);
+    get players() {
+        return this.#playerList;
     }
+
+    get pNumber() {
+        return this.#numberOfPlayers;
+    }
+
+    addPlayer(pl) {
+        if (!pl instanceof Vipera) {
+            throw "not a viper"
+        }
+        this.#playerList.push(pl);
+    }
+    resetPlayers() {
+        this.#playerList = [];
+        this.#numberOfPlayers = 0;
+    }
+
     NewGame(n, s) {
         this.timerid = null;
         // debugger;
-        if (typeof s === "object") {
+        if (Utils.isCompleteObject(s)) {
             this.UpdateSettings(s);
             this.SetMode(Modes[s.mode]);
             this.SetLevel(s.level);
         }
 
-        this.entityList = [];
         this.ClearTimers();
+        this.resetPlayers();
+
+        this.#numberOfPlayers = n;
 
         let x = this.canvas.width / 2;
         let y = this.canvas.height / 2;
@@ -245,7 +119,7 @@ class MontiVipera {
         let x1 = this.canvas.width / 4;
         let y1 = this.canvas.height / 2;
         let food = new Food(x1, y1, 12);
-        //this.AddEntities(food);
+
         this.food = food;
         this.food.Renew(this.canvas);
         this.Pause();
@@ -255,15 +129,13 @@ class MontiVipera {
         // debugger;
         this.Pause();
         const { canvas } = this;
-        for (const e of this.entityList) {
-            if (e instanceof Player) {
-                e.Shrink();
-                //this doesn't work if players have colided
-                e.FreeBound(canvas, this, true);
-                e.RandomJump(canvas);
-                e.SetScore(0);
-                e.Reanimate();
-            }
+        for (const p of this.players) {
+            p.Shrink();
+            //this doesn't work if players have colided
+            p.FreeBound(canvas, this, true);
+            p.RandomJump(canvas);
+            p.SetScore(0);
+            p.Reanimate();
         }
         this.gameover = false;
         this.alerted = false;
@@ -280,7 +152,7 @@ class MontiVipera {
         player.SetHeadPosition(p.x, p.y);
         player.UpdateColor(c);
         player.AttachController(controls);
-        this.AddEntities(player);
+        this.addPlayer(player);
     }
     SelectVelocity() {
         //pixel per 1/10 second
@@ -323,7 +195,10 @@ class MontiVipera {
             window.clearInterval(this.timerid);
             this.timerid = null;
         }
-
+        if (this.secondTimerid !== null) {
+            window.clearInterval(this.secondTimerid);
+            this.secondTimerid = null;
+        }
     }
     GetEnduranceInterval() {
         let i = 20;
@@ -371,12 +246,10 @@ class MontiVipera {
             if (this.pause) {
                 return;
             }
-            for (const e of this.entityList) {
-                if (e instanceof Player) {
-                    e.AddMass();
-                    if (this.level !== Level.Master) {
-                        e.score++;
-                    }
+            for (const p of this.players) {
+                p.AddMass();
+                if (this.level !== Level.Master) {
+                    p.score++;
                 }
             }
 
@@ -449,6 +322,7 @@ class MontiVipera {
     }
 
     UpdatePlayers() {
+
         if (this.gameover) {
             return;
         }
@@ -457,10 +331,8 @@ class MontiVipera {
         }
         const canvas = this.canvas;
         let dis = this;
-        for (const e of this.entityList) {
-            if (e instanceof Player) {
-                e.Update(this.food, canvas, dis);
-            }
+        for (const p of this.players) {
+            p.Update(this.food, canvas, dis);
         }
     }
     setUpdater() {
@@ -487,12 +359,12 @@ class MontiVipera {
     }
 
     GetFrame() {
-        // if all are dead, then end game
-        let i = 0;
-        for (const e of this.entityList) {
-            if (!e.alive) { i++ };
+        let bodyCount = 0;
+        for (const p of this.players) {
+            if (p.dead) { bodyCount++ };
         }
-        if (i === this.entityList.length) {
+        // if all are dead, then end game
+        if (bodyCount === this.pNumber) {
             this.gameover = true;
             return;
         }
@@ -505,21 +377,8 @@ class MontiVipera {
         renderctx.fillStyle = 'grey';
         renderctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // renderctx.clearRect(0, 0, canvas.width,60);
-
-        for (const e of this.entityList) {
-            break;
-            if (e instanceof Player) {
-                e.Erase(renderctx, this);
-            }
-        }
-
-        // this.food.Erase(renderctx, this);
-
-        for (const e of this.entityList) {
-            if (e instanceof Player) {
-                e.Draw(renderctx, this);
-            }
+        for (const p of this.players) {
+            p.Draw(renderctx, this);
         }
         if (this.food !== null) {
             this.food.Draw(renderctx, this);
@@ -533,10 +392,8 @@ class MontiVipera {
         this.performance.increaseFrameCount();
     }
     KeyEvent(key) {
-        for (const e of this.entityList) {
-            if (e instanceof Player) {
-                e.OnKey(key, this);
-            }
+        for (const p of this.players) {
+            p.OnKey(key, this);
         }
     }
     Pause() {

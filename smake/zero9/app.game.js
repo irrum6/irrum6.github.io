@@ -14,15 +14,35 @@ const Directions = {
 Object.freeze(Directions);
 
 class Player extends Vipera {
+    #score;
+    #alive;
+    #color;
+    #hash;
     constructor(r, v) {
         super(r, v);
-        this.score = 0;
-        this.alive = true;
-        this.settings = {
-            snakeColor: "#22af00"
-        };
+        this.#score = 0;
+        this.#alive = true;
+        this.#color = "#22af00";
+        this.#hash = Utils.Hash16(8);
         this.TurnLeft();
-        this.hash = Utils.Hash16(8);
+    }
+    get dead() {
+        return this.#alive === false;
+    }
+    get hash() {
+        return this.#hash;
+    }
+    get score() {
+        return this.#score;
+    }
+    set score(s) {
+        if (!Utils.IsWholeNumber(s)) {
+            throw "Whole number needed";
+        }
+        this.#score = s;
+    }
+    get color() {
+        return this.#color;
     }
     AttachController(c) {
         if (!c instanceof InputController) {
@@ -34,16 +54,22 @@ class Player extends Vipera {
         this.controller.OnKey(this, key, game);
     }
     SetScore(s) {
-        if (!Utils.IsWholeNumber(s)) {
-            throw "Whole number needed";
-        }
         this.score = s;
     }
+    GetScore() {
+        return this.score;
+    }
+    ScoreOne() {
+        let s = this.GetScore();
+        s++;
+        this.SetScore(s);
+    }
+
     Die() {
-        this.alive = false;
+        this.#alive = false;
     }
     Reanimate() {
-        this.alive = true;
+        this.#alive = true;
     }
     RandomJump(canvas) {
         let x = Math.floor(Math.random() * (canvas.width));
@@ -63,14 +89,8 @@ class Player extends Vipera {
         }
         this.SetHeadPosition(x, y);
     }
-    GetScore() {
-        return this.score;
-    }
-    ScoreOne() {
-        let s = this.GetScore();
-        s++;
-        this.SetScore(s);
-    }
+
+
     Draw(rc, game) {
         super.Draw(rc, game);
     }
@@ -89,11 +109,10 @@ class Player extends Vipera {
      * @param {Game} game
      */
     UpdateDirection(d, game) {
-        // debugger;
         if (!Directions.valid(d)) {
             throw "Error: not a valid direction";
         }
-        if (Directions.opposite(d, this.direction) && !game.quickSwitch) {
+        if (Directions.opposite(d, this.direction) && !game.settings2.fastSwtich) {
             //do nothing and return;
             return;
         }
@@ -120,7 +139,7 @@ class Player extends Vipera {
      * @param {game} game 
      */
     Update(food, canvas, game) {
-        if (!this.alive) {
+        if (this.dead) {
             return;
         }
         const poslen = this.positions.length;
@@ -177,7 +196,7 @@ class Player extends Vipera {
      * @param {Boolean} force 
      */
     FreeBound(canvas, game, force) {
-        if (game.settings.freeBound || force) {
+        if (game.settings2.unbounded || force) {
             let { x, y } = this.GetHeadPosition();
             if (x < 0) this.SetHeadPosition(canvas.width, null);
             if (x > canvas.width) this.SetHeadPosition(0, null);
@@ -196,11 +215,12 @@ class Player extends Vipera {
         }
     }
     Colision(game) {
-        if (game.settings.moveOver) {
+        // debugger;
+        if (false === game.settings2.collision) {
             return;
         }
         //first check the player itself
-        if (false === game.settings.moveOverBody) {
+        if (false === game.settings2.glide) {
             let { x, y } = this.GetHeadPosition();
             for (let i = 1, len = this.positions.length; i < len; i++) {
                 let p = this.positions[i];
@@ -214,50 +234,48 @@ class Player extends Vipera {
         const coords = this.GetHeadPosition();
         let x1 = coords.x;
         let y1 = coords.y;
-        for (const e of game.entityList) {
-            if (e.hash == this.hash) {
+        for (const pl of game.players) {
+            if (pl.hash == this.hash) {
                 continue;
             }
 
-            let { x, y } = e.GetHeadPosition();
+            let { x, y } = pl.GetHeadPosition();
             //if head to head both die
             if (Utils.Distance(x1, y1, x, y) < this.radius) {
                 this.Die();
-                e.Die();
+                pl.Die();
                 return;
             }
             if (true === game.settings.moveOverBody) {
                 continue
             }
             //the one who hits head, it dies
-            for (const p of e.positions) {
+            for (const p of pl.positions) {
                 let { x, y } = p;
                 if (x1 == x && y1 == y) {
                     this.Die();
                 }
             }
-            // if (x == x1 && y == y1) { }
         }
     }
-}const Modes = new Enumer(["Long", "Endurance", "Challenge"]);
-const Level = new Enumer(["Easy", "Normal", "Hard", "Master"]);
-const Languages = new Enumer(["English", "Georgian", "German"]);
-
-class GameSettings {
+}class GameSettings {
     #showFPS;
     #showDelta;
     #showDeltaLow;
-    #enableQuickSwitch;
-    #moveOverBody;
-    #EnableFreeBound;
-    #moveOver;
-    #snakeColor;
-    #foodColor;
+    #quickSwitchEnabled;
+    #playerCollisionEnabled;
+    #boundsFreeEnabled;
+    #glidingOverBodyEnabled;
     #displayTimers;
     constructor() {
         this.#showFPS = true;
         this.#showDelta = true;
         this.#showDeltaLow = false;
+        this.#boundsFreeEnabled = true;
+        this.#quickSwitchEnabled = false;
+        this.#playerCollisionEnabled = false;
+        this.#glidingOverBodyEnabled = false;
+        this.#displayTimers = true;
     }
     /**
      * check if show fps in settings is enabled
@@ -307,6 +325,73 @@ class GameSettings {
         }
         this.#showDeltaLow = v;
     }
+
+    get collision() {
+        return this.#playerCollisionEnabled;
+    }
+    /**
+    * @param {boolean} v
+    */
+    set collision(v) {
+        if (!Utils.isBoolean(v)) {
+            return false;
+        }
+        this.#playerCollisionEnabled = v;
+    }
+
+    get glide() {
+        return this.#glidingOverBodyEnabled;
+    }
+
+    /**
+    * @param {boolean} v
+    */
+    set glide(v) {
+        if (!Utils.isBoolean(v)) {
+            return false;
+        }
+        this.#glidingOverBodyEnabled = v;
+    }
+
+    get fastSwitch() {
+        return this.#quickSwitchEnabled;
+    }
+
+    /**
+    * @param {boolean} v
+    */
+    set fastSwitch(v) {
+        if (!Utils.isBoolean(v)) {
+            return false;
+        }
+        this.#quickSwitchEnabled = v;
+    }
+
+    get unbounded() {
+        return this.#boundsFreeEnabled;
+    }
+    /**
+   * @param {boolean} v
+   */
+    set unbounded(v) {
+        if (!Utils.isBoolean(v)) {
+            return false;
+        }
+        this.#boundsFreeEnabled = v;
+    }
+
+    get timers() {
+        return this.#displayTimers;
+    }
+    /**
+    * @param {boolean} v
+    */
+    set timers(v) {
+        if (!Utils.isBoolean(v)) {
+            return false;
+        }
+        this.#displayTimers = v;
+    }
     /**
      * @param {Object} s 
      */
@@ -314,15 +399,20 @@ class GameSettings {
         if (typeof s !== "object") {
             throw "GameSettings->update:not an object";
         }
-        const { fps, delta, deltaLow } = s;
+        const { fps, delta, deltaLow, timers, unbounded, collision, glide, fastSwitch } = s;
         this.fps = fps;
         this.delta = delta;
         this.deltaLow = deltaLow;
+        this.unbounded = unbounded;
+        this.collision = collision;
+        this.glide = glide;
+        this.fastSwitch = fastSwitch;
+        this.timers = timers;
     }
-}
-Object.freeze(GameSettings);
 
-class PerformanceMonitor {
+
+}
+Object.freeze(GameSettings);class PerformanceMonitor {
     #frames;
     #frameCount;
     //delta refers to interval from frame to frame
@@ -381,16 +471,22 @@ class PerformanceMonitor {
         this.#deltaLowCount = 1000;
     }
 }
-Object.freeze(PerformanceMonitor);
+Object.freeze(PerformanceMonitor);const Modes = new Enumer(["Long", "Endurance", "Challenge"]);
+const Level = new Enumer(["Easy", "Normal", "Hard", "Master"]);
+const Languages = new Enumer(["English", "Georgian", "German"]);
 
 class MontiVipera {
     // this timers
     #version;
     #name;
     #stats;
+    // total frames rendered
     #language;
     #settings;
     #mode;
+    #playerList;
+    //get players
+    #numberOfPlayers;
     /**
      * @param {Modes} _mode 
      * @param {Canvas} _canvas 
@@ -402,20 +498,16 @@ class MontiVipera {
         this.metrics = {};//fps
         this.canvas = _canvas;
         this.settings = {
-            quickSwitch: false,
-            moveOverBody: false,
-            freeBound: true,
-            moveOver: false,
             snakeColor: "#c63",
             foodColor: "#cc6"
         };
         this.settings2 = new GameSettings();
         this.timerid = null;
         this.renderingContext = rc;
-        this.entityList = [];
+        this.#playerList = [];
         // this players
         this.SetMode(_mode);
-        this.#version = "0.9 beta 8"
+        this.#version = "0.9"
         this.#name = "Montivipera Redemption"
         this.performance = new PerformanceMonitor();
         this.#language = Languages.English;
@@ -431,24 +523,38 @@ class MontiVipera {
     get quickSwitch() {
         return this.settings.quickSwitch;
     }
-
-    AddEntities(someEntity) {
-        if (!someEntity instanceof Vipera || someEntity instanceof Food) {
-            throw "not a valid entity";
-        }
-        this.entityList.push(someEntity);
+    get players() {
+        return this.#playerList;
     }
+
+    get pNumber() {
+        return this.#numberOfPlayers;
+    }
+
+    addPlayer(pl) {
+        if (!pl instanceof Vipera) {
+            throw "not a viper"
+        }
+        this.#playerList.push(pl);
+    }
+    resetPlayers() {
+        this.#playerList = [];
+        this.#numberOfPlayers = 0;
+    }
+
     NewGame(n, s) {
         this.timerid = null;
         // debugger;
-        if (typeof s === "object") {
+        if (Utils.isCompleteObject(s)) {
             this.UpdateSettings(s);
             this.SetMode(Modes[s.mode]);
             this.SetLevel(s.level);
         }
 
-        this.entityList = [];
         this.ClearTimers();
+        this.resetPlayers();
+
+        this.#numberOfPlayers = n;
 
         let x = this.canvas.width / 2;
         let y = this.canvas.height / 2;
@@ -486,7 +592,7 @@ class MontiVipera {
         let x1 = this.canvas.width / 4;
         let y1 = this.canvas.height / 2;
         let food = new Food(x1, y1, 12);
-        //this.AddEntities(food);
+
         this.food = food;
         this.food.Renew(this.canvas);
         this.Pause();
@@ -496,15 +602,13 @@ class MontiVipera {
         // debugger;
         this.Pause();
         const { canvas } = this;
-        for (const e of this.entityList) {
-            if (e instanceof Player) {
-                e.Shrink();
-                //this doesn't work if players have colided
-                e.FreeBound(canvas, this, true);
-                e.RandomJump(canvas);
-                e.SetScore(0);
-                e.Reanimate();
-            }
+        for (const p of this.players) {
+            p.Shrink();
+            //this doesn't work if players have colided
+            p.FreeBound(canvas, this, true);
+            p.RandomJump(canvas);
+            p.SetScore(0);
+            p.Reanimate();
         }
         this.gameover = false;
         this.alerted = false;
@@ -521,7 +625,7 @@ class MontiVipera {
         player.SetHeadPosition(p.x, p.y);
         player.UpdateColor(c);
         player.AttachController(controls);
-        this.AddEntities(player);
+        this.addPlayer(player);
     }
     SelectVelocity() {
         //pixel per 1/10 second
@@ -564,7 +668,10 @@ class MontiVipera {
             window.clearInterval(this.timerid);
             this.timerid = null;
         }
-
+        if (this.secondTimerid !== null) {
+            window.clearInterval(this.secondTimerid);
+            this.secondTimerid = null;
+        }
     }
     GetEnduranceInterval() {
         let i = 20;
@@ -612,12 +719,10 @@ class MontiVipera {
             if (this.pause) {
                 return;
             }
-            for (const e of this.entityList) {
-                if (e instanceof Player) {
-                    e.AddMass();
-                    if (this.level !== Level.Master) {
-                        e.score++;
-                    }
+            for (const p of this.players) {
+                p.AddMass();
+                if (this.level !== Level.Master) {
+                    p.score++;
                 }
             }
 
@@ -690,6 +795,7 @@ class MontiVipera {
     }
 
     UpdatePlayers() {
+
         if (this.gameover) {
             return;
         }
@@ -698,10 +804,8 @@ class MontiVipera {
         }
         const canvas = this.canvas;
         let dis = this;
-        for (const e of this.entityList) {
-            if (e instanceof Player) {
-                e.Update(this.food, canvas, dis);
-            }
+        for (const p of this.players) {
+            p.Update(this.food, canvas, dis);
         }
     }
     setUpdater() {
@@ -728,12 +832,12 @@ class MontiVipera {
     }
 
     GetFrame() {
-        // if all are dead, then end game
-        let i = 0;
-        for (const e of this.entityList) {
-            if (!e.alive) { i++ };
+        let bodyCount = 0;
+        for (const p of this.players) {
+            if (p.dead) { bodyCount++ };
         }
-        if (i === this.entityList.length) {
+        // if all are dead, then end game
+        if (bodyCount === this.pNumber) {
             this.gameover = true;
             return;
         }
@@ -746,21 +850,8 @@ class MontiVipera {
         renderctx.fillStyle = 'grey';
         renderctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // renderctx.clearRect(0, 0, canvas.width,60);
-
-        for (const e of this.entityList) {
-            break;
-            if (e instanceof Player) {
-                e.Erase(renderctx, this);
-            }
-        }
-
-        // this.food.Erase(renderctx, this);
-
-        for (const e of this.entityList) {
-            if (e instanceof Player) {
-                e.Draw(renderctx, this);
-            }
+        for (const p of this.players) {
+            p.Draw(renderctx, this);
         }
         if (this.food !== null) {
             this.food.Draw(renderctx, this);
@@ -774,10 +865,8 @@ class MontiVipera {
         this.performance.increaseFrameCount();
     }
     KeyEvent(key) {
-        for (const e of this.entityList) {
-            if (e instanceof Player) {
-                e.OnKey(key, this);
-            }
+        for (const p of this.players) {
+            p.OnKey(key, this);
         }
     }
     Pause() {

@@ -6,9 +6,9 @@ class UIController {
      */
     static DisplayScore(game) {
         let scoreCards = document.body.querySelectorAll(".score");
-        for (let i = 0, len = game.entityList.length; i < len; i++) {
+        for (let i = 0, len = game.players.length; i < len; i++) {
             let card = scoreCards[i];
-            let player = game.entityList[i];
+            let player = game.players[i];
             card.show();
             card.updateValue(String(player.score));
         }
@@ -59,10 +59,16 @@ class UIController {
         deltaLowElement.updateValue(dtext);
     }
     static DisplayTime(game) {
+        let time = document.body.querySelector("#time");
         if (!game.timerid) {
+            time.hide();
             return;
         }
-        let time = document.body.querySelector("#time");
+        if (!game.settings2.timers) {
+            time.hide();
+            return;
+        }
+
         if (time.isHidden) {
             time.show();
         }

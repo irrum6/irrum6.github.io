@@ -28,12 +28,12 @@ try {
             context.fillStyle = 'grey';
             context.fillRect(0, 0, canvas.width, canvas.height);
         }
-        left.style.backgroundColor="grey";
+        left.style.backgroundColor = "grey";
     })
     context.imageSmoothingEnabled = true;
 
     const viperaGame = new MontiVipera(Modes.Long, canvas, context);
-    viperaGame.NewGame(1, undefined);
+    viperaGame.NewGame(1, null);
 
     viperaGame.alerted = false;
 

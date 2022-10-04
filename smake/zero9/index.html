@@ -68,6 +68,11 @@
                     </label>
                 </div>
                 <div>
+                    <label data-app-translate="1" data-app-text="show_timers">Show timers on endurance/challenge mode
+                        <input type="checkbox" name="show_timers">
+                    </label>
+                </div>
+                <div>
                     <div><span data-app-translate="1" data-app-text="language"></span>Language</span></div>
                     <label>English<input type="radio" value="english" name="language"></label>
                     <label>ქართული<input type="radio" value="georgian" name="language"></label>
@@ -107,25 +112,20 @@
                         data-input-name="level" data-input-label="Game Level" data-label-name="game_level">
                     </radio-box>
                 </div>
-                <!-- <div>
-                    <button>Single Player</button>
-                </div>
-                <div>
-                    <button>Local Machine Mulitplayer</button>
-                </div> -->
                 <div>
                     <label data-app-translate="1" data-app-text="free_bound">Free Bound
                         <input type="checkbox" checked="true" name="free_bound">
                     </label>
                 </div>
                 <div>
-                    <label data-app-translate="1" data-app-text="move_over">Disable Player colission
-                        <input type="checkbox" name="move_over">
+                    <label data-app-translate="1" data-app-text="disable_collision">Disable player colission
+                        <input type="checkbox" name="disable_collision">
                     </label>
                 </div>
                 <div>
-                    <label data-app-translate="1" data-app-text="move_over_body">Move Over body
-                        <input type="checkbox" name="move_over_body" disabled>
+                    <label style="margin-left: 16px;" data-app-translate="1" data-app-text="move_over_body">Glide Over
+                        body
+                        <input type="checkbox" name="glide" disabled>
                     </label>
                 </div>
                 <div>
@@ -165,7 +165,8 @@
     </template>
     <template id="pop_alert_template"> </template>
     <script src="app.preload.js"></script>
-    <script src="indexjs.js"></script>
+    <!-- <script src="indexjs.js"></script> -->
+    <script src="index2.js"></script>
 </body>
 
 </html>

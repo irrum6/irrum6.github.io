@@ -14,15 +14,35 @@ const Directions = {
 Object.freeze(Directions);
 
 class Player extends Vipera {
+    #score;
+    #alive;
+    #color;
+    #hash;
     constructor(r, v) {
         super(r, v);
-        this.score = 0;
-        this.alive = true;
-        this.settings = {
-            snakeColor: "#22af00"
-        };
+        this.#score = 0;
+        this.#alive = true;
+        this.#color = "#22af00";
+        this.#hash = Utils.Hash16(8);
         this.TurnLeft();
-        this.hash = Utils.Hash16(8);
+    }
+    get dead() {
+        return this.#alive === false;
+    }
+    get hash() {
+        return this.#hash;
+    }
+    get score() {
+        return this.#score;
+    }
+    set score(s) {
+        if (!Utils.IsWholeNumber(s)) {
+            throw "Whole number needed";
+        }
+        this.#score = s;
+    }
+    get color() {
+        return this.#color;
     }
     AttachController(c) {
         if (!c instanceof InputController) {
@@ -34,16 +54,22 @@ class Player extends Vipera {
         this.controller.OnKey(this, key, game);
     }
     SetScore(s) {
-        if (!Utils.IsWholeNumber(s)) {
-            throw "Whole number needed";
-        }
         this.score = s;
     }
+    GetScore() {
+        return this.score;
+    }
+    ScoreOne() {
+        let s = this.GetScore();
+        s++;
+        this.SetScore(s);
+    }
+
     Die() {
-        this.alive = false;
+        this.#alive = false;
     }
     Reanimate() {
-        this.alive = true;
+        this.#alive = true;
     }
     RandomJump(canvas) {
         let x = Math.floor(Math.random() * (canvas.width));
@@ -63,14 +89,8 @@ class Player extends Vipera {
         }
         this.SetHeadPosition(x, y);
     }
-    GetScore() {
-        return this.score;
-    }
-    ScoreOne() {
-        let s = this.GetScore();
-        s++;
-        this.SetScore(s);
-    }
+
+
     Draw(rc, game) {
         super.Draw(rc, game);
     }
@@ -89,11 +109,10 @@ class Player extends Vipera {
      * @param {Game} game
      */
     UpdateDirection(d, game) {
-        // debugger;
         if (!Directions.valid(d)) {
             throw "Error: not a valid direction";
         }
-        if (Directions.opposite(d, this.direction) && !game.quickSwitch) {
+        if (Directions.opposite(d, this.direction) && !game.settings2.fastSwtich) {
             //do nothing and return;
             return;
         }
@@ -120,7 +139,7 @@ class Player extends Vipera {
      * @param {game} game 
      */
     Update(food, canvas, game) {
-        if (!this.alive) {
+        if (this.dead) {
             return;
         }
         const poslen = this.positions.length;
@@ -177,7 +196,7 @@ class Player extends Vipera {
      * @param {Boolean} force 
      */
     FreeBound(canvas, game, force) {
-        if (game.settings.freeBound || force) {
+        if (game.settings2.unbounded || force) {
             let { x, y } = this.GetHeadPosition();
             if (x < 0) this.SetHeadPosition(canvas.width, null);
             if (x > canvas.width) this.SetHeadPosition(0, null);
@@ -196,11 +215,12 @@ class Player extends Vipera {
         }
     }
     Colision(game) {
-        if (game.settings.moveOver) {
+        // debugger;
+        if (false === game.settings2.collision) {
             return;
         }
         //first check the player itself
-        if (false === game.settings.moveOverBody) {
+        if (false === game.settings2.glide) {
             let { x, y } = this.GetHeadPosition();
             for (let i = 1, len = this.positions.length; i < len; i++) {
                 let p = this.positions[i];
@@ -214,29 +234,28 @@ class Player extends Vipera {
         const coords = this.GetHeadPosition();
         let x1 = coords.x;
         let y1 = coords.y;
-        for (const e of game.entityList) {
-            if (e.hash == this.hash) {
+        for (const pl of game.players) {
+            if (pl.hash == this.hash) {
                 continue;
             }
 
-            let { x, y } = e.GetHeadPosition();
+            let { x, y } = pl.GetHeadPosition();
             //if head to head both die
             if (Utils.Distance(x1, y1, x, y) < this.radius) {
                 this.Die();
-                e.Die();
+                pl.Die();
                 return;
             }
             if (true === game.settings.moveOverBody) {
                 continue
             }
             //the one who hits head, it dies
-            for (const p of e.positions) {
+            for (const p of pl.positions) {
                 let { x, y } = p;
                 if (x1 == x && y1 == y) {
                     this.Die();
                 }
             }
-            // if (x == x1 && y == y1) { }
         }
     }
 }

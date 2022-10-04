@@ -58,11 +58,12 @@ class SettingsDialog extends HTMLElement {
         this.gamesetup = true;
     }
     SetupValues(game) {
-        const {snakeColor, foodColor } = game.settings;
-        const {fps,delta,deltaLow} = game.settings2;
+        const { snakeColor, foodColor } = game.settings;
+        const { fps, delta, deltaLow, timers } = game.settings2;
         this.query('input[name=fps]').checked = fps;
         this.query('input[name=delta_high]').checked = delta;
         this.query('input[name=delta_low]').checked = deltaLow;
+        this.query('input[name=show_timers]').checked = timers;
         this.query('color-box.snake').SetValue(snakeColor);
         this.query('color-box.food').SetValue(foodColor);
     }
@@ -70,9 +71,10 @@ class SettingsDialog extends HTMLElement {
         let fps = this.query('input[name=fps]').checked;
         let delta = this.query('input[name=delta_high]').checked;
         let deltaLow = this.query('input[name=delta_low]').checked;
+        let timers = this.query('input[name=show_timers]').checked;
         let snakeColor = this.query('color-box.snake').GetValue();
         let foodColor = this.query('color-box.food').GetValue();
-        game.UpdateSettings({ fps, delta, deltaLow, snakeColor, foodColor });
+        game.UpdateSettings({ fps, delta, deltaLow, timers, snakeColor, foodColor });
         this.close(game);
     }
     close(game) {

@@ -68,5 +68,22 @@ class Utils {
     static isBoolean(v) {
         return typeof v === "boolean";
     }
+
+    /**
+     * 
+     * @param {any} varX 
+     * @returns {boolean}
+     */
+    static isCompleteObject(varX) {
+        return (typeof varX === "object" && varX !== null) && (varX !== {});
+    }
+    /**
+     * @param {String} msg 
+     */
+    static warn(msg) {
+        if (this.isFullString(msg)) {
+            console.warn(msg);
+        }
+    }
 }
 Object.freeze(Utils);

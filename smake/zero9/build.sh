@@ -8,7 +8,7 @@ cat $dir/small_display.js $dir/pop.js $dir/new_game_dialog.js $dir/dialog.js $di
 
 rm app.entities.js
 dir="entities"
-cat $dir/snake.js $dir/food.js > app.entities.js
+cat $dir/vipera.js $dir/food.js > app.entities.js
 
 rm app.controls.js
 dir="controls"
@@ -16,7 +16,7 @@ cat  $dir/keyboard.js  $dir/inputController.js  $dir/uicontroller.js > app.contr
 
 rm app.game.js
 dir="game"
-cat $dir/player.js  $dir/mvgame.js  $dir/translate.js > app.game.js
+cat $dir/player.js $dir/gamesettings.js $dir/perfmon.js $dir/mvgame.js  $dir/translate.js > app.game.js
 
 rm app.preload.js
 cat app.lib.js app.templates.js app.entities.js app.controls.js  app.game.js > app.preload.js
