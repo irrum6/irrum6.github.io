@@ -86,7 +86,146 @@ class Utils {
         }
     }
 }
-Object.freeze(Utils);{
+Object.freeze(Utils);class GWindow extends HTMLElement {
+    #domid;
+    #name;
+    constructor() {
+        super();
+        let template = document.getElementById("gwindow_template");
+        let templateContent = template.content;
+
+        let clone = templateContent.cloneNode(true);
+
+        const stylee = document.createElement('link');
+        stylee.setAttribute('rel', 'stylesheet');
+        stylee.setAttribute('href', 'components/gwindow.css');
+
+        const shadowRoot = this.attachShadow({ mode: 'open' });
+        shadowRoot.appendChild(stylee);
+        shadowRoot.appendChild(clone);
+        this.#name = "gwindow";
+        this.#setup();
+
+    }
+    get name() {
+        return this.#name;
+    }
+    get content() {
+        return this.#query(".content");
+    }
+
+    get titlebar() {
+        return this.#query(".title");
+    }
+
+    get buttons() {
+        return this.#query(".buttons").children;
+    }
+    show() {
+        let self = document.getElementById(this.#domid);
+        self.style.visibility = 'visible';
+
+    }
+    hide() {
+        let self = document.getElementById(this.#domid);
+        self.style.visibility = 'hidden';
+    }
+    #query(s) {
+        return this.shadowRoot.querySelector(s);
+    }
+
+    #setup() {
+        this.#domid = this.getAttribute("id");
+        let content = this.innerHTML;
+        this.#query("div.content").innerHTML = content;
+        this.#size();
+        let z = this.getAttribute("z");
+
+        let noclose = this.getAttribute("noclose");
+
+        let buttyes = this.#query("button.close.yes");
+        buttyes.addEventListener('click', this.hide.bind(this));
+
+        let buttno = this.#query("button.close.no");
+
+        if ("1" === noclose) {
+            buttyes.style.display = "none";
+        } else {
+            buttno.style.display = "none";
+        }
+    }
+    #getMain() {
+        return this.#query(".gwindow");
+    }
+
+    #size() {
+        let main = this.#getMain();
+        main.style.width = "576px";
+        main.style.height = "324px";
+
+        let w = Number(this.getAttribute("w"));
+        let h = Number(this.getAttribute("h"));
+        if (Number.isInteger(w) && w > 0) {
+            main.style.width = `${w}px`;
+        }
+        if (Number.isInteger(h) && h > 0) {
+            main.style.height = `${h}px`;
+        }
+    }
+    /**
+     * @param {Number|String} h 
+     * @param {Boolean} literal 
+     */
+    setHeight(h, literal) {
+        let main = this.#getMain();
+        if (literal === true) {
+            main.style.height = h;
+            return;
+        }
+        if (Number.isInteger(h) && h > 0) {
+            main.style.height = `${h}px`;
+        }
+    }
+    /**
+     * @param {Number|String} w 
+     * @param {Boolean} literal 
+     */
+    setWidth(w, literal) {
+        let main = this.#getMain();
+        if (literal === true) {
+            main.style.width = w;
+            return;
+        }
+        if (Number.isInteger(w) && w > 0) {
+            main.style.width = `${w}px`;
+        }
+    }
+    /**
+     * @param {Number} z
+     */
+    updateZIndex(z) {
+        let main = this.#getMain();
+        if (Utils.IsWholeNumber(z)) {
+            main.style.zIndex = z;
+        }
+    }
+    /**
+     * 
+     * @param {String} text 
+     * @param {Function} f 
+     */
+    addButton(text, f) {
+        let buttonArea = this.#query("div.buttons");
+        let butt = document.createElement("button");
+        butt.textContent = text;
+        butt.addEventListener("click", f);
+        buttonArea.appendChild(butt);
+    }
+
+}
+
+customElements.define("gw-window", GWindow);
+Object.freeze(GWindow);{
     let template = document.createElement('template');
     template.id = "small_display";
     //define style
@@ -217,99 +356,137 @@ class SmallDisplay extends HTMLElement {
 }
 
 Object.freeze(SmallDisplay);
-customElements.define("small-display", SmallDisplay);{
-    let template = document.getElementById("pop_alert_template");
-    template.innerHTML = `
-    <style>
-        /* pop-alert */
-        div.pop-container {
-            padding: 0.5rem;
-            position: absolute;
-            top: 40vh;
-            left: 40vw;
-            width: 20vw;
-            display: flex;
-            flex-direction: column;
-            border: 0.25rem solid #606060;
-            background-color: #c0c060;
-            z-index: 9;
-        }
-
-        div.button-box {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-        }
-
-        @media screen and (max-aspect-ratio:1/1) {
-            div.pop-container {
-                position: absolute;
-                top: 20vh;
-                left: 5vw;
-                width: 80vw;
-                z-index: 9;
-            }
-        }
-
-        /*dark*/
-        div.pop-container.dark {
-            border: 0.25rem solid #c0c060;
-            background-color: #606060;
-            color: #c0c060;
-            }
-    </style>
-    <div class="pop-container">
-        <div class="text-content">
-            <!-- text here -->
-        </div>
-            <div class="button-box">
-            <span><button name="ok">OK</button></span>
-        </div>
-    </div>`;
-}
-class PopAlert extends HTMLElement {
+customElements.define("small-display", SmallDisplay);class PopX extends GWindow {
+    #initialWidth;
+    #initialHeight;
     constructor() {
         super();
-        let template = document.getElementById("pop_alert_template");
-        let templateContent = template.content;
-        let clone = templateContent.cloneNode(true);
-        const shadowRoot = this.attachShadow({ mode: 'open' });
-        shadowRoot.appendChild(clone);
+        this.#initialWidth = 360;
+        this.#initialHeight = 240;
+        this.#sizeUp();
+        super.addButton("OK", this.#close.bind(this));
+
+        const stylee = document.createElement('link');
+        stylee.setAttribute('rel', 'stylesheet');
+        stylee.setAttribute('href', 'components/popx.css');
+        this.shadowRoot.appendChild(stylee);
+        super.hide();
     }
-    query(s) {
+
+    #query(s) {
         return this.shadowRoot.querySelector(s);
     }
-    open(text, okText) {
-        if (typeof text !== 'string') throw "text must be string";
-        this.query('div.text-content').textContent = text;
-        if (typeof okText !== "string") throw "text must be string";
-        this.query('button[name=ok]').textContent = okText;
-        this.style.display = 'flex';
-        this.query('button').addEventListener('click', (e) => {
-            this.close()
-        });
+
+    #sizeUp() {
+        super.setWidth(this.#initialWidth);
+        super.setHeight(this.#initialHeight);
     }
-    close() {
-        this.style.display = 'none';
+
+    show() {
+        super.show();
     }
-    setDark() {
-        const cont = this.query('div.pop-container');
-        cont.classList.toggle('dark');
+    #close() {
+        super.hide();
     }
-    static OPEN(text, okText) {
-        const pop = document.body.querySelector('pop-alert');
-        if (pop == null) {
-            let _pop = document.createElement('pop-alert');
-            document.body.appendChild(_pop);
-            let __pop = document.body.querySelector('pop-alert');
-            __pop.open(text, okText);
-            return;
+    /**
+     * @param {String} text 
+     * @returns Number
+     */
+    #insertContent(text) {
+        let split = text.split("\n");
+
+        console.log(split.length);
+        let stringsArray = [];
+
+        let max = split[0].length;
+        let hmin = split.length * 30 + 100;
+
+        for (const sp of split) {
+            stringsArray.push(`<p>${sp}</p>`);
+            if (sp.length > max) {
+                max = sp.length;
+            }
         }
-        pop.open(text, okText);
+
+        super.content.innerHTML = stringsArray.join("");
+        return { minw: max * 8, hmin };
+    }
+
+    get buttons() {
+        return super.buttons;
+    }
+    /**
+     * @param {String} t
+     */
+    set text(t) {
+        let str = String(t);
+        let strlen = str.length;
+
+        let { minw, hmin } = this.#insertContent(t);
+
+        //character length at which we increase height;
+        let h_break = 150;
+        //character length at which we increase width;
+        let w_break = 375;
+        //auto height adjustment for longer texts
+        if (strlen > h_break) {
+            let h = Math.floor(strlen / h_break * this.#initialHeight) + 100;
+            h = Math.max(h, hmin);
+            super.setHeight(h);
+            //add some width as well
+            let w = Math.max(this.#initialWidth + 30, minw)
+            super.setWidth(w);
+        }
+        //if text is larger
+        if (strlen > w_break) {
+            let upsizeRatio = Math.sqrt(strlen / w_break);
+            //+100 to account top and bottom bars
+            let h = Math.floor(upsizeRatio * this.#initialHeight) + 100;
+            //+1 to account rounding errors
+            let w = Math.floor(upsizeRatio * this.#initialWidth) + 1;
+            w = Math.max(w, minw);
+            //clip if size limit hit
+            let wmax = Math.floor(window.innerWidth * 0.8) + 1;
+            let hmax = Math.floor(window.innerHeight * 0.8) + 1;
+
+            if (w > wmax) {
+                w = wmax;
+            }
+            if (h > hmax) {
+                h = hmax;
+            }
+            //finnally update size to fit content
+            super.setHeight(h);
+            super.setWidth(w);
+        }
+    }
+    /**
+     * @param{String} tt
+     */
+    set title(tt) {
+        super.titlebar.textContent = tt;
+    }
+    /**
+     * @param{String} okText
+     */
+    set okText(okText) {
+        if (Utils.isFullString(okText)) {
+            super.buttons[0].textContent = okText;
+        }
+    }
+
+    static OPEN(text, title, okText) {
+        // debugger;
+        const pop = document.body.querySelector('pop-x');
+        pop.text = text;
+        pop.okText = okText;
+        if (Utils.isFullString(title)) {
+            pop.title = title;
+        }
+        pop.show();
     }
 }
-Object.freeze(PopAlert);
-customElements.define('pop-alert', PopAlert);class NewGameDialog extends HTMLElement {
+customElements.define('pop-x', PopX);class NewGameDialog extends HTMLElement {
     constructor() {
         super();
         let template = document.getElementById("newgame_dialog_template");
@@ -348,11 +525,18 @@ customElements.define('pop-alert', PopAlert);class NewGameDialog extends HTMLEle
         }
         glide.disabled = true;
     }
+    #getInputByName(name) {
+        let selector = `input[name=${name}]`;
+        return this.query(selector);
+    }
+    #getChecked(name) {
+        return this.#getInputByName(name).checked;
+    }
     startNewGame(game, e) {
-        const unbounded = this.query('input[name=free_bound]').checked;
-        const disableCollision = this.query('input[name=disable_collision]').checked;
-        const glide = this.query('input[name=glide]').checked;
-        const fastSwitch = this.query('input[name=quickswitch]').checked;
+        const unbounded = this.#getChecked("free_bound");
+        const disableCollision = this.#getChecked("disable_collision");
+        const glide = this.#getChecked("glide");
+        const fastSwitch = this.#getChecked("quickswitch");
 
         const mode = this.query('radio-box.moder').GetValue();
         const level = this.query('radio-box.leveler').GetValue();
@@ -365,6 +549,8 @@ customElements.define('pop-alert', PopAlert);class NewGameDialog extends HTMLEle
         game.GetFrame();
         if (n > 1) {
             game.DisplayMultiControls();
+        } else {
+            game.DisplayControls();
         }
     }
     open(game) {
@@ -1161,7 +1347,7 @@ class UIController {
      */
     static DisplayScore(game) {
         let scoreCards = document.body.querySelectorAll(".score");
-        for(let card of scoreCards){
+        for (let card of scoreCards) {
             card.hide();
         }
         for (let i = 0, len = game.players.length; i < len; i++) {
@@ -1233,33 +1419,31 @@ class UIController {
         time.updateValue(String(game.time));
     }
     static Alert(msg) {
-        PopAlert.OPEN(msg, "OK");
+        PopX.OPEN(msg, msg);
     }
-    static DisplayWelcomeScreen(context) {
-        context.fillStyle = "black";
-        context.beginPath();
-        context.font = "24px Arial";
-        context.fillText(`Welcome to Montivipera Redemption`, 300, 60);
-        context.fillText("use arrow keys to navigate", 300, 100);
-        context.fillText("Press 'p' to pause game, again 'p' to resume, 'f' to fullscreen", 300, 140);
-        context.fillText("'m' to display/dissmis settings dialog , 'n' to open/close new game dialog", 300, 180);
-        context.closePath();
+    static DisplayWelcomeScreen() {
+        let text = `Welcome to Montivipera Redemption.
+            use arrow keys to navigate.
+            Press 'p' to pause game, again 'p' to resume, 'f' to fullscreen.
+            'm' to display/dissmis settings dialog , 'n' to open/close new game dialog.`;
+
+        let title = "Welcome";
+        PopX.OPEN(text, title);
     }
-    static DisplayMultiPlayerControls(context) {
-        context.fillStyle = "black";
-        context.beginPath();
-        context.font = "20px Arial";
-        context.fillText("Your are playing local machine mulitplayer", 300, 210);
-        context.fillText("Game supports up to 4 players", 300, 240);
-        context.fillText("First player uses Arrow controls", 300, 270);
-        context.fillText("Second Player uses WASD controls", 300, 300);
-        context.fillText("Third player can use numpad (must be present on keyboard)", 300, 330);
-        context.fillText("With following controls : 8-UP, 4-LEFT, 5-Down, 6-RIGHT", 300, 360);
-        context.fillText("4th player can use UHJK keys ", 300, 390);
-        context.fillText("with following controls : U-UP, H-LEFT, J-DOWN, K-RIGHT", 300, 420);
-        context.fillText("Press 'p' to pause game, again 'p' to resume, 'f' to fullscreen", 300, 450);
-        context.fillText("'m' to display/dissmis settings dialog , 'n' to open/close new game dialog", 300, 480);
-        context.closePath();
+    static DisplayMultiPlayerControls() {
+        let text = `Your are playing local machine mulitplayer.
+        Game supports up to 4 players.
+        First player uses Arrow controls.
+        Second Player uses WASD controls.
+        Third player can use UHJK keys.
+        with following controls : U-UP, H-LEFT, J-DOWN, K-RIGHT.
+        4th player can use numpad (must be present on keyboard).
+        With following controls : 8-UP, 4-LEFT, 5-Down, 6-RIGHT.
+        Press 'p' to pause game, again 'p' to resume, 'f' to fullscreen
+        'm' to display/dissmis settings dialog , 'n' to open/close new game dialog`;
+
+        let title = "Welcome";
+        PopX.OPEN(text, title);
     }
 }const Directions = {
     Left: 1,
@@ -1376,7 +1560,7 @@ class Player extends Vipera {
         if (!Directions.valid(d)) {
             throw "Error: not a valid direction";
         }
-        if (Directions.opposite(d, this.direction) && !game.settings.fastSwtich) {
+        if (Directions.opposite(d, this.direction) && !game.settings.fastSwitch) {
             //do nothing and return;
             return;
         }
@@ -1846,6 +2030,8 @@ class MontiVipera {
      * @param {RenderingContext} rc
      */
     constructor(_mode, _canvas, rc) {
+        this.#version = "0.10.2";
+        this.#name = "Montivipera Redemption";
         this.timer1 = Date.now();
         this.score = 0;
         this.metrics = {};//fps
@@ -1856,8 +2042,6 @@ class MontiVipera {
         this.#playerList = [];
         // this players
         this.SetMode(_mode);
-        this.#version = "0.10.1"
-        this.#name = "Montivipera Redemption"
         this.performance = new PerformanceMonitor();
         this.options = new GameOptions();
         this.#language = Languages.English;
@@ -1903,8 +2087,8 @@ class MontiVipera {
 
         this.ClearTimers();
         this.resetPlayers();
-
-        this.#numberOfPlayers = n;
+        console.log(typeof n);
+        this.#numberOfPlayers = Number(n);
 
         let x = this.canvas.width / 2;
         let y = this.canvas.height / 2;
@@ -2253,12 +2437,12 @@ class MontiVipera {
             this.GoFullScreen();
         }
     }
-    DisplayScore() {
-
-    }
+    
     DisplayMultiControls() {
-        const { renderingContext } = this;
-        UIController.DisplayMultiPlayerControls(renderingContext);
+        UIController.DisplayMultiPlayerControls();
+    }
+    DisplayControls() {
+        UIController.DisplayWelcomeScreen();
     }
     DisplayNewGameMenu() {
         NewGameDialog.OpenClose(this, false);
@@ -2326,4 +2510,4 @@ Object.freeze(MontiVipera);const translateData ={
 const Translator = Object.create(null);
 Translator.translate =()=>{
 
-}//Build Date : 2022-10-14T03:21+04:00
+}//Build Date : 2022-11-15T23:39+04:00
