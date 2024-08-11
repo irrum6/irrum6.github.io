@@ -1,0 +1,94 @@
+<!doctype html>
+<title>paint</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="canvas.css">
+<div class="panel" id="topbar">
+    <div id="topmenu">
+        <div class="menu-item">
+            <a class="button-alike lightGreen" id="save">Save</a>
+        </div>
+        <div class="menu-item">
+            <a href="#" class="button-alike lightGreen" id="new">New</a>
+        </div>
+        <div class="menu-item">
+            <a href="#" class="button-alike pinkRed" id="undo">Undo</a>
+        </div>
+        <div class="menu-item">
+            <a href="#" class="button-alike pinkRed" id="redo">Redo</a>
+        </div>
+        <div class="menu-item">
+            <a href="#" class="button-alike pinkRed" id="eraser">Erase</a>
+        </div>
+        <!--size dropdown-->
+        <div class="menu-item">
+            <a href="#" class="button-alike pinkRed" id="size">Size : 16</a>
+            <div class="list" id="ListSize">
+                <div class="list-item-wrap">
+                    <div class="list-item size" data-size="2"> </div>
+                </div>
+                <div class="list-item-wrap">
+                    <div class="list-item size" data-size="3"> </div>
+                </div>
+                <div class="list-item-wrap">
+                    <div class="list-item size" data-size="4"> </div>
+                </div>
+                <div class="list-item-wrap">
+                    <div class="list-item size" data-size="5"> </div>
+                </div>
+                <div class="list-item-wrap">
+                    <div class="list-item size" data-size="7"> </div>
+                </div>
+                <div class="list-item-wrap">
+                    <div class="list-item size" data-size="10"> </div>
+                </div>
+                <div class="list-item-wrap">
+                    <div class="list-item size" data-size="16"> </div>
+                </div>
+                <div class="list-item-wrap">
+                    <div class="list-item size" data-size="24"> </div>
+                </div>
+                <div class="list-item-wrap">
+                    <div class="list-item size" data-size="32"> </div>
+                </div>
+                <div class="list-item-wrap">
+                    <div class="list-item size" data-size="48"> </div>
+                </div>
+            </div>
+        </div>
+        <!--color dropdown-->
+        <div class="menu-item">
+            <a href="#" class="button-alike pinkRed" id="color">Color</a>
+            <div class="list" id="ColorDropdown">
+                <div class="list-item-wrap">
+                    <div class="list-item color" data-color='#000000'> </div>
+                    <div class="list-item color" data-color='#555555'> </div>
+                    <div class="list-item color" data-color='#999999'> </div>
+
+                    <div class="list-item color" data-color='#008000'> </div>
+                    <div class="list-item color" data-color='#00c000'> </div>
+                    <div class="list-item color" data-color='#00ff00'> </div>
+
+                    <div class="list-item color" data-color='#800000'> </div>
+                    <div class="list-item color" data-color='#ff0000'> </div>
+                    <div class="list-item color" data-color='#ff8888'> </div>
+
+                    <div class="list-item color" data-color='#0a67a3'> </div>
+                    <div class="list-item color" data-color='#0000ff'> </div>
+                    <div class="list-item color" data-color='#8ec9ef'> </div>
+
+                    <div class="list-item color" data-color='purple'> </div>
+                    <div class="list-item color" data-color='orange'> </div>
+                    <div class="list-item color" data-color='yellow'> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="canvas-container">
+    <canvas id="canvas" width="900" height="600" style="background-color:#cceeff;cursor:crosshair;"></canvas>
+</div>
+<script src="scripts/sketch.js"></script>
+<script src="scripts/init.js"></script>
+<script src="scripts/events.js"></script>
+<script src="scripts/colorToolbar.js"></script>
+<script src="canvas.js"></script>
