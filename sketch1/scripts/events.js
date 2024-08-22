@@ -17,7 +17,12 @@ document.getElementById('eraser').addEventListener('click', () => {
 });
 
 document.getElementById('new').addEventListener('click', () => {
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.beginPath();
+    context.strokeStyle = "#CCEEFF";
+    context.fillStyle = "#CCEEFF";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.save();
+    //context.clearRect(0, 0, canvas.width, canvas.height);
 });
 
 var downlink = document.getElementById('save');

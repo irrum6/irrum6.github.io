@@ -20,11 +20,18 @@ window.onresize = () => {
     offset = canvas.getBoundingClientRect();
 }
 
-let sketch = new _sketch(context);
+let sketch = new Sketch(context);
 
 var mousedown = false;
 let apromixation = true;
 let eraseState = false;
+
+//initial draw rect
+context.beginPath();
+context.strokeStyle = "#CCEEFF";
+context.fillStyle = "#CCEEFF";
+context.fillRect(0, 0, canvas.width, canvas.height);
+context.save();
 
 //initial save point
 sketch.addImageData({ sx: 0, sy: 0, sw: canvas.width, sh: canvas.height });
