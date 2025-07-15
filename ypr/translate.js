@@ -1,34 +1,29 @@
-const SUPPORTED_TRANSLATIONS = ["ქართული", "English", "Deutsch", "Русский"];
+const SUPPORTED_TRANSLATIONS = ["ქართული", "English", "Deutsch"];
 const translateData = {
     "title": {
         "English": "Reported Screen Resolution is : ",
         "ქართული": "ამოცნობილი ეკრანის გარჩევადობა არის :",
-        "Deutsch": "Bildschirmauflösung:",
-        "Русский": "Заявленное разрешение экрана:"
+        "Deutsch": "Bildschirmauflösung:"        
     },
     "width": {
         "English": "Width",
         "ქართული": "სიგანე",
-        "Deutsch": "Breite",
-        "Русский": "ширина"
+        "Deutsch": "Breite"
     },
     "height": {
         "English": "Height",
         "ქართული": "სიმაღლე",
-        "Deutsch": "Höhe",
-        "Русский": "Высота"
+        "Deutsch": "Höhe"
     },
     "pixels": {
         "English": "pixels *",
         "ქართული": "პიქსელი",
-        "Deutsch": "pixel",
-        "Русский": "пиксель"
+        "Deutsch": "pixel"
     },
     "pixels1": {
         "English": "pixels *",
         "ქართული": "პიქსელი",
-        "Deutsch": "pixel",
-        "Русский": "пиксель"
+        "Deutsch": "pixel"
     },
     "report-notice": {
         "English": `* Reported width and height might be affected by toolbars,
@@ -36,15 +31,12 @@ const translateData = {
         "ქართული": `ხელსაწყოების დაფამ, სტატუსთა დაფამ და ვებ ბრაუზერის მიერ
          დაკავებულმა სივრცემ შეიძლება გავლენა იქონიოს ამოცნობილ ეკრანის გარჩევადობაზე`,
         "Deutsch": `* Die gemeldete Breite und Höhe kann durch Symbolleisten, 
-        Statusfenster und Browser beeinflusst werden, die Platz für ihre eigenen Elemente beanspruchen.`,
-        "Русский": `* На указанную ширину и высоту могут влиять панели инструментов, 
-        панели состояния и браузеры, занимающие место для своих собственных элементов.`
+        Statusfenster und Browser beeinflusst werden, die Platz für ihre eigenen Elemente beanspruchen.`
     },
     "pixel-ratio": {
         "English": "Device Pixel Ratio",
         "ქართული": "Device Pixel Ratio",
-        "Deutsch": "Device Pixel Ratio",
-        "Русский": "Device Pixel Ratio"
+        "Deutsch": "Device Pixel Ratio"
     },
 }
 

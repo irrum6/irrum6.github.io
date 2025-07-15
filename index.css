@@ -1,0 +1,39 @@
+html {
+    font-size: 16px;
+}
+
+body{
+    background-color: rgb(224, 255, 255);
+}
+
+nav {
+    background-color: rgb(0, 255, 170);
+    height: 100px;
+}
+
+a{
+    color:black;
+}
+.black{
+    color:black;
+}
+
+.f125 {
+    font-size: 1.25rem;
+}
+
+.f150 {
+    font-size: 1.5rem;
+}
+
+.f175 {
+    font-size: 1.75rem;
+}
+
+.f200 {
+    font-size: 2.0rem;
+}
+
+#rest{
+    height: calc(100vh - 120px);
+}

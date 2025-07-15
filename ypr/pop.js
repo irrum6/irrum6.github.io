@@ -47,7 +47,7 @@ class PopMenu extends HTMLElement {
 class TranslateMenu extends PopMenu {
     constructor() {
         super();
-        const list = ["ქართული", "English", "Deutsch", "Русский"];
+        const list = ["ქართული", "English", "Deutsch"];
         this.fill(list, (e) => {
             const lang = e.target.getAttribute("data-lang");
             localStorage.lang = lang;
